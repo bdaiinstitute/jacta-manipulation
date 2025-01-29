@@ -1,3 +1,5 @@
+### repo in support of a publication for reproducibility "Jacta: A Versatile Planner for Learning Dexterous and Whole-body Manipulation"
+
 ## jacta-manipulation
 [![build](https://github.com/bdaiinstitute/jacta-manipulation/actions/workflows/build.yml/badge.svg)](https://github.com/bdaiinstitute/jacta-manipulation/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/bdaiinstitute/jacta-manipulation/graph/badge.svg?token=SH5Y2J032M)](https://codecov.io/gh/bdaiinstitute/jacta-manipulation)
@@ -23,7 +25,3 @@ you might have to
 ```
 unset PYTHONPATH
 ```
-
-
-# TODO
-break deps on visualizers
