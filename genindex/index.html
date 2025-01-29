@@ -341,8 +341,6 @@
           <li><a href="../api/tasks/task/#tasks.task.Task.actuator_ctrlrange">(tasks.task.Task property)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/scenes/scene_registry/#scenes.scene_registry.SceneRegistry.add">add() (scenes.scene_registry.SceneRegistry method)</a>
 </li>
         <li><a href="../api/visuals/meshcat_visualizer/#visuals.meshcat_visualizer.add_box">add_box() (in module visuals.meshcat_visualizer)</a>
@@ -351,6 +349,8 @@
 </li>
         <li><a href="../api/planner/graph/#planner.graph.Graph.add_child_ids_to_node">add_child_ids_to_node() (planner.graph.Graph method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/visuals/meshcat_visualizer/#visuals.meshcat_visualizer.add_cylinder">add_cylinder() (in module visuals.meshcat_visualizer)</a>
 </li>
         <li><a href="../api/visuals/meshcat_visualizer/#visuals.meshcat_visualizer.add_ellipsoid">add_ellipsoid() (in module visuals.meshcat_visualizer)</a>
@@ -375,6 +375,8 @@
 </li>
         <li><a href="../api/tasks/task/#tasks.task.Task.additional_task_info">additional_task_info (tasks.task.Task property)</a>
 </li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.angs_vel_slice">angs_vel_slice (constants.SPOT_STATE_INDS attribute)</a>
+</li>
         <li><a href="../api/environments/tire_state_cache_generator/#environments.tire_state_cache_generator.TireGeneratorConfig.angular_velocity_range">angular_velocity_range (environments.tire_state_cache_generator.TireGeneratorConfig attribute)</a>
 </li>
         <li><a href="../api/visuals/mujoco_visualizer/#visuals.mujoco_visualizer.MujocoRenderer.animate_marker">animate_marker() (visuals.mujoco_visualizer.MujocoRenderer method)</a>
@@ -391,9 +393,21 @@
           <li><a href="../api/planner/action_processor/#planner.action_processor.SpotWholebodyActionProcessor.arm_action_ixs">(planner.action_processor.SpotWholebodyActionProcessor attribute)</a>
 </li>
         </ul></li>
+        <li><a href="../api/constants/#constants.ARM_JOINT_NAMES">ARM_JOINT_NAMES (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.ARM_LINK_NAMES">ARM_LINK_NAMES (in module constants)</a>
+</li>
         <li><a href="../api/planner/action_processor/#planner.action_processor.SpotWholebodyActionProcessor.arm_state_ixs">arm_state_ixs (planner.action_processor.SpotWholebodyActionProcessor attribute)</a>
 </li>
+        <li><a href="../api/constants/#constants.ARM_STOWED_POS">ARM_STOWED_POS (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.ARM_UNSTOWED_POS">ARM_UNSTOWED_POS (in module constants)</a>
+</li>
         <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.StateArray.arm_vel">arm_vel (dynamics.state_helpers.StateArray attribute)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.arms_slice">arms_slice (constants.SPOT_STATE_INDS attribute)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.arms_vel_slice">arms_vel_slice (constants.SPOT_STATE_INDS attribute)</a>
 </li>
         <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.CommandArray.as_dict">as_dict() (dynamics.state_helpers.CommandArray class method)</a>
 </li>
@@ -460,6 +474,8 @@
           <li><a href="../api/benchmarking/profiling/#module-benchmarking.profiling">module</a>
 </li>
         </ul></li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.body_vel_slice">body_vel_slice (constants.SPOT_STATE_INDS attribute)</a>
+</li>
         <li><a href="../api/planner/clipping_method/#planner.clipping_method.box_scaling">box_scaling() (in module planner.clipping_method)</a>
 </li>
     </ul></td>
@@ -545,12 +561,19 @@
           <li><a href="../api/tasks/task/#tasks.task.ConfigT">(in module tasks.task)</a>
 </li>
         </ul></li>
-        <li><a href="../api/scenes/scene_composer/#scenes.scene_composer.Scene.contacts">contacts (scenes.scene_composer.Scene attribute)</a>
+        <li>
+    constants
+
+        <ul>
+          <li><a href="../api/constants/#module-constants">module</a>
 </li>
-        <li><a href="../api/planner/types/#planner.types.ActionType.CONTINUATION">CONTINUATION (planner.types.ActionType attribute)</a>
+        </ul></li>
+        <li><a href="../api/scenes/scene_composer/#scenes.scene_composer.Scene.contacts">contacts (scenes.scene_composer.Scene attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="../api/planner/types/#planner.types.ActionType.CONTINUATION">CONTINUATION (planner.types.ActionType attribute)</a>
+</li>
         <li><a href="../api/planner/action_sampler/#planner.action_sampler.ActionSampler.continuation_directions">continuation_directions() (planner.action_sampler.ActionSampler method)</a>
 </li>
         <li><a href="../api/viser_app/app/#viser_app.app.ViserApp.control_cycle_callback">control_cycle_callback() (viser_app.app.ViserApp method)</a>
@@ -1194,18 +1217,32 @@
         </ul></li>
         <li><a href="../api/visuals/quaternion_operations/#visuals.quaternion_operations.left_action">left_action() (in module visuals.quaternion_operations)</a>
 </li>
+        <li><a href="../api/constants/#constants.LEG_JOINT_NAMES">LEG_JOINT_NAMES (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.LEG_LINK_NAMES">LEG_LINK_NAMES (in module constants)</a>
+</li>
         <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.CommandArray.legs">legs (dynamics.state_helpers.CommandArray attribute)</a>
 
         <ul>
           <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.StateArray.legs">(dynamics.state_helpers.StateArray attribute)</a>
 </li>
         </ul></li>
+        <li><a href="../api/constants/#constants.LEGS_SITTING_POS">LEGS_SITTING_POS (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.legs_slice">legs_slice (constants.SPOT_STATE_INDS attribute)</a>
+</li>
+        <li><a href="../api/constants/#constants.LEGS_STANDING_POS">LEGS_STANDING_POS (in module constants)</a>
+</li>
         <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.StateArray.legs_vel">legs_vel (dynamics.state_helpers.StateArray attribute)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.legs_vel_slice">legs_vel_slice (constants.SPOT_STATE_INDS attribute)</a>
 </li>
         <li><a href="../api/environments/tire_state_cache_generator/#environments.tire_state_cache_generator.TireGeneratorConfig.linear_velocity_range">linear_velocity_range (environments.tire_state_cache_generator.TireGeneratorConfig attribute)</a>
 </li>
         <li><a href="../api/planner/parameter_container/#planner.parameter_container.ParameterContainer.list_of_yaml_arrays_to_tensor">list_of_yaml_arrays_to_tensor() (planner.parameter_container.ParameterContainer method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/learning/networks/#learning.networks.Actor.load">load() (learning.networks.Actor method)</a>
 
         <ul>
@@ -1222,8 +1259,6 @@
           <li><a href="../api/scenes/scene_composer/#scenes.scene_composer.SpotRobot.load">(scenes.scene_composer.SpotRobot method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/planner/parameter_container/#planner.parameter_container.ParameterContainer.load_base">load_base() (planner.parameter_container.ParameterContainer method)</a>
 </li>
         <li><a href="../api/learning/learner/#learning.learner.Learner.load_cloud">load_cloud (learning.learner.Learner attribute)</a>
@@ -1329,6 +1364,8 @@
           <li><a href="../api/benchmarking/profiling/#module-benchmarking.profiling">benchmarking.profiling</a>
 </li>
           <li><a href="../api/cmaes/#module-cmaes">cmaes</a>
+</li>
+          <li><a href="../api/constants/#module-constants">constants</a>
 </li>
           <li><a href="../api/controllers/#module-controllers">controllers</a>
 </li>
@@ -1813,10 +1850,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/tasks/cost_functions/#tasks.cost_functions.quadratic_norm">quadratic_norm() (in module tasks.cost_functions)</a>
 </li>
-        <li><a href="../api/visuals/quaternion_operations/#visuals.quaternion_operations.quaternion_inverse">quaternion_inverse() (in module visuals.quaternion_operations)</a>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS.quat_slice">quat_slice (constants.SPOT_STATE_INDS attribute)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="../api/visuals/quaternion_operations/#visuals.quaternion_operations.quaternion_inverse">quaternion_inverse() (in module visuals.quaternion_operations)</a>
+</li>
         <li><a href="../api/visuals/quaternion_operations/#visuals.quaternion_operations.quaternion_to_quaternion_map_jacobian">quaternion_to_quaternion_map_jacobian() (in module visuals.quaternion_operations)</a>
 </li>
         <li><a href="../api/visuals/quaternion_operations/#visuals.quaternion_operations.quaternion_to_transformation_matrix">quaternion_to_transformation_matrix() (in module visuals.quaternion_operations)</a>
@@ -2135,8 +2174,6 @@
 </li>
         <li><a href="../api/viser_app/app/#viser_app.app.ViserApp.setup_physics">setup_physics() (viser_app.app.ViserApp method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/environments/base/#environments.base.DexterityEnv.setup_plant">setup_plant() (environments.base.DexterityEnv method)</a>
 </li>
         <li><a href="../api/learning/replay_buffer/#learning.replay_buffer.ReplayBuffer.setup_sampler">setup_sampler() (learning.replay_buffer.ReplayBuffer method)</a>
@@ -2151,6 +2188,8 @@
 </li>
         <li><a href="../api/planner/planner/#planner.planner.Planner.shortest_path_data">shortest_path_data() (planner.planner.Planner method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/planner/graph/#planner.graph.Graph.shortest_path_to">shortest_path_to() (planner.graph.Graph method)</a>
 </li>
         <li><a href="../api/planner/planner/#planner.planner.Planner.shortest_path_trajectory">shortest_path_trajectory() (planner.planner.Planner method)</a>
@@ -2187,6 +2226,10 @@
 </li>
         <li><a href="../api/planner/graph_worker/#planner.graph_worker.SingleGoalWorker">SingleGoalWorker (class in planner.graph_worker)</a>
 </li>
+        <li><a href="../api/constants/#constants.SITTING_STOWED_POS">SITTING_STOWED_POS (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SITTING_UNSTOWED_POS">SITTING_UNSTOWED_POS (in module constants)</a>
+</li>
         <li><a href="../api/dynamics/state_helpers/#dynamics.state_helpers.CommandArray.size">size (dynamics.state_helpers.CommandArray attribute)</a>
 
         <ul>
@@ -2213,6 +2256,16 @@
 </li>
         <li><a href="../api/controllers/sampling_base/#controllers.sampling_base.SamplingBase.spline_timesteps">spline_timesteps (controllers.sampling_base.SamplingBase property)</a>
 </li>
+        <li><a href="../api/constants/#constants.SPOT_ANGS_VEL_SLICE">SPOT_ANGS_VEL_SLICE (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_ARMS_SLICE">SPOT_ARMS_SLICE (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_ARMS_VEL_SLICE">SPOT_ARMS_VEL_SLICE (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_BODY_SLICE">SPOT_BODY_SLICE (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_BODY_VEL_SLICE">SPOT_BODY_VEL_SLICE (in module constants)</a>
+</li>
         <li>
     spot_box
 
@@ -2231,6 +2284,10 @@
         </ul></li>
         <li><a href="../api/experts/primitives/spot_standing_box/#experts.primitives.spot_standing_box.spot_ik_mujoco">spot_ik_mujoco() (in module experts.primitives.spot_standing_box)</a>
 </li>
+        <li><a href="../api/constants/#constants.SPOT_LEGS_SLICE">SPOT_LEGS_SLICE (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_LEGS_VEL_SLICE">SPOT_LEGS_VEL_SLICE (in module constants)</a>
+</li>
         <li>
     spot_navigation
 
@@ -2238,7 +2295,11 @@
           <li><a href="../api/spot_navigation/#module-spot_navigation">module</a>
 </li>
         </ul></li>
+        <li><a href="../api/constants/#constants.SPOT_QUAT_SLICE">SPOT_QUAT_SLICE (in module constants)</a>
+</li>
         <li><a href="../api/scenes/#scenes.spot_sensors">spot_sensors (in module scenes)</a>
+</li>
+        <li><a href="../api/constants/#constants.SPOT_STATE_INDS">SPOT_STATE_INDS (class in constants)</a>
 </li>
         <li>
     spot_tire
@@ -2278,6 +2339,12 @@
         <li><a href="../api/spot_tire/#spot_tire.SpotTireConfig">SpotTireConfig (class in spot_tire)</a>
 </li>
         <li><a href="../api/planner/action_processor/#planner.action_processor.SpotWholebodyActionProcessor">SpotWholebodyActionProcessor (class in planner.action_processor)</a>
+</li>
+        <li><a href="../api/constants/#constants.STANDING_HEIGHT">STANDING_HEIGHT (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.STANDING_STOWED_POS">STANDING_STOWED_POS (in module constants)</a>
+</li>
+        <li><a href="../api/constants/#constants.STANDING_UNSTOWED_POS">STANDING_UNSTOWED_POS (in module constants)</a>
 </li>
         <li><a href="../api/dynamics/mujoco_dynamics/#dynamics.mujoco_dynamics.MujocoPlant.state_addition">state_addition() (dynamics.mujoco_dynamics.MujocoPlant method)</a>
 </li>
