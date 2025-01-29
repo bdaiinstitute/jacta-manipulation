@@ -10,7 +10,7 @@ Module Contents
 .. py:class:: MujocoTask(model_path: str = '')
 
 
-   Bases: :py:obj:`dexterity.tasks.task.Task`\ [\ :py:obj:`dexterity.tasks.task.ConfigT`\ , :py:obj:`Tuple`\ [\ :py:obj:`mujoco.MjModel`\ , :py:obj:`mujoco.MjData`\ ]\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.task.Task`\ [\ :py:obj:`jactamanipulation.tasks.task.ConfigT`\ , :py:obj:`Tuple`\ [\ :py:obj:`mujoco.MjModel`\ , :py:obj:`mujoco.MjData`\ ]\ ]
 
    
    Container for task based on Mujoco
@@ -46,7 +46,7 @@ Module Contents
       
       Default idling command for the task.
 
-   .. py:method:: create_visualization(server: viser.ViserServer, context: dexterity.viser_app.io.IOContext, text_handles: dict) -> None
+   .. py:method:: create_visualization(server: viser.ViserServer, context: jactamanipulation.viser_app.io.IOContext, text_handles: dict) -> None
 
       
       Returns a visualizer for the task.
@@ -71,7 +71,7 @@ Module Contents
       
       Reset behavior for task. Sets config + velocities to zeros.
 
-   .. py:method:: is_terminated(config: dexterity.tasks.task.TaskConfig) -> bool
+   .. py:method:: is_terminated(config: jactamanipulation.tasks.task.TaskConfig) -> bool
 
       
       Defines if the current state is terminal.

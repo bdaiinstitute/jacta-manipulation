@@ -15,7 +15,7 @@ Module Contents
 .. py:class:: SamplingBaseConfig
 
 
-   Bases: :py:obj:`dexterity.controllers.controller.ControllerConfig`
+   Bases: :py:obj:`jactamanipulation.controllers.controller.ControllerConfig`
 
    
    Base controller config with spline parameters.
@@ -56,10 +56,10 @@ Module Contents
       
 
 
-.. py:class:: SamplingBase(task: dexterity.tasks.task.Task, config: SamplingBaseConfig, reward_config: dexterity.tasks.task.TaskConfig)
+.. py:class:: SamplingBase(task: jactamanipulation.tasks.task.Task, config: SamplingBaseConfig, reward_config: jactamanipulation.tasks.task.TaskConfig)
 
 
-   Bases: :py:obj:`dexterity.controllers.controller.Controller`
+   Bases: :py:obj:`jactamanipulation.controllers.controller.Controller`
 
    
    Base class for all sampling controller implementations.

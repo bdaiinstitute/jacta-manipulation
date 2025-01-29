@@ -17,12 +17,12 @@ Module Contents
    
    Load tensor from GCP bucket.
 
-.. py:function:: save_model(model: Union[dexterity.learning.networks.Actor, dexterity.learning.networks.Critic, dexterity.learning.normalizer.Normalizer], dest_path: pathlib.Path, is_local: bool) -> None
+.. py:function:: save_model(model: Union[jactamanipulation.learning.networks.Actor, jactamanipulation.learning.networks.Critic, jactamanipulation.learning.normalizer.Normalizer], dest_path: pathlib.Path, is_local: bool) -> None
 
    
    Save model either locally or to GCP bucket.
 
-.. py:function:: load_model(model: Union[dexterity.learning.networks.Actor, dexterity.learning.networks.Critic, dexterity.learning.normalizer.Normalizer], src_path: str, is_local: bool) -> None
+.. py:function:: load_model(model: Union[jactamanipulation.learning.networks.Actor, jactamanipulation.learning.networks.Critic, jactamanipulation.learning.normalizer.Normalizer], src_path: str, is_local: bool) -> None
 
    
    Load model stored either locally or in a GCP bucket.

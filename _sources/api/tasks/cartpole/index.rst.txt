@@ -15,7 +15,7 @@ Module Contents
 .. py:class:: CartpoleConfig
 
 
-   Bases: :py:obj:`dexterity.tasks.task.TaskConfig`
+   Bases: :py:obj:`jactamanipulation.tasks.task.TaskConfig`
 
    
    Reward configuration for the cartpole task.
@@ -70,7 +70,7 @@ Module Contents
 .. py:class:: Cartpole
 
 
-   Bases: :py:obj:`dexterity.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`CartpoleConfig`\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`CartpoleConfig`\ ]
 
    
    Defines the cartpole balancing task.

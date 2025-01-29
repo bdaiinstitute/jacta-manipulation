@@ -10,7 +10,7 @@ Module Contents
 .. py:class:: CrossEntropyConfig
 
 
-   Bases: :py:obj:`dexterity.controllers.sampling_base.SamplingBaseConfig`
+   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBaseConfig`
 
    
    Configuration for cross-entropy method.
@@ -51,10 +51,10 @@ Module Contents
       
 
 
-.. py:class:: CrossEntropyMethod(task: dexterity.tasks.task.Task, config: CrossEntropyConfig, reward_config: dexterity.tasks.task.TaskConfig)
+.. py:class:: CrossEntropyMethod(task: jactamanipulation.tasks.task.Task, config: CrossEntropyConfig, reward_config: jactamanipulation.tasks.task.TaskConfig)
 
 
-   Bases: :py:obj:`dexterity.controllers.sampling_base.SamplingBase`
+   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBase`
 
    
    The cross-entropy method.

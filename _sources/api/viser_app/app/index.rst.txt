@@ -11,7 +11,7 @@ Module Contents
 
    
 
-.. py:class:: SimulationProcess(task: dexterity.tasks.task.Task, context: dexterity.viser_app.io.SimulationIOContext)
+.. py:class:: SimulationProcess(task: jactamanipulation.tasks.task.Task, context: jactamanipulation.viser_app.io.SimulationIOContext)
 
 
    Bases: :py:obj:`multiprocessing.context.Process`
@@ -34,7 +34,7 @@ Module Contents
       Resets the simulation to a new initial state.
 
 
-.. py:class:: ControlProcess(controller: dexterity.controllers.controller.Controller, server: viser.ViserServer, context: dexterity.viser_app.io.IOContext, profiler: Optional[dexterity.viser_app.profiler.ViserProfiler] = None)
+.. py:class:: ControlProcess(controller: jactamanipulation.controllers.controller.Controller, server: viser.ViserServer, context: jactamanipulation.viser_app.io.IOContext, profiler: Optional[jactamanipulation.viser_app.profiler.ViserProfiler] = None)
 
 
    Bases: :py:obj:`multiprocessing.Process`
@@ -107,14 +107,14 @@ Module Contents
 
       This method can be overwritten for hardware deployment.
 
-   .. py:method:: setup_physics(task: dexterity.tasks.task.Task) -> None
+   .. py:method:: setup_physics(task: jactamanipulation.tasks.task.Task) -> None
 
       
       Set the physics field.
 
       This method can be overwritten for hardware deployment.
 
-   .. py:method:: setup_controller(control_config: dexterity.controllers.controller.ControllerConfig | None = None, task_config: dexterity.tasks.task.TaskConfig | None = None) -> None
+   .. py:method:: setup_controller(control_config: jactamanipulation.controllers.controller.ControllerConfig | None = None, task_config: jactamanipulation.tasks.task.TaskConfig | None = None) -> None
 
       
       Spawns controller process for controller method currently selected in GUI.

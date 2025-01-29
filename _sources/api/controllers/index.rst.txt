@@ -17,9 +17,9 @@ Submodules
 Package Contents
 ----------------
 
-.. py:function:: get_registered_controllers() -> Dict[str, Tuple[Type[dexterity.controllers.controller.Controller], Type[dexterity.controllers.controller.ControllerConfig]]]
+.. py:function:: get_registered_controllers() -> Dict[str, Tuple[Type[jactamanipulation.controllers.controller.Controller], Type[jactamanipulation.controllers.controller.ControllerConfig]]]
 
 
-.. py:function:: register_controller(name: str, controller_type: Type[dexterity.controllers.controller.Controller], controller_config_type: Type[dexterity.controllers.controller.ControllerConfig]) -> None
+.. py:function:: register_controller(name: str, controller_type: Type[jactamanipulation.controllers.controller.Controller], controller_config_type: Type[jactamanipulation.controllers.controller.ControllerConfig]) -> None
 
 

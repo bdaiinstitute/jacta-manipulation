@@ -217,7 +217,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="controllers.sampling_base.SamplingBaseConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.sampling_base.</span></span><span class="sig-name descname"><span class="pre">SamplingBaseConfig</span></span><a class="headerlink" href="#controllers.sampling_base.SamplingBaseConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.controllers.controller.ControllerConfig</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.controllers.controller.ControllerConfig</span></code></p>
 <p>Base controller config with spline parameters.
 .. py:attribute:: horizon</p>
 <blockquote>
@@ -259,8 +259,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="controllers.sampling_base.SamplingBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.sampling_base.</span></span><span class="sig-name descname"><span class="pre">SamplingBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#controllers.sampling_base.SamplingBaseConfig" title="controllers.sampling_base.SamplingBaseConfig"><span class="pre">SamplingBaseConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.sampling_base.SamplingBase" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.controllers.controller.Controller</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.sampling_base.</span></span><span class="sig-name descname"><span class="pre">SamplingBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#controllers.sampling_base.SamplingBaseConfig" title="controllers.sampling_base.SamplingBaseConfig"><span class="pre">SamplingBaseConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.sampling_base.SamplingBase" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.controllers.controller.Controller</span></code></p>
 <p>Base class for all sampling controller implementations.
 .. py:property:: num_timesteps</p>
 <blockquote>
@@ -274,9 +274,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task</strong> (<em>dexterity.tasks.task.Task</em>) – </p></li>
+<li><p><strong>task</strong> (<em>jactamanipulation.tasks.task.Task</em>) – </p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#controllers.sampling_base.SamplingBaseConfig" title="controllers.sampling_base.SamplingBaseConfig"><em>SamplingBaseConfig</em></a>) – </p></li>
-<li><p><strong>reward_config</strong> (<em>dexterity.tasks.task.TaskConfig</em>) – </p></li>
+<li><p><strong>reward_config</strong> (<em>jactamanipulation.tasks.task.TaskConfig</em>) – </p></li>
 </ul>
 </dd>
 </dl>

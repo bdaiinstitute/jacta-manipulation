@@ -19,7 +19,7 @@ Module Contents
 
    :returns: *FloatTensor* -- Pareto distribution
 
-.. py:class:: GraphWorker(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, action_sampler: dexterity.planner.planner.action_sampler.ActionSampler, logger: dexterity.planner.planner.logger.Logger, params: dexterity.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+.. py:class:: GraphWorker(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, action_sampler: jactamanipulation.planner.planner.action_sampler.ActionSampler, logger: jactamanipulation.planner.planner.logger.Logger, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
 
 
    
@@ -39,7 +39,7 @@ Module Contents
 
       :param search_indices: the indices of the searches to select nodes for
 
-   .. py:method:: node_extension(node_ids: torch.IntTensor, relative_actions: torch.FloatTensor, num_action_steps: int, action_type: dexterity.planner.planner.types.ActionType | None = None) -> Tuple[torch.IntTensor, float, bool]
+   .. py:method:: node_extension(node_ids: torch.IntTensor, relative_actions: torch.FloatTensor, num_action_steps: int, action_type: jactamanipulation.planner.planner.types.ActionType | None = None) -> Tuple[torch.IntTensor, float, bool]
 
       
       Chooses a node to extend to based on the current node and action sampler.
@@ -97,7 +97,7 @@ Module Contents
       Calls the search callback. Returns True if goal reached
 
 
-.. py:class:: SingleGoalWorker(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, action_sampler: dexterity.planner.planner.action_sampler.ActionSampler, logger: dexterity.planner.planner.logger.Logger, params: dexterity.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+.. py:class:: SingleGoalWorker(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, action_sampler: jactamanipulation.planner.planner.action_sampler.ActionSampler, logger: jactamanipulation.planner.planner.logger.Logger, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
 
 
    Bases: :py:obj:`GraphWorker`
@@ -186,7 +186,7 @@ Module Contents
       Tries to find paths to randomly sampled goals
 
 
-.. py:class:: RolloutWorker(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, action_sampler: dexterity.planner.planner.action_sampler.ActionSampler, logger: dexterity.planner.planner.logger.Logger, params: dexterity.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+.. py:class:: RolloutWorker(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, action_sampler: jactamanipulation.planner.planner.action_sampler.ActionSampler, logger: jactamanipulation.planner.planner.logger.Logger, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
 
 
    Bases: :py:obj:`GraphWorker`
@@ -199,7 +199,7 @@ Module Contents
       Always extends the last node.
 
 
-.. py:function:: inspect_action_type(graph_worker: GraphWorker, action_type: dexterity.planner.planner.types.ActionType, node_ids: torch.IntTensor | None = None, num_action_steps: int = 100) -> torch.FloatTensor
+.. py:function:: inspect_action_type(graph_worker: GraphWorker, action_type: jactamanipulation.planner.planner.types.ActionType, node_ids: torch.IntTensor | None = None, num_action_steps: int = 100) -> torch.FloatTensor
 
    
    Inspection tool for a specific action type.

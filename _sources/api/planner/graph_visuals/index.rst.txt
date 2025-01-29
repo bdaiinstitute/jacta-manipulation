@@ -87,7 +87,7 @@ Module Contents
    :param name: Segments name. Defaults to 'categories'
    :type name: str, optional
 
-.. py:function:: display_3d_graph(graph: dexterity.planner.planner.graph.Graph, logger: dexterity.planner.planner.logger.Logger, visualizer: meshcat.visualizer.Visualizer, vis_scale: torch.FloatTensor | None = None, vis_indices: list | None = None, node_size: float = 0.01, start_goal_size: float = 0.06, edge_size: int = 1, best_path_edge_size: int = 4, segment_color: list[float] | None = None, best_path_color: list[float] | None = None, node_transparency: float = 0.7, display_segment: bool = True, display_best_path: bool = True, display_reward_colormap: bool = True, reset_visualizer: bool = True, search_index: int = 0) -> None
+.. py:function:: display_3d_graph(graph: jactamanipulation.planner.planner.graph.Graph, logger: jactamanipulation.planner.planner.logger.Logger, visualizer: meshcat.visualizer.Visualizer, vis_scale: torch.FloatTensor | None = None, vis_indices: list | None = None, node_size: float = 0.01, start_goal_size: float = 0.06, edge_size: int = 1, best_path_edge_size: int = 4, segment_color: list[float] | None = None, best_path_color: list[float] | None = None, node_transparency: float = 0.7, display_segment: bool = True, display_best_path: bool = True, display_reward_colormap: bool = True, reset_visualizer: bool = True, search_index: int = 0) -> None
 
    
    Display search graph in Meshcat, each node is an vertex, each edge in an action linking 2 vertices.

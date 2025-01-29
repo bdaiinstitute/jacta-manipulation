@@ -30,7 +30,7 @@ Module Contents
       Compute start action based on current state or previous end action
       depending on the action_start_mode parameter.
 
-   .. py:method:: get_end_actions(relative_actions: torch.FloatTensor, action_type: Optional[dexterity.planner.planner.types.ActionType] = None, current_actuated_states: Optional[torch.FloatTensor] = None, previous_end_actions: Optional[torch.FloatTensor] = None) -> torch.FloatTensor
+   .. py:method:: get_end_actions(relative_actions: torch.FloatTensor, action_type: Optional[jactamanipulation.planner.planner.types.ActionType] = None, current_actuated_states: Optional[torch.FloatTensor] = None, previous_end_actions: Optional[torch.FloatTensor] = None) -> torch.FloatTensor
 
       
       Compute end action
@@ -60,7 +60,7 @@ Module Contents
 
       :returns: *FloatTensor* -- Actuated
 
-   .. py:method:: __call__(relative_actions: torch.FloatTensor, action_type: dexterity.planner.planner.types.ActionType | None = None, current_states: torch.FloatTensor | None = None, previous_end_actions: torch.FloatTensor | None = None) -> torch.FloatTensor
+   .. py:method:: __call__(relative_actions: torch.FloatTensor, action_type: jactamanipulation.planner.planner.types.ActionType | None = None, current_states: torch.FloatTensor | None = None, previous_end_actions: torch.FloatTensor | None = None) -> torch.FloatTensor
 
       
       Makes the class Callable. On call, return action trajectories
@@ -94,7 +94,7 @@ Module Contents
 
       
 
-   .. py:method:: get_end_actions(relative_actions: torch.FloatTensor, action_type: Optional[dexterity.planner.planner.types.ActionType] = None, current_actuated_states: Optional[torch.FloatTensor] = None, previous_end_actions: Optional[torch.FloatTensor] = None) -> torch.FloatTensor
+   .. py:method:: get_end_actions(relative_actions: torch.FloatTensor, action_type: Optional[jactamanipulation.planner.planner.types.ActionType] = None, current_actuated_states: Optional[torch.FloatTensor] = None, previous_end_actions: Optional[torch.FloatTensor] = None) -> torch.FloatTensor
 
       
       Computes end action for Spot with floating base.

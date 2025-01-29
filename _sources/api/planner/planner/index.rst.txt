@@ -7,7 +7,7 @@
 Module Contents
 ---------------
 
-.. py:class:: Planner(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, action_sampler: dexterity.planner.planner.action_sampler.ActionSampler, graph_worker: dexterity.planner.planner.graph_worker.GraphWorker, logger: dexterity.planner.planner.logger.Logger, params: dexterity.planner.planner.parameter_container.ParameterContainer, verbose: bool = False)
+.. py:class:: Planner(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, action_sampler: jactamanipulation.planner.planner.action_sampler.ActionSampler, graph_worker: jactamanipulation.planner.planner.graph_worker.GraphWorker, logger: jactamanipulation.planner.planner.logger.Logger, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer, verbose: bool = False)
 
 
    

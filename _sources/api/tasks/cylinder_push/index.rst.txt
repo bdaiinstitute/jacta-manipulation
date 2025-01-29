@@ -15,7 +15,7 @@ Module Contents
 .. py:class:: CylinderPushConfig
 
 
-   Bases: :py:obj:`dexterity.tasks.task.TaskConfig`
+   Bases: :py:obj:`jactamanipulation.tasks.task.TaskConfig`
 
    
    Reward configuration for the cylinder push task.
@@ -63,7 +63,7 @@ Module Contents
 .. py:class:: CylinderPush
 
 
-   Bases: :py:obj:`dexterity.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`CylinderPushConfig`\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`CylinderPushConfig`\ ]
 
    
    Defines the cylinder push balancing task.

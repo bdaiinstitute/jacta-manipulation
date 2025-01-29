@@ -7,7 +7,7 @@
 Module Contents
 ---------------
 
-.. py:class:: ActionSampler(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, params: dexterity.planner.planner.parameter_container.ParameterContainer)
+.. py:class:: ActionSampler(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer)
 
 
    
@@ -17,7 +17,7 @@ Module Contents
       
       Re initializes the action sampler
 
-   .. py:method:: initialize(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, params: dexterity.planner.planner.parameter_container.ParameterContainer) -> None
+   .. py:method:: initialize(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer) -> None
 
       
       Initializes the action sampler internal state
@@ -62,7 +62,7 @@ Module Contents
 
       :returns: Set of trajectories expanded in the directions
 
-   .. py:method:: __call__(node_ids: torch.IntTensor) -> Tuple[torch.FloatTensor, int, dexterity.planner.planner.types.ActionType]
+   .. py:method:: __call__(node_ids: torch.IntTensor) -> Tuple[torch.FloatTensor, int, jactamanipulation.planner.planner.types.ActionType]
 
       
       Combines each method of sampling to select an action and potentially project it into the eigenspace

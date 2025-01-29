@@ -10,7 +10,7 @@ Module Contents
 .. py:class:: SpotNavigationConfig
 
 
-   Bases: :py:obj:`dexterity.tasks.spot_base.SpotBaseConfig`
+   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBaseConfig`
 
    
    Config for the spot box manipulation task.
@@ -28,7 +28,7 @@ Module Contents
 .. py:class:: SpotNavigation
 
 
-   Bases: :py:obj:`dexterity.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotNavigationConfig`\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotNavigationConfig`\ ]
 
    
    Task getting Spot to navigate to a desired goal location.

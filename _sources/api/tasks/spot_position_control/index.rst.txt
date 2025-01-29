@@ -15,7 +15,7 @@ Module Contents
 .. py:class:: SpotPositionControlConfig
 
 
-   Bases: :py:obj:`dexterity.tasks.task.TaskConfig`
+   Bases: :py:obj:`jactamanipulation.tasks.task.TaskConfig`
 
    
    Reward configuration for the Spot simple task
@@ -52,7 +52,7 @@ Module Contents
 .. py:class:: SpotPositionControl
 
 
-   Bases: :py:obj:`dexterity.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`SpotPositionControlConfig`\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`SpotPositionControlConfig`\ ]
 
    
    Defines the Spot standing up task.

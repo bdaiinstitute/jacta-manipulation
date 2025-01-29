@@ -15,7 +15,7 @@ Module Contents
 .. py:class:: AcrobotConfig
 
 
-   Bases: :py:obj:`dexterity.tasks.task.TaskConfig`
+   Bases: :py:obj:`jactamanipulation.tasks.task.TaskConfig`
 
    
    Reward configuration for the acrobot task.
@@ -58,7 +58,7 @@ Module Contents
 .. py:class:: Acrobot
 
 
-   Bases: :py:obj:`dexterity.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`AcrobotConfig`\ ]
+   Bases: :py:obj:`jactamanipulation.tasks.mujoco_task.MujocoTask`\ [\ :py:obj:`AcrobotConfig`\ ]
 
    
    Defines the acrobot balancing task.

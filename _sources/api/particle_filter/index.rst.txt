@@ -10,7 +10,7 @@ Module Contents
 .. py:class:: ParticleFilterConfig
 
 
-   Bases: :py:obj:`dexterity.controllers.sampling_base.SamplingBaseConfig`
+   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBaseConfig`
 
    
    Configuration for cross-entropy method.
@@ -27,10 +27,10 @@ Module Contents
       
 
 
-.. py:class:: ParticleFilter(task: dexterity.tasks.task.Task, config: ParticleFilterConfig, reward_config: dexterity.tasks.task.TaskConfig)
+.. py:class:: ParticleFilter(task: jactamanipulation.tasks.task.Task, config: ParticleFilterConfig, reward_config: jactamanipulation.tasks.task.TaskConfig)
 
 
-   Bases: :py:obj:`dexterity.controllers.sampling_base.SamplingBase`
+   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBase`
 
    
    The cross-entropy method.

@@ -217,7 +217,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tasks.spot_position_control.SpotPositionControlConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tasks.spot_position_control.</span></span><span class="sig-name descname"><span class="pre">SpotPositionControlConfig</span></span><a class="headerlink" href="#tasks.spot_position_control.SpotPositionControlConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.task.TaskConfig</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span></code></p>
 <p>Reward configuration for the Spot simple task
 .. py:attribute:: w_standing</p>
 <blockquote>
@@ -255,7 +255,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tasks.spot_position_control.SpotPositionControl">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tasks.spot_position_control.</span></span><span class="sig-name descname"><span class="pre">SpotPositionControl</span></span><a class="headerlink" href="#tasks.spot_position_control.SpotPositionControl" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.mujoco_task.MujocoTask</span></code>[<a class="reference internal" href="#tasks.spot_position_control.SpotPositionControlConfig" title="tasks.spot_position_control.SpotPositionControlConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpotPositionControlConfig</span></code></a>]</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.mujoco_task.MujocoTask</span></code>[<a class="reference internal" href="#tasks.spot_position_control.SpotPositionControlConfig" title="tasks.spot_position_control.SpotPositionControlConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpotPositionControlConfig</span></code></a>]</p>
 <p>Defines the Spot standing up task.
 .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: SpotPositionControlConfig) -&gt; numpy.ndarray</p>
 <blockquote>

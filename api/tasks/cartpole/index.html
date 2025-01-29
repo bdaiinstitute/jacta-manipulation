@@ -217,7 +217,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tasks.cartpole.CartpoleConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tasks.cartpole.</span></span><span class="sig-name descname"><span class="pre">CartpoleConfig</span></span><a class="headerlink" href="#tasks.cartpole.CartpoleConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.task.TaskConfig</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span></code></p>
 <p>Reward configuration for the cartpole task.
 .. py:attribute:: default_command</p>
 <blockquote>
@@ -267,7 +267,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tasks.cartpole.Cartpole">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tasks.cartpole.</span></span><span class="sig-name descname"><span class="pre">Cartpole</span></span><a class="headerlink" href="#tasks.cartpole.Cartpole" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.mujoco_task.MujocoTask</span></code>[<a class="reference internal" href="#tasks.cartpole.CartpoleConfig" title="tasks.cartpole.CartpoleConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CartpoleConfig</span></code></a>]</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.mujoco_task.MujocoTask</span></code>[<a class="reference internal" href="#tasks.cartpole.CartpoleConfig" title="tasks.cartpole.CartpoleConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CartpoleConfig</span></code></a>]</p>
 <p>Defines the cartpole balancing task.
 .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: CartpoleConfig) -&gt; numpy.ndarray</p>
 <blockquote>

@@ -216,7 +216,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="viser_app.app.SimulationProcess">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.app.</span></span><span class="sig-name descname"><span class="pre">SimulationProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.viser_app.io.SimulationIOContext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#viser_app.app.SimulationProcess" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.app.</span></span><span class="sig-name descname"><span class="pre">SimulationProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.viser_app.io.SimulationIOContext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#viser_app.app.SimulationProcess" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing.context.Process</span></code></p>
 <p>Container for the simulation thread in the viser app.
 .. py:method:: simulation_loop() -&gt; None</p>
@@ -226,8 +226,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>task</strong> (<em>dexterity.tasks.task.Task</em>) – </p></li>
-<li><p><strong>context</strong> (<em>dexterity.viser_app.io.SimulationIOContext</em>) – </p></li>
+<li><p><strong>task</strong> (<em>jactamanipulation.tasks.task.Task</em>) – </p></li>
+<li><p><strong>context</strong> (<em>jactamanipulation.viser_app.io.SimulationIOContext</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -257,7 +257,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="viser_app.app.ControlProcess">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.app.</span></span><span class="sig-name descname"><span class="pre">ControlProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.controllers.controller.Controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">viser.ViserServer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.viser_app.io.IOContext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.viser_app.profiler.ViserProfiler</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#viser_app.app.ControlProcess" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.app.</span></span><span class="sig-name descname"><span class="pre">ControlProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.controllers.controller.Controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">viser.ViserServer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.viser_app.io.IOContext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profiler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.viser_app.profiler.ViserProfiler</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#viser_app.app.ControlProcess" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing.Process</span></code></p>
 <p>Process that executes a controller at a fixed rate.
 .. py:method:: run() -&gt; None</p>
@@ -269,10 +269,10 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>controller</strong> (<em>dexterity.controllers.controller.Controller</em>) – </p></li>
+<li><p><strong>controller</strong> (<em>jactamanipulation.controllers.controller.Controller</em>) – </p></li>
 <li><p><strong>server</strong> (<em>viser.ViserServer</em>) – </p></li>
-<li><p><strong>context</strong> (<em>dexterity.viser_app.io.IOContext</em>) – </p></li>
-<li><p><strong>profiler</strong> (<em>Optional</em><em>[</em><em>dexterity.viser_app.profiler.ViserProfiler</em><em>]</em>) – </p></li>
+<li><p><strong>context</strong> (<em>jactamanipulation.viser_app.io.IOContext</em>) – </p></li>
+<li><p><strong>profiler</strong> (<em>Optional</em><em>[</em><em>jactamanipulation.viser_app.profiler.ViserProfiler</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -400,12 +400,12 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 
 <dl class="py method">
 <dt class="sig sig-object py" id="viser_app.app.ViserApp.setup_physics">
-<span class="sig-name descname"><span class="pre">setup_physics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.Task</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#viser_app.app.ViserApp.setup_physics" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setup_physics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.Task</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#viser_app.app.ViserApp.setup_physics" title="Link to this definition">#</a></dt>
 <dd><p>Set the physics field.</p>
 <p>This method can be overwritten for hardware deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>task</strong> (<em>dexterity.tasks.task.Task</em>) – </p>
+<dd class="field-odd"><p><strong>task</strong> (<em>jactamanipulation.tasks.task.Task</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -415,13 +415,13 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 
 <dl class="py method">
 <dt class="sig sig-object py" id="viser_app.app.ViserApp.setup_controller">
-<span class="sig-name descname"><span class="pre">setup_controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.controllers.controller.ControllerConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.TaskConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#viser_app.app.ViserApp.setup_controller" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setup_controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.controllers.controller.ControllerConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#viser_app.app.ViserApp.setup_controller" title="Link to this definition">#</a></dt>
 <dd><p>Spawns controller process for controller method currently selected in GUI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>control_config</strong> (<em>dexterity.controllers.controller.ControllerConfig</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>task_config</strong> (<em>dexterity.tasks.task.TaskConfig</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>control_config</strong> (<em>jactamanipulation.controllers.controller.ControllerConfig</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>task_config</strong> (<em>jactamanipulation.tasks.task.TaskConfig</em><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

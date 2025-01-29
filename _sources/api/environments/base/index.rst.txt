@@ -31,7 +31,7 @@ Module Contents
       Return the keys of the metrics for the environment.
 
    .. py:attribute:: params
-      :type: dexterity.planner.planner.parameter_container.ParameterContainer
+      :type: jactamanipulation.planner.planner.parameter_container.ParameterContainer
 
       
 

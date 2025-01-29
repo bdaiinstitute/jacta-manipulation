@@ -23,9 +23,9 @@ Submodules
 Package Contents
 ----------------
 
-.. py:function:: get_registered_tasks() -> Dict[str, Tuple[Type[dexterity.tasks.task.Task], Type[dexterity.tasks.task.TaskConfig]]]
+.. py:function:: get_registered_tasks() -> Dict[str, Tuple[Type[jactamanipulation.tasks.task.Task], Type[jactamanipulation.tasks.task.TaskConfig]]]
 
 
-.. py:function:: register_task(name: str, task_type: Type[dexterity.tasks.task.Task], task_config_type: Type[dexterity.tasks.task.TaskConfig]) -> None
+.. py:function:: register_task(name: str, task_type: Type[jactamanipulation.tasks.task.Task], task_config_type: Type[jactamanipulation.tasks.task.TaskConfig]) -> None
 
 

@@ -212,7 +212,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tasks.mujoco_task.MujocoTask">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tasks.mujoco_task.</span></span><span class="sig-name descname"><span class="pre">MujocoTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tasks.mujoco_task.MujocoTask" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.task.Task</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">dexterity.tasks.task.ConfigT</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">mujoco.MjModel</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">mujoco.MjData</span></code>]]</p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.task.Task</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.tasks.task.ConfigT</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">mujoco.MjModel</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">mujoco.MjData</span></code>]]</p>
 <p>Container for task based on Mujoco
 .. py:property:: additional_task_info</p>
 <blockquote>
@@ -275,13 +275,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tasks.mujoco_task.MujocoTask.create_visualization">
-<span class="sig-name descname"><span class="pre">create_visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">viser.ViserServer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.viser_app.io.IOContext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tasks.mujoco_task.MujocoTask.create_visualization" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">viser.ViserServer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.viser_app.io.IOContext</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_handles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#tasks.mujoco_task.MujocoTask.create_visualization" title="Link to this definition">#</a></dt>
 <dd><p>Returns a visualizer for the task.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>server</strong> (<em>viser.ViserServer</em>) – </p></li>
-<li><p><strong>context</strong> (<em>dexterity.viser_app.io.IOContext</em>) – </p></li>
+<li><p><strong>context</strong> (<em>jactamanipulation.viser_app.io.IOContext</em>) – </p></li>
 <li><p><strong>text_handles</strong> (<em>dict</em>) – </p></li>
 </ul>
 </dd>
@@ -351,11 +351,11 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tasks.mujoco_task.MujocoTask.is_terminated">
-<span class="sig-name descname"><span class="pre">is_terminated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dexterity.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#tasks.mujoco_task.MujocoTask.is_terminated" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_terminated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#tasks.mujoco_task.MujocoTask.is_terminated" title="Link to this definition">#</a></dt>
 <dd><p>Defines if the current state is terminal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>config</strong> (<em>dexterity.tasks.task.TaskConfig</em>) – </p>
+<dd class="field-odd"><p><strong>config</strong> (<em>jactamanipulation.tasks.task.TaskConfig</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
