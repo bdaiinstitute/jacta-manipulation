@@ -12,19 +12,19 @@
 Module Contents
 ---------------
 
-.. py:function:: spot_ik_mujoco(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, dx: numpy.ndarray, ee_body: str = 'arm_link_fngr') -> numpy.ndarray
+.. py:function:: spot_ik_mujoco(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, dx: numpy.ndarray, ee_body: str = 'arm_link_fngr') -> numpy.ndarray
 
    
    Retrieve IK for a given end effector.
 
-.. py:function:: compute_grasp_pose_for_handle_top(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant) -> numpy.ndarray
+.. py:function:: compute_grasp_pose_for_handle_top(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant) -> numpy.ndarray
 
    
    Returns the change in joint configuration in order to grasp the box handle.
 
    The grasp pose is hard-coded based on the specific spot_standing_box domain.
 
-.. py:function:: compute_grasp_actions(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, **kwargs: Dict) -> numpy.ndarray
+.. py:function:: compute_grasp_actions(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, **kwargs: Dict) -> numpy.ndarray
 
    
    Returns a trajectory to move the arm to the box handle.

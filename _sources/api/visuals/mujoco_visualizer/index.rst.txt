@@ -26,7 +26,7 @@ Module Contents
 
    
 
-.. py:class:: MujocoRenderer(*, plant: Optional[dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant] = None, model_filepath: Optional[str] = None, time_step: Optional[float] = None, collision_geometry_opacity: Optional[float] = None)
+.. py:class:: MujocoRenderer(*, plant: Optional[dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant] = None, model_filepath: Optional[str] = None, time_step: Optional[float] = None, collision_geometry_opacity: Optional[float] = None)
 
 
    

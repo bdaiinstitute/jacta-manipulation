@@ -12,10 +12,10 @@
 Module Contents
 ---------------
 
-.. py:class:: PrimitiveSampler(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, actions_func: str, **actions_func_kwargs: Dict)
+.. py:class:: PrimitiveSampler(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, params: dexterity.planner.planner.parameter_container.ParameterContainer, actions_func: str, **actions_func_kwargs: Dict)
 
 
-   Bases: :py:obj:`dexterity.jacta_planner.experts.expert_sampler.ExpertSampler`
+   Bases: :py:obj:`dexterity.planner.experts.expert_sampler.ExpertSampler`
 
    
    PrimitiveSampler object.

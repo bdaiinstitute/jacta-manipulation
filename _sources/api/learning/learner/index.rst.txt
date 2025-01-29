@@ -21,22 +21,22 @@ Module Contents
    
    Deep Deterministic Policy Gradient algorithm class
    .. py:attribute:: plant
-      :type: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant
+      :type: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant
 
       
 
    .. py:attribute:: graph
-      :type: dexterity.jacta_planner.planner.graph.Graph
+      :type: dexterity.planner.planner.graph.Graph
 
       
 
    .. py:attribute:: replay_buffer
-      :type: dexterity.jacta_learning.replay_buffer.ReplayBuffer
+      :type: dexterity.learning.replay_buffer.ReplayBuffer
 
       
 
    .. py:attribute:: params
-      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+      :type: dexterity.planner.planner.parameter_container.ParameterContainer
 
       
 

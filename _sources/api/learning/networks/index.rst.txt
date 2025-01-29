@@ -36,7 +36,7 @@ Module Contents
 
    
    Actor class encapsulating the action selection and training process for the DDPG actor.
-   .. py:method:: select_action(state_norm: dexterity.jacta_learning.normalizer.Normalizer, obs: torch.FloatTensor) -> torch.FloatTensor
+   .. py:method:: select_action(state_norm: dexterity.learning.normalizer.Normalizer, obs: torch.FloatTensor) -> torch.FloatTensor
 
       
       Select an action for the given input observation (state, goal).

@@ -13,7 +13,7 @@ Module Contents
    
    ReplayBuffer
    .. py:attribute:: params
-      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+      :type: dexterity.planner.planner.parameter_container.ParameterContainer
 
       
 

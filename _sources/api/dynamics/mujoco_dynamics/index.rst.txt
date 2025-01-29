@@ -45,7 +45,7 @@ Module Contents
    
    Apply state distance cost matrix given by ``scaling`` to ``delta_states``.
 
-.. py:class:: MujocoPlant(*, params: Optional[dexterity.jacta_planner.planner.parameter_container.ParameterContainer] = None, xml_model_path: Optional[str] = None)
+.. py:class:: MujocoPlant(*, params: Optional[dexterity.planner.planner.parameter_container.ParameterContainer] = None, xml_model_path: Optional[str] = None)
 
 
    

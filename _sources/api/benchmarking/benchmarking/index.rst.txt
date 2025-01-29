@@ -12,7 +12,7 @@
 Module Contents
 ---------------
 
-.. py:class:: Benchmark(planners: list[dexterity.jacta_planner.planner.planner.Planner], seeds: Optional[torch.IntTensor] = None, names: Optional[list] = None, verbose: bool = False)
+.. py:class:: Benchmark(planners: list[dexterity.planner.planner.planner.Planner], seeds: Optional[torch.IntTensor] = None, names: Optional[list] = None, verbose: bool = False)
 
 
    

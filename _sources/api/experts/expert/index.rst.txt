@@ -12,7 +12,7 @@
 Module Contents
 ---------------
 
-.. py:class:: Expert(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+.. py:class:: Expert(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.planner.planner.graph.Graph, params: dexterity.planner.planner.parameter_container.ParameterContainer)
 
 
    

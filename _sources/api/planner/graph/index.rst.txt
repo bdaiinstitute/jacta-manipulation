@@ -7,7 +7,7 @@
 Module Contents
 ---------------
 
-.. py:function:: sample_related_sub_goal_states(params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, goal_states: torch.FloatTensor, start_states: torch.FloatTensor) -> torch.FloatTensor
+.. py:function:: sample_related_sub_goal_states(params: dexterity.planner.planner.parameter_container.ParameterContainer, goal_states: torch.FloatTensor, start_states: torch.FloatTensor) -> torch.FloatTensor
 
    
    Generates related goal states based on the provided parameters.
@@ -27,7 +27,7 @@ Module Contents
       This function assumes a diagonal covariance matrix.
       It relies on the fact that the entries are independent and identically distributed (i.i.d.) entries.
 
-.. py:function:: sample_feasible_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, bound_lower: torch.FloatTensor, bound_upper: torch.FloatTensor, size: int = 1, num_attempts: int = 5) -> torch.FloatTensor
+.. py:function:: sample_feasible_states(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, bound_lower: torch.FloatTensor, bound_upper: torch.FloatTensor, size: int = 1, num_attempts: int = 5) -> torch.FloatTensor
 
    
    Samples feasible states within given bounds, ensuring they are collision-free.
@@ -64,7 +64,7 @@ Module Contents
 
    :returns: *FloatTensor* -- Random state
 
-.. py:function:: sample_random_start_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+.. py:function:: sample_random_start_states(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
 
    
    Get sample random start states
@@ -78,7 +78,7 @@ Module Contents
 
    :returns: *FloatTensor* -- Random start state
 
-.. py:function:: sample_random_goal_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+.. py:function:: sample_random_goal_states(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
 
    
    Get sample random goal states
@@ -92,7 +92,7 @@ Module Contents
 
    :returns: *FloatTensor* -- Random goal state
 
-.. py:function:: sample_random_sub_goal_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+.. py:function:: sample_random_sub_goal_states(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
 
    
    Get sample random sub goal states
@@ -106,7 +106,7 @@ Module Contents
 
    :returns: *FloatTensor* -- Random sub goal state
 
-.. py:class:: Graph(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+.. py:class:: Graph(plant: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.planner.planner.parameter_container.ParameterContainer)
 
 
    

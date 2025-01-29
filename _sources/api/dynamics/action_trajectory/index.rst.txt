@@ -12,7 +12,7 @@
 Module Contents
 ---------------
 
-.. py:function:: create_action_trajectory(type: dexterity.jacta_planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
+.. py:function:: create_action_trajectory(type: dexterity.planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
 
    
    Creates a zero- or first-order hold array of action vectors with length trajectory_steps.
@@ -26,7 +26,7 @@ Module Contents
 
    :returns: An action vector array (trajectory_steps, na).
 
-.. py:function:: create_action_trajectories(type: dexterity.jacta_planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
+.. py:function:: create_action_trajectories(type: dexterity.planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
 
    
    Creates a zero- or first-order hold arrays of action vectors with length trajectory_steps.

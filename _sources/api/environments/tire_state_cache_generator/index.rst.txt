@@ -73,12 +73,12 @@ Module Contents
    
    Inverse kinematics for the Spot arm.
    .. py:attribute:: plant
-      :type: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant
+      :type: dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant
 
       
 
    .. py:attribute:: params
-      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+      :type: dexterity.planner.planner.parameter_container.ParameterContainer
 
       
 

@@ -37,10 +37,10 @@ Module Contents
 
    :returns: *FloatTensor* -- Isaac tensor
 
-.. py:class:: LocomotionPlant(params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+.. py:class:: LocomotionPlant(params: dexterity.planner.planner.parameter_container.ParameterContainer)
 
 
-   Bases: :py:obj:`dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant`
+   Bases: :py:obj:`dexterity.planner.dynamics.mujoco_dynamics.MujocoPlant`
 
    
    LocomotionPlant
