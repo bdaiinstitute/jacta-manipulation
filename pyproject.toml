@@ -31,6 +31,11 @@ dependencies = [
     "h5py>=3.12.1",
 ]
 
+
+[project.optional-dependencies]
+dev = [
+]
+
 [tool.coverage.run]
 source = ["./src/jactamanipulation"]
 
