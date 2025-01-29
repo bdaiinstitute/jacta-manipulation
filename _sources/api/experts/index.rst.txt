@@ -1,0 +1,32 @@
+:py:mod:`experts`
+=================
+
+.. py:module:: experts
+
+.. autoapi-nested-parse::
+
+   
+   Experts Submodule.
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   primitives/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   expert/index.rst
+   expert_sampler/index.rst
+   network/index.rst
+   primitive/index.rst
+
+

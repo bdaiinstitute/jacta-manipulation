@@ -1,0 +1,212 @@
+:py:mod:`visuals.quaternion_operations`
+=======================================
+
+.. py:module:: visuals.quaternion_operations
+
+
+Module Contents
+---------------
+
+.. py:function:: quaternion_inverse(quaternion: numpy.ndarray) -> numpy.ndarray
+
+   
+   Calculate the inverse of a quaternion.
+
+   :param quaternion: Input quaternion [w, x, y, z].
+   :type quaternion: np.ndarray
+
+   Result:
+       np.ndarray: Inverse quaternion [w, -x, -y, -z].
+
+.. py:function:: quaternion_to_transformation_matrix(quaternion: numpy.ndarray) -> numpy.ndarray
+
+   
+   Convert a quaternion [w, x, y, z] into a 4x4 transformation matrix.
+
+   :param quaternion: Quaternion represented as a numpy array [w, x, y, z].
+   :type quaternion: np.ndarray
+
+   :returns: *np.ndarray* -- A 4x4 transformation matrix.
+
+.. py:function:: pose_to_transformation_matrix(pos: numpy.ndarray | None = None, quat: numpy.ndarray | None = None) -> numpy.ndarray
+
+   
+   Compute a 4x4 transformation matrix from position and quaternion.
+
+   :param pos: Position array [x, y, z]. Defaults to None.
+   :type pos: np.ndarray, optional
+   :param quat: Quaternion array [w, x, y, z]. Defaults to None.
+   :type quat: np.ndarray, optional
+
+   :returns: *np.ndarray* -- Transformation matrix combining translation and rotation.
+
+.. py:function:: skew_symmetric(vector: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Given a vector in R^3 construct a 3x3 skew-symmetric matrix.
+
+
+   * If vector is 1-D array, then the result is a 3x3 matrix.
+
+
+   * If vector is an Nx3 matrix, then the result is an Nx3x3 tensor representing a batch of skew-symmetric matrices.
+
+   :param vector: array_like a single or a batch of vectors.
+
+   Result: ndarray of skew-symmetric matrices.
+
+   .. rubric:: Examples
+
+   ..
+
+      ..
+
+         ..
+
+            v = [1,2,3]
+            qo.skew_symmetric(v)
+            array([[ 0, -3,  2],
+                   [ 3,  0, -1],
+                   [-2,  1,  0]])
+
+            v = [[1,2,3],[4,5,6]]
+            qo.skew_symmetric(v)
+            array([[[ 0, -3,  2],
+                    [ 3,  0, -1],
+                    [-2,  1,  0]],
+
+
+   ::
+
+         [[ 0, -6,  5],
+          [ 6,  0, -4],
+          [-5,  4,  0]]])
+
+.. py:function:: left_action(quaternion: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Construct a left action matrices L(q) from a quaternion or a list of quaternions.
+
+   Left action matrix L(q) is defined as a linear operator for quaternion multiplication q_2 * q_1 = L(q_2) q_1.
+
+
+   * If quaternion is 1-D array, then the result is a 4x4 matrix.
+
+
+   * If quaternion is an Nx4 matrix, then the result is an Nx4x4 tensor representing a batch of left action matrices.
+
+   :param quaternion: array_like a single or a batch of quaternions.
+
+   Result: ndarray of left action matrices.
+
+   .. rubric:: Examples
+
+   ..
+
+      ..
+
+         ..
+
+            q1 = [1,0,1,0]
+            q2 = [1,1,0,1]
+            qo.left_action(q2).dot(q1)
+            array([1, 0, 1, 2])
+
+
+.. py:function:: right_action(quaternion: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Construct a right action matrices R(q) from a quaternion or a list of quaternions.
+
+   Right action matrix R(q) is defined as a linear operator for quaternion multiplication q_2 * q_1 = R(q_1) q_2.
+
+
+   * If quaternion is 1-D array, then the result is a 4x4 matrix.
+
+
+   * If quaternion is an Nx4 matrix, then the result is an Nx4x4 tensor representing a batch of right action matrices.
+
+   :param quaternion: array_like a single or a batch of quaternions.
+
+   Result: ndarray of right action matrices.
+
+   .. rubric:: Examples
+
+   ..
+
+      ..
+
+         ..
+
+            q1 = [1,0,1,0]
+            q2 = [1,1,0,1]
+            qo.right_action(q1).dot(q2)
+            array([1, 0, 1, 2])
+
+
+.. py:function:: action_inverse(action: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Construct an inverse left or right action matrix assuming that it is orthogonal
+
+   Construct an inverse left or right action matrix assuming that it is orthogonal, that is,
+   it is constructed using unit quaternion.
+
+   We assume action matrix orthogonality for computational efficiency.
+
+
+   * If action is 2-D array, then the result is a transpose of this action.
+
+
+   * If action is an Nx4x4 tensor, then the result is an Nx4x4 tensor representing a batch of inverse actions.
+
+   :param action: array_like a single or a batch of actions.
+
+   Result: ndarray of inverse actions.
+
+.. py:function:: vector_projection(quaternion: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Project vector on imaginary quaternion space. This function supports batch projections.
+
+.. py:function:: project_action(action: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Project action onto vector input space. This function supports batch projections.
+
+.. py:function:: rotation_matrix(quaternion: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Compute a rotation matrix for a given quaternion.
+
+   For computational efficiency we assume that the input is a unit quaternion.
+
+
+   * 
+     If quaternion is a 1-D array, then the result is the corresponding 3x3 rotation matrix.
+
+   * 
+     If quaternion is a 2-D matrix of shape Nx4, then the result is a Nx3x3 tensor of the corresponding rotation
+     matrices.
+
+   :param quaternion: array_like a single or a batch of quaternions.
+
+   Result: ndarray of rotation matrices.
+
+.. py:function:: quaternion_to_quaternion_map_jacobian(argument_quaternion: numpy.typing.ArrayLike, map_jacobian: numpy.typing.ArrayLike, result_quaternion: numpy.typing.ArrayLike) -> numpy.ndarray
+
+   
+   Compute a Jacobian w.r.t. tangent space coordinates of a quaternion-to-quaternion map f(q)->q'
+
+   Compute a Jacobian w.r.t. tangent space coordinates of a quaternion-to-quaternion
+   map f(q) -> q', given the Jacobian of the map in canonical coordinates, that is, df/dq.
+
+   This function supports batch operation, in which input quaternions are Nx4 matrices, and map Jacobian is a Nx4x4
+   tensor.
+
+   :param argument_quaternion: array_like quaternion q
+   :param map_jacobian: array_like map Jacobian in canonical coordinates
+   :param result_quaternion: array_like quaternion q'
+
+   Result: ndarray of map Jacobian in tangent space.
+

@@ -1,0 +1,205 @@
+:py:mod:`planner.parameter_container`
+=====================================
+
+.. py:module:: planner.parameter_container
+
+
+Module Contents
+---------------
+
+.. py:class:: ParameterContainer(yaml_path: pathlib.Path | str | None = None, base_yaml_path: pathlib.Path = Path('base.yml'))
+
+
+   
+   Parameter container class
+   .. py:property:: model_folder
+      :type: pathlib.Path
+
+      
+      Model folder
+
+      :returns: *Path* -- Path to models folder
+
+   .. py:property:: examples_directory
+      :type: pathlib.Path
+
+      
+      Examples directory
+
+      :returns: *Path* -- Path to examples directory
+
+   .. py:property:: xml_folder
+      :type: pathlib.Path
+
+      
+      XML folder path
+
+      :returns: *Path* -- Path to xml folder
+
+   .. py:property:: data_folder
+      :type: pathlib.Path
+
+      
+      Data folder
+
+      :returns: *Path* -- Data folder
+
+   .. py:property:: cache_folder
+      :type: pathlib.Path
+
+      
+      Cache folder
+
+      :returns: *Path* -- Path to cache folder
+
+   .. py:property:: state_cache_folder
+      :type: pathlib.Path
+
+      
+      State cache folder
+
+      :returns: *Path* -- Path to state cache folder
+
+   .. py:property:: graph_cache_folder
+      :type: pathlib.Path
+
+      
+      Graph cache folder
+
+      :returns: *Path* -- Path to graph cache folder
+
+   .. py:property:: trajectory_cache_folder
+      :type: pathlib.Path
+
+      
+      Trajectory cache folder
+
+      :returns: *Path* -- Path to trajectory cache folder
+
+   .. py:property:: policy_filepath
+      :type: str
+
+      
+      Policy filepath
+
+      :returns: *str* -- Path to policy file
+
+   .. py:property:: device
+      :type: torch.device
+
+      
+      Device
+
+      :returns: *torch.device* -- Tensor device
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+   .. py:method:: __getattr__(name: str) -> Any
+
+
+   .. py:method:: __setattr__(__name: str, __value: Any) -> None
+
+      
+      Implement setattr(self, name, value).
+
+   .. py:method:: __delattr__(__name: str) -> None
+
+      
+      Implement delattr(self, name).
+
+   .. py:method:: __contains__(key: str) -> bool
+
+
+   .. py:method:: update(values: dict) -> None
+
+      
+      Update
+
+      :param values: Values to update with
+      :type values: dict
+
+   .. py:method:: load_base(base_yaml_path: pathlib.Path = Path('base.yml')) -> None
+
+      
+      Load base
+
+      :param base_yaml_path: Path to base yaml file
+      :type base_yaml_path: Path
+
+   .. py:method:: autofill() -> None
+
+      
+      Autofill
+
+   .. py:method:: run_autofill_rule(rule_key: str) -> None
+
+      
+      Run autofill rule
+
+      :param rule_key: Rule key
+      :type rule_key: str
+
+   .. py:method:: list_of_yaml_arrays_to_tensor(lists: list) -> torch.Tensor
+
+      
+      Convert list of lists to tensor
+
+   .. py:method:: concat_list_of_arrays(keypath: str) -> torch.Tensor
+
+      
+      Concat list of arrays
+
+      :param keypath: Keypath
+      :type keypath: str
+
+      :returns: *Tensor* -- Arrays
+
+   .. py:method:: process_scaling(keypath: str) -> torch.Tensor
+
+      
+      Process scaling
+
+      :param keypath: keypath
+      :type keypath: str
+
+      :returns: *Tensor* -- Scaling
+
+   .. py:method:: load_eigenspaces() -> None
+
+      
+      Load eigenspaces
+
+   .. py:method:: reset_seed() -> None
+
+      
+      Reset seed
+
+   .. py:method:: set_seed(value: Optional[int]) -> None
+
+      
+      Set seed
+
+      :param value: Seed value
+      :type value: Optional[int]
+
+   .. py:method:: reward_distance_scaling_sqrt() -> torch.Tensor
+
+      
+      Reward distance scaling sqrt
+
+      :returns: *Tensor* -- Scaling sqrt
+
+
+.. py:function:: parse_hardware_parameters(file_path: str) -> dict
+
+   
+   Parse hardware parameters from file
+
+   :param file_path: Filepath
+   :type file_path: str
+
+   :returns: *dict* -- Parameters from file
+

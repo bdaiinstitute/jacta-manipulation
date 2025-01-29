@@ -1,0 +1,69 @@
+:py:mod:`learning.normalizer`
+=============================
+
+.. py:module:: learning.normalizer
+
+.. autoapi-nested-parse::
+
+   
+   Normalizer module.
+
+   Enables distributed normalizers to keep preprocessing consistent across all nodes. The normalizer is
+   based on the implementation in https://github.com/openai/baselines.
+
+
+Module Contents
+---------------
+
+.. py:class:: Normalizer(size: int, eps: float = 0.01)
+
+
+   
+   Normalizer to maintain an estimate on the current data mean and variance.
+
+   Used to normalize input data to zero mean and unit variance.
+   .. py:method:: __call__(x: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Alias for ``self.normalize``.
+
+   .. py:method:: normalize(x: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Normalize the input data with the current mean and variance estimate.
+
+      :param x: Input data array.
+
+      :returns: The normalized data.
+
+   .. py:method:: update(x: torch.FloatTensor) -> None
+
+      
+      Update the mean and variance estimate with new data.
+
+      :param x: New input data. Expects a 3D array of shape (episodes, timestep, data dimension).
+
+      :raises AssertionError: Shape check failed.
+
+   .. py:method:: normalize_obs(obs: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Normalize the observation data (state, goal).
+
+      :param obs: Input observation array.
+
+      :returns: A fused state goal tensor.
+
+   .. py:method:: load(checkpoint: Any) -> None
+
+      
+      Load data for the state_norm.
+
+      :param checkpoint: dict containing loaded data.
+
+   .. py:method:: save(f: io.BufferedWriter) -> None
+
+      
+      Save data for the state_norm.
+
+

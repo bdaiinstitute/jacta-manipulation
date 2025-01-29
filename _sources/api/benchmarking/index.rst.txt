@@ -1,0 +1,21 @@
+:py:mod:`benchmarking`
+======================
+
+.. py:module:: benchmarking
+
+.. autoapi-nested-parse::
+
+   
+   Benchmark and profile planner instances.
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   benchmarking/index.rst
+   profiling/index.rst
+
+

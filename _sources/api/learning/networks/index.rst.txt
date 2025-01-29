@@ -1,0 +1,195 @@
+:py:mod:`learning.networks`
+===========================
+
+.. py:module:: learning.networks
+
+.. autoapi-nested-parse::
+
+   
+   The ``actor`` module contains the actor class as well as the actor networks.
+
+   The :class:`.Actor` acts as a wrapper around the actual deterministic policy network to provide
+   action selection,  and loading utilities.
+
+   :class:`.DDP` is a vanilla deep deterministic policy network implementation.
+
+
+Module Contents
+---------------
+
+.. py:function:: soft_update(network: torch.nn.Module, target: torch.nn.Module, tau: float) -> torch.nn.Module
+
+   
+   Perform a soft update of the target network's weights.
+
+   Shifts the weights of the ``target`` by a factor of ``tau`` into the direction of the
+   ``network``.
+
+   :param network: Network from which to copy the weights.
+   :param target: Network that gets updated.
+   :param tau: Controls how much the weights are shifted. Valid in [0, 1].
+
+   :returns: The updated target network.
+
+.. py:class:: Actor(size_s: int, size_a: int, nlayers: int = 4, layer_width: int = 256, lr: float = 0.001, eps: float = 0.3, action_clip: float = 1.0)
+
+
+   
+   Actor class encapsulating the action selection and training process for the DDPG actor.
+   .. py:method:: select_action(state_norm: dexterity.jacta_learning.normalizer.Normalizer, obs: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Select an action for the given input observation (state, goal).
+
+      If in train mode, samples noise and chooses completely random actions with probability
+      ``self.eps``. If in evaluation mode, only clips the action to the maximum value.
+
+      :param state_norm: State normalizer
+      :type state_norm: Normalizer
+      :param obs: Input observation.
+      :type obs: FloatTensor
+
+      :returns: *FloatTensor* -- A numpy array of actions.
+
+   .. py:method:: __call__(states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Run a forward pass directly on the action net.
+
+      :param states: Input states.
+
+      :returns: An action tensor.
+
+   .. py:method:: backward_step(loss: torch.FloatTensor) -> None
+
+      
+      Perform a backward pass with an optimizer step.
+
+      :param loss: Actor network loss.
+
+   .. py:method:: target(states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Compute actions with the target network and without noise.
+
+      :param states: Input states.
+
+      :returns: An action tensor.
+
+   .. py:method:: eval() -> None
+
+      
+      Set the actor to eval mode without noise in the action selection.
+
+   .. py:method:: train() -> None
+
+      
+      Set the actor to train mode with noisy actions.
+
+   .. py:method:: update_target(tau: float = 0.05) -> None
+
+      
+      Update the target network with a soft parameter transfer update.
+
+      :param tau: Averaging fraction of the parameter update for the action network.
+
+   .. py:method:: load(checkpoint: Any) -> None
+
+      
+      Load data for the actor.
+
+      :param checkpoint: dict containing loaded data.
+
+   .. py:method:: save(f: io.BufferedWriter) -> None
+
+      
+      Save data for the actor.
+
+
+.. py:class:: DDP(size_s: int, size_a: int, nlayers: int, layer_width: int)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   
+   Continuous action choice network for the agent.
+   .. py:method:: forward(x: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Compute the network forward pass.
+
+      :param x: Input tensor.
+
+      :returns: The network output.
+
+
+.. py:class:: Critic(size_s: int, size_a: int, nlayers: int = 4, layer_width: int = 256, lr: float = 0.001)
+
+
+   
+   Critic class encapsulating the critic and training process for the DDPG critic.
+   .. py:method:: __call__(states: torch.FloatTensor, actions: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Run a critic net forward pass.
+
+      :param states: Input states.
+      :param actions: Input actions.
+
+      :returns: An action value tensor.
+
+   .. py:method:: target(states: torch.FloatTensor, actions: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Compute the action value with the target network.
+
+      :param states: Input states.
+      :param actions: Input actions.
+
+      :returns: An action value tensor.
+
+   .. py:method:: backward_step(loss: torch.FloatTensor) -> None
+
+      
+      Perform a backward pass with an optimizer step.
+
+      :param loss: Critic network loss.
+
+   .. py:method:: update_target(tau: float = 0.05) -> None
+
+      
+      Update the target network with a soft parameter transfer update.
+
+      :param tau: Averaging fraction of the parameter update for the action network.
+
+   .. py:method:: load(checkpoint: Any) -> None
+
+      
+      Load data for the critic.
+
+      :param checkpoint: dict containing loaded data.
+
+   .. py:method:: save(f: io.BufferedWriter) -> None
+
+      
+      Save data for the critic.
+
+
+.. py:class:: CriticNetwork(size_s: int, size_a: int, nlayers: int, layer_width: int)
+
+
+   Bases: :py:obj:`torch.nn.Module`
+
+   
+   State action critic network for the critic.
+   .. py:method:: forward(state: torch.FloatTensor, action: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Compute the network forward pass.
+
+      :param state: Input state tensor.
+      :param action: Input action tensor.
+
+      :returns: The network output.
+
+

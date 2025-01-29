@@ -1,0 +1,170 @@
+:py:mod:`planner.types`
+=======================
+
+.. py:module:: planner.types
+
+
+Module Contents
+---------------
+
+.. py:class:: ClippingType
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   
+   Action clipping type
+   .. py:attribute:: CLIP
+      :value: 0
+
+      
+
+   .. py:attribute:: SCALE
+      :value: 1
+
+      
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+
+.. py:class:: SelectionType
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   
+   Node selection type
+   .. py:attribute:: PARETO
+      :value: 0
+
+      
+
+   .. py:attribute:: LAST
+      :value: 1
+
+      
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+
+.. py:class:: ActionType
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   
+   Action type
+
+
+   * ranged corresponds to random action (gradient free),
+   * proximity corresponds to optimal action to get close to the object of interest (gradient based),
+   * continuation corresponds to action continuing the previous motion (gradient free),
+   * goal corresponds to optimal action to get to the goal state (gradient based),
+   * expert corresponds to action exploiting domain knowledge,
+   .. py:attribute:: RANGED
+      :value: 0
+
+      
+
+   .. py:attribute:: PROXIMITY
+      :value: 1
+
+      
+
+   .. py:attribute:: CONTINUATION
+      :value: 2
+
+      
+
+   .. py:attribute:: GOAL
+      :value: 3
+
+      
+
+   .. py:attribute:: EXPERT
+      :value: 4
+
+      
+
+   .. py:attribute:: NON_EXPERT
+      :value: 5
+
+      
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+
+.. py:data:: ACTION_TYPE_DIRECTIONAL_MAP
+
+   
+
+.. py:class:: ActionMode
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   
+   Action Mode
+   .. py:attribute:: RELATIVE_TO_CURRENT_STATE
+      :value: 0
+
+      
+
+   .. py:attribute:: RELATIVE_TO_PREVIOUS_END_ACTION
+      :value: 1
+
+      
+
+   .. py:attribute:: ABSOLUTE_ACTION
+      :value: 2
+
+      
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+
+.. py:class:: ControlType
+
+
+   Bases: :py:obj:`enum.Enum`
+
+   
+   Type of interpolation applied for interpolating between start and end actions
+   .. py:attribute:: ZERO_ORDER_HOLD
+      :value: 0
+
+      
+
+   .. py:attribute:: FIRST_ORDER_HOLD
+      :value: 1
+
+      
+
+   .. py:method:: __str__() -> str
+
+      
+      Return str(self).
+
+
+.. py:function:: set_default_device_and_dtype(device: Optional[str] = None, dtype: torch.dtype = torch.float32) -> None
+
+   
+   Set default device and dtype for torch tensors.
+
+.. py:function:: convert_dtype(attr: Any, dtype: Optional[torch.dtype] = None, int_dtype: torch.dtype = torch.int64) -> Any
+
+   
+   Cast list and tensors to user-specified data type for floating point numbers and integers.
+

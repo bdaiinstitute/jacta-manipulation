@@ -1,0 +1,42 @@
+:py:mod:`dynamics.action_trajectory`
+====================================
+
+.. py:module:: dynamics.action_trajectory
+
+.. autoapi-nested-parse::
+
+   
+   Action Trajectory Submodule.
+
+
+Module Contents
+---------------
+
+.. py:function:: create_action_trajectory(type: dexterity.jacta_planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
+
+   
+   Creates a zero- or first-order hold array of action vectors with length trajectory_steps.
+
+   :param type: Create zero- or first-order hold action trajectory.
+   :param start_actions: A (na) array containing the start action vectors of the desired trajectories.
+   :param end_actions: A (na) array containing the end action vectors of the desired trajectories.
+                       For zero-order hold, only the end action vector will be used and held for the entire trajectory.
+                       For first-order hold, a linear interpolation between start and end action vector will be created.
+   :param trajectory_steps: The length of the resulting action vector array.
+
+   :returns: An action vector array (trajectory_steps, na).
+
+.. py:function:: create_action_trajectories(type: dexterity.jacta_planner.planner.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
+
+   
+   Creates a zero- or first-order hold arrays of action vectors with length trajectory_steps.
+
+   :param type: Create zero- or first-order hold action trajectory.
+   :param start_actions: A (n, na) array containing the start action vectors of the desired trajectories.
+   :param end_actions: A (n, na) array containing the end action vectors of the desired trajectories.
+                       For zero-order hold, only the end action vector will be used and held for the entire trajectory.
+                       For first-order hold, a linear interpolation between start and end action vector will be created.
+   :param trajectory_steps: The length of the resulting action vector array.
+
+   :returns: An action vector array (n, trajectory_steps, na).
+

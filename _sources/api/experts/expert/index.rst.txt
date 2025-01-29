@@ -1,0 +1,25 @@
+:py:mod:`experts.expert`
+========================
+
+.. py:module:: experts.expert
+
+.. autoapi-nested-parse::
+
+   
+   Expert Submodule.
+
+
+Module Contents
+---------------
+
+.. py:class:: Expert(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+
+
+   
+   Expert object.
+   .. py:method:: expert_actions(node_ids: torch.IntTensor) -> torch.FloatTensor
+
+      
+      Selects an ExpertSampler according to expert distribtuion to sample actions.
+
+

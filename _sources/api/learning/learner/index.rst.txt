@@ -1,0 +1,160 @@
+:py:mod:`learning.learner`
+==========================
+
+.. py:module:: learning.learner
+
+.. autoapi-nested-parse::
+
+   
+   ``Learner`` module encapsulating the Deep Deterministic Policy Gradient (DDPG) algorithm.
+
+   :class:`.Learner` initializes the actor, critic, and normalizers and takes care of checkpoints
+   during training as well as network loading if starting from pre-trained networks.
+
+
+Module Contents
+---------------
+
+.. py:class:: Learner
+
+
+   
+   Deep Deterministic Policy Gradient algorithm class
+   .. py:attribute:: plant
+      :type: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant
+
+      
+
+   .. py:attribute:: graph
+      :type: dexterity.jacta_planner.planner.graph.Graph
+
+      
+
+   .. py:attribute:: replay_buffer
+      :type: dexterity.jacta_learning.replay_buffer.ReplayBuffer
+
+      
+
+   .. py:attribute:: params
+      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+
+      
+
+   .. py:attribute:: save_local
+      :type: bool
+      :value: True
+
+      
+
+   .. py:attribute:: save_cloud
+      :type: bool
+      :value: False
+
+      
+
+   .. py:attribute:: load_local
+      :type: bool
+      :value: False
+
+      
+
+   .. py:attribute:: load_cloud
+      :type: bool
+      :value: False
+
+      
+
+   .. py:attribute:: verbose
+      :type: bool
+      :value: True
+
+      
+
+   .. py:method:: __post_init__() -> None
+
+      
+      Constructs a Learner object.
+
+   .. py:method:: reset() -> None
+
+      
+      Reset the Learner for additional runs.
+
+   .. py:method:: actor_actions(states: torch.FloatTensor, goal_state: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Uses actor network to sample actions given ``node_ids`` to index into the replay buffer.
+
+   .. py:method:: relative_distances_to(start_states: torch.FloatTensor, current_states: torch.FloatTensor, goal_states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Scaled distance from states in a given container to ``goal_states``.
+
+   .. py:method:: reward_function(start_states: torch.FloatTensor, current_states: torch.FloatTensor, goal_states: torch.FloatTensor) -> tuple[torch.FloatTensor, torch.FloatTensor]
+
+      
+      Learner reward function.
+
+   .. py:method:: update_norm(states: torch.FloatTensor, goals: torch.FloatTensor) -> None
+
+      
+      Update the normalizers with the current episode of play experience.
+
+      Samples the trajectory instead of taking every experience to create a goal distribution that
+      is equal to what the networks encouter.
+
+   .. py:method:: policy_rollout() -> tensordict.TensorDict
+
+      
+      Rollout trained policy using randomly sampled start and goal states and add to the replay buffer.
+
+   .. py:method:: graph_rollout() -> tensordict.TensorDict
+
+      
+      Trace trajectory in graph from randomly sampled start to goal states and add to the replay buffer.
+
+   .. py:method:: set_demonstration_injection() -> None
+
+      
+      Sets demonstration injection
+
+   .. py:method:: train(num_epochs: int = 50) -> None
+
+      
+      Train a policy to solve the environment with DDPG.
+
+   .. py:method:: preprocess_sample(data: tensordict.TensorDict) -> tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
+
+      
+      Preprocess sample
+
+      :param data: Tensor to preprocess
+      :type data: TensorDict
+
+      :returns: *tuple[FloatTensor, FloatTensor, FloatTensor, FloatTensor, FloatTensor]* --     observation, next observation, actions, rewards, terminated
+
+   .. py:method:: train_actor_critic(data: tensordict.TensorDict, discount_factor: float = 0.98) -> None
+
+      
+      Train the agent and critic network with experience sampled from the replay buffer.
+
+   .. py:method:: eval_agent() -> tuple[float, float]
+
+      
+      Evaluate the current agent performance on the task.
+
+      Runs ``learner_evals`` times and averages the success rate.
+
+   .. py:method:: save_models(is_local: bool) -> None
+
+      
+      Save the actor and critic networks and the normalizers.
+
+      Saves are located under ``/models/<model_filename>/``.
+
+   .. py:method:: load_models(path: pathlib.Path, is_local: bool) -> None
+
+      
+      Load the actor and critic networks and the normalizers.
+
+

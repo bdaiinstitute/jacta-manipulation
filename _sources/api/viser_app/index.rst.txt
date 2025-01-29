@@ -1,0 +1,19 @@
+:py:mod:`viser_app`
+===================
+
+.. py:module:: viser_app
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   app/index.rst
+   gui/index.rst
+   io/index.rst
+   json_serializer/index.rst
+   profiler/index.rst
+
+

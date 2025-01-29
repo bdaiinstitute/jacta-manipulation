@@ -1,0 +1,202 @@
+:py:mod:`dynamics.mujoco_dynamics`
+==================================
+
+.. py:module:: dynamics.mujoco_dynamics
+
+.. autoapi-nested-parse::
+
+   
+   Mujoco Dynamics Submodule.
+
+
+Module Contents
+---------------
+
+.. py:function:: get_joint_dimensions(joint_ids: numpy.typing.ArrayLike, state_address: numpy.typing.ArrayLike, state_length: int) -> torch.IntTensor
+
+   
+   Get the state vector indices corresponding to the given joint ids.
+
+   :param joint_ids: mujoco joint id
+   :param state_address: array of joint start addresses
+   :param state_length: total length of the state vector
+
+   :returns: A tensor (nq,) with the indices in ``state_address`` corresponding to ``joint_ids``.
+
+.. py:function:: decompose_state_dimensions(model: mujoco.MjModel) -> Tuple[torch.IntTensor, torch.IntTensor, torch.IntTensor, torch.IntTensor]
+
+   
+   Decompose the states indices.
+
+   :param model: the model to extract states from
+
+   :returns: *Tuple* --
+
+   ::
+
+            A Tuple containing:
+                - actuated position indices
+                - actuated velocity indices
+                - unactuated position indices
+                - unactuated velocity indices
+
+.. py:function:: scale_distances(delta_states: torch.FloatTensor, scaling: torch.FloatTensor) -> torch.FloatTensor
+
+   
+   Apply state distance cost matrix given by ``scaling`` to ``delta_states``.
+
+.. py:class:: MujocoPlant(*, params: Optional[dexterity.jacta_planner.planner.parameter_container.ParameterContainer] = None, xml_model_path: Optional[str] = None)
+
+
+   
+   MujocoPlant object.
+   .. py:method:: reset() -> None
+
+      
+      Resets a MujocoPlant.
+
+   .. py:method:: initialize() -> None
+
+      
+      Initializes MujocoPlant attributes.
+
+      :param params: the ``ParameterContainer`` with initialization params.
+
+   .. py:method:: dynamics(states: torch.FloatTensor, action_trajectories: torch.FloatTensor, info: dict | None = None) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
+
+      
+      Conditions on the size of the states/actions and calls the appropriate singular or parallel dynamics.
+
+      :param states: (nx,) or (num_envs, nx) sized vector of states
+      :param action_trajectories: (num_steps, na) or (num_envs, num_steps, na) array containing
+      :param the start and end action vectors of the desired trajectory.:
+      :param action_time_step: the hold time for the action.
+      :param info: additional information to pass to the dynamics function.
+
+      :returns: A tuple of (next state, sensor data, intermediate states)
+
+   .. py:method:: get_gradients(states: torch.FloatTensor, actions: torch.FloatTensor) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
+
+      
+      Computes the dynamics gradients.
+
+      :param states: (nx,) or (num_envs, nx) sized vector of states
+      :param actions: (na,) or (num_envs, na) array containing the action vectors.
+
+      :returns: *Tuple* --
+
+      ::
+
+               A Tuple containing:
+                   - state_gradients_state: (nx, nx) or (num_envs, nx, nx)
+                   - state_gradients_control: (nx, nu) or (num_envs, nx, nu)
+                   - sensor_gradients_state: (ns, nx) or (num_envs, ns, nx)
+                   - sensor_gradients_control: (ns, nu) or (num_envs, ns, nu)
+
+   .. py:method:: set_state(state: torch.FloatTensor) -> None
+
+      
+      Set plant state.
+
+   .. py:method:: get_state() -> torch.FloatTensor
+
+      
+      Get plant state.
+
+   .. py:method:: set_action(action: torch.FloatTensor) -> None
+
+      
+      Set plant action.
+
+   .. py:method:: get_action() -> torch.FloatTensor
+
+      
+      Get last plant action.
+
+   .. py:method:: update_sensor() -> None
+
+      
+      Update plant sensor measurement..
+
+   .. py:method:: get_sensor(states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Update plant sensor measurement.
+
+      This only supports position- and velocity-based sensors, NOT ACCLERATION-BASED sensors.
+      We use the minimal set of computations extracted from mj_step1, see the link below for more details:
+      https://mujoco.readthedocs.io/en/latest/programming/simulation.html?highlight=mj_step1#simulation-loop
+
+      TODO: slecleach add support for acceleration-based sensors
+      ==========================================================
+
+      Finally, returns the sensor measurement.
+
+      :param states: (nx,) or (num_envs, nx) sized vector of states
+
+      :returns: Sensor data (nsensordata,) or (num_envs, nsensordata)
+
+   .. py:method:: scaled_distances_to(states: torch.FloatTensor, target_states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Get scaled distance between ``states`` and ``target_states``.
+
+   .. py:method:: state_difference(s1: torch.FloatTensor, s2: torch.FloatTensor, h: float = 1.0) -> torch.FloatTensor
+
+      
+      Compute finite-difference velocity given two state vectors and a time step h.
+
+      ds = (s2 - s1) / h
+
+      :param s1: first state vector.
+      :param s2: second state vector.
+      :param h: time step.
+
+      :returns: ds, or the finite difference velocity.
+
+   .. py:method:: state_addition(s1: torch.FloatTensor, ds: torch.FloatTensor, h: float = 1.0) -> torch.FloatTensor
+
+      
+      Integrate forward a state s with a velocity ds for a time step h.
+
+      s2 = s1 + h * ds
+
+      :param s1: state vector to integrate forward.
+      :param ds: velocity.
+      :param h: time step.
+
+      :returns: s2, or the resulting integrated state.
+
+   .. py:method:: get_mass() -> float
+
+      
+      Retrieve the total body mass.
+
+   .. py:method:: get_quat_indices() -> None
+
+      
+      Stores the indices of the state corresponding to quaternion in class field.
+
+   .. py:method:: normalize_state(states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Normalize quaternion part of state.
+
+      :param states: (num_envs, nx) tensor of randomly sampled states
+      :type states: torch.FloatTensor
+
+      Outputs:
+          torch.FloatTensor: (num_envs, nx) tensor with quaternion portions normalized
+
+   .. py:method:: get_collision_free(states: torch.FloatTensor) -> Optional[torch.FloatTensor]
+
+      
+      Get collision free states.
+
+      :param states: (num_envs, nx) tensor of randomly sampled states
+      :type states: FloatTensor
+
+      Outputs:
+          Optional[FloatTensor]: tensor of all collision free states (or None if none exist)
+
+

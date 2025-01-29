@@ -1,0 +1,104 @@
+:py:mod:`planner.logger`
+========================
+
+.. py:module:: planner.logger
+
+
+Module Contents
+---------------
+
+.. py:class:: Logger(graph: dexterity.jacta_planner.planner.graph.Graph, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, search_index: int = 0, log_path: str = '/workspaces/bdai/projects/dexterity/log/', log_file: str | None = None)
+
+
+   
+   Planner Logger
+   .. py:method:: reset() -> None
+
+      
+      Reset
+
+   .. py:method:: get_log_name() -> str | None
+
+      
+      Get where the log is stored
+
+   .. py:method:: log_params() -> None
+
+      
+      Logs the current parameters
+
+   .. py:method:: log_search(iteration_number: int) -> None
+
+      
+      Log the search
+
+      :param iteration_number: Iteration number
+      :type iteration_number: int
+
+   .. py:method:: log_node_selection(node_ids: torch.IntTensor, strategy: dexterity.jacta_planner.planner.types.SelectionType) -> None
+
+      
+      Log node selection
+
+      :param node_ids: Node ids
+      :type node_ids: torch.IntTensor
+      :param strategy: Strategy
+      :type strategy: SelectionType
+
+   .. py:method:: log_action_sampler(node_ids: torch.IntTensor, strategy: dexterity.jacta_planner.planner.types.ActionType) -> None
+
+      
+      Log action sampler
+
+      :param node_ids: Node ids
+      :type node_ids: torch.IntTensor
+      :param strategy: Strategy
+      :type strategy: ActionType
+
+   .. py:method:: log_node_extension(node_ids: torch.IntTensor, best_id: torch.IntTensor, dynamics_time: float) -> None
+
+      
+      Log node extension
+
+      :param node_ids: Node ids
+      :type node_ids: torch.IntTensor
+      :param best_id: Best id
+      :type best_id: torch.IntTensor
+      :param dynamics_time: Dynamics time
+      :type dynamics_time: float
+
+   .. py:method:: log_node_pruning(node_id: int, strategy: str, num_removed_nodes: int) -> None
+
+      
+      Log node pruning
+
+      :param node_id: Node id
+      :type node_id: int
+      :param strategy: Strategy
+      :type strategy: str
+      :param num_removed_nodes: Number of removed nodes
+      :type num_removed_nodes: int
+
+   .. py:method:: create_distance_log() -> None
+
+      
+      Create distance log
+
+   .. py:method:: create_reward_log() -> None
+
+      
+      Create reward log
+
+   .. py:method:: simple_progress_statistics() -> None
+
+      
+      Simple progress statistics
+
+   .. py:method:: simple_path_statistics() -> Tuple[torch.FloatTensor, torch.FloatTensor]
+
+      
+      Simple path statistics
+
+      :returns: *Tuple[torch.FloatTensor, torch.FloatTensor]* -- [selection_strategies, action_strategies]
+
+

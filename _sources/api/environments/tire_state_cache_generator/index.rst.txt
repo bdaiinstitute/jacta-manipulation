@@ -1,0 +1,211 @@
+:py:mod:`environments.tire_state_cache_generator`
+=================================================
+
+.. py:module:: environments.tire_state_cache_generator
+
+
+Module Contents
+---------------
+
+.. py:class:: TireGeneratorConfig
+
+
+   
+   Configuration for state cache generation.
+   .. py:attribute:: task
+      :type: Literal[spot_tire, spot_floating_tire]
+      :value: 'spot_tire'
+
+      
+
+   .. py:attribute:: cache_size
+      :type: int
+      :value: 10000
+
+      
+
+   .. py:attribute:: enable_rendering
+      :type: bool
+      :value: False
+
+      
+
+   .. py:attribute:: radius_range
+      :type: tuple[float, float]
+      :value: ()
+
+      
+
+   .. py:attribute:: distance_range
+      :type: tuple[float, float]
+      :value: (0.8, 1.2)
+
+      
+
+   .. py:attribute:: object_z
+      :type: float
+      :value: 0.3
+
+      
+
+   .. py:attribute:: linear_velocity_range
+      :type: tuple[float, float]
+      :value: (1.0, 1.0)
+
+      
+
+   .. py:attribute:: angular_velocity_range
+      :type: tuple[float, float]
+      :value: ()
+
+      
+
+   .. py:attribute:: randomize_velocity
+      :type: bool
+      :value: True
+
+      
+
+
+.. py:class:: SpotArmIK
+
+
+   
+   Inverse kinematics for the Spot arm.
+   .. py:attribute:: plant
+      :type: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant
+
+      
+
+   .. py:attribute:: params
+      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+
+      
+
+   .. py:attribute:: actuated_pos
+      :type: torch.Tensor
+
+      
+
+   .. py:attribute:: max_iterations
+      :type: int
+      :value: 200
+
+      
+
+   .. py:attribute:: integration_dt
+      :type: float
+      :value: 10.0
+
+      
+
+   .. py:attribute:: damping
+      :type: float
+      :value: 0.0001
+
+      
+
+   .. py:attribute:: enable_orientation_control
+      :type: bool
+      :value: True
+
+      
+
+   .. py:attribute:: position_tolerance
+      :type: float
+      :value: 0.01
+
+      
+
+   .. py:attribute:: orientation_tolerance
+      :type: float
+      :value: 0.01
+
+      
+
+   .. py:attribute:: progress_threshold
+      :type: float
+      :value: 0.0001
+
+      
+
+   .. py:attribute:: max_no_progress_steps
+      :type: int
+      :value: 10
+
+      
+
+   .. py:method:: __post_init__() -> None
+
+
+   .. py:method:: solve(target_xpos: numpy.ndarray, target_xquat: numpy.ndarray) -> list[float]
+
+      
+      Solve the inverse kinematics problem for the given target position and orientation.
+
+      :param target_xpos: Target position.
+      :type target_xpos: np.ndarray
+      :param target_xquat: Target orientation as a quaternion.
+      :type target_xquat: np.ndarray
+
+      :returns: *list[float]* -- Solved joint angles.
+
+
+.. py:class:: TireStateCacheGenerator
+
+
+   
+   Generator for tire state cache.
+   .. py:property:: default_arm_pose
+      :type: torch.Tensor
+
+      
+      Get the default arm pose.
+
+      :returns: *torch.Tensor* -- Default arm pose.
+
+   .. py:property:: default_base_pose
+      :type: torch.Tensor
+
+      
+      Get the default base pose.
+
+      :returns: *torch.Tensor* -- Default base pose.
+
+   .. py:property:: default_velocities
+      :type: torch.Tensor
+
+      
+      Get the default velocities.
+
+      :returns: *torch.Tensor* -- Default velocities.
+
+   .. py:attribute:: task_name
+      :type: str
+
+      
+
+   .. py:attribute:: config
+      :type: TireGeneratorConfig
+
+      
+
+   .. py:method:: __post_init__() -> None
+
+
+   .. py:method:: generate_cache() -> torch.Tensor
+
+      
+      Generate a cache of states for the tire.
+
+      :returns: *torch.Tensor* -- Generated state cache.
+
+   .. py:method:: set_floating_spot_cache(cache: torch.Tensor) -> None
+
+      
+      Set the floating spot cache.
+
+      :param cache: The cache to set.
+      :type cache: torch.Tensor
+
+

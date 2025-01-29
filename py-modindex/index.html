@@ -1,0 +1,765 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-??????"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-??????');
+    </script>
+    <link rel="index" title="Index" href="../genindex/" /><link rel="search" title="Search" href="../search/" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 --><title>Python Module Index - jacta-manipulation</title>
+<link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5349f25f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/compact_table_header.css?v=90bce570" />
+    <link rel="stylesheet" type="text/css" href="../_static/ansi.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  --color-code-background: #f4f4f4;
+  --color-code-foreground: #000;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">jacta-manipulation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/images/logo-light.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/images/logo-dark.svg" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">jacta-manipulation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          
+<section class="domainindex-section">
+  <h1>Python Module Index</h1>
+  <div class="domainindex-jumpbox"><a href="#cap-b"><strong>b</strong></a> | <a href="#cap-c"><strong>c</strong></a> | <a href="#cap-d"><strong>d</strong></a> | <a href="#cap-e"><strong>e</strong></a> | <a href="#cap-l"><strong>l</strong></a> | <a href="#cap-m"><strong>m</strong></a> | <a href="#cap-p"><strong>p</strong></a> | <a href="#cap-s"><strong>s</strong></a> | <a href="#cap-t"><strong>t</strong></a> | <a href="#cap-v"><strong>v</strong></a></div>
+</section>
+<table class="domainindex-table">
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-b">
+    <td></td><td><strong>b</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-1" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/benchmarking/#module-benchmarking"><code class="xref">benchmarking</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-1">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/benchmarking/benchmarking/#module-benchmarking.benchmarking"><code class="xref">benchmarking.benchmarking</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-1">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/benchmarking/profiling/#module-benchmarking.profiling"><code class="xref">benchmarking.profiling</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-c">
+    <td></td><td><strong>c</strong></td><td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/cmaes/#module-cmaes"><code class="xref">cmaes</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-2" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/controllers/#module-controllers"><code class="xref">controllers</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-2">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/controllers/controller/#module-controllers.controller"><code class="xref">controllers.controller</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-2">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/controllers/sampling_base/#module-controllers.sampling_base"><code class="xref">controllers.sampling_base</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/cross_entropy_method/#module-cross_entropy_method"><code class="xref">cross_entropy_method</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-d">
+    <td></td><td><strong>d</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-3" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/dynamics/#module-dynamics"><code class="xref">dynamics</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-3">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/dynamics/action_trajectory/#module-dynamics.action_trajectory"><code class="xref">dynamics.action_trajectory</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-3">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/dynamics/locomotion_plant/#module-dynamics.locomotion_plant"><code class="xref">dynamics.locomotion_plant</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-3">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/dynamics/mujoco_dynamics/#module-dynamics.mujoco_dynamics"><code class="xref">dynamics.mujoco_dynamics</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-3">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/dynamics/mujoco_utils/#module-dynamics.mujoco_utils"><code class="xref">dynamics.mujoco_utils</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-3">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/dynamics/state_helpers/#module-dynamics.state_helpers"><code class="xref">dynamics.state_helpers</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-e">
+    <td></td><td><strong>e</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-4" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/environments/#module-environments"><code class="xref">environments</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-4">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/environments/base/#module-environments.base"><code class="xref">environments.base</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-4">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/environments/tire_state_cache_generator/#module-environments.tire_state_cache_generator"><code class="xref">environments.tire_state_cache_generator</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-5" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/experts/#module-experts"><code class="xref">experts</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/expert/#module-experts.expert"><code class="xref">experts.expert</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/expert_sampler/#module-experts.expert_sampler"><code class="xref">experts.expert_sampler</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/network/#module-experts.network"><code class="xref">experts.network</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/primitive/#module-experts.primitive"><code class="xref">experts.primitive</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/primitives/#module-experts.primitives"><code class="xref">experts.primitives</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-5">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/experts/primitives/spot_standing_box/#module-experts.primitives.spot_standing_box"><code class="xref">experts.primitives.spot_standing_box</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-l">
+    <td></td><td><strong>l</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-6" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/learning/#module-learning"><code class="xref">learning</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-6">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/learning/learner/#module-learning.learner"><code class="xref">learning.learner</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-6">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/learning/networks/#module-learning.networks"><code class="xref">learning.networks</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-6">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/learning/normalizer/#module-learning.normalizer"><code class="xref">learning.normalizer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-6">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/learning/replay_buffer/#module-learning.replay_buffer"><code class="xref">learning.replay_buffer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-m">
+    <td></td><td><strong>m</strong></td><td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/mppi/#module-mppi"><code class="xref">mppi</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-p">
+    <td></td><td><strong>p</strong></td><td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/particle_filter/#module-particle_filter"><code class="xref">particle_filter</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-7" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/planner/#module-planner"><code class="xref">planner</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/action_processor/#module-planner.action_processor"><code class="xref">planner.action_processor</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/action_sampler/#module-planner.action_sampler"><code class="xref">planner.action_sampler</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/clipping_method/#module-planner.clipping_method"><code class="xref">planner.clipping_method</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/data_collection/#module-planner.data_collection"><code class="xref">planner.data_collection</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/graph/#module-planner.graph"><code class="xref">planner.graph</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/graph_visuals/#module-planner.graph_visuals"><code class="xref">planner.graph_visuals</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/graph_worker/#module-planner.graph_worker"><code class="xref">planner.graph_worker</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/linear_algebra/#module-planner.linear_algebra"><code class="xref">planner.linear_algebra</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/logger/#module-planner.logger"><code class="xref">planner.logger</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/parameter_container/#module-planner.parameter_container"><code class="xref">planner.parameter_container</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/planner/#module-planner.planner"><code class="xref">planner.planner</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/planner_helpers/#module-planner.planner_helpers"><code class="xref">planner.planner_helpers</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-7">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/planner/types/#module-planner.types"><code class="xref">planner.types</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/predictive_sampling/#module-predictive_sampling"><code class="xref">predictive_sampling</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-s">
+    <td></td><td><strong>s</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-8" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/scenes/#module-scenes"><code class="xref">scenes</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-8">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/scenes/scene_composer/#module-scenes.scene_composer"><code class="xref">scenes.scene_composer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-8">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/scenes/scene_generator/#module-scenes.scene_generator"><code class="xref">scenes.scene_generator</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-8">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/scenes/scene_registry/#module-scenes.scene_registry"><code class="xref">scenes.scene_registry</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/spot_box/#module-spot_box"><code class="xref">spot_box</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/spot_hand_navigation/#module-spot_hand_navigation"><code class="xref">spot_hand_navigation</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/spot_navigation/#module-spot_navigation"><code class="xref">spot_navigation</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <a href="../api/spot_tire/#module-spot_tire"><code class="xref">spot_tire</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-t">
+    <td></td><td><strong>t</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-9" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/tasks/#module-tasks"><code class="xref">tasks</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/acrobot/#module-tasks.acrobot"><code class="xref">tasks.acrobot</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/cartpole/#module-tasks.cartpole"><code class="xref">tasks.cartpole</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/cost_functions/#module-tasks.cost_functions"><code class="xref">tasks.cost_functions</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/cylinder_push/#module-tasks.cylinder_push"><code class="xref">tasks.cylinder_push</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/mujoco_task/#module-tasks.mujoco_task"><code class="xref">tasks.mujoco_task</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/spot_base/#module-tasks.spot_base"><code class="xref">tasks.spot_base</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/spot_position_control/#module-tasks.spot_position_control"><code class="xref">tasks.spot_position_control</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-9">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/tasks/task/#module-tasks.task"><code class="xref">tasks.task</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="pcap">
+    <td></td><td>&#160;</td><td></td>
+  </tr>
+  <tr class="cap" id="cap-v">
+    <td></td><td><strong>v</strong></td><td></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-10" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/viser_app/#module-viser_app"><code class="xref">viser_app</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-10">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/viser_app/app/#module-viser_app.app"><code class="xref">viser_app.app</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-10">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/viser_app/gui/#module-viser_app.gui"><code class="xref">viser_app.gui</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-10">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/viser_app/io/#module-viser_app.io"><code class="xref">viser_app.io</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-10">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/viser_app/json_serializer/#module-viser_app.json_serializer"><code class="xref">viser_app.json_serializer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-10">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/viser_app/profiler/#module-viser_app.profiler"><code class="xref">viser_app.profiler</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr>
+    <td><img src="../_static/minus.png" class="toggler"
+              id="toggle-11" style="display: none" alt="-" /></td>
+    <td>
+        <a href="../api/visuals/#module-visuals"><code class="xref">visuals</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-11">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/visuals/meshcat_visualizer/#module-visuals.meshcat_visualizer"><code class="xref">visuals.meshcat_visualizer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-11">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/visuals/mujoco_visualizer/#module-visuals.mujoco_visualizer"><code class="xref">visuals.mujoco_visualizer</code></a></td><td>
+    <em></em></td>
+  </tr>
+  <tr class="cg-11">
+    <td></td>
+    <td>&#160;&#160;&#160;
+        <a href="../api/visuals/quaternion_operations/#module-visuals.quaternion_operations"><code class="xref">visuals.quaternion_operations</code></a></td><td>
+    <em></em></td>
+  </tr>
+</table>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024 - 2025
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/bdaiinstitute/jacta-manipulation" aria-label="GitHub">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+        </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

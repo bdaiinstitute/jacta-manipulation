@@ -1,0 +1,101 @@
+:py:mod:`learning.replay_buffer`
+================================
+
+.. py:module:: learning.replay_buffer
+
+
+Module Contents
+---------------
+
+.. py:class:: ReplayBuffer
+
+
+   
+   ReplayBuffer
+   .. py:attribute:: params
+      :type: dexterity.jacta_planner.planner.parameter_container.ParameterContainer
+
+      
+
+   .. py:attribute:: storage_class
+      :type: torchrl.data.replay_buffers.Storage
+
+      
+
+   .. py:attribute:: sampler_class
+      :type: torchrl.data.replay_buffers.Sampler
+
+      
+
+   .. py:method:: __post_init__() -> None
+
+
+   .. py:method:: setup_storage() -> None
+
+      
+      Setup storage
+
+   .. py:method:: setup_sampler() -> None
+
+      
+      Setup sampler
+
+   .. py:method:: setup_buffer() -> None
+
+      
+      Setup buffer
+
+   .. py:method:: reset() -> None
+
+      
+      Reset
+
+   .. py:method:: extend(batch: tensordict.TensorDict) -> None
+
+      
+      Extend
+
+      :param batch: Batch to extend with
+      :type batch: TensorDict
+
+   .. py:method:: sample() -> tensordict.TensorDict
+
+      
+      Sample
+
+   .. py:method:: __getitem__(key: str) -> tensordict.TensorDict
+
+      
+      Get item overload
+
+      :param key: key to get Tensor from
+      :type key: str
+
+      :returns: *TensorDict* -- Tensor stored at 'key'
+
+
+.. py:class:: TrajectoryReplayBuffer
+
+
+   Bases: :py:obj:`ReplayBuffer`
+
+   
+   TrajectoryReplayBuffer
+   .. py:method:: setup_sampler() -> None
+
+      
+      Setup sampler
+
+   .. py:method:: setup_buffer() -> None
+
+      
+      Setup buffer
+
+   .. py:method:: sample() -> tensordict.TensorDict
+
+      
+      Get sample
+
+      :returns: *TensorDict* -- Sample
+
+

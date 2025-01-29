@@ -1,0 +1,118 @@
+:py:mod:`dynamics.locomotion_plant`
+===================================
+
+.. py:module:: dynamics.locomotion_plant
+
+
+Module Contents
+---------------
+
+.. py:data:: isaac_to_mujoco_ixs
+   :value: [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11]
+
+   
+
+.. py:data:: mujoco_to_isaac_ixs
+   :value: [0, 3, 6, 9, 1, 4, 7, 10, 2, 5, 8, 11]
+
+   
+
+.. py:function:: isaac_to_mujoco(isaac: torch.FloatTensor) -> torch.FloatTensor
+
+   
+   Isaac to MuJoCo
+
+   :param isaac: Isaac tensor
+   :type isaac: FloatTensor
+
+   :returns: *FloatTensor* -- Mujoco tensor
+
+.. py:function:: mujoco_to_isaac(mujoco: torch.FloatTensor) -> torch.FloatTensor
+
+   
+   MuJoCo to Isaac
+
+   :param mujoco: MuJoCo tensor
+   :type mujoco: FloatTensor
+
+   :returns: *FloatTensor* -- Isaac tensor
+
+.. py:class:: LocomotionPlant(params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+
+
+   Bases: :py:obj:`dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant`
+
+   
+   LocomotionPlant
+   .. py:method:: initialize() -> None
+
+      
+      Initialize Locomotion Plant
+
+      :param params: Parameters for initialization
+      :type params: ParameterContainer
+
+   .. py:method:: load_policy() -> None
+
+      
+      Loads policy from the loaded params
+
+   .. py:method:: process_observations(obs: dict, velocity_command: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Process the observations
+
+      :param obs: Observations
+      :type obs: dict
+      :param velocity_command: Velocity command
+      :type velocity_command: FloatTensor
+
+      :returns: *FloatTensor* -- Processed observations
+
+   .. py:method:: run_policy(base_command: torch.FloatTensor, states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Runs the policy
+
+      :param base_command: Base command
+      :type base_command: FloatTensor
+      :param states: States
+      :type states: FloatTensor
+
+      :returns: *FloatTensor* -- Leg joint targets
+
+   .. py:method:: process_output(raw_output: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Process the raw output
+
+      :param raw_output: Raw output
+      :type raw_output: FloatTensor
+
+      :returns: *FloatTensor* -- Processed output
+
+   .. py:method:: get_sensor(states: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Get sensor data from the states
+
+      :param states: Vector of states
+      :type states: FloatTensor
+
+      :returns: *FloatTensor* -- Sensor data
+
+   .. py:method:: dynamics(states: torch.FloatTensor, action_trajectories: torch.FloatTensor, info: dict) -> torch.FloatTensor
+
+      
+      Dynamics
+
+      :param states: States
+      :type states: FloatTensor
+      :param action_trajectories: Action trajectories
+      :type action_trajectories: FloatTensor
+      :param info: Info
+      :type info: dict
+
+      :returns: *FloatTensor* -- States, sensor data and state histories
+
+

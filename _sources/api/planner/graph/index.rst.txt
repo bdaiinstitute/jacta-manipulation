@@ -1,0 +1,377 @@
+:py:mod:`planner.graph`
+=======================
+
+.. py:module:: planner.graph
+
+
+Module Contents
+---------------
+
+.. py:function:: sample_related_sub_goal_states(params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, goal_states: torch.FloatTensor, start_states: torch.FloatTensor) -> torch.FloatTensor
+
+   
+   Generates related goal states based on the provided parameters.
+
+   :param params: The container holding parameters of sub goal bounds.
+   :type params: ParameterContainer
+   :param goal_states: [num_parallel_searches, state_dimension]
+                       The goal states to generate related goal states from.
+   :type goal_states: FloatTensor
+   :param start_states: [num_parallel_searches, state_dimension]
+                        The start states to generate related goal states from.
+   :type start_states: FloatTensor
+
+   :returns: *new_goal_states* -- [num_parallel_searches, state_dimension] Related goal states as a tensor.
+
+   .. note::
+      This function assumes a diagonal covariance matrix.
+      It relies on the fact that the entries are independent and identically distributed (i.i.d.) entries.
+
+.. py:function:: sample_feasible_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, bound_lower: torch.FloatTensor, bound_upper: torch.FloatTensor, size: int = 1, num_attempts: int = 5) -> torch.FloatTensor
+
+   
+   Samples feasible states within given bounds, ensuring they are collision-free.
+
+   :param plant: The simulation plant used to check and normalize states.
+   :type plant: MujocoPlant
+   :param bound_lower: [state_dimension] Lower bounds for sampling states.
+   :type bound_lower: FloatTensor
+   :param bound_upper: [state_dimension] Upper bounds for sampling states.
+   :type bound_upper: FloatTensor
+   :param size: The number of states to sample. Default is 1.
+   :type size: int
+   :param num_attempts: The number of attempts to sample collision-free states. Default is 5.
+   :type num_attempts: int
+
+   :returns: *feasible_states* -- [size, state_dimension] Feasible states as a tensor, collision-free if possible.
+
+   .. note::
+      If ignore_sampled_state_collisions is set in plant.params, the function will return normalized states directly.
+      If no collision-free states are found after num_attempts,
+      it will return the last set of normalized states sampled.
+
+.. py:function:: sample_random_states(bound_lower: torch.FloatTensor, bound_upper: torch.FloatTensor, size: int = 1) -> torch.FloatTensor
+
+   
+   Sample random states
+
+   :param bound_lower: Lower bound
+   :type bound_lower: FloatTensor
+   :param bound_upper: Upper bound
+   :type bound_upper: FloatTensor
+   :param size: Sample size. Defaults to 1.
+   :type size: int, optional
+
+   :returns: *FloatTensor* -- Random state
+
+.. py:function:: sample_random_start_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+
+   
+   Get sample random start states
+
+   :param plant: Simulator plant
+   :type plant: MujocoPlant
+   :param params: Paramters container
+   :type params: ParameterContainer
+   :param size: Size. Defaults to 1.
+   :type size: int, optional
+
+   :returns: *FloatTensor* -- Random start state
+
+.. py:function:: sample_random_goal_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+
+   
+   Get sample random goal states
+
+   :param plant: Simulator plant
+   :type plant: MujocoPlant
+   :param params: Parameters container
+   :type params: ParameterContainer
+   :param size: Size. Defaults to 1.
+   :type size: int, optional
+
+   :returns: *FloatTensor* -- Random goal state
+
+.. py:function:: sample_random_sub_goal_states(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, size: int = 1) -> torch.FloatTensor
+
+   
+   Get sample random sub goal states
+
+   :param plant: Simulator plant
+   :type plant: MujocoPlant
+   :param params: Parameters container
+   :type params: ParameterContainer
+   :param size: Size. Defaults to 1.
+   :type size: int, optional
+
+   :returns: *FloatTensor* -- Random sub goal state
+
+.. py:class:: Graph(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer)
+
+
+   
+   MujocoPlant Graph
+   .. py:property:: node_id_to_search_index_map
+      :type: torch.IntTensor
+
+      
+      Node id to search index map
+
+      :returns: *IntTensor* -- Root ids
+
+   .. py:method:: reset() -> None
+
+      
+      Fully resets the graph data for a new search.
+
+   .. py:method:: set_start_states(start_states: torch.FloatTensor) -> None
+
+      
+      Sets the start states
+
+      :param start_states: Start states
+      :type start_states: FloatTensor
+
+   .. py:method:: set_goal_state(goal_state: torch.FloatTensor) -> None
+
+      
+      Sets the goal state
+
+      :param goal_state: Goal state
+      :type goal_state: FloatTensor
+
+   .. py:method:: calculate_distance_rewards(ids: torch.IntTensor) -> torch.FloatTensor
+
+      
+      Calculates the distance rewards
+
+      :param ids: Ids of distance rewards
+      :type ids: IntTensor
+
+      :returns: *FloatTensor* -- Distance rewards
+
+   .. py:method:: calculate_proximity_rewards(ids: torch.IntTensor) -> torch.FloatTensor
+
+      
+      Calculates proximity rewards
+
+      :param ids: Ids of proximity rewards
+      :type ids: IntTensor
+
+      :returns: *FloatTensor* -- Proximity rewards
+
+   .. py:method:: calculate_reachability_rewards(ids: torch.IntTensor, delta_states: torch.FloatTensor, minimum_distance: float = 0.001) -> torch.FloatTensor
+
+      
+      Calculate the reachability rewards
+
+      :param ids: Reachability matrices' ids
+      :type ids: IntTensor
+      :param delta_states: Delta states
+      :type delta_states: FloatTensor
+      :param minimum_distance: Minimum distance. Defaults to 0.001.
+      :type minimum_distance: float, optional
+
+      :returns: *FloatTensor* -- Reachability rewards
+
+   .. py:method:: add_total_rewards(ids: torch.IntTensor) -> torch.FloatTensor
+
+      
+      Adds and returns the total rewards
+
+      :param ids: Rewards' ids
+      :type ids: IntTensor
+
+      :returns: *FloatTensor* -- Sum of the different rewards
+
+   .. py:method:: check_for_early_termination(sensordata: torch.FloatTensor) -> torch.FloatTensor
+
+      
+      Checks for early termination
+
+      :param sensordata: Sensor data
+      :type sensordata: FloatTensor
+
+      :returns: *FloatTensor* -- Whether is terminal or not
+
+   .. py:method:: reachability_cache(ids: torch.IntTensor) -> Tuple[torch.FloatTensor, torch.FloatTensor]
+
+      
+      Reachability cache
+
+      :param ids: Tensor ids
+      :type ids: IntTensor
+
+      :returns: *Tuple[FloatTensor, FloatTensor]* -- [Bs, reachability_matrices]
+
+   .. py:method:: add_nodes(root_ids: torch.IntTensor, parent_ids: torch.IntTensor, states: torch.FloatTensor, sensors: torch.FloatTensor, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, relative_actions: torch.FloatTensor, is_terminal_node: torch.FloatTensor, is_main_node: bool = True) -> Tuple[int, bool]
+
+      
+      Adds a new node to the graph based on its state/distance from the goal and updates its reward.
+
+      When a new node is added to the graph, it gets evaluated in terms of reward and added to the graph.
+
+      :param root_ids: Root ids
+      :type root_ids: IntTensor
+      :param parent_ids: Ids to which the new node will be connected
+      :type parent_ids: IntTensor
+      :param states: The current states of the node, used to determine its distance to goal
+      :type states: FloatTensor
+      :param sensors: Sensors
+      :type sensors: FloatTensor
+      :param start_actions: Start actions
+      :type start_actions: FloatTensor
+      :param end_actions: End actions
+      :type end_actions: FloatTensor
+      :param relative_actions: Relative Actions
+      :type relative_actions: FloatTensor
+      :param is_terminal_node: Whether it is a terminal node or not
+      :type is_terminal_node: FloatTensor
+      :param is_main_node: Whether it is a main node or not. Defaults to True.
+      :type is_main_node: bool, optional
+
+      :returns: *Tuple[int, bool]* -- *description*
+
+   .. py:method:: reset_sub_goal_states() -> None
+
+      
+      Resets the sub goal states to the goal states.
+
+   .. py:method:: change_sub_goal_states(sub_goal_states: torch.FloatTensor) -> None
+
+      
+      Changes sub goal states
+
+      :param sub_goal_states: Sub goal states
+      :type sub_goal_states: FloatTensor
+
+   .. py:method:: deactivate_nodes(ids: torch.IntTensor) -> None
+
+      
+      Deactives the required nodes
+
+      :param ids: Ids of the nodes to deactivate
+      :type ids: IntTensor
+
+   .. py:method:: activate_all_nodes() -> None
+
+      
+      Converts all sub nodes to main nodes and activates all inactive but used nodes
+
+   .. py:method:: sorted_progress_ids(reward_based: bool, search_index: int = 0, non_terminal: bool = True) -> torch.IntTensor
+
+      
+      Sort ids by reward or distance
+
+      :param reward_based: Whether the sorting is based on rewards or distances
+      :type reward_based: bool
+      :param search_index: Index to search for. Defaults to 0.
+      :type search_index: int, optional
+      :param non_terminal: Non terminal. Defaults to True.
+      :type non_terminal: bool, optional
+
+      :returns: *IntTensor* -- Valid ids
+
+   .. py:method:: get_best_id(reward_based: bool = True, search_indices: Optional[torch.IntTensor] = None, non_terminal: bool = True) -> torch.IntTensor
+
+      
+      Gets the best ids
+
+      :param reward_based: Whether get the ids by rewards or distances. Defaults to True.
+      :type reward_based: bool, optional
+      :param search_indices: Indices to search for. Defaults to None.
+      :type search_indices: Optional[IntTensor], optional
+      :param non_terminal: Non terminal. Defaults to True.
+      :type non_terminal: bool, optional
+
+      :returns: *IntTensor* -- Best ids
+
+   .. py:method:: is_worse_than(ids: Union[int, torch.IntTensor], comparison_ids: int) -> Union[bool, torch.Tensor]
+
+      
+      Is worse than
+
+      :param ids: Ids
+      :type ids: Union[int, IntTensor]
+      :param comparison_ids: Comparison ids
+      :type comparison_ids: int
+
+      :returns: *Union[bool, torch.Tensor]* -- Is worse
+
+   .. py:method:: is_better_than(ids: Union[int, torch.IntTensor], comparison_ids: int) -> Union[bool, torch.Tensor]
+
+      
+      Is better than
+
+      :param ids: Ids
+      :type ids: Union[int, IntTensor]
+      :param comparison_ids: Comparison ids
+      :type comparison_ids: int
+
+      :returns: *Union[bool, torch.Tensor]* -- Is better
+
+   .. py:method:: number_of_nodes() -> int
+
+      
+      Returns the number of active nodes
+
+      :returns: *int* -- Number of active nodes
+
+   .. py:method:: get_active_main_ids(search_index: Optional[int] = None, non_terminal: bool = False) -> torch.IntTensor
+
+      
+      Gets the ids of the active nodes
+
+      :param search_index: Search index. Defaults to None.
+      :type search_index: Optional[int], optional
+      :param non_terminal: Non terminal. Defaults to False.
+      :type non_terminal: bool, optional
+
+      :returns: *IntTensor* -- Main active ids
+
+   .. py:method:: get_root_ids() -> torch.IntTensor
+
+      
+      Returns the root ids
+
+      :returns: *IntTensor* -- Root ids
+
+   .. py:method:: shortest_path_to(idx: int, start_id: Optional[int] = None) -> torch.IntTensor
+
+      
+      Shortest path to
+
+      :param idx: Idx
+      :type idx: int
+      :param start_id: Start id. Defaults to None.
+      :type start_id: Optional[int], optional
+
+      :returns: *IntTensor* -- Path
+
+   .. py:method:: save(filename: str) -> None
+
+      
+      Save
+
+      :param filename: Filename to save to
+      :type filename: str
+
+   .. py:method:: load(filename: str) -> None
+
+      
+      Load from file
+
+      :param filename: Filename to load from
+      :type filename: str
+
+   .. py:method:: add_child_ids_to_node() -> None
+
+      
+      Adds child ids to node
+
+   .. py:method:: destroy() -> None
+
+      
+      Used to destroy the graph and free up GPU memory.
+
+

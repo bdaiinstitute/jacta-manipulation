@@ -1,0 +1,23 @@
+:py:mod:`benchmarking.profiling`
+================================
+
+.. py:module:: benchmarking.profiling
+
+.. autoapi-nested-parse::
+
+   
+   Allows the user to profile planner instances.
+
+
+Module Contents
+---------------
+
+.. py:function:: run_example(example_type: str, example_name: str, test_mode: bool = True) -> None
+
+   
+   Profiles any of the planners' performance on a given task.
+
+   :param example_type: can be "planner_single_goal", "planner_multi_goal", "planner_exploration".
+   :param example_name: can be "floating_hand", "proximity_optimization", "allegro_hand".
+   :param test_mode: Running in test mode this is much faster but won't fully complete the task.
+

@@ -1,0 +1,214 @@
+:py:mod:`visuals.mujoco_visualizer`
+===================================
+
+.. py:module:: visuals.mujoco_visualizer
+
+.. autoapi-nested-parse::
+
+   
+   Class for rendering Mujoco trajectories in meshcat
+
+
+Module Contents
+---------------
+
+.. py:data:: DEFAULT_COLORS
+
+   
+
+.. py:data:: Trajectory
+   :type: TypeAlias
+
+   
+
+.. py:data:: RGBA
+   :type: TypeAlias
+
+   
+
+.. py:class:: MujocoRenderer(*, plant: Optional[dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant] = None, model_filepath: Optional[str] = None, time_step: Optional[float] = None, collision_geometry_opacity: Optional[float] = None)
+
+
+   
+   MujocoMeshcatRenderer is a class for rendering the Mujoco trajectories in meshcat.
+
+   It parses bodies from Mujoco.MjModel and animates them using minimal coordinates.
+
+   Example:
+   ```
+
+   ..
+
+      ..
+
+         ..
+
+            renderer = MujocoRenderer(plant = plant, time_step=0.01)
+            for state in state_trajectory:
+                renderer.render(state)
+            renderer.show_goal(goal_state)
+            renderer.play()
+            OR
+            renderer.save("recording.html")
+
+   .. py:property:: framerate
+      :type: int
+
+      
+      Framerate
+
+      :returns: *int* -- Framerate
+
+   .. py:method:: load_model(trajectory_name: str = 'trajectory', rgba: RGBA = None, force_reload: bool = True) -> None
+
+      
+      Load model visualization for a given trajectoryname if not already loaded.
+
+   .. py:method:: set_model(visualizer: meshcat.visualizer.Visualizer, joint_position: numpy.ndarray, trajectory_name: str = 'trajectory') -> None
+
+      
+      Set model visualization based on given joint positions for a specific trajectory.
+
+   .. py:method:: reset() -> None
+
+      
+      Reset the visualization environment by deleting all trajectories and animations.
+
+   .. py:method:: initialize_markers(marker_info: Dict[str, Dict[str, Any]]) -> None
+
+      
+      Initialize multiple markers at once.
+
+      :param marker_info: A dictionary where keys are marker names and values are
+                          dictionaries containing 'pos', 'rgba', and 'radius' for each marker.
+
+   .. py:method:: update_markers(marker_poses: Dict[str, numpy.ndarray]) -> None
+
+      
+      Update the positions of multiple markers at once.
+
+      :param marker_poses: A dictionary where keys are marker names and values are
+                           the new positions (np.ndarray) for each marker.
+
+   .. py:method:: add_marker(name: str, pos: numpy.ndarray, rgba: list[float], radius: float = 0.02) -> None
+
+      
+      Add a marker to the visualization.
+
+   .. py:method:: set_marker(visualizer: meshcat.visualizer.Visualizer, pos: numpy.ndarray, name: str) -> None
+
+      
+      Set the position of a marker in the visualization.
+
+   .. py:method:: animate_marker(name: str, pos: numpy.ndarray) -> None
+
+      
+      Animate a marker in the visualization.
+
+      .. note:: This function should be called after the .render() function to animate the marker.
+
+   .. py:method:: render(trajectory: Trajectory, frame_index: int = -1, trajectory_name: str = 'trajectory', rgba: RGBA = None) -> None
+
+      
+      Render the model at a specific frame using joint positions and trajectory name.
+
+   .. py:method:: init_points(N_points: int, name: str, color: tuple = (0, 1, 0)) -> None
+
+      
+      Trajectory visualization utils
+
+   .. py:method:: update_points(points: numpy.ndarray, name: str) -> None
+
+      
+      Trajectory visualization utils
+
+   .. py:method:: initialize_candidate_trajectories(N_candidates: int, N_eval: int, part: str = 'base') -> None
+
+      
+      Initialize candidate trajectories.
+
+      Initialize candidate trajectories for visualization of spline candidate trajectories for either
+      the base or the arm. Trajectories are visualized arrays of points in 3D space.
+
+   .. py:method:: update_candidate_trajectories(trajectories: List[numpy.ndarray], part: str = 'base') -> None
+
+      
+      Trajectory visualization utils
+
+   .. py:method:: init_ee_position() -> None
+
+      
+      Trajectory visualization utils
+
+   .. py:method:: update_ee_position(pos: numpy.ndarray) -> None
+
+      
+      Trajectory visualization utils
+
+   .. py:method:: show_trajectory(joint_positions: numpy.ndarray, trajectory_name: str = 'trajectory', rgba: RGBA = None, force_reload: bool = True) -> None
+
+      
+      Render a trajectory of joint positions with optional RGBA color.
+
+   .. py:method:: show_goal(joint_position: Trajectory, goal_name: str = 'goal', rgba: RGBA = None, force_reload: bool = True) -> None
+
+      
+      Show the goal joint positions with optional RGBA color.
+
+   .. py:method:: extract_joint_positions(trajectory: Trajectory) -> numpy.ndarray
+
+      
+      Extracts joint positions as a numpy array.
+
+      This method takes a trajectory, which can be either a torch.FloatTensor or a numpy.ndarray,
+      and extracts the joint positions up to the number of joints (nq) in the plant model.
+
+      :param trajectory: The input trajectory containing joint positions.
+      :type trajectory: Trajectory
+
+      :returns: *np.ndarray* -- joint positions
+
+   .. py:method:: show_box_goal(pos: numpy.ndarray, quat: numpy.ndarray, size: numpy.ndarray) -> None
+
+      
+      Show the goal object position and orientation.
+
+   .. py:method:: show(trajectory: Trajectory, goal: Optional[Trajectory] = None, colors: Dict[str, Any] = DEFAULT_COLORS) -> None
+
+      
+      Visualize a trajectory alongside a goal pose for the robot.
+
+      :param trajectory: sequence of states (num_frames x nx) OR configurations (num_frames x nq)
+      :param goal: sequence of states (num_frames x nx) OR configurations (num_frames x nq)
+      :param colors: dictionary of {trajectory_name : colors} a color can be specified with
+                     a list (rgba), a float (opacity, original colors are preserved), None (original colors
+                     and opacity are preserved). E.g.
+                     DEFAULT_COLORS = {
+                         "trajectory": 0.6,
+                         "goal": [0.2, 0.2, 0.6, 0.2],
+                     }
+
+   .. py:method:: play(wait_for_input: bool = False) -> None
+
+      
+      Play the animation.
+
+   .. py:method:: wait_for_input(message: str = 'Press Enter to continue...') -> None
+
+      
+      Waits for user input
+
+      :param message: Input message. Defaults to "Press Enter to continue...".
+      :type message: str, optional
+
+   .. py:method:: get_html() -> str
+
+      
+      Generate static HTML representation of the current visualization.
+
+   .. py:method:: save(filename: str = 'dexterity/meshcat_recording.html') -> None
+
+      
+      Save the current visualization as an HTML file.
+
+

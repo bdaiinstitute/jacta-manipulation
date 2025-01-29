@@ -1,0 +1,208 @@
+:py:mod:`planner.graph_worker`
+==============================
+
+.. py:module:: planner.graph_worker
+
+
+Module Contents
+---------------
+
+.. py:function:: pareto_distribution(length: int, exponent: float) -> torch.FloatTensor
+
+   
+   Pareto distribution
+
+   :param length: Length
+   :type length: int
+   :param exponent: Exponent
+   :type exponent: float
+
+   :returns: *FloatTensor* -- Pareto distribution
+
+.. py:class:: GraphWorker(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, action_sampler: dexterity.jacta_planner.planner.action_sampler.ActionSampler, logger: dexterity.jacta_planner.planner.logger.Logger, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+
+
+   
+   SimulationPlant GraphWorker
+   .. py:method:: reset() -> None
+
+      
+      Re initializes
+
+   .. py:method:: node_selection(search_indices: torch.IntTensor) -> torch.IntTensor
+
+      
+      Selects a collection of nodes.
+
+      Nodes are ranked either by reward or scaled distance to goal.
+      Then nodes are selected according to the Pareto distribution.
+
+      :param search_indices: the indices of the searches to select nodes for
+
+   .. py:method:: node_extension(node_ids: torch.IntTensor, relative_actions: torch.FloatTensor, num_action_steps: int, action_type: dexterity.jacta_planner.planner.types.ActionType | None = None) -> Tuple[torch.IntTensor, float, bool]
+
+      
+      Chooses a node to extend to based on the current node and action sampler.
+
+      :param node_ids: the id sof the nodes to extend from with the actions
+      :type node_ids: IntTensor
+      :param relative_actions: control vectors of size (nu,)
+      :type relative_actions: FloatTensor
+      :param num_action_steps: the number of steps. Must be the same for all extensions to perform parallel rollout
+      :type num_action_steps: int
+      :param action_type: Action type. Defaults to None.
+      :type action_type: ActionType | None, optional
+
+   .. py:method:: node_pruning(paths_ids: torch.IntTensor) -> torch.IntTensor
+
+      
+      Finds the best node in path_ids and removes all nodes after the best node
+
+   .. py:method:: node_replacement(node_ids: torch.IntTensor, paths_ids: torch.IntTensor, best_indices: torch.IntTensor) -> Tuple[int, bool]
+
+      
+      Tries to replace the path from predecessor_node to node with a direct_node from predecessor_node
+
+   .. py:method:: percentage_range(start: int, stop: int) -> range
+
+      
+      Percentage range
+
+      :param start: Start
+      :type start: int
+      :param stop: Stop
+      :type stop: int
+
+      :returns: *range* -- Range between start and stop
+
+   .. py:method:: get_progress_info(iteration: int, num_steps: int, print_percentage: bool = False, verbose: bool = False) -> torch.FloatTensor
+
+      
+      Gets the progress info
+
+      :param iteration: Number of iterations
+      :type iteration: int
+      :param num_steps: Number of steps
+      :type num_steps: int
+      :param print_percentage: Whether to print the percentage or not. Defaults to False.
+      :type print_percentage: bool, optional
+      :param verbose: Enable verbose. Defaults to False.
+      :type verbose: bool, optional
+
+      :returns: *FloatTensor* -- Relative distances
+
+   .. py:method:: callback_and_progress_check(iteration: int, num_steps: int, change_goal: bool = False, verbose: bool = False) -> torch.BoolTensor
+
+      
+      Calls the search callback. Returns True if goal reached
+
+
+.. py:class:: SingleGoalWorker(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, action_sampler: dexterity.jacta_planner.planner.action_sampler.ActionSampler, logger: dexterity.jacta_planner.planner.logger.Logger, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+
+
+   Bases: :py:obj:`GraphWorker`
+
+   
+   SingleGoal GraphWorker implementation
+   .. py:method:: work(verbose: bool = False) -> bool
+
+      
+      Tries to find a path to a single goal.
+
+
+.. py:class:: ParallelGoalsWorker(*args: Tuple, **kwargs: dict)
+
+
+   Bases: :py:obj:`GraphWorker`
+
+   
+   ParallelGoals GraphWorker implementation
+   .. py:method:: try_to_reallocate_workers(worker_reset_mask: torch.BoolTensor) -> None
+
+      
+      Try to reallocate workers
+
+      :param worker_reset_mask: Reset mask
+      :type worker_reset_mask: BoolTensor
+
+   .. py:method:: update_extension_lengths(search_reset_mask: torch.BoolTensor) -> None
+
+      
+      Update extension lengths
+
+      :param search_reset_mask: Reset mask
+      :type search_reset_mask: BoolTensor
+
+   .. py:method:: reset_finished_workers() -> None
+
+      
+      Reset finished workers
+
+   .. py:method:: update_pareto_parameters(node_ids: torch.IntTensor, new_node_ids: torch.IntTensor) -> None
+
+      
+      Update pareto parameters
+
+      :param node_ids: Node ids
+      :type node_ids: IntTensor
+      :param new_node_ids: New node ids
+      :type new_node_ids: IntTensor
+
+   .. py:method:: work(verbose: bool = False) -> bool
+
+      
+      Tries to find a path to a single goal.
+
+
+.. py:class:: CommonGoalWorkerInterface(*args: Tuple, **kwargs: dict)
+
+
+   
+   CommonGoalWorker base class
+
+.. py:class:: RelatedGoalWorker(*args: Tuple, **kwargs: dict)
+
+
+   Bases: :py:obj:`CommonGoalWorkerInterface`
+
+   
+   RelatedGoalWorker implementation
+   .. py:method:: work(verbose: bool = False) -> bool
+
+      
+      Tries to find paths to goals sampled around the actual goal.
+
+
+.. py:class:: ExplorerWorker(*args: Tuple, **kwargs: dict)
+
+
+   Bases: :py:obj:`CommonGoalWorkerInterface`
+
+   
+   ExploreWorker implementation
+   .. py:method:: work(verbose: bool = False) -> bool
+
+      
+      Tries to find paths to randomly sampled goals
+
+
+.. py:class:: RolloutWorker(plant: dexterity.jacta_planner.dynamics.mujoco_dynamics.MujocoPlant, graph: dexterity.jacta_planner.planner.graph.Graph, action_sampler: dexterity.jacta_planner.planner.action_sampler.ActionSampler, logger: dexterity.jacta_planner.planner.logger.Logger, params: dexterity.jacta_planner.planner.parameter_container.ParameterContainer, callback: Callable | None = None, callback_period: int | None = None)
+
+
+   Bases: :py:obj:`GraphWorker`
+
+   
+   RolloutWorker implementation
+   .. py:method:: work(verbose: bool = False) -> bool
+
+      
+      Always extends the last node.
+
+
+.. py:function:: inspect_action_type(graph_worker: GraphWorker, action_type: dexterity.jacta_planner.planner.types.ActionType, node_ids: torch.IntTensor | None = None, num_action_steps: int = 100) -> torch.FloatTensor
+
+   
+   Inspection tool for a specific action type.
+
+   This rollout the dynamics of the system assuming that we always select the same action_type.
+

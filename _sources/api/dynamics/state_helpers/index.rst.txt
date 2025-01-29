@@ -1,0 +1,223 @@
+:py:mod:`dynamics.state_helpers`
+================================
+
+.. py:module:: dynamics.state_helpers
+
+
+Module Contents
+---------------
+
+.. py:function:: slice_union(*slices: slice) -> slice
+
+   
+   Create a union of multiple slices, ensuring they are contiguous.
+
+.. py:class:: StateArray
+
+
+   
+   State Array for ThreadedLocomotionPlant
+   .. py:attribute:: base_pos
+
+      
+
+   .. py:attribute:: base_quat
+
+      
+
+   .. py:attribute:: fl_leg
+
+      
+
+   .. py:attribute:: fr_leg
+
+      
+
+   .. py:attribute:: hl_leg
+
+      
+
+   .. py:attribute:: hr_leg
+
+      
+
+   .. py:attribute:: arm
+
+      
+
+   .. py:attribute:: object_pos
+
+      
+
+   .. py:attribute:: object_quat
+
+      
+
+   .. py:attribute:: base_lin_vel
+
+      
+
+   .. py:attribute:: base_ang_vel
+
+      
+
+   .. py:attribute:: fl_leg_vel
+
+      
+
+   .. py:attribute:: fr_leg_vel
+
+      
+
+   .. py:attribute:: hl_leg_vel
+
+      
+
+   .. py:attribute:: hr_leg_vel
+
+      
+
+   .. py:attribute:: arm_vel
+
+      
+
+   .. py:attribute:: object_lin_vel
+
+      
+
+   .. py:attribute:: object_ang_vel
+
+      
+
+   .. py:attribute:: legs
+
+      
+
+   .. py:attribute:: legs_vel
+
+      
+
+   .. py:attribute:: size
+      :value: 64
+
+      
+
+
+.. py:class:: CommandArray
+
+
+   
+   Command Array for ThreadedLocomotionPlant
+   .. py:attribute:: longitudinal_vel
+
+      
+
+   .. py:attribute:: lateral_vel
+
+      
+
+   .. py:attribute:: yaw_vel
+
+      
+
+   .. py:attribute:: arm
+
+      
+
+   .. py:attribute:: fl_leg
+
+      
+
+   .. py:attribute:: fr_leg
+
+      
+
+   .. py:attribute:: hl_leg
+
+      
+
+   .. py:attribute:: hr_leg
+
+      
+
+   .. py:attribute:: base_roll
+
+      
+
+   .. py:attribute:: base_pitch
+
+      
+
+   .. py:attribute:: base_height
+
+      
+
+   .. py:attribute:: size
+      :type: int
+      :value: 25
+
+      
+
+   .. py:attribute:: legs
+
+      
+
+   .. py:attribute:: velocities
+
+      
+
+   .. py:attribute:: non_velocities
+
+      
+
+   .. py:method:: create(num_systems: int) -> numpy.ndarray
+      :classmethod:
+
+      
+      Create a new command array with default values.
+
+   .. py:method:: set_defaults(commands: numpy.ndarray) -> numpy.ndarray
+      :classmethod:
+
+      
+      Set default values for the command array.
+
+   .. py:method:: update(commands: numpy.ndarray, **kwargs: dict) -> numpy.ndarray
+      :classmethod:
+
+      
+      Update the command array with new values.
+
+   .. py:method:: as_dict(command: numpy.ndarray) -> dict
+      :classmethod:
+
+      
+      Convert a command array to a dictionary.
+
+
+.. py:class:: SensorArray
+
+
+   
+   Sensor Array for ThreadedLocomotionPlant (spot + object)
+   .. py:attribute:: body_object
+
+      
+
+   .. py:attribute:: object_y_axis
+
+      
+
+   .. py:attribute:: fngr_object
+
+      
+
+   .. py:attribute:: trace_body
+
+      
+
+   .. py:attribute:: trace_gripper
+
+      
+
+

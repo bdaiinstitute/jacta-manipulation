@@ -1,0 +1,25 @@
+:py:mod:`controllers`
+=====================
+
+.. py:module:: controllers
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   controller/index.rst
+   sampling_base/index.rst
+
+
+Package Contents
+----------------
+
+.. py:function:: get_registered_controllers() -> Dict[str, Tuple[Type[dexterity.controllers.controller.Controller], Type[dexterity.controllers.controller.ControllerConfig]]]
+
+
+.. py:function:: register_controller(name: str, controller_type: Type[dexterity.controllers.controller.Controller], controller_config_type: Type[dexterity.controllers.controller.ControllerConfig]) -> None
+
+

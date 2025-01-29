@@ -1,0 +1,31 @@
+:py:mod:`tasks`
+===============
+
+.. py:module:: tasks
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   acrobot/index.rst
+   cartpole/index.rst
+   cost_functions/index.rst
+   cylinder_push/index.rst
+   mujoco_task/index.rst
+   spot_base/index.rst
+   spot_position_control/index.rst
+   task/index.rst
+
+
+Package Contents
+----------------
+
+.. py:function:: get_registered_tasks() -> Dict[str, Tuple[Type[dexterity.tasks.task.Task], Type[dexterity.tasks.task.TaskConfig]]]
+
+
+.. py:function:: register_task(name: str, task_type: Type[dexterity.tasks.task.Task], task_config_type: Type[dexterity.tasks.task.TaskConfig]) -> None
+
+
