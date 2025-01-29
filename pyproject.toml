@@ -33,7 +33,7 @@ dependencies = [
     "pyyaml==6.0.1",
     "scipy==1.14.0",
     "torch==2.3.0",
-    "torchrl==0.4.0",
+    "torchrl=>0.4.0",
     "tqdm==4.64.1",
     "typing-extensions==4.11.0",
     "tyro==0.8.4",
