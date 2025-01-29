@@ -51,8 +51,8 @@ dependencies = [
     "pyngrok>=4.1.6",  # meshcat
     "pyzmq>=17.0.0",  # meshcat
     "setuptools>=61.0",
-    "tensordict==0.4.0",
-    "toposort==1.10",
+    "tensordict>=0.4.0",
+    "toposort>=1.10",
     "tornado>=4.0.0",  # meshcat
     "u-msgpack-python>=2.4.1",  # meshcat
     "meshcat",
