@@ -7,10 +7,10 @@ import numpy as np
 import torch
 from mujoco import rollout
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.experts.expert_sampler import ExpertSampler
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.experts.expert_sampler import ExpertSampler
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 class PrimitiveSampler(ExpertSampler):

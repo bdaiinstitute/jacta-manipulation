@@ -3,8 +3,8 @@
 import torch
 from torch import FloatTensor
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 torch.manual_seed(0)
 

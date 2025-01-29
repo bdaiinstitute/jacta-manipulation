@@ -6,8 +6,8 @@ import torch
 from tensordict import TensorDict
 from torchrl.data.replay_buffers import RandomSampler, SliceSampler
 
-from dexterity.learning.replay_buffer import ReplayBuffer, TrajectoryReplayBuffer
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.learning.replay_buffer import ReplayBuffer, TrajectoryReplayBuffer
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 class TestReplayBuffer(unittest.TestCase):

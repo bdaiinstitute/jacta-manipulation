@@ -5,13 +5,13 @@ from pathlib import Path
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.learning.networks import Actor
-from dexterity.learning.normalizer import Normalizer
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.experts.expert_sampler import ExpertSampler
-from dexterity.planner.planner.data_collection import find_latest_model_path, load_model
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.learning.networks import Actor
+from jactamanipulation.learning.normalizer import Normalizer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.experts.expert_sampler import ExpertSampler
+from jactamanipulation.planner.planner.data_collection import find_latest_model_path, load_model
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 class NetworkSampler(ExpertSampler):

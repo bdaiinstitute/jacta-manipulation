@@ -6,10 +6,10 @@ import torch
 from benedict import benedict
 from torch import FloatTensor, IntTensor
 
-from dexterity.planner.dynamics.action_trajectory import create_action_trajectories
-from dexterity.planner.planner.clipping_method import clip_actions
-from dexterity.planner.planner.linear_algebra import project_vectors_on_eigenspace
-from dexterity.planner.planner.types import (
+from jactamanipulation.planner.dynamics.action_trajectory import create_action_trajectories
+from jactamanipulation.planner.planner.clipping_method import clip_actions
+from jactamanipulation.planner.planner.linear_algebra import project_vectors_on_eigenspace
+from jactamanipulation.planner.planner.types import (
     ACTION_TYPE_DIRECTIONAL_MAP,
     ActionMode,
     ActionType,

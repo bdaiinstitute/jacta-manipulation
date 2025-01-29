@@ -3,9 +3,9 @@ import unittest
 
 import torch
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.environments import DexterityEnv
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.environments import DexterityEnv
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 class TestDexterityEnv(unittest.TestCase):

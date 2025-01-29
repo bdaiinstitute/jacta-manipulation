@@ -2,8 +2,8 @@
 
 from planner_setup import planner_setup
 
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def slow_get_best_id(graph: Graph, reward_based: bool = True) -> int:

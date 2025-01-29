@@ -3,10 +3,10 @@
 import numpy as np
 import torch
 
-from dexterity.planner.dynamics.locomotion_plant import LocomotionPlant
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.action_processor import SpotFloatingActionProcessor, SpotWholebodyActionProcessor
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.locomotion_plant import LocomotionPlant
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.action_processor import SpotFloatingActionProcessor, SpotWholebodyActionProcessor
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def setup_spot_floating() -> tuple[MujocoPlant, SpotFloatingActionProcessor]:

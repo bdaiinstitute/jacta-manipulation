@@ -8,8 +8,8 @@ import mujoco.viewer
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.linear_algebra import transformation_matrix
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.linear_algebra import transformation_matrix
 
 
 def spot_ik_mujoco(plant: MujocoPlant, dx: np.ndarray, ee_body: str = "arm_link_fngr") -> np.ndarray:

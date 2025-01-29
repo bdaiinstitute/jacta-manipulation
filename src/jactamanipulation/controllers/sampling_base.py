@@ -5,10 +5,10 @@ from typing import Any, Literal
 import numpy as np
 from scipy.interpolate import interp1d
 
-from dexterity.controllers.controller import Controller, ControllerConfig
-from dexterity.mujoco_dynamics.utils import get_trace_sensors
-from dexterity.tasks.task import Task, TaskConfig
-from dexterity.viser_app.gui import slider
+from jactamanipulation.controllers.controller import Controller, ControllerConfig
+from jactamanipulation.mujoco_dynamics.utils import get_trace_sensors
+from jactamanipulation.tasks.task import Task, TaskConfig
+from jactamanipulation.viser_app.gui import slider
 
 MAX_NUM_TRACES = 5
 

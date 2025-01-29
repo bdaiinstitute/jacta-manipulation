@@ -6,14 +6,14 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from dexterity.spot_hardware.low_level.constants import (
+from jactamanipulation.spot_hardware.low_level.constants import (
     SPOT_STATE_INDS,
     STANDING_HEIGHT,
     STANDING_STOWED_POS,
 )
-from dexterity.tasks.cost_functions import quadratic_norm
-from dexterity.tasks.mujoco_task import MujocoTask
-from dexterity.tasks.task import TaskConfig
+from jactamanipulation.tasks.cost_functions import quadratic_norm
+from jactamanipulation.tasks.mujoco_task import MujocoTask
+from jactamanipulation.tasks.task import TaskConfig
 
 MODEL_PATH = "dexterity/models/xml/scenes/legacy/spot_position_control.xml"
 

@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 import unittest
 
-from dexterity.planner.environments.tire_state_cache_generator import TireGeneratorConfig, TireStateCacheGenerator
+from jactamanipulation.planner.environments.tire_state_cache_generator import TireGeneratorConfig, TireStateCacheGenerator
 
 
 class TestFloatingSpotTireCacheGenerator(unittest.TestCase):

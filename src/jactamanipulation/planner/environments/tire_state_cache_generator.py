@@ -9,9 +9,9 @@ import torch
 from scipy.spatial.transform import Rotation as R
 from tqdm import trange
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.visuals.mujoco_visualizer import MujocoRenderer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.visuals.mujoco_visualizer import MujocoRenderer
 
 
 @dataclass

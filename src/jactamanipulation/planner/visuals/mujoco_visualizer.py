@@ -13,14 +13,14 @@ from meshcat.animation import Animation
 from meshcat.visualizer import Visualizer
 from mujoco import MjData, MjModel, mj_kinematics
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.dynamics.mujoco_utils import (
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.dynamics.mujoco_utils import (
     get_body_name,
     get_geom_name,
     get_geometry_rgba,
     get_mesh_data,
 )
-from dexterity.planner.visuals.meshcat_visualizer import (
+from jactamanipulation.planner.visuals.meshcat_visualizer import (
     MeshPhysicalMaterial,
     add_box,
     add_capsule,

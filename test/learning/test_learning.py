@@ -2,16 +2,16 @@
 import torch
 from tensordict import TensorDict
 
-from dexterity.learning.learner import Learner
-from dexterity.learning.replay_buffer import ReplayBuffer
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.action_sampler import ActionSampler
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.graph_worker import ExplorerWorker
-from dexterity.planner.planner.logger import Logger
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.planner import Planner
-from dexterity.planner.planner.types import ActionType, set_default_device_and_dtype
+from jactamanipulation.learning.learner import Learner
+from jactamanipulation.learning.replay_buffer import ReplayBuffer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.action_sampler import ActionSampler
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.graph_worker import ExplorerWorker
+from jactamanipulation.planner.planner.logger import Logger
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.planner import Planner
+from jactamanipulation.planner.planner.types import ActionType, set_default_device_and_dtype
 
 
 def learner_setup(search: bool, learn: bool) -> Learner:

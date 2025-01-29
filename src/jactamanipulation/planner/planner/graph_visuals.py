@@ -7,9 +7,9 @@ import torch
 from meshcat.visualizer import Visualizer
 from torch import FloatTensor
 
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.logger import Logger
-from dexterity.planner.visuals.meshcat_visualizer import rgb_float_to_hex
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.logger import Logger
+from jactamanipulation.planner.visuals.meshcat_visualizer import rgb_float_to_hex
 
 
 def rgba_palette(index: int, transparency: float = 1.0) -> list[float]:

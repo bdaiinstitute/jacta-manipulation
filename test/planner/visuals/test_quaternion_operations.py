@@ -4,7 +4,7 @@ import numpy as np
 import numpy.testing as np_test
 from scipy.spatial.transform import Rotation
 
-from dexterity.planner.visuals import quaternion_operations as qo
+from jactamanipulation.planner.visuals import quaternion_operations as qo
 
 _scipy_to_quat = np.array([[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0]])
 

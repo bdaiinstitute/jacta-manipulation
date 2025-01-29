@@ -3,9 +3,9 @@ import torch
 from scipy.spatial.transform import Rotation as R
 from torch import FloatTensor
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.dynamics.state_helpers import StateArray
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.dynamics.state_helpers import StateArray
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 isaac_to_mujoco_ixs = [0, 4, 8, 1, 5, 9, 2, 6, 10, 3, 7, 11]
 mujoco_to_isaac_ixs = [0, 3, 6, 9, 1, 4, 7, 10, 2, 5, 8, 11]

@@ -7,8 +7,8 @@ import numpy as np
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
-from dexterity.viser_app.io import IOContext
-from dexterity.visualizers.visualization import Visualization
+from jactamanipulation.viser_app.io import IOContext
+from jactamanipulation.visualizers.visualization import Visualization
 
 
 @dataclass

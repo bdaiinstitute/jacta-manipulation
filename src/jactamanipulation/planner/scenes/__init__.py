@@ -1,6 +1,6 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
-from dexterity.planner.scenes.scene_composer import SpotRobot
-from dexterity.planner.scenes.scene_registry import scene_registry
+from jactamanipulation.planner.scenes.scene_composer import SpotRobot
+from jactamanipulation.planner.scenes.scene_registry import scene_registry
 
 # Define what should be exported from this module
 __all__ = ["scene_registry", "spot_sensors"]

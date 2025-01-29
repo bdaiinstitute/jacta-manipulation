@@ -5,7 +5,7 @@ import mujoco
 import numpy as np
 from viser import ViserServer
 
-from dexterity.visualizers.mujoco.model import ViserMjModel
+from jactamanipulation.visualizers.mujoco.model import ViserMjModel
 
 viser_server = ViserServer()
 

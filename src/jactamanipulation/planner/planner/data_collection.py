@@ -8,8 +8,8 @@ from typing import Union
 import torch
 from google.cloud import storage
 
-from dexterity.learning.networks import Actor, Critic
-from dexterity.learning.normalizer import Normalizer
+from jactamanipulation.learning.networks import Actor, Critic
+from jactamanipulation.learning.normalizer import Normalizer
 
 
 def save_tensor(tensor: torch.Tensor, dest_path: Path) -> None:

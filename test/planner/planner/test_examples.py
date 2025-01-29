@@ -6,14 +6,14 @@ from pathlib import Path
 import torch
 from benedict import benedict
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.action_processor import SpotWholebodyActionProcessor
-from dexterity.planner.planner.action_sampler import ActionSampler
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.graph_worker import ExplorerWorker, RelatedGoalWorker, SingleGoalWorker
-from dexterity.planner.planner.logger import Logger
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.planner import Planner
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.action_processor import SpotWholebodyActionProcessor
+from jactamanipulation.planner.planner.action_sampler import ActionSampler
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.graph_worker import ExplorerWorker, RelatedGoalWorker, SingleGoalWorker
+from jactamanipulation.planner.planner.logger import Logger
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.planner import Planner
 
 
 def get_examples(config_path: Path) -> list[str]:

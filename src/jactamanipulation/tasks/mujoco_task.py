@@ -9,9 +9,9 @@ from mujoco_extensions.policy_rollout import threaded_physics_rollout
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
-from dexterity.tasks.task import ConfigT, Task, TaskConfig
-from dexterity.viser_app.io import IOContext
-from dexterity.visualizers.mujoco.visualization import MjVisualization
+from jactamanipulation.tasks.task import ConfigT, Task, TaskConfig
+from jactamanipulation.viser_app.io import IOContext
+from jactamanipulation.visualizers.mujoco.visualization import MjVisualization
 
 
 class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):

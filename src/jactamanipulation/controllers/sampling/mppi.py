@@ -6,9 +6,9 @@ from typing import Any
 
 import numpy as np
 
-from dexterity.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
-from dexterity.tasks.task import Task, TaskConfig
-from dexterity.viser_app.gui import slider
+from jactamanipulation.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
+from jactamanipulation.tasks.task import Task, TaskConfig
+from jactamanipulation.viser_app.gui import slider
 
 
 @slider("temperature", 0.1, 2.0, 0.05)

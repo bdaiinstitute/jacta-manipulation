@@ -10,25 +10,25 @@ import yaml
 from benedict import benedict
 from torch import Tensor
 
-from dexterity.planner.planner.action_processor import (  # noqa: F401
+from jactamanipulation.planner.planner.action_processor import (  # noqa: F401
     ActionProcessor,
     SpotFloatingActionProcessor,
     SpotWholebodyActionProcessor,
 )
-from dexterity.planner.planner.linear_algebra import gram_schmidt
-from dexterity.planner.planner.planner_helpers import (  # noqa: F401
+from jactamanipulation.planner.planner.linear_algebra import gram_schmidt
+from jactamanipulation.planner.planner.planner_helpers import (  # noqa: F401
     is_object_out_of_reach,
     is_object_tilted,
     torso_too_close_to_object,
 )
-from dexterity.planner.planner.types import (  # noqa: F401
+from jactamanipulation.planner.planner.types import (  # noqa: F401
     ActionMode,
     ClippingType,
     ControlType,
     convert_dtype,
     set_default_device_and_dtype,
 )
-from dexterity.planner.planner.types import ActionType as AT  # noqa: F401
+from jactamanipulation.planner.planner.types import ActionType as AT  # noqa: F401
 
 set_default_device_and_dtype()
 

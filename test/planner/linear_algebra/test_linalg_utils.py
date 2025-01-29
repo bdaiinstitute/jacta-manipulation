@@ -7,8 +7,8 @@ import torch
 from scipy.stats import truncpareto
 from torch import tensor
 
-from dexterity.planner.planner.clipping_method import box_scaling
-from dexterity.planner.planner.linear_algebra import (
+from jactamanipulation.planner.planner.clipping_method import box_scaling
+from jactamanipulation.planner.planner.linear_algebra import (
     gram_schmidt,
     normalize,
     project_v_on_u,

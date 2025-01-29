@@ -2,8 +2,8 @@
 import torch
 from planner_setup import planner_setup
 
-from dexterity.planner.planner.graph_worker import pareto_distribution
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.graph_worker import pareto_distribution
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def test_pareto_distribution() -> None:

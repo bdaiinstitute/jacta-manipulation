@@ -2,12 +2,12 @@
 
 from typing import Dict, Tuple, Type
 
-from dexterity.controllers.controller import Controller, ControllerConfig
-from dexterity.controllers.sampling.cmaes import CMAES, CMAESConfig
-from dexterity.controllers.sampling.cross_entropy_method import CrossEntropyConfig, CrossEntropyMethod
-from dexterity.controllers.sampling.mppi import MPPI, MPPIConfig
-from dexterity.controllers.sampling.particle_filter import ParticleFilter, ParticleFilterConfig
-from dexterity.controllers.sampling.predictive_sampling import PredictiveSampling, PredictiveSamplingConfig
+from jactamanipulation.controllers.controller import Controller, ControllerConfig
+from jactamanipulation.controllers.sampling.cmaes import CMAES, CMAESConfig
+from jactamanipulation.controllers.sampling.cross_entropy_method import CrossEntropyConfig, CrossEntropyMethod
+from jactamanipulation.controllers.sampling.mppi import MPPI, MPPIConfig
+from jactamanipulation.controllers.sampling.particle_filter import ParticleFilter, ParticleFilterConfig
+from jactamanipulation.controllers.sampling.predictive_sampling import PredictiveSampling, PredictiveSamplingConfig
 
 _registered_controllers: Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]] = {
     "cross_entropy_method": (CrossEntropyMethod, CrossEntropyConfig),

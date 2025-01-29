@@ -5,10 +5,10 @@ from typing import Tuple
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.experts.expert import Expert
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.linear_algebra import (
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.experts.expert import Expert
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.linear_algebra import (
     einsum_ij_kj_ki,
     einsum_ijk_ikl_ijl,
     einsum_ikj_ik_ij,
@@ -18,8 +18,8 @@ from dexterity.planner.planner.linear_algebra import (
     normalize_multiple,
     project_vectors_on_eigenspace,
 )
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.types import ACTION_TYPE_DIRECTIONAL_MAP, ActionType
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.types import ACTION_TYPE_DIRECTIONAL_MAP, ActionType
 
 
 class ActionSampler:

@@ -17,15 +17,15 @@ from dacite import from_dict
 from viser import GuiEvent, Icon, MeshHandle, ViserServer
 
 from common.path_resolvers import get_starfish_path
-from dexterity.controllers import get_registered_controllers
-from dexterity.controllers.controller import Controller, ControllerConfig
-from dexterity.tasks import get_registered_tasks
-from dexterity.tasks.task import Task, TaskConfig
-from dexterity.viser_app.gui import create_gui_elements
-from dexterity.viser_app.io import IOContext, SimulationIOContext
-from dexterity.viser_app.json_serializer import ConfigEncoder
-from dexterity.viser_app.profiler import ViserProfiler, ViserProfilerConfig
-from dexterity.visualizers.visualization import Visualization
+from jactamanipulation.controllers import get_registered_controllers
+from jactamanipulation.controllers.controller import Controller, ControllerConfig
+from jactamanipulation.tasks import get_registered_tasks
+from jactamanipulation.tasks.task import Task, TaskConfig
+from jactamanipulation.viser_app.gui import create_gui_elements
+from jactamanipulation.viser_app.io import IOContext, SimulationIOContext
+from jactamanipulation.viser_app.json_serializer import ConfigEncoder
+from jactamanipulation.viser_app.profiler import ViserProfiler, ViserProfilerConfig
+from jactamanipulation.visualizers.visualization import Visualization
 
 STARFISH_PATH = Path(get_starfish_path())
 

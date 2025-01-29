@@ -8,10 +8,10 @@ import numpy as np
 from mujoco_extensions.policy_rollout import System, create_systems_vector, threaded_rollout
 from scipy.interpolate import interp1d
 
-from dexterity.spot_hardware.low_level.constants import ARM_STOWED_POS
-from dexterity.tasks.mujoco_task import MujocoTask
-from dexterity.tasks.task import TaskConfig
-from dexterity.viser_app.gui import slider
+from jactamanipulation.spot_hardware.low_level.constants import ARM_STOWED_POS
+from jactamanipulation.tasks.mujoco_task import MujocoTask
+from jactamanipulation.tasks.task import TaskConfig
+from jactamanipulation.viser_app.gui import slider
 
 GOAL_POSITIONS = {
     "origin": np.array([0, 0, 0.0]),

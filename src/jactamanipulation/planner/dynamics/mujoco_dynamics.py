@@ -22,7 +22,7 @@ from mujoco import (
 )
 from torch import FloatTensor, IntTensor, tensor
 
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def get_joint_dimensions(joint_ids: npt.ArrayLike, state_address: npt.ArrayLike, state_length: int) -> IntTensor:

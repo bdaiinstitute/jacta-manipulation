@@ -16,14 +16,14 @@ import torch
 from tensordict import TensorDict
 from torch import FloatTensor
 
-from dexterity.learning.networks import Actor, Critic
-from dexterity.learning.normalizer import Normalizer
-from dexterity.learning.replay_buffer import ReplayBuffer
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.data_collection import find_latest_model_path, load_model, save_model
-from dexterity.planner.planner.graph import Graph, sample_random_goal_states, sample_random_start_states
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.types import ActionType
+from jactamanipulation.learning.networks import Actor, Critic
+from jactamanipulation.learning.normalizer import Normalizer
+from jactamanipulation.learning.replay_buffer import ReplayBuffer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.data_collection import find_latest_model_path, load_model, save_model
+from jactamanipulation.planner.planner.graph import Graph, sample_random_goal_states, sample_random_start_states
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.types import ActionType
 
 
 @dataclass

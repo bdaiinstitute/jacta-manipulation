@@ -2,8 +2,8 @@
 
 import torch
 
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def my_sensor(x: torch.FloatTensor) -> torch.FloatTensor:

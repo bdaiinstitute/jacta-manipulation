@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from dexterity.spot_hardware.low_level.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
-from dexterity.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
+from jactamanipulation.spot_hardware.low_level.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jactamanipulation.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
 
 TIRE_HEIGHT: float = 0.515
 TIRE_GOAL = np.array([1.63, -0.53, TIRE_HEIGHT / 2])

@@ -6,9 +6,9 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from dexterity.tasks.cost_functions import quadratic_norm, smooth_l1_norm
-from dexterity.tasks.mujoco_task import MujocoTask
-from dexterity.tasks.task import TaskConfig
+from jactamanipulation.tasks.cost_functions import quadratic_norm, smooth_l1_norm
+from jactamanipulation.tasks.mujoco_task import MujocoTask
+from jactamanipulation.tasks.task import TaskConfig
 
 MODEL_PATH = "dexterity/models/xml/scenes/legacy/cartpole.xml"
 

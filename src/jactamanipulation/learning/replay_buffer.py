@@ -11,7 +11,7 @@ from torchrl.data.replay_buffers import (
     TensorDictReplayBuffer,
 )
 
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 @dataclass

@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from dexterity.spot_hardware.low_level.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
-from dexterity.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
+from jactamanipulation.spot_hardware.low_level.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jactamanipulation.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
 
 # mocap area cross locations
 RESET_OBJECT_POSE = np.array([3, 0, 0.275, 1, 0, 0, 0])

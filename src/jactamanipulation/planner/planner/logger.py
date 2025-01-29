@@ -7,9 +7,9 @@ from typing import Tuple
 import torch
 from torch import tensor
 
-from dexterity.planner.planner.graph import Graph
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.types import ActionType, SelectionType
+from jactamanipulation.planner.planner.graph import Graph
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.types import ActionType, SelectionType
 
 
 class Logger:

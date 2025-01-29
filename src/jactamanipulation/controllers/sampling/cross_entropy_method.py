@@ -7,8 +7,8 @@ from typing import Any
 import numpy as np
 from scipy.interpolate import interp1d
 
-from dexterity.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
-from dexterity.tasks.task import Task, TaskConfig
+from jactamanipulation.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
+from jactamanipulation.tasks.task import Task, TaskConfig
 
 #### BOX HARDWARE
 # @dataclass

@@ -4,16 +4,16 @@ import os
 import torch
 from benedict import benedict
 
-from dexterity.learning.learner import Learner
-from dexterity.learning.replay_buffer import ReplayBuffer
-from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.planner.planner.action_sampler import ActionSampler
-from dexterity.planner.planner.graph import Graph, sample_random_goal_states
-from dexterity.planner.planner.graph_worker import ExplorerWorker, RolloutWorker
-from dexterity.planner.planner.logger import Logger
-from dexterity.planner.planner.parameter_container import ParameterContainer
-from dexterity.planner.planner.planner import Planner
-from dexterity.planner.planner.types import ActionType as AT
+from jactamanipulation.learning.learner import Learner
+from jactamanipulation.learning.replay_buffer import ReplayBuffer
+from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jactamanipulation.planner.planner.action_sampler import ActionSampler
+from jactamanipulation.planner.planner.graph import Graph, sample_random_goal_states
+from jactamanipulation.planner.planner.graph_worker import ExplorerWorker, RolloutWorker
+from jactamanipulation.planner.planner.logger import Logger
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.planner import Planner
+from jactamanipulation.planner.planner.types import ActionType as AT
 
 
 def test_examples() -> None:

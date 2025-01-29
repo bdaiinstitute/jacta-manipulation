@@ -3,7 +3,7 @@ import torch
 from planner_setup import planner_setup
 from torch import tensor
 
-from dexterity.planner.planner.parameter_container import ParameterContainer
+from jactamanipulation.planner.planner.parameter_container import ParameterContainer
 
 
 def test_random_actions() -> None:

@@ -2,8 +2,8 @@
 """Action Trajectory Submodule."""
 import torch
 
-from dexterity.planner.planner.linear_algebra import einsum_jk_ikl_ijl
-from dexterity.planner.planner.types import ControlType
+from jactamanipulation.planner.planner.linear_algebra import einsum_jk_ikl_ijl
+from jactamanipulation.planner.planner.types import ControlType
 
 
 def create_action_trajectory(
