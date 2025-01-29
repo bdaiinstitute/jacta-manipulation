@@ -23,7 +23,3 @@ you might have to
 ```
 unset PYTHONPATH
 ```
-
-
-# TODO
-break deps on visualizers
