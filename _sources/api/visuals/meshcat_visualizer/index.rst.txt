@@ -22,7 +22,7 @@ Module Contents
    
    Overwrite rgba values with user-defined values.
 
-.. py:class:: MeshPhysicalMaterial
+.. py:class:: MeshPhysicalMaterial(color=16777215, reflectivity=0.5, map=None, side=2, transparent=None, opacity=1.0, linewidth=1.0, wireframe=False, wireframeLinewidth=1.0, vertexColors=False, **kwargs)
 
 
    Bases: :py:obj:`meshcat.geometry.GenericMaterial`
@@ -30,7 +30,7 @@ Module Contents
    
    A material class with high reflectivity.
 
-.. py:class:: MeshToonMaterial
+.. py:class:: MeshToonMaterial(color=16777215, reflectivity=0.5, map=None, side=2, transparent=None, opacity=1.0, linewidth=1.0, wireframe=False, wireframeLinewidth=1.0, vertexColors=False, **kwargs)
 
 
    Bases: :py:obj:`meshcat.geometry.GenericMaterial`
