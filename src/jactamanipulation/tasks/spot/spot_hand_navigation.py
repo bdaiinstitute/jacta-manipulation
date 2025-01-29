@@ -6,7 +6,7 @@ import mujoco
 import numpy as np
 
 from jactamanipulation.mujoco_dynamics.utils import get_sensor_name
-from jactamanipulation.spot_hardware.low_level.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jactamanipulation.common.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
 from jactamanipulation.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
 
 

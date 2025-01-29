@@ -2,7 +2,7 @@
 import numpy as np
 
 from jactamanipulation.planner.scenes import spot_sensors
-from jactamanipulation.spot_hardware.low_level.constants import ARM_UNSTOWED_POS
+from jactamanipulation.common.constants import ARM_UNSTOWED_POS
 
 
 def slice_union(*slices: slice) -> slice:

@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from jactamanipulation.spot_hardware.low_level.constants import STANDING_STOWED_POS
+from jactamanipulation.common.constants import STANDING_STOWED_POS
 from jactamanipulation.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
 
 

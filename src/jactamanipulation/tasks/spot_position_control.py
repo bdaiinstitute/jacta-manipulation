@@ -6,7 +6,7 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from jactamanipulation.spot_hardware.low_level.constants import (
+from jactamanipulation.common.constants import (
     SPOT_STATE_INDS,
     STANDING_HEIGHT,
     STANDING_STOWED_POS,
