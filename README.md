@@ -1,7 +1,7 @@
 ## jacta-manipulation
 [![build](https://github.com/bdaiinstitute/jacta-manipulation/actions/workflows/build.yml/badge.svg)](https://github.com/bdaiinstitute/jacta-manipulation/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/bdaiinstitute/jacta-manipulation/graph/badge.svg?token=SH5Y2J032M)](https://codecov.io/gh/bdaiinstitute/jacta-manipulation)
-[![Static Badge](https://img.shields.io/badge/documentation-latest-8A2BE2)](https://bdaiinstitute.github.io/jacta-manipulation)
+[![Static Badge](https://img.shields.io/badge/documentation-latest-8A2BE2)](https://upgraded-disco-qzn7k5e.pages.github.io)
 
 
 ### Install package
