@@ -26,4 +26,4 @@ unset PYTHONPATH
 
 
 # TODO
-break deps on common and visualizers
+break deps on visualizers
