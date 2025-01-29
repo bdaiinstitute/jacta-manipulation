@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from common.path_resolvers import get_starfish_path
+from jactamanipulation.common.path_resolvers import get_package_path
 from jactamanipulation.planner.scenes.scene_composer import Scene, make_default_header_includes
 
 ASSET_DIR = Path("dexterity/models/meshes/")
@@ -35,7 +35,7 @@ class SceneRegistry:
         scene = Scene(**scene_kwargs, header_includes=header_includes)
 
         # Generate XML file - outside the source tree
-        scene.to_xml_file(get_starfish_path() / self.output_dir / f"{name}.xml")
+        scene.to_xml_file(get_package_path() / self.output_dir / f"{name}.xml")
 
     def generate_all(self) -> None:
         """Generate XML for all registered scenes."""

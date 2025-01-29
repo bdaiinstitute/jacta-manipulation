@@ -16,7 +16,7 @@ import tyro
 from dacite import from_dict
 from viser import GuiEvent, Icon, MeshHandle, ViserServer
 
-from common.path_resolvers import get_starfish_path
+from jactamanipulation.common.path_resolvers import get_package_path
 from jactamanipulation.controllers import get_registered_controllers
 from jactamanipulation.controllers.controller import Controller, ControllerConfig
 from jactamanipulation.tasks import get_registered_tasks
@@ -27,7 +27,7 @@ from jactamanipulation.viser_app.json_serializer import ConfigEncoder
 from jactamanipulation.viser_app.profiler import ViserProfiler, ViserProfilerConfig
 from jactamanipulation.visualizers.visualization import Visualization
 
-STARFISH_PATH = Path(get_starfish_path())
+JACTA_MANIPULATION_PATH = Path(get_package_path())
 
 
 class SimulationProcess(Process):
@@ -241,7 +241,7 @@ class ViserApp:
         self,
         init_controller: str = "predictive_sampling",
         init_task: str = "cartpole",
-        benchmark_dir: Optional[Path] = STARFISH_PATH / "dexterity/data/log/controller",
+        benchmark_dir: Optional[Path] = JACTA_MANIPULATION_PATH / "dexterity/data/log/controller",
     ):
         # Create viser server for app frontend.
         self.server = ViserServer()
