@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 from torch import FloatTensor
 
-from dexterity.jacta_learning.normalizer import Normalizer
+from dexterity.learning.normalizer import Normalizer
 
 
 def soft_update(network: nn.Module, target: nn.Module, tau: float) -> nn.Module:

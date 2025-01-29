@@ -6,8 +6,8 @@ from typing import Optional
 import torch
 from torch import IntTensor
 
-from dexterity.jacta_planner.planner.planner import Planner
-from dexterity.jacta_planner.visuals.mujoco_visualizer import MujocoRenderer
+from dexterity.planner.planner.planner import Planner
+from dexterity.planner.visuals.mujoco_visualizer import MujocoRenderer
 
 
 class Benchmark:

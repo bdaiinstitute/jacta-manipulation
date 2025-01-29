@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 import numpy as np
 
-from dexterity.jacta_planner.scenes import spot_sensors
+from dexterity.planner.scenes import spot_sensors
 from dexterity.spot_hardware.low_level.constants import ARM_UNSTOWED_POS
 
 
@@ -124,6 +124,6 @@ class SensorArray:
     def __init__(self) -> None:
         if len(spot_sensors) != 5:
             raise ValueError(
-                "Number of sensors in dexterity.jacta_planner.scenes.spot_sensors does not match SensorArray. "
+                "Number of sensors in dexterity.planner.scenes.spot_sensors does not match SensorArray. "
                 "Please adjust the SensorArray accordingly."
             )

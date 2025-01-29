@@ -1,0 +1,13 @@
+load("//tools/pytest:defs.bzl", "starfish_pytest")
+
+starfish_pytest(
+    name = "test_einsum",
+    srcs = ["test_einsum.py"],
+    deps = ["//dexterity/src:dexterity"],
+)
+
+starfish_pytest(
+    name = "test_linalg_utils",
+    srcs = ["test_linalg_utils.py"],
+    deps = ["//dexterity/src:dexterity"],
+)

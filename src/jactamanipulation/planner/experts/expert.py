@@ -4,9 +4,9 @@ import importlib
 
 from torch import FloatTensor, IntTensor
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.graph import Graph
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.graph import Graph
+from dexterity.planner.planner.parameter_container import ParameterContainer
 
 
 class Expert:
@@ -24,7 +24,7 @@ class Expert:
         self.experts = []
         for i, expert in enumerate(self.params.action_experts):
             module_name, function_name = expert.split(".")
-            module_full_path = f"dexterity.jacta_planner.experts.{module_name}"
+            module_full_path = f"dexterity.planner.experts.{module_name}"
             module = importlib.import_module(module_full_path)
             expert_class = getattr(module, function_name)
             kwargs = eval(self.params.action_expert_kwargs[i])

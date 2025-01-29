@@ -1,0 +1,17 @@
+# Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
+
+load("//tools/pytest:defs.bzl", "starfish_pytest")
+
+starfish_pytest(
+    name = "test_mj_dynamics",
+    srcs = ["test_mj_dynamics.py"],
+    data = ["//dexterity/examples/planner:config"],
+    deps = ["//dexterity/src:dexterity"],
+)
+
+starfish_pytest(
+    name = "test_sensor",
+    srcs = ["test_sensor.py"],
+    data = ["//dexterity/examples/planner:config"],
+    deps = ["//dexterity/src:dexterity"],
+)

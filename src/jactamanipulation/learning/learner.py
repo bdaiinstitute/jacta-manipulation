@@ -16,14 +16,14 @@ import torch
 from tensordict import TensorDict
 from torch import FloatTensor
 
-from dexterity.jacta_learning.networks import Actor, Critic
-from dexterity.jacta_learning.normalizer import Normalizer
-from dexterity.jacta_learning.replay_buffer import ReplayBuffer
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.data_collection import find_latest_model_path, load_model, save_model
-from dexterity.jacta_planner.planner.graph import Graph, sample_random_goal_states, sample_random_start_states
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
-from dexterity.jacta_planner.planner.types import ActionType
+from dexterity.learning.networks import Actor, Critic
+from dexterity.learning.normalizer import Normalizer
+from dexterity.learning.replay_buffer import ReplayBuffer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.data_collection import find_latest_model_path, load_model, save_model
+from dexterity.planner.planner.graph import Graph, sample_random_goal_states, sample_random_start_states
+from dexterity.planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.planner.types import ActionType
 
 
 @dataclass
@@ -67,9 +67,9 @@ class Learner:
         now = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         task = self.params.model_filename[:-4]
 
-        self.base_local_path = Path("dexterity/examples/jacta_learning/models") / task
+        self.base_local_path = Path("dexterity/examples/learning/models") / task
         self.local_path = self.base_local_path / f"{now}/"
-        self.traj_path = Path("dexterity/examples/jacta_learning/trajectories") / task / f"{now}/"
+        self.traj_path = Path("dexterity/examples/learning/trajectories") / task / f"{now}/"
         self.base_cloud_path = Path("dexterity") / task / "models"
         self.cloud_path = self.base_cloud_path / f"{now}/"
 

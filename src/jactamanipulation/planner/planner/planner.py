@@ -7,14 +7,14 @@ import matplotlib.pyplot as plt
 import torch
 from torch import FloatTensor
 
-from dexterity.jacta_planner.dynamics.locomotion_plant import LocomotionPlant
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.action_sampler import ActionSampler
-from dexterity.jacta_planner.planner.graph import Graph
-from dexterity.jacta_planner.planner.graph_worker import GraphWorker
-from dexterity.jacta_planner.planner.logger import Logger
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
-from dexterity.jacta_planner.planner.types import ActionType
+from dexterity.planner.dynamics.locomotion_plant import LocomotionPlant
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.action_sampler import ActionSampler
+from dexterity.planner.planner.graph import Graph
+from dexterity.planner.planner.graph_worker import GraphWorker
+from dexterity.planner.planner.logger import Logger
+from dexterity.planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.planner.types import ActionType
 
 
 class Planner:

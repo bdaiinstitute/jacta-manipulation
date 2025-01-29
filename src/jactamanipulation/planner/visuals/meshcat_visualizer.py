@@ -8,7 +8,7 @@ import meshcat.transformations as tf
 import numpy as np
 from meshcat.visualizer import Visualizer
 
-from dexterity.jacta_planner.visuals.quaternion_operations import (
+from dexterity.planner.visuals.quaternion_operations import (
     pose_to_transformation_matrix,
     quaternion_to_transformation_matrix,
 )

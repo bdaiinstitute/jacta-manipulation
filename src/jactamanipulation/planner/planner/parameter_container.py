@@ -10,25 +10,25 @@ import yaml
 from benedict import benedict
 from torch import Tensor
 
-from dexterity.jacta_planner.planner.action_processor import (  # noqa: F401
+from dexterity.planner.planner.action_processor import (  # noqa: F401
     ActionProcessor,
     SpotFloatingActionProcessor,
     SpotWholebodyActionProcessor,
 )
-from dexterity.jacta_planner.planner.linear_algebra import gram_schmidt
-from dexterity.jacta_planner.planner.planner_helpers import (  # noqa: F401
+from dexterity.planner.planner.linear_algebra import gram_schmidt
+from dexterity.planner.planner.planner_helpers import (  # noqa: F401
     is_object_out_of_reach,
     is_object_tilted,
     torso_too_close_to_object,
 )
-from dexterity.jacta_planner.planner.types import (  # noqa: F401
+from dexterity.planner.planner.types import (  # noqa: F401
     ActionMode,
     ClippingType,
     ControlType,
     convert_dtype,
     set_default_device_and_dtype,
 )
-from dexterity.jacta_planner.planner.types import ActionType as AT  # noqa: F401
+from dexterity.planner.planner.types import ActionType as AT  # noqa: F401
 
 set_default_device_and_dtype()
 
@@ -125,7 +125,7 @@ class ParameterContainer:
             base_yaml_path (Path): Path to base yaml file
         """
         self.base_yaml_path = base_yaml_path
-        base_yml_path = self.examples_directory / "jacta_planner/config" / self.base_yaml_path
+        base_yml_path = self.examples_directory / "planner/config" / self.base_yaml_path
         self._base_config = self._load_yaml(base_yml_path)
         self._config.merge(self._base_config["defaults"], overwrite=True)
         self._typeify()

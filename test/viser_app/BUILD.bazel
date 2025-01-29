@@ -1,0 +1,11 @@
+load("//tools/pytest:defs.bzl", "starfish_pytest")
+
+starfish_pytest(
+    name = "test_visualizer",
+    srcs = ["test_visualizer.py"],
+    data = [
+        "@//dexterity/config:optimizer_config",
+        "@//dexterity/models:files",
+    ],
+    deps = ["//dexterity/src:dexterity"],
+)

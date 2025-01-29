@@ -1,0 +1,35 @@
+load("//tools/pytest:defs.bzl", "starfish_pytest")
+
+# TODO(jbruedigam) Removed until package is open sourced
+# starfish_pytest(
+#     name = "test_examples",
+#     timeout = "long",
+#     srcs = ["test_examples.py"],
+#     data = [
+#         "//dexterity/examples/learning:config",
+#         "//dexterity/examples/planner:config",
+#         "//dexterity/test:test_config",
+#     ],
+#     tags = ["exclusive"],
+#     deps = ["//dexterity/src:dexterity"],
+# )
+
+starfish_pytest(
+    name = "test_learning",
+    srcs = ["test_learning.py"],
+    data = [
+        "//dexterity/examples/learning:config",
+        "//dexterity/examples/planner:config",
+        "//dexterity/test:test_config",
+    ],
+    deps = ["//dexterity/src:dexterity"],
+)
+
+starfish_pytest(
+    name = "test_replay_buffer",
+    timeout = "long",
+    srcs = ["test_replay_buffer.py"],
+    data = ["//dexterity/examples/planner:config"],
+    tags = ["exclusive"],
+    deps = ["//dexterity/src:dexterity"],
+)

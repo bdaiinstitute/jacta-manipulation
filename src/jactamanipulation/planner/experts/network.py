@@ -5,13 +5,13 @@ from pathlib import Path
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.jacta_learning.networks import Actor
-from dexterity.jacta_learning.normalizer import Normalizer
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.experts.expert_sampler import ExpertSampler
-from dexterity.jacta_planner.planner.data_collection import find_latest_model_path, load_model
-from dexterity.jacta_planner.planner.graph import Graph
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
+from dexterity.learning.networks import Actor
+from dexterity.learning.normalizer import Normalizer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.experts.expert_sampler import ExpertSampler
+from dexterity.planner.planner.data_collection import find_latest_model_path, load_model
+from dexterity.planner.planner.graph import Graph
+from dexterity.planner.planner.parameter_container import ParameterContainer
 
 
 class NetworkSampler(ExpertSampler):
@@ -42,7 +42,7 @@ class NetworkSampler(ExpertSampler):
         if path:
             self.path = Path(path)
         elif is_local:
-            base_local_path = Path("dexterity/examples/jacta_learning/models") / task
+            base_local_path = Path("dexterity/examples/learning/models") / task
             self.path = find_latest_model_path(base_local_path)
         else:
             base_cloud_path = Path("dexterity") / task / "models"

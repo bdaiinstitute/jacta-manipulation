@@ -3,7 +3,7 @@
 
 if __name__ == "__main__":
     # Load the scenes
-    from dexterity.jacta_planner.scenes import scene_registry
+    from dexterity.planner.scenes import scene_registry
 
     # Generate all scenes
     scene_registry.generate_all()

@@ -5,11 +5,11 @@ from types import SimpleNamespace
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.action_processor import ActionProcessor
-from dexterity.jacta_planner.planner.graph import sample_random_goal_states, sample_random_start_states
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
-from dexterity.jacta_planner.planner.types import ActionType
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.action_processor import ActionProcessor
+from dexterity.planner.planner.graph import sample_random_goal_states, sample_random_start_states
+from dexterity.planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.planner.types import ActionType
 
 
 @dataclass

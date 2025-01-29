@@ -6,7 +6,7 @@ import torch
 from benedict import benedict
 from torch import FloatTensor
 
-from dexterity.jacta_planner.planner.types import ClippingType
+from dexterity.planner.planner.types import ClippingType
 
 
 def clip_actions(actions: FloatTensor, params: benedict) -> FloatTensor:

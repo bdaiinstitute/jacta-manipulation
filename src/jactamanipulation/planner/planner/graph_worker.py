@@ -7,14 +7,14 @@ from typing import Callable, Tuple
 import torch
 from torch import BoolTensor, FloatTensor, IntTensor
 
-from dexterity.jacta_planner.dynamics.locomotion_plant import LocomotionPlant
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.action_sampler import ActionSampler
-from dexterity.jacta_planner.planner.graph import Graph, sample_random_sub_goal_states, sample_related_sub_goal_states
-from dexterity.jacta_planner.planner.linear_algebra import truncpareto_cdf
-from dexterity.jacta_planner.planner.logger import Logger
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
-from dexterity.jacta_planner.planner.types import ActionType, SelectionType
+from dexterity.planner.dynamics.locomotion_plant import LocomotionPlant
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.action_sampler import ActionSampler
+from dexterity.planner.planner.graph import Graph, sample_random_sub_goal_states, sample_related_sub_goal_states
+from dexterity.planner.planner.linear_algebra import truncpareto_cdf
+from dexterity.planner.planner.logger import Logger
+from dexterity.planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.planner.types import ActionType, SelectionType
 
 
 def pareto_distribution(length: int, exponent: float) -> FloatTensor:

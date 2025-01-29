@@ -3,10 +3,10 @@
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.graph import Graph
-from dexterity.jacta_planner.planner.linear_algebra import normalize_multiple
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.graph import Graph
+from dexterity.planner.planner.linear_algebra import normalize_multiple
+from dexterity.planner.planner.parameter_container import ParameterContainer
 
 
 class ExpertSampler:

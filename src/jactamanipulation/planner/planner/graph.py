@@ -6,14 +6,14 @@ from typing import Optional, Tuple, Union
 import torch
 from torch import FloatTensor, IntTensor
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant, scale_distances
-from dexterity.jacta_planner.planner.linear_algebra import (
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant, scale_distances
+from dexterity.planner.planner.linear_algebra import (
     einsum_ij_ij_i,
     einsum_ijk_ik_ij,
     einsum_ijk_ikl_ijl,
     einsum_ijk_ilk_ijl,
 )
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.planner.parameter_container import ParameterContainer
 
 
 def sample_related_sub_goal_states(

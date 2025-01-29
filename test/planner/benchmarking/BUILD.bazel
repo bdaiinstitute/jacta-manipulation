@@ -1,0 +1,9 @@
+# TODO(jbruedigam) Removed until package is open sourced
+# starfish_pytest(
+#     name = "test_run_benchmarks",
+#     timeout = "long",
+#     srcs = ["test_run_benchmarks.py"],
+#     data = ["//dexterity/examples/planner:config"],
+#     tags = ["exclusive"],
+#     deps = ["//dexterity/src:dexterity"],
+# )

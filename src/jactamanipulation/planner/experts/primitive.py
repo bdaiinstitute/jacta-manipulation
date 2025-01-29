@@ -7,10 +7,10 @@ import numpy as np
 import torch
 from mujoco import rollout
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.experts.expert_sampler import ExpertSampler
-from dexterity.jacta_planner.planner.graph import Graph
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.experts.expert_sampler import ExpertSampler
+from dexterity.planner.planner.graph import Graph
+from dexterity.planner.planner.parameter_container import ParameterContainer
 
 
 class PrimitiveSampler(ExpertSampler):
@@ -33,7 +33,7 @@ class PrimitiveSampler(ExpertSampler):
         action_time), used to create a PrimitiveSampler object.
         """
         module_name, function_name = primitive.split(".")
-        module_full_path = f"dexterity.jacta_planner.experts.primitives.{module_name}"
+        module_full_path = f"dexterity.planner.experts.primitives.{module_name}"
         module = importlib.import_module(module_full_path)
         function = getattr(module, function_name)
         self.actions_func = function

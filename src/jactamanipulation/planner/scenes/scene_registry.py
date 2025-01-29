@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from common.path_resolvers import get_starfish_path
-from dexterity.jacta_planner.scenes.scene_composer import Scene, make_default_header_includes
+from dexterity.planner.scenes.scene_composer import Scene, make_default_header_includes
 
 ASSET_DIR = Path("dexterity/models/meshes/")
 XML_DIR = Path("dexterity/models/xml/")

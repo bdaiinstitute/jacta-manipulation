@@ -9,9 +9,9 @@ import torch
 from scipy.spatial.transform import Rotation as R
 from tqdm import trange
 
-from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
-from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
-from dexterity.jacta_planner.visuals.mujoco_visualizer import MujocoRenderer
+from dexterity.planner.dynamics.mujoco_dynamics import MujocoPlant
+from dexterity.planner.planner.parameter_container import ParameterContainer
+from dexterity.planner.visuals.mujoco_visualizer import MujocoRenderer
 
 
 @dataclass
@@ -124,7 +124,7 @@ class TireStateCacheGenerator:
     config: TireGeneratorConfig
 
     def __post_init__(self) -> None:
-        self.params = ParameterContainer(f"dexterity/examples/jacta_planner/config/{self.task_name}.yml")
+        self.params = ParameterContainer(f"dexterity/examples/planner/config/{self.task_name}.yml")
         self.plant = MujocoPlant(params=self.params)
         self.arm_ik = SpotArmIK(self.plant, self.params, self.plant.actuated_pos)
         self.params.state_cache_folder.mkdir(parents=True, exist_ok=True)
