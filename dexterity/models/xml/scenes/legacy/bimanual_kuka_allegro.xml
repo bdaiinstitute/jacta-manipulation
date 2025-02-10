@@ -1,0 +1,612 @@
+<mujoco model="bimanual_allegro">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+
+  <compiler angle="radian" meshdir="../../../meshes/" autolimits="true"/>
+  <option timestep="0.01"/>
+
+  <default>
+    <default class="corner_contact">
+      <geom type="sphere" size="1e-7" friction="0.5" priority="3"/>
+    </default>
+    <default class="allegro_right">
+      <joint axis="0 1 0" damping=".1"/>
+      <position kp="0.5" forcerange="-0.1 0.1"/>
+      <geom density="800"/>
+
+      <default class="allegro_right_visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" material="black"/>
+        <default class="palm_visual">
+          <geom mesh="base_link"/>
+        </default>
+        <default class="base_visual">
+          <geom mesh="link_0.0"/>
+        </default>
+        <default class="proximal_visual">
+          <geom mesh="link_1.0"/>
+        </default>
+        <default class="medial_visual">
+          <geom mesh="link_2.0"/>
+        </default>
+        <default class="distal_visual">
+          <geom mesh="link_3.0"/>
+        </default>
+        <default class="fingertip_visual">
+          <geom pos="0 0 0.0267" material="white" mesh="link_3.0_tip"/>
+        </default>
+        <default class="thumbtip_visual">
+          <geom pos="0 0 0.0423" material="white" mesh="link_15.0_tip"/>
+        </default>
+      </default>
+
+      <default class="collision">
+        <geom group="3" friction="0.50" type="box" mass="0"
+        solimp="0.9 0.95 0.001 0.5 2" solref="0.02 1"/>
+        <default class="palm_collision">
+          <geom size="0.0204 0.0565 0.0475" pos="-0.0093 0 -0.0475"/>
+        </default>
+        <default class="base_collision">
+          <geom size="0.0098 0.01375 0.0082" pos="0 0 0.0082"/>
+          <default class="thumb_base_collision_0">
+            <geom size="0.0179 0.017 0.011" pos="-0.0179 0.009 0.003"/>
+            <!-- <geom size="0.0179 0.017 0.02275" pos="-0.0179 0.009 0.0145"/> -->
+          </default>
+          <default class="thumb_base_collision_1">
+            <geom size="0.0179 0.00980 0.012" pos="-0.0179 0.005 0.0255"/>
+          </default>
+          <default class="thumb_base_collision_2">
+            <geom type="cylinder" size="0.007 0.0179" quat="1 0 1 0" pos="-0.0179 0.019 0.014"/>
+          </default>
+        </default>
+        <default class="proximal_collision">
+          <geom size="0.0098 0.01375 0.027" pos="0 0 0.027"/>
+          <default class="thumb_proximal_collision">
+            <geom size="0.0098 0.01375 0.00885" pos="0 0 0.00885"/>
+          </default>
+        </default>
+        <default class="medial_collision">
+          <geom size="0.0098 0.01375 0.0192" pos="0 0 0.0192"/>
+          <default class="thumb_medial_collision">
+            <geom size="0.0098 0.01375 0.0257" pos="0 0 0.0257"/>
+          </default>
+        </default>
+        <default class="distal_collision">
+          <geom size="0.0098 0.01375 0.008" pos="0 0 0.008"/>
+          <default class="thumb_distal_collision">
+            <geom size="0.0098 0.01375 0.0157" pos="0 0 0.0157"/>
+          </default>
+        </default>
+        <default class="fingertip_collision">
+          <geom type="capsule" size="0.012 0.01" pos="0 0 0.019"/>
+          <default class="thumbtip_collision">
+            <geom type="capsule" size="0.012 0.008" pos="0 0 0.035"/>
+          </default>
+        </default>
+      </default>
+
+      <default class="palm">
+        <joint damping="1.0" range="-0.25 0.25"/>
+        <position kp="0.5" ctrlrange="-0.25 0.25" forcerange="-1 1"/>
+      </default>
+      <default class="base">
+        <joint axis="0 0 1" range="-0.47 0.47"/>
+        <position ctrlrange="-0.47 0.47"/>
+      </default>
+      <default class="proximal">
+        <joint range="-0.196 1.61"/>
+        <position ctrlrange="-0.196 1.61"/>
+      </default>
+      <default class="medial">
+        <joint range="-0.174 1.709"/>
+        <position ctrlrange="-0.174 1.709"/>
+      </default>
+      <default class="distal">
+        <joint range="-0.227 1.618"/>
+        <position ctrlrange="-0.227 1.618"/>
+      </default>
+      <default class="thumb_base">
+        <joint axis="-1 0 0" range="0.263 1.396"/>
+        <position ctrlrange="0.263 1.396"/>
+      </default>
+      <default class="thumb_proximal">
+        <joint axis="0 0 1" range="-0.105 1.163"/>
+        <position ctrlrange="-0.105 1.163"/>
+      </default>
+      <default class="thumb_medial">
+        <joint range="-0.189 1.644"/>
+        <position ctrlrange="-0.189 1.644"/>
+      </default>
+      <default class="thumb_distal">
+        <joint range="-0.162 1.719"/>
+        <position ctrlrange="-0.162 1.719"/>
+      </default>
+    </default>
+
+    <default class="iiwa">
+      <!-- the margin gap parameters allow for collision detection to be triggered all the time -->
+      <geom priority="2" friction="0.45 .01 .003" group="3" solref=".02 1" margin="0.0" gap="0.0"/>
+      <material specular="0.5" shininess="0.25"/>
+      <joint axis="0 0 1"  damping="3.0"/>
+      <position kp="2.5" ctrlrange="-2.81706 2.81706" forcerange="-1000 1000" />
+      <default class="joint1">
+        <joint range="-2.96706 2.96706"/>
+        <position ctrlrange="-2.81706 2.81706"/>
+      </default>
+      <default class="joint2">
+        <joint range="-2.0944 2.0944"/>
+        <position ctrlrange="-1.9444 1.9444"/>
+      </default>
+      <default class="joint3">
+        <joint range="-2.0944 2.0944"/>
+        <position ctrlrange="-1.9444 1.9444"/>
+      </default>
+      <default class="joint4">
+        <joint range="-2.0944 2.0944"/>
+        <position ctrlrange="-1.9444 1.9444"/>
+      </default>
+      <default class="joint5">
+        <joint range="-3.05433 3.05433"/>
+        <position ctrlrange="-2.90433 2.90433"/>
+      </default>
+      <default class="iiwa_visual">
+        <geom type="mesh" group="2" material="gray"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <texture name="blue_grid" type="2d" builtin="checker" rgb1=".02 .14 .44" rgb2=".27 .55 1" width="300" height="300" mark="edge" markrgb="1 1 1"/>
+    <material name="blue_grid" texture="blue_grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+    <material class="iiwa" name="gray" rgba="0.4 0.4 0.4 1"/>
+    <material class="iiwa" name="orange" rgba="1 0.423529 0.0392157 1"/>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <material name="white" rgba="0.9 0.9 0.9 1"/>
+
+    <mesh name="link_0" file="iiwa7/visual/link_0.obj"/>
+    <mesh name="link_1" file="iiwa7/visual/link_1.obj"/>
+    <mesh name="link_2" file="iiwa7/visual/link_2.obj"/>
+    <mesh name="link_3" file="iiwa7/visual/link_3.obj"/>
+    <mesh name="link_4" file="iiwa7/visual/link_4.obj"/>
+    <mesh name="link_5" file="iiwa7/visual/link_5.obj"/>
+    <mesh name="link_6" file="iiwa7/visual/link_6.obj"/>
+    <mesh name="link_7" file="iiwa7/visual/link_7.obj"/>
+
+    <mesh name="base_link_left" file="allegro/visual/base_link_left.obj"/>
+    <mesh name="base_link" file="allegro/visual/base_link.obj"/>
+    <mesh name="link_0.0" file="allegro/visual/link_0.0.obj"/>
+    <mesh name="link_1.0" file="allegro/visual/link_1.0.obj"/>
+    <mesh name="link_2.0" file="allegro/visual/link_2.0.obj"/>
+    <mesh name="link_3.0_tip" file="allegro/visual/link_3.0_tip.obj"/>
+    <mesh name="link_3.0" file="allegro/visual/link_3.0.obj"/>
+    <mesh name="link_4.0" file="allegro/visual/link_4.0.obj"/>
+    <mesh name="link_12.0_left" file="allegro/visual/link_12.0_left.obj"/>
+    <mesh name="link_12.0_right" file="allegro/visual/link_12.0_right.obj"/>
+    <mesh name="link_13.0" file="allegro/visual/link_13.0.obj"/>
+    <mesh name="link_14.0" file="allegro/visual/link_14.0.obj"/>
+    <mesh name="link_15.0_tip" file="allegro/visual/link_15.0_tip.obj"/>
+    <mesh name="link_15.0" file="allegro/visual/link_15.0.obj"/>
+
+  </asset>
+
+  <worldbody>
+    <site name="world"/>
+    <body>
+      <geom mass="0" name="floor" pos="0 0 -0.10" condim="3" size="10.0 10.0 0.10" rgba="0 1 1 1" type="box" material="blue_grid"/>
+    </body>
+
+    <include file="../../components/objects/box_with_handle.xml" />
+
+    <light name="top" pos="0 0 2" mode="trackcom"/>
+    <body name="base_left" pos="0 -0.45 0" childclass="iiwa">
+      <inertial mass="3.863" pos="-0.013 0 0.07" diaginertia="0.0141 0.0171 0.0178"/>
+      <geom class="iiwa_visual" mesh="link_0"/>
+      <body name="link1_left" gravcomp="1" pos="0 0 0.1575">
+        <inertial mass="2.7025" pos="0 -0.0347 0.113" diaginertia="0.0171 0.0163 0.006"/>
+        <joint name="joint1_left" class="joint1"/>
+        <geom class="iiwa_visual" mesh="link_1"/>
+        <site pos="0 0 -0.0005" name="site_link1_left"/>
+        <body name="link2_left" gravcomp="1" pos="0 0 0.1830" quat="0 0 1 1">
+          <inertial mass="2.7258" pos="0 0.0668 0.0344" diaginertia="0.0170 0.0162 0.0061" quat="0 0 1 1"/>
+          <joint name="joint2_left" class="joint2"/>
+          <geom class="iiwa_visual" material="orange" mesh="link_2"/>
+          <site pos="0 0 -0.01" name="site_link2_left"/>
+          <body name="link3_left" gravcomp="1" pos="0 0.1845 0" quat="0 0 1 1">
+            <inertial mass="3.175" pos="0 0.0296 0.1265" diaginertia="0.025 0.0238 0.0076"/>
+            <joint name="joint3_left" class="joint1"/>
+            <geom class="iiwa_visual" mesh="link_3"/>
+            <site pos="0 0 0.0355" name="site_link3_left"/>
+            <body name="link4_left" gravcomp="1" pos="0 0 0.2155" quat="1 1 0 0">
+              <inertial mass="2.73" pos="0 0.067 0.034" diaginertia="0.017 0.0162 0.0061" quat="1 1 0 0"/>
+              <joint name="joint4_left" class="joint3"/>
+              <geom class="iiwa_visual" material="orange" mesh="link_4"/>
+              <site pos="0 0.01 0.046" name="site_link4_left"/>
+              <body name="link5_left" gravcomp="1" pos="0 0.1845 0" quat="0 0 1 1">
+                <inertial mass="1.69" pos="0.0001 0.021 0.076" diaginertia="0.01 0.0087 0.00449"/>
+                <joint name="joint5_left" class="joint1"/>
+                <geom class="iiwa_visual" mesh="link_5"/>
+                <site pos="0 0 0.0335" name="site_link5_left"/>
+                <body name="link6_left" gravcomp="1" pos="0 0 0.2155" quat="1 1 0 0">
+                  <inertial mass="1.8" pos="0 0.0026 0.0005" diaginertia="0.0051 0.0047 0.0035" quat="1 1 0 0"/>
+                  <joint name="joint6_left" class="joint4"/>
+                  <geom class="iiwa_visual" pos="0 0 -0.0607" material="orange" mesh="link_6"/>
+                  <site pos="0 0 -0.059" name="site_link6_left"/>
+                  <body name="link7_left" gravcomp="1" pos="0 0.081 0" quat="0 0 1 1">
+                    <inertial mass="0.4" pos="0 0 0.0294" diaginertia="0.0004 0.0004 0.0005"/>
+                    <joint name="joint7_left" class="joint5"/>
+                    <geom class="iiwa_visual" mesh="link_7"/>
+                    <geom class="iiwa_visual" type="cylinder" material="gray" size="0.0315 0.0305" pos="0 0 0.0305"/>
+                    <site pos="0 0 0.001" name="site_link7_left"/>
+                    <body name="palm_left" pos="0 0 0.155" childclass="allegro_right">
+                      <inertial mass="0.4154" pos="0 0 0.0475" diaginertia="1e-4 1e-4 1e-4"/>
+                      <geom class="palm_visual" mesh="base_link"/>
+                      <geom class="palm_collision"/>
+                      <!-- First finger -->
+                      <body name="ff_base_left" pos="0 0.0435 -0.001542" quat="0.999048 -0.0436194 0 0">
+                        <joint name="ffj0_left" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="ff_proximal_left" pos="0 0 0.0164">
+                          <joint name="ffj1_left" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="ff_medial_left" pos="0 0 0.054">
+                            <joint name="ffj2_left" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="ff_distal_left" pos="0 0 0.0384">
+                              <joint name="ffj3_left" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="ff_tip_left">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_ff_tip_left"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Middle finger -->
+                      <body name="mf_base_left" pos="0 0 0.0007">
+                        <joint name="mfj0_left" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="mf_proximal_left" pos="0 0 0.0164">
+                          <joint name="mfj1_left" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="mf_medial_left" pos="0 0 0.054">
+                            <joint name="mfj2_left" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="mf_distal_left" pos="0 0 0.0384">
+                              <joint name="mfj3_left" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="mf_tip_left">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_mf_tip_left"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Ring finger -->
+                      <body name="rf_base_left" pos="0 -0.0435 -0.001542" quat="0.999048 0.0436194 0 0">
+                        <joint name="rfj0_left" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="rf_proximal_left" pos="0 0 0.0164">
+                          <joint name="rfj1_left" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="rf_medial_left" pos="0 0 0.054">
+                            <joint name="rfj2_left" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="rf_distal_left" pos="0 0 0.0384">
+                              <joint name="rfj3_left" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="rf_tip_left">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_rf_tip_left"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Thumb -->
+                      <body name="th_base_left" pos="-0.0182 0.019333 -0.045987" quat="0.477714 -0.521334 -0.521334 -0.477714">
+                        <joint name="thj0_left" class="thumb_base"/>
+                        <geom class="allegro_right_visual" mesh="link_12.0_right"/>
+                        <geom class="thumb_base_collision_0"/>
+                        <geom class="thumb_base_collision_1"/>
+                        <geom class="thumb_base_collision_2"/>
+                        <body name="th_proximal_left" pos="-0.027 0.005 0.0399">
+                          <joint name="thj1_left" class="thumb_proximal"/>
+                          <geom class="allegro_right_visual" mesh="link_13.0"/>
+                          <geom class="thumb_proximal_collision"/>
+                          <body name="th_medial_left" pos="0 0 0.0177">
+                            <joint name="thj2_left" class="thumb_medial"/>
+                            <geom class="allegro_right_visual" mesh="link_14.0"/>
+                            <geom class="thumb_medial_collision"/>
+                            <body name="th_distal_left" pos="0 0 0.0514">
+                              <joint name="thj3_left" class="thumb_distal"/>
+                              <geom class="allegro_right_visual" mesh="link_15.0"/>
+                              <geom class="thumb_distal_collision"/>
+                              <body name="th_tip_left">
+                                <geom class="thumbtip_visual"/>
+                                <geom class="thumbtip_collision"/>
+                                <site pos="0 0 0" name="site_th_tip_left"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+    <body name="base_right" pos="0 0.45 0" childclass="iiwa">
+      <inertial mass="3.863" pos="-0.013 0 0.07" diaginertia="0.0141 0.0171 0.0178"/>
+      <geom class="iiwa_visual" mesh="link_0"/>
+      <body name="link1_right" gravcomp="1" pos="0 0 0.1575">
+        <inertial mass="2.7025" pos="0 -0.0347 0.113" diaginertia="0.0171 0.0163 0.006"/>
+        <joint name="joint1_right" class="joint1"/>
+        <geom class="iiwa_visual" mesh="link_1"/>
+        <site pos="0 0 -0.0005" name="site_link1_right"/>
+        <body name="link2_right" gravcomp="1" pos="0 0 0.1830" quat="0 0 1 1">
+          <inertial mass="2.7258" pos="0 0.0668 0.0344" diaginertia="0.0170 0.0162 0.0061" quat="0 0 1 1"/>
+          <joint name="joint2_right" class="joint2"/>
+          <geom class="iiwa_visual" material="orange" mesh="link_2"/>
+          <site pos="0 0 -0.01" name="site_link2_right"/>
+          <body name="link3_right" gravcomp="1" pos="0 0.1845 0" quat="0 0 1 1">
+            <inertial mass="3.175" pos="0 0.0296 0.1265" diaginertia="0.025 0.0238 0.0076"/>
+            <joint name="joint3_right" class="joint1"/>
+            <geom class="iiwa_visual" mesh="link_3"/>
+            <site pos="0 0 0.0355" name="site_link3_right"/>
+            <body name="link4_right" gravcomp="1" pos="0 0 0.2155" quat="1 1 0 0">
+              <inertial mass="2.73" pos="0 0.067 0.034" diaginertia="0.017 0.0162 0.0061" quat="1 1 0 0"/>
+              <joint name="joint4_right" class="joint3"/>
+              <geom class="iiwa_visual" material="orange" mesh="link_4"/>
+              <site pos="0 0.01 0.046" name="site_link4_right"/>
+              <body name="link5_right" gravcomp="1" pos="0 0.1845 0" quat="0 0 1 1">
+                <inertial mass="1.69" pos="0.0001 0.021 0.076" diaginertia="0.01 0.0087 0.00449"/>
+                <joint name="joint5_right" class="joint1"/>
+                <geom class="iiwa_visual" mesh="link_5"/>
+                <site pos="0 0 0.0335" name="site_link5_right"/>
+                <body name="link6_right" gravcomp="1" pos="0 0 0.2155" quat="1 1 0 0">
+                  <inertial mass="1.8" pos="0 0.0026 0.0005" diaginertia="0.0051 0.0047 0.0035" quat="1 1 0 0"/>
+                  <joint name="joint6_right" class="joint4"/>
+                  <geom class="iiwa_visual" pos="0 0 -0.0607" material="orange" mesh="link_6"/>
+                  <site pos="0 0 -0.059" name="site_link6_right"/>
+                  <body name="link7_right" gravcomp="1" pos="0 0.081 0" quat="0 0 1 1">
+                    <inertial mass="0.4" pos="0 0 0.0294" diaginertia="0.0004 0.0004 0.0005"/>
+                    <joint name="joint7_right" class="joint5"/>
+                    <geom class="iiwa_visual" mesh="link_7"/>
+                    <geom class="iiwa_visual" type="cylinder" material="gray" size="0.0315 0.0305" pos="0 0 0.0305"/>
+                    <site pos="0 0 0.001" name="site_link7_right"/>
+                    <body name="palm_right" pos="0 0 0.155" childclass="allegro_right">
+                      <inertial mass="0.4154" pos="0 0 0.0475" diaginertia="1e-4 1e-4 1e-4"/>
+                      <geom class="palm_visual" mesh="base_link"/>
+                      <geom class="palm_collision"/>
+                      <!-- First finger -->
+                      <body name="ff_base_right" pos="0 0.0435 -0.001542" quat="0.999048 -0.0436194 0 0">
+                        <joint name="ffj0_right" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="ff_proximal_right" pos="0 0 0.0164">
+                          <joint name="ffj1_right" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="ff_medial_right" pos="0 0 0.054">
+                            <joint name="ffj2_right" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="ff_distal_right" pos="0 0 0.0384">
+                              <joint name="ffj3_right" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="ff_tip_right">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_ff_tip_right"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Middle finger -->
+                      <body name="mf_base_right" pos="0 0 0.0007">
+                        <joint name="mfj0_right" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="mf_proximal_right" pos="0 0 0.0164">
+                          <joint name="mfj1_right" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="mf_medial_right" pos="0 0 0.054">
+                            <joint name="mfj2_right" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="mf_distal_right" pos="0 0 0.0384">
+                              <joint name="mfj3_right" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="mf_tip_right">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_mf_tip_right"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Ring finger -->
+                      <body name="rf_base_right" pos="0 -0.0435 -0.001542" quat="0.999048 0.0436194 0 0">
+                        <joint name="rfj0_right" class="base"/>
+                        <geom class="base_visual"/>
+                        <geom class="base_collision"/>
+                        <body name="rf_proximal_right" pos="0 0 0.0164">
+                          <joint name="rfj1_right" class="proximal"/>
+                          <geom class="proximal_visual"/>
+                          <geom class="proximal_collision"/>
+                          <body name="rf_medial_right" pos="0 0 0.054">
+                            <joint name="rfj2_right" class="medial"/>
+                            <geom class="medial_visual"/>
+                            <geom class="medial_collision"/>
+                            <body name="rf_distal_right" pos="0 0 0.0384">
+                              <joint name="rfj3_right" class="distal"/>
+                              <geom class="distal_visual"/>
+                              <geom class="distal_collision"/>
+                              <body name="rf_tip_right">
+                                <geom class="fingertip_visual"/>
+                                <geom class="fingertip_collision"/>
+                                <site pos="0 0 0" name="site_rf_tip_right"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <!-- Thumb -->
+                      <body name="th_base_right" pos="-0.0182 0.019333 -0.045987" quat="0.477714 -0.521334 -0.521334 -0.477714">
+                        <joint name="thj0_right" class="thumb_base"/>
+                        <geom class="allegro_right_visual" mesh="link_12.0_right"/>
+                        <geom class="thumb_base_collision_0"/>
+                        <geom class="thumb_base_collision_1"/>
+                        <geom class="thumb_base_collision_2"/>
+                        <body name="th_proximal_right" pos="-0.027 0.005 0.0399">
+                          <joint name="thj1_right" class="thumb_proximal"/>
+                          <geom class="allegro_right_visual" mesh="link_13.0"/>
+                          <geom class="thumb_proximal_collision"/>
+                          <body name="th_medial_right" pos="0 0 0.0177">
+                            <joint name="thj2_right" class="thumb_medial"/>
+                            <geom class="allegro_right_visual" mesh="link_14.0"/>
+                            <geom class="thumb_medial_collision"/>
+                            <body name="th_distal_right" pos="0 0 0.0514">
+                              <joint name="thj3_right" class="thumb_distal"/>
+                              <geom class="allegro_right_visual" mesh="link_15.0"/>
+                              <geom class="thumb_distal_collision"/>
+                              <body name="th_tip_right">
+                                <geom class="thumbtip_visual"/>
+                                <geom class="thumbtip_collision"/>
+                                <site pos="0 0 0" name="site_th_tip_right"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="base_left" body2="link1_left"/>
+    <exclude body1="base_right" body2="link1_right"/>
+    <exclude body1="palm_left" body2="ff_base_left"/>
+    <exclude body1="palm_left" body2="mf_base_left"/>
+    <exclude body1="palm_left" body2="rf_base_left"/>
+    <exclude body1="palm_left" body2="th_base_left"/>
+    <exclude body1="palm_left" body2="th_proximal_left"/>
+    <exclude body1="palm_right" body2="ff_base_right"/>
+    <exclude body1="palm_right" body2="mf_base_right"/>
+    <exclude body1="palm_right" body2="rf_base_right"/>
+    <exclude body1="palm_right" body2="th_base_right"/>
+    <exclude body1="palm_right" body2="th_proximal_right"/>
+  </contact>
+
+  <keyframe>
+    <!-- mujoco q = [object_pos, object_quat, arm_pos_left, arm_pos_right, hand_pos_left, hand_pos_right] -->
+    <key name="home" qpos="0 0 0.30   1 0 0 0   0 0 0 0 0 0 0  0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" />
+  </keyframe>
+
+  <sensor>
+    <framepos name="sensor_link1_left" objtype="site" objname="site_link1_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link2_left" objtype="site" objname="site_link2_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link3_left" objtype="site" objname="site_link3_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link4_left" objtype="site" objname="site_link4_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link5_left" objtype="site" objname="site_link5_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link6_left" objtype="site" objname="site_link6_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link7_left" objtype="site" objname="site_link7_left" reftype="site" refname="site_object" />
+    <framepos name="sensor_link1_right" objtype="site" objname="site_link1_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link2_right" objtype="site" objname="site_link2_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link3_right" objtype="site" objname="site_link3_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link4_right" objtype="site" objname="site_link4_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link5_right" objtype="site" objname="site_link5_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link6_right" objtype="site" objname="site_link6_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_link7_right" objtype="site" objname="site_link7_right" reftype="site" refname="site_object" />
+    <framepos name="sensor_ff_tip_left" objtype="site" objname="site_ff_tip_left" reftype="site" refname="site_object"/>
+    <framepos name="sensor_mf_tip_left" objtype="site" objname="site_mf_tip_left" reftype="site" refname="site_object"/>
+    <framepos name="sensor_rf_tip_left" objtype="site" objname="site_rf_tip_left" reftype="site" refname="site_object"/>
+    <framepos name="sensor_th_tip_left" objtype="site" objname="site_th_tip_left" reftype="site" refname="site_object"/>
+    <framepos name="sensor_ff_tip_right" objtype="site" objname="site_ff_tip_right" reftype="site" refname="site_object"/>
+    <framepos name="sensor_mf_tip_right" objtype="site" objname="site_mf_tip_right" reftype="site" refname="site_object"/>
+    <framepos name="sensor_rf_tip_right" objtype="site" objname="site_rf_tip_right" reftype="site" refname="site_object"/>
+    <framepos name="sensor_th_tip_right" objtype="site" objname="site_th_tip_right" reftype="site" refname="site_object"/>
+  </sensor>
+
+  <actuator>
+    <general name="actuator1_left" joint="joint1_left" class="joint1"/>
+    <general name="actuator2_left" joint="joint2_left" class="joint2"/>
+    <general name="actuator3_left" joint="joint3_left" class="joint1"/>
+    <general name="actuator4_left" joint="joint4_left" class="joint3"/>
+    <general name="actuator5_left" joint="joint5_left" class="joint1"/>
+    <general name="actuator6_left" joint="joint6_left" class="joint4"/>
+    <general name="actuator7_left" joint="joint7_left" class="joint5"/>
+    <general name="actuator1_right" joint="joint1_right" class="joint1"/>
+    <general name="actuator2_right" joint="joint2_right" class="joint2"/>
+    <general name="actuator3_right" joint="joint3_right" class="joint1"/>
+    <general name="actuator4_right" joint="joint4_right" class="joint3"/>
+    <general name="actuator5_right" joint="joint5_right" class="joint1"/>
+    <general name="actuator6_right" joint="joint6_right" class="joint4"/>
+    <general name="actuator7_right" joint="joint7_right" class="joint5"/>
+    <position name="ffa0_left" joint="ffj0_left" class="base"/>
+    <position name="ffa1_left" joint="ffj1_left" class="proximal"/>
+    <position name="ffa2_left" joint="ffj2_left" class="medial"/>
+    <position name="ffa3_left" joint="ffj3_left" class="distal"/>
+    <position name="mfa0_left" joint="mfj0_left" class="base"/>
+    <position name="mfa1_left" joint="mfj1_left" class="proximal"/>
+    <position name="mfa2_left" joint="mfj2_left" class="medial"/>
+    <position name="mfa3_left" joint="mfj3_left" class="distal"/>
+    <position name="rfa0_left" joint="rfj0_left" class="base"/>
+    <position name="rfa1_left" joint="rfj1_left" class="proximal"/>
+    <position name="rfa2_left" joint="rfj2_left" class="medial"/>
+    <position name="rfa3_left" joint="rfj3_left" class="distal"/>
+    <position name="tha0_left" joint="thj0_left" class="thumb_base"/>
+    <position name="tha1_left" joint="thj1_left" class="thumb_proximal"/>
+    <position name="tha2_left" joint="thj2_left" class="thumb_medial"/>
+    <position name="tha3_left" joint="thj3_left" class="thumb_distal"/>
+    <position name="ffa0_right" joint="ffj0_right" class="base"/>
+    <position name="ffa1_right" joint="ffj1_right" class="proximal"/>
+    <position name="ffa2_right" joint="ffj2_right" class="medial"/>
+    <position name="ffa3_right" joint="ffj3_right" class="distal"/>
+    <position name="mfa0_right" joint="mfj0_right" class="base"/>
+    <position name="mfa1_right" joint="mfj1_right" class="proximal"/>
+    <position name="mfa2_right" joint="mfj2_right" class="medial"/>
+    <position name="mfa3_right" joint="mfj3_right" class="distal"/>
+    <position name="rfa0_right" joint="rfj0_right" class="base"/>
+    <position name="rfa1_right" joint="rfj1_right" class="proximal"/>
+    <position name="rfa2_right" joint="rfj2_right" class="medial"/>
+    <position name="rfa3_right" joint="rfj3_right" class="distal"/>
+    <position name="tha0_right" joint="thj0_right" class="thumb_base"/>
+    <position name="tha1_right" joint="thj1_right" class="thumb_proximal"/>
+    <position name="tha2_right" joint="thj2_right" class="thumb_medial"/>
+    <position name="tha3_right" joint="thj3_right" class="thumb_distal"/>
+  </actuator>
+
+</mujoco>

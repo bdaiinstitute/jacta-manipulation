@@ -1,0 +1,43 @@
+<mujoco model="box_drop">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <compiler angle="radian" autolimits="true"/>
+
+  <option gravity="0 0 -9.81" timestep="0.001" >
+  </option>
+
+  <asset>
+    <texture name="blue_grid" type="2d" builtin="checker" rgb1=".02 .14 .44" rgb2=".27 .55 1" width="300" height="300" mark="edge" markrgb="1 1 1"/>
+    <material name="blue_grid" texture="blue_grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+    <material name="object" rgba=".7 .5 .3 1"/>
+    <material name="robot" rgba="0 .5 .3 1"/>
+  </asset>
+
+  <default>
+    <material specular="0.5" shininess="0.95"/>
+    <!-- For testing different contact parameters -->
+    <!-- <geom priority="5" group="3" solimp="0.001 0.95 1.10 0.90 2" solref="0.10 1" margin="0.50" gap="0.0"/> -->
+    <!-- <geom priority="5" group="3" solimp="0.001 0.95 0.50 0.90 2" solref="0.10 1" margin="0.25" gap="0.0"/> -->
+    <geom priority="5" group="3" solimp="0.001 0.95 0.15 0.90 2" solref="0.10 1" margin="0.10" gap="0.0"/>
+    <!-- <geom priority="5" group="3" solimp="0.001 0.95 0.09 0.90 2" solref="0.05 1" margin="0.05" gap="0.0"/> -->
+    <!-- <geom priority="5" group="3" solimp="0.001 0.95 0.03 0.90 2" solref="0.02 1" margin="0.02" gap="0.0"/> -->
+  </default>
+
+  <worldbody>
+    <body>
+      <geom mass="0" name="floor" pos="0 0 -1" size="10.0 10.0 1" rgba="0 1 1 1" type="box" material="blue_grid"/>
+    </body>
+
+    <body name="box" pos="0 0 0">
+      <freejoint/>
+      <geom mass="0.4" size="0.1 0.1 0.1" type="box" material="object"/>
+      <site pos="0 0 0" name="site_box"/>
+    </body>
+
+  </worldbody>
+
+  <keyframe>
+    <!-- mujoco q = [object_pos, object_quat] -->
+    <key name="home" qpos="1 0 0 1 0 0 0" />
+  </keyframe>
+
+</mujoco>

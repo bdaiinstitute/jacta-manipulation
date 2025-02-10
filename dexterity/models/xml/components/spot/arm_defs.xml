@@ -1,0 +1,75 @@
+<mujoco>
+  <asset>
+    <mesh name="arm_link_sh0_base" file="arm/collision/arm_link_sh0_base.obj"/>
+    <mesh name="arm_link_sh0_left_motor" file="arm/collision/arm_link_sh0_left_motor.obj"/>
+    <mesh name="arm_link_sh0_right_motor" file="arm/collision/arm_link_sh0_right_motor.obj"/>
+    <mesh name="arm_link_sh1" file="arm/collision/arm_link_sh1.obj"/>
+    <mesh name="arm_link_el0" file="arm/collision/arm_link_el0.obj"/>
+    <mesh name="arm_link_el1" file="arm/collision/arm_link_el1_main.obj"/>
+    <mesh name="arm_link_el1_main" file="arm/collision/arm_link_el1_main.obj"/>
+    <mesh name="arm_link_el1_lip" file="arm/collision/arm_link_el1_lip.obj"/>
+    <mesh name="arm_link_wr0" file="arm/collision/arm_link_wr0.obj"/>
+    <mesh name="arm_link_wr1" file="arm/collision/arm_link_wr1.obj"/>
+
+    <mesh name="left_hinge" file="gripper/collision/left_hinge.obj"/>
+    <mesh name="left_finger" file="gripper/collision/left_finger.obj"/>
+    <mesh name="left_tooth" file="gripper/collision/left_tooth.obj"/>
+    <mesh name="right_hinge" file="gripper/collision/right_hinge.obj"/>
+    <mesh name="right_finger" file="gripper/collision/right_finger.obj"/>
+    <mesh name="right_tooth" file="gripper/collision/right_tooth.obj"/>
+    <mesh name="front_jaw" file="gripper/collision/front_jaw.obj"/>
+    <mesh name="middle_jaw" file="gripper/collision/middle_jaw.obj"/>
+    <mesh name="jaw_tooth" file="gripper/collision/jaw_tooth.obj"/>
+
+    <mesh name="arm_link_sh0_visual" file="arm/visual/arm_link_sh0.obj"/>
+    <mesh name="arm_link_sh1_0_visual" file="arm/visual/arm_link_sh1_0.obj"/>
+    <mesh name="arm_link_sh1_1_visual" file="arm/visual/arm_link_sh1_1.obj"/>
+    <mesh name="arm_link_el0_visual" file="arm/visual/arm_link_el0.obj"/>
+    <mesh name="arm_link_el1_0_visual" file="arm/visual/arm_link_el1_0.obj"/>
+    <mesh name="arm_link_el1_1_visual" file="arm/visual/arm_link_el1_1.obj"/>
+    <mesh name="arm_link_wr0_0_visual" file="arm/visual/arm_link_wr0_0.obj"/>
+    <mesh name="arm_link_wr0_1_visual" file="arm/visual/arm_link_wr0_1.obj"/>
+    <mesh name="arm_link_wr1_0_visual" file="arm/visual/arm_link_wr1_0.obj"/>
+    <mesh name="arm_link_wr1_1_visual" file="arm/visual/arm_link_wr1_1.obj"/>
+    <mesh name="arm_link_fngr_0_visual" file="gripper/visual/arm_link_fngr_0.obj"/>
+    <mesh name="arm_link_fngr_1_visual" file="gripper/visual/arm_link_fngr_1.obj"/>
+  </asset>
+
+  <default>
+    <!-- The arm damping is higher than the damping gains in spot-sim, because actual joint damping is unknown -->
+    <default class="arm">
+      <default class="arm_sh0">
+        <joint damping="51.0" range="-2.61799387799149441136 3.14159265358979311599"/>
+      </default>
+      <default class="arm_sh1">
+        <joint damping="76.5" range="-3.14159265358979311599 0.52359877559829881565"/>
+      </default>
+      <default class="arm_el0">
+        <joint damping="51.0" range="0 3.14159265358979311599"/>
+      </default>
+      <default class="arm_el1">
+        <joint damping="10.2" range="-2.79252680319092716487 2.79252680319092716487"/>
+      </default>
+      <default class="arm_wr0">
+        <joint damping="10.2" range="-1.83259571459404613236 1.83259571459404613236"/>
+      </default>
+      <default class="arm_wr1">
+        <joint damping="10.2" range="-2.87979326579064354163 2.87979326579064354163"/>
+      </default>
+      <default class="arm_f1x">
+        <joint damping="1.6" range="-1.57 0"/>
+      </default>
+    </default>
+  </default>
+
+  <actuator>
+    <position name="act_3" joint="arm_sh0" kp="1020.0" ctrlrange="-2.61799387799149441136 3.14159265358979311599" forcerange="-90.9 90.0"/>
+    <position name="act_4" joint="arm_sh1" kp="255" ctrlrange="-3.14159265358979311599 0.52359877559829881565" forcerange="-181.8 181.8"/>
+    <position name="act_5" joint="arm_el0" kp="204.0" ctrlrange="0 3.14159265358979311599" forcerange="-90.9 90.0"/>
+    <position name="act_6" joint="arm_el1" kp="102.0" ctrlrange="-2.79252680319092716487 2.79252680319092716487" forcerange="-30.3 30.3"/>
+    <position name="act_7" joint="arm_wr0" kp="102.0" ctrlrange="-1.83259571459404613236 1.83259571459404613236" forcerange="-30.9 30.0"/>
+    <position name="act_8" joint="arm_wr1" kp="102.0" ctrlrange="-2.87979326579064354163 2.87979326579064354163" forcerange="-30.9 30.0"/>
+    <position name="act_9" joint="arm_f1x" kp="16.0" ctrlrange="-1.57 0" forcerange="-15.32 15.32"/>
+  </actuator>
+
+</mujoco>

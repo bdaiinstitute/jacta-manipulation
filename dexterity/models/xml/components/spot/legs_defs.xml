@@ -1,0 +1,58 @@
+<mujoco>
+  <asset>
+    <mesh name="left_upper_leg_collision" file="base/collision/left_upper_leg_collision.obj"/>
+    <mesh name="left_lower_leg_collision" file="base/collision/left_lower_leg_collision.obj"/>
+    <mesh name="right_upper_leg_collision" file="base/collision/right_upper_leg_collision.obj"/>
+    <mesh name="right_lower_leg_collision" file="base/collision/right_lower_leg_collision.obj"/>
+
+    <mesh name="front_left_hip_visual" file="base/visual/front_left_hip.obj"/>
+    <mesh name="front_left_lower_leg_visual" file="base/visual/front_left_lower_leg.obj"/>
+    <mesh name="front_left_upper_leg_0_visual" file="base/visual/front_left_upper_leg_0.obj"/>
+    <mesh name="front_left_upper_leg_1_visual" file="base/visual/front_left_upper_leg_1.obj"/>
+
+    <mesh name="front_right_hip_visual" file="base/visual/front_right_hip.obj"/>
+    <mesh name="front_right_lower_leg_visual" file="base/visual/front_right_lower_leg.obj"/>
+    <mesh name="front_right_upper_leg_0_visual" file="base/visual/front_right_upper_leg_0.obj"/>
+    <mesh name="front_right_upper_leg_1_visual" file="base/visual/front_right_upper_leg_1.obj"/>
+
+    <mesh name="rear_left_hip_visual" file="base/visual/rear_left_hip.obj"/>
+    <mesh name="rear_left_lower_leg_visual" file="base/visual/rear_left_lower_leg.obj"/>
+    <mesh name="rear_left_upper_leg_0_visual" file="base/visual/rear_left_upper_leg_0.obj"/>
+    <mesh name="rear_left_upper_leg_1_visual" file="base/visual/rear_left_upper_leg_1.obj"/>
+
+    <mesh name="rear_right_hip_visual" file="base/visual/rear_right_hip.obj"/>
+    <mesh name="rear_right_lower_leg_visual" file="base/visual/rear_right_lower_leg.obj"/>
+    <mesh name="rear_right_upper_leg_0_visual" file="base/visual/rear_right_upper_leg_0.obj"/>
+    <mesh name="rear_right_upper_leg_1_visual" file="base/visual/rear_right_upper_leg_1.obj"/>
+  </asset>
+
+  <default>
+    <!-- TODO find correct value for actuators -->
+    <default class="leg">
+      <default class="hip_x">
+        <joint range="-0.785398 0.785398"/>
+      </default>
+      <default class="hip_y">
+        <joint range="-0.898845 2.29511"/>
+      </default>
+      <default class="knee">
+        <joint range="-2.7929 -0.254801"/>
+      </default>
+    </default>
+  </default>
+
+  <actuator>
+    <position name="act_fl1" joint="joint_front_left_hip_x" kp="60" kv="1.5" ctrlrange="-0.785398 0.785398" forcerange="-45 45"/>
+    <position name="act_fl2" joint="joint_front_left_hip_y" kp="60" kv="1.5" ctrlrange="-0.898845 2.29511" forcerange="-45 45"/>
+    <position name="act_fl3" joint="joint_front_left_knee" kp="60" kv="1.5" ctrlrange="-2.7929 -0.254801" forcerange="-115 115"/>
+    <position name="act_fr1" joint="joint_front_right_hip_x" kp="60" kv="1.5" ctrlrange="-0.785398 0.785398" forcerange="-45 45"/>
+    <position name="act_fr2" joint="joint_front_right_hip_y" kp="60" kv="1.5" ctrlrange="-0.898845 2.29511" forcerange="-45 45"/>
+    <position name="act_fr3" joint="joint_front_right_knee" kp="60" kv="1.5" ctrlrange="-2.7929 -0.254801" forcerange="-115 115"/>
+    <position name="act_rl1" joint="joint_rear_left_hip_x" kp="60" kv="1.5" ctrlrange="-0.785398 0.785398" forcerange="-45 45"/>
+    <position name="act_rl2" joint="joint_rear_left_hip_y" kp="60" kv="1.5" ctrlrange="-0.898845 2.29511" forcerange="-45 45"/>
+    <position name="act_rl3" joint="joint_rear_left_knee" kp="60" kv="1.5" ctrlrange="-2.7929 -0.254801" forcerange="-115 115"/>
+    <position name="act_rr1" joint="joint_rear_right_hip_x" kp="60" kv="1.5" ctrlrange="-0.785398 0.785398" forcerange="-45 45"/>
+    <position name="act_rr2" joint="joint_rear_right_hip_y" kp="60" kv="1.5" ctrlrange="-0.898845 2.29511" forcerange="-45 45"/>
+    <position name="act_rr3" joint="joint_rear_right_knee" kp="60" kv="1.5" ctrlrange="-2.7929 -0.254801" forcerange="-115 115"/>
+  </actuator>
+</mujoco>

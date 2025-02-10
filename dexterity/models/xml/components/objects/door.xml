@@ -1,0 +1,16 @@
+<mujoco model="door">
+<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+
+    <geom name="wall0" type="box" class="collision" size="0.1 1 1" pos="2 1.6 1"/>
+    <geom name="wall1" type="box" class="collision" size="0.1 1 1" pos="2 -1.6 1"/>
+    <geom name="visual_wall0" type="box" class="visual" size="0.1 1 1" pos="2 1.6 1"/>
+    <geom name="visual_wall1" type="box" class="visual" size="0.1 1 1" pos="2 -1.6 1"/>
+
+
+    <body name="door" pos="2 -0.5 1.02">
+        <joint name="door_joint" type="hinge" range="-1.55 0" axis="0 0 1" armature="0.01" damping="1.0" stiffness="10"/>
+        <inertial pos="0 0.5 0" mass="20" diaginertia="1 1 2"/>
+        <geom name="door_geom" class="collision" type="box" size="0.05 0.5 1" pos="0 0.5 0"/>
+        <geom name="visual_door_geom" class="visual" type="box" size="0.05 0.5 1" pos="0 0.5 0"/>
+    </body>
+</mujoco>

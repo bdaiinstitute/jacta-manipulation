@@ -1,0 +1,28 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: dexterity/models/xml/scenes/legacy/spot_floating_box.xml
+
+action:
+  bound_lower: ([-2, -2, -2, -2.62, -np.pi, 0, -2.79, -1.83, -2.87, -1.57])
+  bound_upper: ([+2, +2, +2, np.pi, 0.52, np.pi, 2.79, 1.83, 2.87, 0])
+  range: torch.ones_like(self.action_bound_lower) * 5
+  types: "[AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL]"
+  distribution: ([1, 4, 1, 4])
+
+start:
+  state: ([0, 0, 0.275, 1, 0, 0, 0, -1.0, 0.0, 0.0, 0, -2, +2, 0, 0, 0, -1] + [0] * 16)
+goal:
+  state: ([1.0, 0, 0.275, 1, 0, 0, 0, -1.0, 0.0, 0.0, 0, -2, +2, 0, 0, 0, -1] + [0] * 16)
+
+reward:
+  distance_scaling: ([1.0] * 3 + [0] * 3 + [0] * 10 + [0] * 6 + [0] * 10)
+  proximity_scaling: ([-50.0] * 3 + [0] * 15 + [10] * 6 + [0] * 3)
+  reachability_scaling: 1.5
+
+planner:
+  single_goal:
+    callback_period: 1
+    steps_per_goal: 100
+    finite_diff_eps: 1e-3
+    intermediate_pruning: False
+    intermediate_replacement: False

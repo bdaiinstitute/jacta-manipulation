@@ -1,0 +1,48 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: dexterity/models/xml/scenes/legacy/spot_standing_box.xml
+vis:
+  scale: ([1, 1, 1])
+  indices: ([0, 1, 2])
+
+action:
+  bound_lower: ([-1.5, -2.0, 0.1, -0.1, -1.5, -0.1, -1.545])
+  bound_upper: ([1.5, 0.05, 3.0, 0.1, 1.5, 0.1, -0.05])
+  range: ([0.3, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+  types: ([AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL])
+  distribution: ([0, 1, 1, 1])
+
+reward:
+  distance_scaling: ([1, 1, 10, 0, 0, 0] + [0] * 7 + [0.1] * 6 + [0] * 7)
+  proximity_scaling: 0.01
+  reachability_scaling: 0.01
+
+start:
+  state:       ([1.0,   0.0, 0.275,               1, 0, 0,                0,  0.0, -1.2, 2.4, 0.0, -1.2, 0.0,  -1.0] + [0.0] * 13)
+  bound_lower: ([1.0, -0.25, 0.275, np.cos(np.pi/8), 0, 0, -np.sin(np.pi/8), -0.2, -1.2, 2.4, 0.0, -1.2, 0.0, -1.54] + [0.0] * 13)
+  bound_upper: ([1.2,  0.25, 0.275,               1, 0, 0,  np.sin(np.pi/8),  0.2, -1.2, 2.4, 0.0, -1.2, 0.0, -0.05] + [0.0] * 13)
+
+goal:
+  state:       ([1.0,  0.0, 0.475, 1, 0, 0, 0, 0.0, -1.2, 2.4, 0.0, -1.2, 0.0, -1.0] + [0.0] * 13)
+  bound_lower: ([0.9, -0.1, 0.375, 1, 0, 0, 0, 0.0, -1.2, 2.4, 0.0, -1.2, 0.0, -1.0] + [0.0] * 13)
+  bound_upper: ([1.1,  0.1, 0.575, 1, 0, 0, 0, 0.0, -1.2, 2.4, 0.0, -1.2, 0.0, -1.0] + [0.0] * 13)
+
+learner:
+  early_stop: 1.0
+  trajectory_length: 50
+  use_sparse_reward: True
+  final_success_distance: 0.2
+  stop_converged_injection: False
+  max_planner_experience_share: 0.5
+
+ignore_sampled_state_collisions: True
+intermediate_pruning: False
+num_sub_goals: 30
+steps_per_goal: 30
+goal_bias: 0.0
+termination_distance: 0.0
+max_main_nodes: 50000
+action_time_step: 0.4
+action_steps_max: 3
+
+seed: 0

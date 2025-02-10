@@ -27,8 +27,6 @@ dependencies = [
     "numpy==1.26.4",
     "onnxruntime==1.19.0",
     "plotly==5.12.0",
-    "pytest==8.0.0",
-    "pytest-cov==5.0.0",
     "python-benedict==0.33.2",
     "pyyaml==6.0.1",
     "scipy==1.14.0",
@@ -47,7 +45,7 @@ dependencies = [
     "ipython>=5",  # meshcat: https://github.com/meshcat-dev/meshcat-python/blob/785bc9d5ba6f8a8bb79ee8b25f523805946c1fbd/setup.py#L20
     "lark==1.1.5",
     "pillow>=7.0.0",   # meshcat
-    "pip==24.0",
+    "pip>=25.0",
     "pyngrok>=4.1.6",  # meshcat
     "pyzmq>=17.0.0",  # meshcat
     "setuptools>=61.0",
@@ -61,6 +59,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "pre-commit>=4.1.0",
+  "pytest>=8.3.4",
+  "pytest-cov>=6.0.0",
+  "pytest-xdist>=3.6.1",
 ]
 
 [tool.coverage.run]

@@ -1,0 +1,29 @@
+<mujoco model="spot_box_mocap">
+<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <include file="spot_components/params_and_default.xml" />
+  <include file="spot_components/assets.xml" />
+
+  <worldbody>
+    <geom name="ground" type="plane" size="2 2 0.01" friction="0.7" priority="5" material="blue_grid"/>
+
+    <include file="../../components/objects/box_with_handle.xml" />
+
+    <body name="body" pos="0 0 0.49">
+      <freejoint/>
+      <inertial mass="16.70765207" pos="0 0 -0.00496172" fullinertia="0.081543792 0.549231154 0.569454373 0 0 0"/>
+      <geom name="body_0_visual" class="visual" mesh="body_0_visual" material="black"/>
+      <geom name="body_1_visual" class="visual" mesh="body_1_visual" material="yellow"/>
+      <geom name="body" class="collision" type="box" size="0.42 0.11 0.08"/>
+      <site name="site_body" pos="0 0 0" size="0.01"/>
+
+      <include file="spot_components/arm.xml" />
+    </body>
+  </worldbody>
+
+  <!-- TODO for some reason necessary here but not for floating spot-->
+  <contact>
+    <exclude body1="body" body2="arm_link_sh0"/>
+  </contact>
+
+  <include file="spot_components/actuators_sensors_floating.xml" />
+</mujoco>

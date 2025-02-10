@@ -1,0 +1,5 @@
+<mujoco>
+  <body name="ground">
+    <geom name="ground" type="plane" size="2 2 0.01" friction="0.8" priority="5" material="blue_grid"/>
+  </body>
+</mujoco>

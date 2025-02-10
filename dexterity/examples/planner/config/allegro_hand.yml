@@ -1,0 +1,88 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: dexterity/models/xml/scenes/legacy/allegro_scene.xml
+
+start:
+  state: ([0.02, 0, 0.05, 1, 0, 0, 0] + [0,-0.2,0, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 1.0,0.5,0.5,0.5,] + [0] * 25)
+goal:
+  # task 0 - rotate 90 degrees along z axis
+  state: ([0.02, 0, 0.05, 1, 0, 0, 1] + [0,-0.2,0, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 1.0,0.5,0.5,0.5,] + [0] * 25)
+
+  # task 1 - rotate 90 degrees along y axis
+  # state: ([0.02, 0, 0.05, 1, 0, -1, 0] + [0,-0.2,0, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 1.0,0.5,0.5,0.5,] + [0] * 25)
+
+  # task 2 - rotate 90 degrees along x axis
+  # state: ([0.02, 0, 0.05, 1, 1, 0, 0] + [0,-0.2,0, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 1.0,0.5,0.5,0.5,] + [0] * 25)
+
+  # task 3 - rotate 180 degrees along y axis
+  # state: ([0.02, 0, 0.05, 0, 1, 1, 0] + [0,-0.2,0, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 0,0.4,0.5,0.5, 1.0,0.5,0.5,0.5,] + [0] * 25)
+
+action:
+  bound_lower: ([
+    -0.30,
+    -0.30,
+    -0.30,
+    -0.47,
+    -0.196,
+    -0.174,
+    -0.227,
+    -0.47,
+    -0.196,
+    -0.174,
+    -0.227,
+    -0.47,
+    -0.196,
+    -0.174,
+    -0.227,
+    +0.263,
+    -0.105,
+    -0.189,
+    -0.162])
+  bound_upper: ([
+    +0.30,
+    +0.30,
+    +0.30,
+    +0.47,
+    +1.610,
+    +1.709,
+    +1.618,
+    +0.47,
+    +1.610,
+    +1.709,
+    +1.618,
+    +0.47,
+    +1.610,
+    +1.709,
+    +1.618,
+    +1.396,
+    +1.163,
+    +1.644,
+    +1.719])
+  range: (self.action_bound_upper - self.action_bound_lower) * 6.0
+  types: "[AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL]"
+  distribution: ([1,3,3,3])
+
+reward:
+  distance_scaling: torch.cat((torch.tensor([50, 50, 50, 1, 1, 1]), torch.zeros(19), torch.tensor([50, 50, 50, 0, 0, 0]), torch.zeros(19)))
+  proximity_scaling: ([2] * 12)
+  reachability_scaling: 0.5
+
+planner:
+  single_goal:
+    callback_period: 10
+    eigenspaces_file: "allegro.yml"
+    steps_per_goal: 1000
+
+  multi_goal:
+    intermediate_pruning: False
+    intermediate_replacement: False
+    num_sub_goals: 20
+    steps_per_goal: 20
+    goal:
+      bound_lower: (-torch.inf * torch.ones_like(self.goal.state))
+      bound_upper: (torch.inf * torch.ones_like(self.goal.state))
+    reward:
+      distance_scaling: torch.cat((torch.tensor([10, 10, 1, 1, 1, 1]), torch.zeros(44)))
+      proximity_scaling: ([0.1] * 12)
+    action:
+      range: (self.action_bound_upper - self.action_bound_lower) * 0.25

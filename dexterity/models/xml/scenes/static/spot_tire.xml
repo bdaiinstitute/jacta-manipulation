@@ -1,0 +1,27 @@
+<mujoco model="spot_tire_scene">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <include file="../../components/spot/compiler.xml" />
+  <include file="../../components/spot/defs.xml" />
+  <include file="../../components/common/ground_defs.xml" />
+
+  <!-- NOTE: include order impacts actuators and sensors order! -->
+  <include file="../../components/spot/base_defs.xml" />
+  <include file="../../components/spot/legs_defs.xml" />
+  <include file="../../components/spot/arm_defs.xml" />
+
+  <worldbody>
+    <include file="../../components/common/ground.xml" />
+
+    <body name="body">
+      <include file="../../components/spot/base.xml" />
+      <include file="../../components/spot/legs.xml" />
+      <include file="../../components/spot/arm.xml" />
+    </body>
+
+    <include file="../../components/objects/cartire.xml" />
+
+  </worldbody>
+
+  <include file="../../components/spot/sensors.xml" />
+  <include file="../../components/spot/contact.xml" />
+</mujoco>

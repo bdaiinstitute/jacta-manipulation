@@ -1,0 +1,14 @@
+<mujoco>
+  <asset>
+    <mesh name="body" file="base/collision/body_collision.obj"/>
+    <mesh name="body_0_visual" file="base/visual/body_0.obj"/>
+    <mesh name="body_1_visual" file="base/visual/body_1.obj"/>
+  </asset>
+
+  <default>
+    <default class="base">
+      <joint damping="30" range="-3 3"/>
+      <position kp="300" ctrlrange="-3 3" forcerange="-1000 1000"/>
+    </default>
+  </default>
+</mujoco>

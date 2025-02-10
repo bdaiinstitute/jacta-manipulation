@@ -1,0 +1,18 @@
+<mujoco>
+  <asset>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <material name="yellow" rgba="1 0.8 0.03 1"/>
+    <texture name="bdai_texture" type="2d" file="bdaii_spot_wrap.png"/>
+    <material name="bdai" texture="bdai_texture" specular="1" shininess="11"/>
+  </asset>
+
+  <default>
+    <default class="visual">
+      <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+    </default>
+    <default class="collision">
+      <geom group="3" friction="0.15" priority="4" rgba="1 1 1 1">
+      </geom>
+    </default>
+  </default>
+</mujoco>

@@ -1,0 +1,48 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: dexterity/models/xml/scenes/legacy/box_push.xml
+
+vis:
+  filename: dexterity/models/xml/scenes/legacy/box_push.yml
+  indices: ([0, 0, 0])
+  scale: ([1, 0, 0.0])
+
+action:
+  bound_lower: ([-10.0])
+  bound_upper: -self.action_bound_lower
+  range: torch.ones_like(self.action_bound_lower)
+  types: "[AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL]"
+  distribution: ([1, 2, 1, 2])
+
+reward:
+  distance_scaling: ([1, 0, 0.1, 0])
+  proximity_scaling: 1.0
+  reachability_scaling: 1.0
+
+start:
+  state:       ([9.0,    0, 0, 0])
+  bound_lower: ([8.5, -0.5, 0, 0])
+  bound_upper: ([9.5,  0.5, 0, 0])
+goal:
+  state:       ([10.0, 0, 0, 0])
+  bound_lower: ([10.5, 0, 0, 0])
+  bound_upper: ([11.5, 0, 0, 0])
+
+learner:
+  early_stop: 1.0
+  trajectory_length: 75
+  use_sparse_reward: True
+  final_success_distance: 0.05
+  stop_converged_injection: False
+  max_planner_experience_share: 0.5
+
+intermediate_pruning: False
+num_sub_goals: 30
+steps_per_goal: 30
+goal_bias: 0.0
+termination_distance: 0.0
+max_main_nodes: 50000
+action_time_step: 0.4
+action_steps_max: 3
+
+seed: 0

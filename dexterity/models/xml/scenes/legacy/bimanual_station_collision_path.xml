@@ -1,0 +1,4 @@
+<mujoco model="bimanual_station_collision_path">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <compiler angle="radian" meshdir="../../../meshes/iiwa7/collision/" autolimits="true"/>
+</mujoco>

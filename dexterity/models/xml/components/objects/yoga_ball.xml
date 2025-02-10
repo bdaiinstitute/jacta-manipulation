@@ -1,0 +1,13 @@
+<mujoco model="yoga_ball">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <body name="yoga_ball" pos="2 0 0.215">
+    <joint name="yoga_ball_joint" type="free"/>
+    <!-- ball's inertial: 0.4 * M * R^2 -->
+    <inertial pos="0 0 0" mass="0.5" diaginertia="0.009245 0.009245 0.009245"/>
+
+    <geom name="ball" type="sphere" size="0.215" friction="2 0.05 0.001" priority="3" material="chess_material"/>
+
+    <site name="site_object" pos="0 0 0" size="0.01"/>
+
+  </body>
+</mujoco>

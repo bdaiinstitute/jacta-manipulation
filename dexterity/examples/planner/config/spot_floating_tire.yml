@@ -1,0 +1,62 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: dexterity/models/xml/scenes/legacy/spot_floating_tire.xml
+
+seed: -1
+
+action:
+  bound_lower: ([-2, -2, -2, -2.62, -np.pi, 0, -2.79, -1.83, -2.87, -1.57])
+  bound_upper: ([+2, +2, +2, np.pi, 0.52, np.pi, 2.79, 1.83, 2.87, 0])
+  range: torch.ones_like(self.action_bound_lower) * 5.0
+  types: "[AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL]"
+  distribution: ([1, 4, 1, 4])
+  backward_speed_mag: 1.0
+  processor_class: SpotFloatingActionProcessor
+
+start:
+  state:
+    - ([1.1,  0, 0.3]) # object xyz
+    - ([1, 0, 0, 0]) # object quaternion
+    - ([0.0, 0.0, 0.0]) # base x, y, theta
+    - ([0.0, -0.9, 1.8, 0.0, -0.9, 0.0, 0.0]) # arm
+    - ([0.0] * 16) # velocities
+goal:
+  state:
+    - ([2.0,  1.0, 0.3]) # object xyz
+    - ([1, 0, 0, 0]) # object quaternion
+    - ([10.0, 10.0, 0.0]) # base x, y, theta
+    - ([0.0, -0.9, 1.8, 0.0, -0.9, 0.0, 0.0]) # arm
+    - ([0.0] * 16) # velocities
+
+reward:
+  distance_scaling:
+    - ([10.0] * 3) # object xyz
+    - ([0.0] * 3) # object orientation
+    - ([0.0] * 3) # base x, y, theta
+    - ([0.0] * 7) # arm
+    - ([1.0] * 3) # object: linear velocity
+    - ([1.0] * 3) # object: angular velocity
+    - ([1.0] * 3) # robot: base velocities
+    - ([0.0] * 7) # robot: arm velocities
+
+  proximity_scaling:
+    - ([-1.0] * 3) # base <-> object
+    - ([0.0] * 18) # arm <-> object
+    - ([1.0] * 3) # end-effector <-> object
+    - ([0.0] * 3) # tire y-axis
+
+  reachability_scaling: 1.5
+
+termination_distance: 0.0
+
+early_termination_fns:
+  - "is_object_tilted"
+  - "is_object_out_of_reach"
+  - "torso_too_close_to_object"
+
+num_sub_goals: 10
+steps_per_goal: 30
+parallel_extensions: 10
+
+learner:
+  trajectory_length: 40

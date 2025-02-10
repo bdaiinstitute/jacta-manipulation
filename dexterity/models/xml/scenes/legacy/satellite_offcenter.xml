@@ -1,0 +1,60 @@
+<mujoco model="satellite_offcenter">
+<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+  <compiler angle="radian" autolimits="true"/>
+
+  <option integrator="implicit" timestep="0.01" gravity="0 0 0"/>
+
+  <visual>
+    <headlight ambient=".4 .4 .4" diffuse=".8 .8 .8" specular="0.1 0.1 0.1"/>
+    <map znear=".01"/>
+    <quality shadowsize="8192"/>
+    <global azimuth="180" elevation="-30"/>
+    <scale framelength=".3" framewidth=".03"/>
+  </visual>
+
+  <asset>
+    <texture name="blue_grid" type="2d" builtin="checker" rgb1=".02 .14 .44" rgb2=".27 .55 1" width="300" height="300" mark="edge" markrgb="1 1 1"/>
+    <material name="blue_grid" texture="blue_grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+  </asset>
+
+  <default>
+    <material specular="0.5" shininess="0.95"/>
+    <default class="axis_slide">
+      <joint type="slide" damping="10"/>
+      <position kp="1" forcerange="-1000 1000"/>
+    </default>
+  </default>
+
+  <worldbody>
+    <site name="world"/>
+    <body>
+      <geom mass="0" name="floor" pos="0 0 -5" size="0 0 0.05" type="plane" material="blue_grid"/>
+    </body>
+
+    <body name="satellite_sphere" gravcomp="0" pos="0 0 0">
+      <joint axis="1 0 0" name="joint_x" class="axis_slide"/>
+      <joint axis="0 1 0" name="joint_y" class="axis_slide"/>
+      <joint axis="0 0 1" name="joint_z" class="axis_slide"/>
+      <geom name="sphere" type="sphere" mass="0.1" size="0.04" pos="0 0 0"/>
+      <body name="satellite_box" gravcomp="0" pos="0 0 0">
+        <joint type="ball"/>
+        <geom name="box" type="box" mass="0.1" size="0.10 0.10 0.10" pos="0.1 0.1 0.1"/>
+        <geom name="x_axis" type="box" mass="0.0" size="0.10 0.01 0.01" pos="0.1 0 0" rgba="0.9 0.2 0.2 1"/>
+        <geom name="y_axis" type="box" mass="0.0" size="0.01 0.10 0.01" pos="0 0.1 0" rgba="0.2 0.9 0.2 1"/>
+        <geom name="z_axis" type="box" mass="0.0" size="0.01 0.01 0.10" pos="0 0 0.1" rgba="0.2 0.2 0.9 1"/>
+        <site pos="0 0 0" name="site_box"/>
+      </body>
+    </body>
+  </worldbody>
+
+  <keyframe>
+    <!-- mujoco q = [object_pos, object_quat] -->
+    <key name="home" qpos="0 0 0   1 0 0 0" />
+  </keyframe>
+
+  <actuator>
+    <position name="actuator_x" joint="joint_x" class="axis_slide"/>
+    <position name="actuator_y" joint="joint_y" class="axis_slide"/>
+    <position name="actuator_z" joint="joint_z" class="axis_slide"/>
+  </actuator>
+</mujoco>

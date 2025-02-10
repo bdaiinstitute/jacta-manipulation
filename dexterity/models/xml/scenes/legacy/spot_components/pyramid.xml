@@ -1,0 +1,47 @@
+<mujoco model="object">
+<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+
+    <geom name="wall0" type="box" class="collision" size="0.1 1 1" pos="2 1.9 1"/>
+    <geom name="wall1" type="box" class="collision" size="0.1 1 1" pos="2 -1.9 1"/>
+    <geom name="visual_wall0" type="box" class="visual" size="0.1 1 1" pos="2 1.9 1"/>
+    <geom name="visual_wall1" type="box" class="visual" size="0.1 1 1" pos="2 -1.9 1"/>
+
+
+    <body name="box0" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box0_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box0_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+    <body name="box1" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box1_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box1_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+    <body name="box2" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box2_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box2_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+
+    <body name="box3" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box3_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box3_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+    <body name="box4" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box4_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box4_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+    <body name="box5" pos="0 0 0">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="2" diaginertia="0.5 0.5 0.5"/>
+      <geom name="box5_geom" class="collision" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+      <geom name="visual_box5_geom" class="visual" type="box" size="0.25 0.25 0.25" pos="0 0 0"/>
+    </body>
+</mujoco>

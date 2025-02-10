@@ -1,0 +1,88 @@
+# Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
+
+# Under defaults, specify in the tiered format which parameters should always
+# be loaded into the container as default values
+
+defaults:
+
+  action:
+    types: ([AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GOAL])
+    start_mode: ActionMode.RELATIVE_TO_PREVIOUS_END_ACTION
+    end_mode: ActionMode.RELATIVE_TO_CURRENT_STATE
+    processor_class: ActionProcessor
+
+  learner:
+    evals: 10
+    trajectory_length: 15
+    max_trajectories: 10000
+    cycles: 50
+    rollouts: 2
+    batches: 40
+    early_stop: 0.95
+    use_sparse_reward: True
+    final_success_distance: 0.05
+    stop_converged_injection: False
+    max_planner_experience_share: 0.5
+    batch_size: 256
+
+  reward:
+    proximity_scaling: 0.01
+    reachability_scaling: 0.01
+    success_score: 1.0
+    failure_score: 0.0
+    progress_scale: 1.0
+    maximum_magnitude: 1.0
+
+  vis:
+    indices: [0, 1, 2]
+    scale: torch.ones(3)
+
+  reward_based: True
+  reachability_regularization: 1e-3
+  intermediate_pruning: True
+  intermediate_replacement: True
+  parallel_extensions: 1
+  action_regularization: 1e-2
+  force_replace: False
+  finite_diff_eps: 1e-2
+  termination_distance: 0.045
+  goal_bias: 0.1
+  num_sub_goals: 0
+  num_parallel_searches: 1
+  steps_per_goal: 100
+  callback_period: 0
+  max_main_nodes: 10000
+  clipping_type: ClippingType.CLIP
+  control_type: ControlType.FIRST_ORDER_HOLD
+  action_steps_max: 10
+  extension_horizon_max: 10
+  pareto_exponent_max: 1.2  # 50% choosing top 1 node, 95% choosing from top 10 nodes
+  pareto_exponent_min: 0.2  # 50% choosing from top 10 nodes, 80% choosing from top 100 nodes
+  using_eigenspaces: False
+  ignore_sampled_state_collisions: False
+
+  seed: 0
+  log_to_file: False
+
+# Under autofill_rules, specify a flattened key first and then a list of dictionary
+# elements with all sub-parameters that must also be specified and their default value
+# The rules are only run once at the initial loading of the config file, not at parameter overrides
+
+autofill_rules:
+  start_state:
+    - '("start_bound_lower", "self.start_state")'
+    - '("start_bound_upper", "self.start_state")'
+
+  goal_state:
+    - '("goal_bound_lower", "self.goal_state")'
+    - '("goal_bound_upper", "self.goal_state")'
+
+  action_types:
+    - '("action_distribution", "torch.ones(len(self.action_types)) / len(self.action_types)")'
+
+  goal_bound:
+    - '("goal_sub_bound_lower", "self.goal_bound_lower")'
+    - '("goal_sub_bound_upper", "self.goal_bound_upper")'
+
+  max_main_nodes:
+    - '("max_main_nodes", "self.max_main_nodes * self.num_parallel_searches")'
