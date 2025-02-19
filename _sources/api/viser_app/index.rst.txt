@@ -4,6 +4,16 @@
 .. py:module:: viser_app
 
 
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   controllers/index.rst
+   tasks/index.rst
+
+
 Submodules
 ----------
 .. toctree::
@@ -11,6 +21,7 @@ Submodules
    :maxdepth: 1
 
    app/index.rst
+   constants/index.rst
    gui/index.rst
    io/index.rst
    json_serializer/index.rst

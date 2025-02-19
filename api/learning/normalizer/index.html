@@ -264,12 +264,15 @@ based on the implementation in <a class="reference external" href="https://githu
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="learning.normalizer.Normalizer.normalize_obs">
-<span class="sig-name descname"><span class="pre">normalize_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.normalizer.Normalizer.normalize_obs" title="Link to this definition">#</a></dt>
-<dd><p>Normalize the observation data (state, goal).</p>
+<dt class="sig sig-object py" id="learning.normalizer.Normalizer.wrap_obs">
+<span class="sig-name descname"><span class="pre">wrap_obs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.normalizer.Normalizer.wrap_obs" title="Link to this definition">#</a></dt>
+<dd><p>Wrap states and goals into a contingent input tensor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>obs</strong> (<em>torch.FloatTensor</em>) – Input observation array.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>states</strong> (<em>torch.FloatTensor</em>) – Input states array.</p></li>
+<li><p><strong>goals</strong> (<em>torch.FloatTensor</em>) – Input goals array.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A fused state goal tensor.</p>
@@ -362,7 +365,7 @@ based on the implementation in <a class="reference external" href="https://githu
 <li><a class="reference internal" href="#learning.normalizer.Normalizer"><code class="docutils literal notranslate"><span class="pre">Normalizer</span></code></a><ul>
 <li><a class="reference internal" href="#learning.normalizer.Normalizer.normalize"><code class="docutils literal notranslate"><span class="pre">Normalizer.normalize()</span></code></a></li>
 <li><a class="reference internal" href="#learning.normalizer.Normalizer.update"><code class="docutils literal notranslate"><span class="pre">Normalizer.update()</span></code></a></li>
-<li><a class="reference internal" href="#learning.normalizer.Normalizer.normalize_obs"><code class="docutils literal notranslate"><span class="pre">Normalizer.normalize_obs()</span></code></a></li>
+<li><a class="reference internal" href="#learning.normalizer.Normalizer.wrap_obs"><code class="docutils literal notranslate"><span class="pre">Normalizer.wrap_obs()</span></code></a></li>
 <li><a class="reference internal" href="#learning.normalizer.Normalizer.load"><code class="docutils literal notranslate"><span class="pre">Normalizer.load()</span></code></a></li>
 <li><a class="reference internal" href="#learning.normalizer.Normalizer.save"><code class="docutils literal notranslate"><span class="pre">Normalizer.save()</span></code></a></li>
 </ul>

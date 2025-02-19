@@ -15,85 +15,27 @@
 Module Contents
 ---------------
 
-.. py:class:: Learner
+.. py:class:: Learner(plant: jacta.planner.dynamics.simulator_plant.SimulatorPlant, graph: jacta.planner.core.graph.Graph, replay_buffer: jacta.learning.replay_buffer.ReplayBuffer, params: jacta.planner.core.parameter_container.ParameterContainer, save_local: bool = True, load_local: bool = False, verbose: bool = True)
 
 
    
-   Deep Deterministic Policy Gradient algorithm class
-   .. py:attribute:: plant
-      :type: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant
+   Deep Deterministic Policy Gradient algorithm class.
 
-      
-
-   .. py:attribute:: graph
-      :type: jactamanipulation.planner.planner.graph.Graph
-
-      
-
-   .. py:attribute:: replay_buffer
-      :type: jactamanipulation.learning.replay_buffer.ReplayBuffer
-
-      
-
-   .. py:attribute:: params
-      :type: jactamanipulation.planner.planner.parameter_container.ParameterContainer
-
-      
-
-   .. py:attribute:: save_local
-      :type: bool
-      :value: True
-
-      
-
-   .. py:attribute:: save_cloud
-      :type: bool
-      :value: False
-
-      
-
-   .. py:attribute:: load_local
-      :type: bool
-      :value: False
-
-      
-
-   .. py:attribute:: load_cloud
-      :type: bool
-      :value: False
-
-      
-
-   .. py:attribute:: verbose
-      :type: bool
-      :value: True
-
-      
-
-   .. py:method:: __post_init__() -> None
-
-      
-      Constructs a Learner object.
-
+   Uses a state/goal normalizer and the HER sampling method to solve sparse reward environments.
    .. py:method:: reset() -> None
 
-      
-      Reset the Learner for additional runs.
 
-   .. py:method:: actor_actions(states: torch.FloatTensor, goal_state: torch.FloatTensor) -> torch.FloatTensor
+   .. py:method:: actor_actions(actor: jacta.learning.networks.Actor, node_ids: torch.IntTensor, action_time_step: float) -> torch.FloatTensor
 
-      
-      Uses actor network to sample actions given ``node_ids`` to index into the replay buffer.
 
-   .. py:method:: relative_distances_to(start_states: torch.FloatTensor, current_states: torch.FloatTensor, goal_states: torch.FloatTensor) -> torch.FloatTensor
+   .. py:method:: relative_distances_to(data_container: Union[jacta.planner.core.graph.Graph, jacta.learning.replay_buffer.ReplayBuffer], ids: torch.IntTensor, target_states: torch.FloatTensor) -> torch.FloatTensor
 
-      
-      Scaled distance from states in a given container to ``goal_states``.
 
-   .. py:method:: reward_function(start_states: torch.FloatTensor, current_states: torch.FloatTensor, goal_states: torch.FloatTensor) -> tuple[torch.FloatTensor, torch.FloatTensor]
+   .. py:method:: reward_function(data_container: Union[jacta.planner.core.graph.Graph, jacta.learning.replay_buffer.ReplayBuffer], node_ids: torch.FloatTensor, goals: torch.FloatTensor) -> Tuple[torch.FloatTensor, torch.FloatTensor]
 
-      
-      Learner reward function.
+
+   .. py:method:: planner_exploration(root_states: torch.FloatTensor) -> torch.FloatTensor
+
 
    .. py:method:: update_norm(states: torch.FloatTensor, goals: torch.FloatTensor) -> None
 
@@ -103,56 +45,47 @@ Module Contents
       Samples the trajectory instead of taking every experience to create a goal distribution that
       is equal to what the networks encouter.
 
-   .. py:method:: policy_rollout() -> tensordict.TensorDict
+   .. py:method:: policy_rollout(temporary: bool = False) -> Tuple[torch.FloatTensor, bool]
 
-      
-      Rollout trained policy using randomly sampled start and goal states and add to the replay buffer.
 
-   .. py:method:: graph_rollout() -> tensordict.TensorDict
+   .. py:method:: graph_rollout(temporary: bool = False) -> torch.FloatTensor
 
-      
-      Trace trajectory in graph from randomly sampled start to goal states and add to the replay buffer.
 
-   .. py:method:: set_demonstration_injection() -> None
+   .. py:method:: set_demonstration_injection(final_success_rate: float) -> None
 
-      
-      Sets demonstration injection
 
    .. py:method:: train(num_epochs: int = 50) -> None
 
       
       Train a policy to solve the environment with DDPG.
 
-   .. py:method:: preprocess_sample(data: tensordict.TensorDict) -> tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
+      Trajectories are resampled with HER to solve sparse reward environments.
 
-      
-      Preprocess sample
+      `DDPG paper <https://arxiv.org/pdf/1509.02971.pdf>`_
 
-      :param data: Tensor to preprocess
-      :type data: TensorDict
+      `HER paper <https://arxiv.org/pdf/1707.01495.pdf>`_
 
-      :returns: *tuple[FloatTensor, FloatTensor, FloatTensor, FloatTensor, FloatTensor]* --     observation, next observation, actions, rewards, terminated
+   .. py:method:: state_action_training_data(num_trajectories: int = 1000, discount_factor: float = 0.98) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
 
-   .. py:method:: train_actor_critic(data: tensordict.TensorDict, discount_factor: float = 0.98) -> None
 
-      
-      Train the agent and critic network with experience sampled from the replay buffer.
+   .. py:method:: pretrain(num_epochs: int = 100, num_trajectories: int = 1000, train_critic: bool = True) -> None
 
-   .. py:method:: eval_agent() -> tuple[float, float]
+
+   .. py:method:: eval_agent() -> Tuple[float, float, float]
 
       
       Evaluate the current agent performance on the task.
 
       Runs ``learner_evals`` times and averages the success rate.
 
-   .. py:method:: save_models(is_local: bool) -> None
+   .. py:method:: save_models() -> None
 
       
       Save the actor and critic networks and the normalizers.
 
       Saves are located under ``/models/<model_filename>/``.
 
-   .. py:method:: load_models(path: pathlib.Path, is_local: bool) -> None
+   .. py:method:: load_models(path: str) -> None
 
       
       Load the actor and critic networks and the normalizers.

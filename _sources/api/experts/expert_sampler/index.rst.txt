@@ -3,23 +3,14 @@
 
 .. py:module:: experts.expert_sampler
 
-.. autoapi-nested-parse::
-
-   
-   Expert Sampler Submodule.
-
 
 Module Contents
 ---------------
 
-.. py:class:: ExpertSampler(plant: jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant, graph: jactamanipulation.planner.planner.graph.Graph, params: jactamanipulation.planner.planner.parameter_container.ParameterContainer)
+.. py:class:: ExpertSampler(plant: jacta.planner.dynamics.simulator_plant.SimulatorPlant, graph: jacta.planner.core.graph.Graph, params: jacta.planner.core.parameter_container.ParameterContainer)
 
 
-   
-   ExpertSampler object.
    .. py:method:: callback(node_ids: torch.IntTensor) -> torch.FloatTensor
 
-      
-      Default action callback of random action generation.
 
 

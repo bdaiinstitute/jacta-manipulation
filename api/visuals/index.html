@@ -207,15 +207,159 @@
         <article role="main">
           <section id="module-visuals">
 <span id="visuals"></span><h1><a class="reference internal" href="#module-visuals" title="visuals"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visuals</span></code></a><a class="headerlink" href="#module-visuals" title="Link to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="meshcat_visualizer/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visuals.meshcat_visualizer</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="mujoco_visualizer/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visuals.mujoco_visualizer</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="quaternion_operations/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visuals.quaternion_operations</span></code></a></li>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="visuals.DEFAULT_PREFIXES">
+<span class="sig-prename descclassname"><span class="pre">visuals.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_PREFIXES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['actual',</span> <span class="pre">'desired']</span></em><a class="headerlink" href="#visuals.DEFAULT_PREFIXES" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="visuals.DEFAULT_COLORS">
+<span class="sig-prename descclassname"><span class="pre">visuals.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_COLORS</span></span><a class="headerlink" href="#visuals.DEFAULT_COLORS" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="visuals.visualize_and_control_model">
+<span class="sig-prename descclassname"><span class="pre">visuals.</span></span><span class="sig-name descname"><span class="pre">visualize_and_control_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meshcat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydrake.geometry.Meshcat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directives_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_joint_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_joint_limits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_joint_limits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.typing.ArrayLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.visualize_and_control_model" title="Link to this definition">#</a></dt>
+<dd><p>Creates a visualization of a meshcat object with sliders attached to manipulate the joints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>meshcat</strong> (<em>pydrake.geometry.Meshcat</em>) – </p></li>
+<li><p><strong>directives_filename</strong> (<em>str</em>) – </p></li>
+<li><p><strong>initial_joint_values</strong> (<em>Optional</em><em>[</em><em>numpy.typing.ArrayLike</em><em>]</em>) – </p></li>
+<li><p><strong>lower_joint_limits</strong> (<em>Optional</em><em>[</em><em>numpy.typing.ArrayLike</em><em>]</em>) – </p></li>
+<li><p><strong>upper_joint_limits</strong> (<em>Optional</em><em>[</em><em>numpy.typing.ArrayLike</em><em>]</em>) – </p></li>
 </ul>
-</div>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">visuals.</span></span><span class="sig-name descname"><span class="pre">TrajectoryVisualizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.parameter_container.ParameterContainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visuals.TrajectoryVisualizer" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>jacta.planner.core.parameter_container.ParameterContainer</em>) – </p></li>
+<li><p><strong>sim_time_step</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.meshcat">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meshcat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pydrake.geometry.Meshcat</span></em><a class="headerlink" href="#visuals.TrajectoryVisualizer.meshcat" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pydrake.geometry.Meshcat</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.set_directives_prefix">
+<span class="sig-name descname"><span class="pre">set_directives_prefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_directives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydrake.multibody.parsing.ModelDirectives</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'directive::'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.set_directives_prefix" title="Link to this definition">#</a></dt>
+<dd><p>Add a prefix to rename the model directives.
+This function supports the “add_model” and “add_weld” directives.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_directives</strong> (<em>pydrake.multibody.parsing.ModelDirectives</em>) – model directives to be renamed.</p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – the string that will be added in front of the names of all directives.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.set_color_of_models">
+<span class="sig-name descname"><span class="pre">set_color_of_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydrake.multibody.plant.MultibodyPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_instances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pydrake.multibody.tree.ModelInstanceIndex</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scene_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydrake.geometry.SceneGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydrake.geometry.Rgba</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.set_color_of_models" title="Link to this definition">#</a></dt>
+<dd><p>Set the color and transparency of the given model instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plant</strong> (<em>pydrake.multibody.plant.MultibodyPlant</em>) – the multibody plant that contains the model instances.</p></li>
+<li><p><strong>model_instances</strong> (<em>List</em><em>[</em><em>pydrake.multibody.tree.ModelInstanceIndex</em><em>]</em>) – the model instance that will be recolored.</p></li>
+<li><p><strong>scene_graph</strong> (<em>pydrake.geometry.SceneGraph</em>) – the scene graph to be modified.</p></li>
+<li><p><strong>color</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>pydrake.geometry.Rgba</em><em>, </em><em>float</em><em>]</em><em>]</em>) – the new color and transparency as Rgba or just the transparency as a float (between 0 and 1),</p></li>
+<li><p><strong>colors</strong> (<em>if we want to keep the original</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.setup_and_connect">
+<span class="sig-name descname"><span class="pre">setup_and_connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.setup_and_connect" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trajectories</strong> (<em>List</em><em>[</em><em>pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.update_trajectories">
+<span class="sig-name descname"><span class="pre">update_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.update_trajectories" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>trajectories</strong> (<em>List</em><em>[</em><em>pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.visualize_trajectories">
+<span class="sig-name descname"><span class="pre">visualize_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefixes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pydrake.geometry.Rgba</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.visualize_trajectories" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trajectories</strong> (<em>List</em><em>[</em><em>pydrake.trajectories.PiecewisePolynomial.FirstOrderHold</em><em>]</em>) – </p></li>
+<li><p><strong>prefixes</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>colors</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>pydrake.geometry.Rgba</em><em>]</em><em>]</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="visuals.TrajectoryVisualizer.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">pydrake.geometry.Rgba</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">DEFAULT_COLORS</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visuals.TrajectoryVisualizer.show" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trajectory</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>goal_state</strong> (<em>Optional</em><em>[</em><em>torch.FloatTensor</em><em>]</em>) – </p></li>
+<li><p><strong>colors</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Union</em><em>[</em><em>float</em><em>, </em><em>pydrake.geometry.Rgba</em><em>]</em><em>]</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -264,7 +408,22 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visuals</span></code></a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#visuals.DEFAULT_PREFIXES"><code class="docutils literal notranslate"><span class="pre">DEFAULT_PREFIXES</span></code></a></li>
+<li><a class="reference internal" href="#visuals.DEFAULT_COLORS"><code class="docutils literal notranslate"><span class="pre">DEFAULT_COLORS</span></code></a></li>
+<li><a class="reference internal" href="#visuals.visualize_and_control_model"><code class="docutils literal notranslate"><span class="pre">visualize_and_control_model()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer</span></code></a><ul>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.meshcat"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.meshcat</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.set_directives_prefix"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.set_directives_prefix()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.set_color_of_models"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.set_color_of_models()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.setup_and_connect"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.setup_and_connect()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.update_trajectories"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.update_trajectories()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.visualize_trajectories"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.visualize_trajectories()</span></code></a></li>
+<li><a class="reference internal" href="#visuals.TrajectoryVisualizer.show"><code class="docutils literal notranslate"><span class="pre">TrajectoryVisualizer.show()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -18,7 +18,7 @@ Module Contents
 .. py:class:: SpotBoxConfig
 
 
-   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBaseConfig`
+   Bases: :py:obj:`jacta.visualizers.viser_app.tasks.spot_base.SpotBaseConfig`
 
    
    Config for the spot box manipulation task.
@@ -60,7 +60,7 @@ Module Contents
 .. py:class:: SpotBox
 
 
-   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotBoxConfig`\ ]
+   Bases: :py:obj:`jacta.visualizers.viser_app.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotBoxConfig`\ ]
 
    
    Task getting Spot to move a box to a desired goal location.

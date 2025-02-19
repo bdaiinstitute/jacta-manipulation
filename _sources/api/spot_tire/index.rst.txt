@@ -28,7 +28,7 @@ Module Contents
 .. py:class:: SpotTireConfig
 
 
-   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBaseConfig`
+   Bases: :py:obj:`jacta.visualizers.viser_app.tasks.spot_base.SpotBaseConfig`
 
    
    Config for the spot tire manipulation task.
@@ -111,7 +111,7 @@ Module Contents
 .. py:class:: SpotTire
 
 
-   Bases: :py:obj:`jactamanipulation.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotTireConfig`\ ]
+   Bases: :py:obj:`jacta.visualizers.viser_app.tasks.spot_base.SpotBase`\ [\ :py:obj:`SpotTireConfig`\ ]
 
    
    Task getting Spot to move a tire to a desired goal location.

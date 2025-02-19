@@ -12,7 +12,7 @@ Module Contents
 
    
 
-.. py:class:: MjVisualization(task: jactamanipulation.tasks.task.Task, server: viser.ViserServer, context: jactamanipulation.viser_app.io.IOContext, handles: dict)
+.. py:class:: MjVisualization(task: jacta.visualizers.viser_app.tasks.task.Task, server: viser.ViserServer, context: jacta.visualizers.viser_app.io.IOContext, handles: dict)
 
 
    

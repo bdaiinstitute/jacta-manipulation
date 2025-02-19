@@ -45,12 +45,13 @@ Module Contents
 
       :raises AssertionError: Shape check failed.
 
-   .. py:method:: normalize_obs(obs: torch.FloatTensor) -> torch.FloatTensor
+   .. py:method:: wrap_obs(states: torch.FloatTensor, goals: torch.FloatTensor) -> torch.FloatTensor
 
       
-      Normalize the observation data (state, goal).
+      Wrap states and goals into a contingent input tensor.
 
-      :param obs: Input observation array.
+      :param states: Input states array.
+      :param goals: Input goals array.
 
       :returns: A fused state goal tensor.
 

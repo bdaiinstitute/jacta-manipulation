@@ -1,0 +1,17 @@
+:py:mod:`mujoco_helpers`
+========================
+
+.. py:module:: mujoco_helpers
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   dynamics/index.rst
+   kinematics/index.rst
+   utils/index.rst
+
+

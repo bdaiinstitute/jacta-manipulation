@@ -214,87 +214,32 @@ during training as well as network loading if starting from pre-trained networks
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="learning.learner.Learner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">learning.learner.</span></span><span class="sig-name descname"><span class="pre">Learner</span></span><a class="headerlink" href="#learning.learner.Learner" title="Link to this definition">#</a></dt>
-<dd><p>Deep Deterministic Policy Gradient algorithm class
-.. py:attribute:: plant</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.graph">
-<span class="sig-name descname"><span class="pre">graph</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">jactamanipulation.planner.planner.graph.Graph</span></em><a class="headerlink" href="#learning.learner.Learner.graph" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.replay_buffer">
-<span class="sig-name descname"><span class="pre">replay_buffer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">jactamanipulation.learning.replay_buffer.ReplayBuffer</span></em><a class="headerlink" href="#learning.learner.Learner.replay_buffer" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.params">
-<span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">jactamanipulation.planner.planner.parameter_container.ParameterContainer</span></em><a class="headerlink" href="#learning.learner.Learner.params" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.save_local">
-<span class="sig-name descname"><span class="pre">save_local</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#learning.learner.Learner.save_local" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.save_cloud">
-<span class="sig-name descname"><span class="pre">save_cloud</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#learning.learner.Learner.save_cloud" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.load_local">
-<span class="sig-name descname"><span class="pre">load_local</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#learning.learner.Learner.load_local" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.load_cloud">
-<span class="sig-name descname"><span class="pre">load_cloud</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#learning.learner.Learner.load_cloud" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="learning.learner.Learner.verbose">
-<span class="sig-name descname"><span class="pre">verbose</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#learning.learner.Learner.verbose" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="learning.learner.Learner.__post_init__">
-<span class="sig-name descname"><span class="pre">__post_init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.__post_init__" title="Link to this definition">#</a></dt>
-<dd><p>Constructs a Learner object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="learning.learner.Learner.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.reset" title="Link to this definition">#</a></dt>
-<dd><p>Reset the Learner for additional runs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="learning.learner.Learner.actor_actions">
-<span class="sig-name descname"><span class="pre">actor_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.actor_actions" title="Link to this definition">#</a></dt>
-<dd><p>Uses actor network to sample actions given <code class="docutils literal notranslate"><span class="pre">node_ids</span></code> to index into the replay buffer.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">learning.learner.</span></span><span class="sig-name descname"><span class="pre">Learner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.dynamics.simulator_plant.SimulatorPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.replay_buffer.ReplayBuffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.parameter_container.ParameterContainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#learning.learner.Learner" title="Link to this definition">#</a></dt>
+<dd><p>Deep Deterministic Policy Gradient algorithm class.</p>
+<p>Uses a state/goal normalizer and the HER sampling method to solve sparse reward environments.
+.. py:method:: reset() -&gt; None</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>states</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>goal_state</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>plant</strong> (<em>jacta.planner.dynamics.simulator_plant.SimulatorPlant</em>) – </p></li>
+<li><p><strong>graph</strong> (<em>jacta.planner.core.graph.Graph</em>) – </p></li>
+<li><p><strong>replay_buffer</strong> (<em>jacta.learning.replay_buffer.ReplayBuffer</em>) – </p></li>
+<li><p><strong>params</strong> (<em>jacta.planner.core.parameter_container.ParameterContainer</em>) – </p></li>
+<li><p><strong>save_local</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>load_local</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="learning.learner.Learner.actor_actions">
+<span class="sig-name descname"><span class="pre">actor_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.networks.Actor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.IntTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.actor_actions" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor</strong> (<em>jacta.learning.networks.Actor</em>) – </p></li>
+<li><p><strong>node_ids</strong> (<em>torch.IntTensor</em>) – </p></li>
+<li><p><strong>action_time_step</strong> (<em>float</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -305,14 +250,13 @@ during training as well as network loading if starting from pre-trained networks
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.relative_distances_to">
-<span class="sig-name descname"><span class="pre">relative_distances_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.relative_distances_to" title="Link to this definition">#</a></dt>
-<dd><p>Scaled distance from states in a given container to <code class="docutils literal notranslate"><span class="pre">goal_states</span></code>.</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">relative_distances_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.graph.Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">jacta.learning.replay_buffer.ReplayBuffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.IntTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.relative_distances_to" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>current_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>goal_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>data_container</strong> (<em>Union</em><em>[</em><em>jacta.planner.core.graph.Graph</em><em>, </em><em>jacta.learning.replay_buffer.ReplayBuffer</em><em>]</em>) – </p></li>
+<li><p><strong>ids</strong> (<em>torch.IntTensor</em>) – </p></li>
+<li><p><strong>target_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -323,18 +267,30 @@ during training as well as network loading if starting from pre-trained networks
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.reward_function">
-<span class="sig-name descname"><span class="pre">reward_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goal_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.reward_function" title="Link to this definition">#</a></dt>
-<dd><p>Learner reward function.</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">reward_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.graph.Graph</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">jacta.learning.replay_buffer.ReplayBuffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.reward_function" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>current_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>goal_states</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>data_container</strong> (<em>Union</em><em>[</em><em>jacta.planner.core.graph.Graph</em><em>, </em><em>jacta.learning.replay_buffer.ReplayBuffer</em><em>]</em>) – </p></li>
+<li><p><strong>node_ids</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>goals</strong> (<em>torch.FloatTensor</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple[torch.FloatTensor, torch.FloatTensor]</p>
+<dd class="field-even"><p>Tuple[torch.FloatTensor, torch.FloatTensor]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="learning.learner.Learner.planner_exploration">
+<span class="sig-name descname"><span class="pre">planner_exploration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.planner_exploration" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_states</strong> (<em>torch.FloatTensor</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.FloatTensor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -360,33 +316,39 @@ is equal to what the networks encouter.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.policy_rollout">
-<span class="sig-name descname"><span class="pre">policy_rollout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensordict.TensorDict</span></span></span><a class="headerlink" href="#learning.learner.Learner.policy_rollout" title="Link to this definition">#</a></dt>
-<dd><p>Rollout trained policy using randomly sampled start and goal states and add to the replay buffer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tensordict.TensorDict</p>
+<span class="sig-name descname"><span class="pre">policy_rollout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temporary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.policy_rollout" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>temporary</strong> (<em>bool</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[torch.FloatTensor, bool]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.graph_rollout">
-<span class="sig-name descname"><span class="pre">graph_rollout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tensordict.TensorDict</span></span></span><a class="headerlink" href="#learning.learner.Learner.graph_rollout" title="Link to this definition">#</a></dt>
-<dd><p>Trace trajectory in graph from randomly sampled start to goal states and add to the replay buffer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tensordict.TensorDict</p>
+<span class="sig-name descname"><span class="pre">graph_rollout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temporary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#learning.learner.Learner.graph_rollout" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>temporary</strong> (<em>bool</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.FloatTensor</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.set_demonstration_injection">
-<span class="sig-name descname"><span class="pre">set_demonstration_injection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.set_demonstration_injection" title="Link to this definition">#</a></dt>
-<dd><p>Sets demonstration injection</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<span class="sig-name descname"><span class="pre">set_demonstration_injection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">final_success_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.set_demonstration_injection" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>final_success_rate</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -395,6 +357,9 @@ is equal to what the networks encouter.</p>
 <dt class="sig sig-object py" id="learning.learner.Learner.train">
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.train" title="Link to this definition">#</a></dt>
 <dd><p>Train a policy to solve the environment with DDPG.</p>
+<p>Trajectories are resampled with HER to solve sparse reward environments.</p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1509.02971.pdf">DDPG paper</a></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/1707.01495.pdf">HER paper</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>num_epochs</strong> (<em>int</em>) – </p>
@@ -406,31 +371,30 @@ is equal to what the networks encouter.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="learning.learner.Learner.preprocess_sample">
-<span class="sig-name descname"><span class="pre">preprocess_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tensordict.TensorDict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.preprocess_sample" title="Link to this definition">#</a></dt>
-<dd><p>Preprocess sample</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="learning.learner.Learner.state_action_training_data">
+<span class="sig-name descname"><span class="pre">state_action_training_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.98</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.FloatTensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.state_action_training_data" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>TensorDict</em>) – Tensor to preprocess</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_trajectories</strong> (<em>int</em>) – </p></li>
+<li><p><strong>discount_factor</strong> (<em>float</em>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>tuple[FloatTensor, FloatTensor, FloatTensor, FloatTensor, FloatTensor]</em> –     observation, next observation, actions, rewards, terminated</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="learning.learner.Learner.train_actor_critic">
-<span class="sig-name descname"><span class="pre">train_actor_critic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tensordict.TensorDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.98</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.train_actor_critic" title="Link to this definition">#</a></dt>
-<dd><p>Train the agent and critic network with experience sampled from the replay buffer.</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="learning.learner.Learner.pretrain">
+<span class="sig-name descname"><span class="pre">pretrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_critic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.pretrain" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>tensordict.TensorDict</em>) – </p></li>
-<li><p><strong>discount_factor</strong> (<em>float</em>) – </p></li>
+<li><p><strong>num_epochs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>num_trajectories</strong> (<em>int</em>) – </p></li>
+<li><p><strong>train_critic</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -441,41 +405,35 @@ is equal to what the networks encouter.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.eval_agent">
-<span class="sig-name descname"><span class="pre">eval_agent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.eval_agent" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">eval_agent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#learning.learner.Learner.eval_agent" title="Link to this definition">#</a></dt>
 <dd><p>Evaluate the current agent performance on the task.</p>
 <p>Runs <code class="docutils literal notranslate"><span class="pre">learner_evals</span></code> times and averages the success rate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[float, float]</p>
+<dd class="field-odd"><p>Tuple[float, float, float]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.save_models">
-<span class="sig-name descname"><span class="pre">save_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.save_models" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.save_models" title="Link to this definition">#</a></dt>
 <dd><p>Save the actor and critic networks and the normalizers.</p>
 <p>Saves are located under <code class="docutils literal notranslate"><span class="pre">/models/&lt;model_filename&gt;/</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>is_local</strong> (<em>bool</em>) – </p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="learning.learner.Learner.load_models">
-<span class="sig-name descname"><span class="pre">load_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.load_models" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#learning.learner.Learner.load_models" title="Link to this definition">#</a></dt>
 <dd><p>Load the actor and critic networks and the normalizers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>pathlib.Path</em>) – </p></li>
-<li><p><strong>is_local</strong> (<em>bool</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -535,26 +493,17 @@ is equal to what the networks encouter.</p>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">learning.learner</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
 <li><a class="reference internal" href="#learning.learner.Learner"><code class="docutils literal notranslate"><span class="pre">Learner</span></code></a><ul>
-<li><a class="reference internal" href="#learning.learner.Learner.graph"><code class="docutils literal notranslate"><span class="pre">Learner.graph</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.replay_buffer"><code class="docutils literal notranslate"><span class="pre">Learner.replay_buffer</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.params"><code class="docutils literal notranslate"><span class="pre">Learner.params</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.save_local"><code class="docutils literal notranslate"><span class="pre">Learner.save_local</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.save_cloud"><code class="docutils literal notranslate"><span class="pre">Learner.save_cloud</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.load_local"><code class="docutils literal notranslate"><span class="pre">Learner.load_local</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.load_cloud"><code class="docutils literal notranslate"><span class="pre">Learner.load_cloud</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.verbose"><code class="docutils literal notranslate"><span class="pre">Learner.verbose</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.__post_init__"><code class="docutils literal notranslate"><span class="pre">Learner.__post_init__()</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.reset"><code class="docutils literal notranslate"><span class="pre">Learner.reset()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.actor_actions"><code class="docutils literal notranslate"><span class="pre">Learner.actor_actions()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.relative_distances_to"><code class="docutils literal notranslate"><span class="pre">Learner.relative_distances_to()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.reward_function"><code class="docutils literal notranslate"><span class="pre">Learner.reward_function()</span></code></a></li>
+<li><a class="reference internal" href="#learning.learner.Learner.planner_exploration"><code class="docutils literal notranslate"><span class="pre">Learner.planner_exploration()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.update_norm"><code class="docutils literal notranslate"><span class="pre">Learner.update_norm()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.policy_rollout"><code class="docutils literal notranslate"><span class="pre">Learner.policy_rollout()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.graph_rollout"><code class="docutils literal notranslate"><span class="pre">Learner.graph_rollout()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.set_demonstration_injection"><code class="docutils literal notranslate"><span class="pre">Learner.set_demonstration_injection()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.train"><code class="docutils literal notranslate"><span class="pre">Learner.train()</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.preprocess_sample"><code class="docutils literal notranslate"><span class="pre">Learner.preprocess_sample()</span></code></a></li>
-<li><a class="reference internal" href="#learning.learner.Learner.train_actor_critic"><code class="docutils literal notranslate"><span class="pre">Learner.train_actor_critic()</span></code></a></li>
+<li><a class="reference internal" href="#learning.learner.Learner.state_action_training_data"><code class="docutils literal notranslate"><span class="pre">Learner.state_action_training_data()</span></code></a></li>
+<li><a class="reference internal" href="#learning.learner.Learner.pretrain"><code class="docutils literal notranslate"><span class="pre">Learner.pretrain()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.eval_agent"><code class="docutils literal notranslate"><span class="pre">Learner.eval_agent()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.save_models"><code class="docutils literal notranslate"><span class="pre">Learner.save_models()</span></code></a></li>
 <li><a class="reference internal" href="#learning.learner.Learner.load_models"><code class="docutils literal notranslate"><span class="pre">Learner.load_models()</span></code></a></li>

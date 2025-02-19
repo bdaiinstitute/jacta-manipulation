@@ -3,11 +3,6 @@
 
 .. py:module:: learning
 
-.. autoapi-nested-parse::
-
-   
-   Learning Submodule.
-
 
 Submodules
 ----------

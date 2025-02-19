@@ -207,26 +207,33 @@
         <article role="main">
           <section id="module-experts.expert_sampler">
 <span id="experts-expert-sampler"></span><h1><a class="reference internal" href="#module-experts.expert_sampler" title="experts.expert_sampler"><code class="xref py py-mod docutils literal notranslate"><span class="pre">experts.expert_sampler</span></code></a><a class="headerlink" href="#module-experts.expert_sampler" title="Link to this heading">#</a></h1>
-<p>Expert Sampler Submodule.</p>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="experts.expert_sampler.ExpertSampler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">experts.expert_sampler.</span></span><span class="sig-name descname"><span class="pre">ExpertSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.planner.planner.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.planner.planner.parameter_container.ParameterContainer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#experts.expert_sampler.ExpertSampler" title="Link to this definition">#</a></dt>
-<dd><p>ExpertSampler object.
-.. py:method:: callback(node_ids: torch.IntTensor) -&gt; torch.FloatTensor</p>
-<blockquote>
-<div><p>Default action callback of random action generation.</p>
-</div></blockquote>
-<dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">experts.expert_sampler.</span></span><span class="sig-name descname"><span class="pre">ExpertSampler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.dynamics.simulator_plant.SimulatorPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.planner.core.parameter_container.ParameterContainer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#experts.expert_sampler.ExpertSampler" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plant</strong> (<em>jactamanipulation.planner.dynamics.mujoco_dynamics.MujocoPlant</em>) – </p></li>
-<li><p><strong>graph</strong> (<em>jactamanipulation.planner.planner.graph.Graph</em>) – </p></li>
-<li><p><strong>params</strong> (<em>jactamanipulation.planner.planner.parameter_container.ParameterContainer</em>) – </p></li>
+<li><p><strong>plant</strong> (<em>jacta.planner.dynamics.simulator_plant.SimulatorPlant</em>) – </p></li>
+<li><p><strong>graph</strong> (<em>jacta.planner.core.graph.Graph</em>) – </p></li>
+<li><p><strong>params</strong> (<em>jacta.planner.core.parameter_container.ParameterContainer</em>) – </p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="experts.expert_sampler.ExpertSampler.callback">
+<span class="sig-name descname"><span class="pre">callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.IntTensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.FloatTensor</span></span></span><a class="headerlink" href="#experts.expert_sampler.ExpertSampler.callback" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_ids</strong> (<em>torch.IntTensor</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.FloatTensor</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -278,7 +285,10 @@
             <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">experts.expert_sampler</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#experts.expert_sampler.ExpertSampler"><code class="docutils literal notranslate"><span class="pre">ExpertSampler</span></code></a></li>
+<li><a class="reference internal" href="#experts.expert_sampler.ExpertSampler"><code class="docutils literal notranslate"><span class="pre">ExpertSampler</span></code></a><ul>
+<li><a class="reference internal" href="#experts.expert_sampler.ExpertSampler.callback"><code class="docutils literal notranslate"><span class="pre">ExpertSampler.callback()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

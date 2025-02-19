@@ -36,20 +36,17 @@ Module Contents
 
    
    Actor class encapsulating the action selection and training process for the DDPG actor.
-   .. py:method:: select_action(state_norm: jactamanipulation.learning.normalizer.Normalizer, obs: torch.FloatTensor) -> torch.FloatTensor
+   .. py:method:: select_action(state_norm: jacta.learning.normalizer.Normalizer, state: torch.FloatTensor, goal: torch.FloatTensor, exploration_function: Optional[Callable] = None) -> torch.FloatTensor
 
       
-      Select an action for the given input observation (state, goal).
+      Select an action for the given input states.
 
       If in train mode, samples noise and chooses completely random actions with probability
       ``self.eps``. If in evaluation mode, only clips the action to the maximum value.
 
-      :param state_norm: State normalizer
-      :type state_norm: Normalizer
-      :param obs: Input observation.
-      :type obs: FloatTensor
+      :param states: Input states.
 
-      :returns: *FloatTensor* -- A numpy array of actions.
+      :returns: A numpy array of actions.
 
    .. py:method:: __call__(states: torch.FloatTensor) -> torch.FloatTensor
 
@@ -191,5 +188,16 @@ Module Contents
       :param action: Input action tensor.
 
       :returns: The network output.
+
+
+.. py:function:: train_actor_critic(actor: Actor, actor_expert: Actor, critic: Critic, state_norm: jacta.learning.normalizer.Normalizer, replay_buffer: jacta.learning.replay_buffer.ReplayBuffer, reward_fun: Callable, batch_size: int = 256, discount_factor: float = 0.98, her_probability: float = 0.0) -> float
+
+   
+   Train the agent and critic network with experience sampled from the replay buffer.
+
+.. py:function:: train_actor_imitation(actor: Actor, state_norm: jacta.learning.normalizer.Normalizer, states: torch.FloatTensor, goals: torch.FloatTensor, actor_actions: torch.FloatTensor, batch_size: int = 256) -> float
+
+
+.. py:function:: train_critic_imitation(critic: Critic, state_norm: jacta.learning.normalizer.Normalizer, states: torch.FloatTensor, goals: torch.FloatTensor, actor_actions: torch.FloatTensor, q_values: torch.FloatTensor, batch_size: int = 256) -> float
 
 

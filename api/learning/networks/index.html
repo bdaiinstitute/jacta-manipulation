@@ -240,26 +240,17 @@ action selection,  and loading utilities.</p>
 <dt class="sig sig-object py" id="learning.networks.Actor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">learning.networks.</span></span><span class="sig-name descname"><span class="pre">Actor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size_s</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlayers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_clip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#learning.networks.Actor" title="Link to this definition">#</a></dt>
 <dd><p>Actor class encapsulating the action selection and training process for the DDPG actor.
-.. py:method:: select_action(state_norm: jactamanipulation.learning.normalizer.Normalizer, obs: torch.FloatTensor) -&gt; torch.FloatTensor</p>
+.. py:method:: select_action(state_norm: jacta.learning.normalizer.Normalizer, state: torch.FloatTensor, goal: torch.FloatTensor, exploration_function: Optional[Callable] = None) -&gt; torch.FloatTensor</p>
 <blockquote>
-<div><p>Select an action for the given input observation (state, goal).</p>
+<div><p>Select an action for the given input states.</p>
 <p>If in train mode, samples noise and chooses completely random actions with probability
 <code class="docutils literal notranslate"><span class="pre">self.eps</span></code>. If in evaluation mode, only clips the action to the maximum value.</p>
 <dl class="field-list simple">
-<dt class="field-odd">param state_norm<span class="colon">:</span></dt>
-<dd class="field-odd"><p>State normalizer</p>
+<dt class="field-odd">param states<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Input states.</p>
 </dd>
-<dt class="field-even">type state_norm<span class="colon">:</span></dt>
-<dd class="field-even"><p>Normalizer</p>
-</dd>
-<dt class="field-odd">param obs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Input observation.</p>
-</dd>
-<dt class="field-even">type obs<span class="colon">:</span></dt>
-<dd class="field-even"><p>FloatTensor</p>
-</dd>
-<dt class="field-odd">returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>FloatTensor</em> – A numpy array of actions.</p>
+<dt class="field-even">returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A numpy array of actions.</p>
 </dd>
 </dl>
 </div></blockquote>
@@ -559,6 +550,71 @@ action selection,  and loading utilities.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="learning.networks.train_actor_critic">
+<span class="sig-prename descclassname"><span class="pre">learning.networks.</span></span><span class="sig-name descname"><span class="pre">train_actor_critic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><span class="pre">Actor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_expert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><span class="pre">Actor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#learning.networks.Critic" title="learning.networks.Critic"><span class="pre">Critic</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.normalizer.Normalizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.replay_buffer.ReplayBuffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_fun</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.98</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">her_probability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#learning.networks.train_actor_critic" title="Link to this definition">#</a></dt>
+<dd><p>Train the agent and critic network with experience sampled from the replay buffer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor</strong> (<a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><em>Actor</em></a>) – </p></li>
+<li><p><strong>actor_expert</strong> (<a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><em>Actor</em></a>) – </p></li>
+<li><p><strong>critic</strong> (<a class="reference internal" href="#learning.networks.Critic" title="learning.networks.Critic"><em>Critic</em></a>) – </p></li>
+<li><p><strong>state_norm</strong> (<em>jacta.learning.normalizer.Normalizer</em>) – </p></li>
+<li><p><strong>replay_buffer</strong> (<em>jacta.learning.replay_buffer.ReplayBuffer</em>) – </p></li>
+<li><p><strong>reward_fun</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – </p></li>
+<li><p><strong>discount_factor</strong> (<em>float</em>) – </p></li>
+<li><p><strong>her_probability</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="learning.networks.train_actor_imitation">
+<span class="sig-prename descclassname"><span class="pre">learning.networks.</span></span><span class="sig-name descname"><span class="pre">train_actor_imitation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><span class="pre">Actor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.normalizer.Normalizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#learning.networks.train_actor_imitation" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor</strong> (<a class="reference internal" href="#learning.networks.Actor" title="learning.networks.Actor"><em>Actor</em></a>) – </p></li>
+<li><p><strong>state_norm</strong> (<em>jacta.learning.normalizer.Normalizer</em>) – </p></li>
+<li><p><strong>states</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>goals</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>actor_actions</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="learning.networks.train_critic_imitation">
+<span class="sig-prename descclassname"><span class="pre">learning.networks.</span></span><span class="sig-name descname"><span class="pre">train_critic_imitation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">critic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#learning.networks.Critic" title="learning.networks.Critic"><span class="pre">Critic</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_norm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.learning.normalizer.Normalizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">goals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#learning.networks.train_critic_imitation" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>critic</strong> (<a class="reference internal" href="#learning.networks.Critic" title="learning.networks.Critic"><em>Critic</em></a>) – </p></li>
+<li><p><strong>state_norm</strong> (<em>jacta.learning.normalizer.Normalizer</em>) – </p></li>
+<li><p><strong>states</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>goals</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>actor_actions</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>q_values</strong> (<em>torch.FloatTensor</em>) – </p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -630,6 +686,9 @@ action selection,  and loading utilities.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#learning.networks.CriticNetwork"><code class="docutils literal notranslate"><span class="pre">CriticNetwork</span></code></a></li>
+<li><a class="reference internal" href="#learning.networks.train_actor_critic"><code class="docutils literal notranslate"><span class="pre">train_actor_critic()</span></code></a></li>
+<li><a class="reference internal" href="#learning.networks.train_actor_imitation"><code class="docutils literal notranslate"><span class="pre">train_actor_imitation()</span></code></a></li>
+<li><a class="reference internal" href="#learning.networks.train_critic_imitation"><code class="docutils literal notranslate"><span class="pre">train_critic_imitation()</span></code></a></li>
 </ul>
 </li>
 </ul>

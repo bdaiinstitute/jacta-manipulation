@@ -212,7 +212,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="particle_filter.ParticleFilterConfig">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">particle_filter.</span></span><span class="sig-name descname"><span class="pre">ParticleFilterConfig</span></span><a class="headerlink" href="#particle_filter.ParticleFilterConfig" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.controllers.sampling_base.SamplingBaseConfig</span></code></p>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jacta.visualizers.viser_app.controllers.sampling_base.SamplingBaseConfig</span></code></p>
 <p>Configuration for cross-entropy method.
 .. py:attribute:: sigma</p>
 <blockquote>
@@ -234,8 +234,8 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="particle_filter.ParticleFilter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">particle_filter.</span></span><span class="sig-name descname"><span class="pre">ParticleFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#particle_filter.ParticleFilterConfig" title="particle_filter.ParticleFilterConfig"><span class="pre">ParticleFilterConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jactamanipulation.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#particle_filter.ParticleFilter" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jactamanipulation.controllers.sampling_base.SamplingBase</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">particle_filter.</span></span><span class="sig-name descname"><span class="pre">ParticleFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.viser_app.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#particle_filter.ParticleFilterConfig" title="particle_filter.ParticleFilterConfig"><span class="pre">ParticleFilterConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.viser_app.tasks.task.TaskConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#particle_filter.ParticleFilter" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jacta.visualizers.viser_app.controllers.sampling_base.SamplingBase</span></code></p>
 <p>The cross-entropy method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -244,8 +244,8 @@
 <li><p><strong>model</strong> – mujoco model of system being controlled.</p></li>
 <li><p><strong>data</strong> – current configuration data for mujoco model.</p></li>
 <li><p><strong>reward_func</strong> – function mapping batches of states/controls to batches of rewards.</p></li>
-<li><p><strong>task</strong> (<em>jactamanipulation.tasks.task.Task</em>) – </p></li>
-<li><p><strong>reward_config</strong> (<em>jactamanipulation.tasks.task.TaskConfig</em>) – </p></li>
+<li><p><strong>task</strong> (<em>jacta.visualizers.viser_app.tasks.task.Task</em>) – </p></li>
+<li><p><strong>reward_config</strong> (<em>jacta.visualizers.viser_app.tasks.task.TaskConfig</em>) – </p></li>
 </ul>
 </dd>
 </dl>

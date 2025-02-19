@@ -7,95 +7,29 @@
 Module Contents
 ---------------
 
-.. py:class:: ReplayBuffer
+.. py:class:: ReplayBuffer(plant: jacta.planner.dynamics.simulator_plant.SimulatorPlant, params: jacta.planner.core.parameter_container.ParameterContainer)
 
-
-   
-   ReplayBuffer
-   .. py:attribute:: params
-      :type: jactamanipulation.planner.planner.parameter_container.ParameterContainer
-
-      
-
-   .. py:attribute:: storage_class
-      :type: torchrl.data.replay_buffers.Storage
-
-      
-
-   .. py:attribute:: sampler_class
-      :type: torchrl.data.replay_buffers.Sampler
-
-      
-
-   .. py:method:: __post_init__() -> None
-
-
-   .. py:method:: setup_storage() -> None
-
-      
-      Setup storage
-
-   .. py:method:: setup_sampler() -> None
-
-      
-      Setup sampler
-
-   .. py:method:: setup_buffer() -> None
-
-      
-      Setup buffer
 
    .. py:method:: reset() -> None
 
-      
-      Reset
 
-   .. py:method:: extend(batch: tensordict.TensorDict) -> None
+   .. py:method:: reset_next_temporary_id() -> None
 
-      
-      Extend
 
-      :param batch: Batch to extend with
-      :type batch: TensorDict
+   .. py:method:: add_nodes(root_ids: torch.IntTensor, parent_ids: torch.IntTensor, states: torch.FloatTensor, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, relative_actions: torch.FloatTensor, temporary: bool = False, sub_goal_state: torch.FloatTensor = None) -> int
 
-   .. py:method:: sample() -> tensordict.TensorDict
+
+   .. py:method:: sampling(batch_size: int, her_probability: float, reward_function: Callable) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]
 
       
-      Sample
+      Sample a batch at random with HER goal resampling from replay experience.
 
-   .. py:method:: __getitem__(key: str) -> tensordict.TensorDict
+      :param batch_size: Batch size.
+      :param her_probability: Probability of resampling a goal with an achieved goal.
+      :param reward_function: Reward function of the environment to recalculate the rewards.
 
-      
-      Get item overload
+      :returns: A tuple of the sampled state, action, reward, next_state, goal batch.
 
-      :param key: key to get Tensor from
-      :type key: str
-
-      :returns: *TensorDict* -- Tensor stored at 'key'
-
-
-.. py:class:: TrajectoryReplayBuffer
-
-
-   Bases: :py:obj:`ReplayBuffer`
-
-   
-   TrajectoryReplayBuffer
-   .. py:method:: setup_sampler() -> None
-
-      
-      Setup sampler
-
-   .. py:method:: setup_buffer() -> None
-
-      
-      Setup buffer
-
-   .. py:method:: sample() -> tensordict.TensorDict
-
-      
-      Get sample
-
-      :returns: *TensorDict* -- Sample
+      :raises Assertion error: Dimension check on states failed.
 
 

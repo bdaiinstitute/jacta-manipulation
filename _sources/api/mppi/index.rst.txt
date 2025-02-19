@@ -10,7 +10,7 @@ Module Contents
 .. py:class:: MPPIConfig
 
 
-   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBaseConfig`
+   Bases: :py:obj:`jacta.visualizers.viser_app.controllers.sampling_base.SamplingBaseConfig`
 
    
    Configuration for predictive sampling.
@@ -27,10 +27,10 @@ Module Contents
       
 
 
-.. py:class:: MPPI(task: jactamanipulation.tasks.task.Task, config: MPPIConfig, reward_config: jactamanipulation.tasks.task.TaskConfig)
+.. py:class:: MPPI(task: jacta.visualizers.viser_app.tasks.task.Task, config: MPPIConfig, reward_config: jacta.visualizers.viser_app.tasks.task.TaskConfig)
 
 
-   Bases: :py:obj:`jactamanipulation.controllers.sampling_base.SamplingBase`
+   Bases: :py:obj:`jacta.visualizers.viser_app.controllers.sampling_base.SamplingBase`
 
    
    Predictive sampling planner.
