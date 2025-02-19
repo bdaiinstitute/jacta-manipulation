@@ -27,7 +27,6 @@ class Normalizer:
             size: Data dimension. Each dimensions mean and variance is tracked individually.
             eps: Minimum variance value to ensure numeric stability. Has to be larger than 0.
         """
-        self.state_size = size
         self.eps2 = torch.ones(size, dtype=torch.float32) * eps**2
         self.sum = torch.zeros(size, dtype=torch.float32)
         self.sum_sq = torch.zeros(size, dtype=torch.float32)
@@ -71,16 +70,16 @@ class Normalizer:
         torch.maximum(self.eps2, self.std, out=self.std)  # Numeric stability
         torch.sqrt(self.std, out=self.std)
 
-    def normalize_obs(self, obs: FloatTensor) -> FloatTensor:
-        """Normalize the observation data (state, goal).
+    def wrap_obs(self, states: FloatTensor, goals: FloatTensor) -> FloatTensor:
+        """Wrap states and goals into a contingent input tensor.
 
         Args:
-            obs: Input observation array.
+            states: Input states array.
+            goals: Input goals array.
 
         Returns:
             A fused state goal tensor.
         """
-        states, goals = obs[:, : self.state_size], obs[:, self.state_size :]
         states, goals = self.normalize(states), self.normalize(goals)
         return torch.concatenate((states, goals), axis=states.ndim - 1)
 

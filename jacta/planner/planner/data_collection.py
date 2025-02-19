@@ -7,8 +7,8 @@ from typing import Union
 
 import torch
 
-from jacta.planner.learning.networks import Actor, Critic
-from jacta.planner.learning.normalizer import Normalizer
+from jacta.learning.networks import Actor, Critic
+from jacta.learning.normalizer import Normalizer
 
 
 def save_model(model: Union[Actor, Critic, Normalizer], dest_path: str) -> None:

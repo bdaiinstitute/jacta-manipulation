@@ -6,14 +6,14 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from jacta.plannermanipulation.common.constants import (
+from jacta.common.constants import (
     SPOT_STATE_INDS,
     STANDING_HEIGHT,
     STANDING_STOWED_POS,
 )
-from jacta.plannermanipulation.tasks.cost_functions import quadratic_norm
-from jacta.plannermanipulation.tasks.mujoco_task import MujocoTask
-from jacta.plannermanipulation.tasks.task import TaskConfig
+from jacta.tasks.cost_functions import quadratic_norm
+from jacta.tasks.mujoco_task import MujocoTask
+from jacta.tasks.task import TaskConfig
 
 MODEL_PATH = "dexterity/models/xml/scenes/legacy/spot_position_control.xml"
 

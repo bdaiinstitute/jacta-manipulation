@@ -1,8 +1,8 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 import torch
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.learning.learner import Learner
-from jacta.planner.learning.replay_buffer import ReplayBuffer
+from jacta.learning.learner import Learner
+from jacta.learning.replay_buffer import ReplayBuffer
 from jacta.planner.planner.action_sampler import ActionSampler
 from jacta.planner.planner.graph import Graph
 from jacta.planner.planner.graph_worker import ExplorerWorker

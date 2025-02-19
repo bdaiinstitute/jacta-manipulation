@@ -9,8 +9,8 @@ from typing import Any
 import cma
 import numpy as np
 
-from jacta.plannermanipulation.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
-from jacta.plannermanipulation.tasks.task import Task, TaskConfig
+from jacta.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
+from jacta.tasks.task import Task, TaskConfig
 
 
 @dataclass

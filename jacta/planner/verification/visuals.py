@@ -32,7 +32,7 @@ from pydrake.systems.primitives import TrajectorySource
 from pydrake.systems.rendering import MultibodyPositionToGeometryPose
 from pydrake.trajectories import PiecewisePolynomial
 
-from jacta.planner.common.paths import add_package_paths
+from jacta.common.paths import add_package_paths
 from jacta.planner.planner.parameter_container import ParameterContainer
 
 DEFAULT_PREFIXES = ["actual", "desired"]

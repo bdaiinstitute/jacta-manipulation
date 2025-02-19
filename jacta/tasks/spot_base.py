@@ -8,10 +8,10 @@ import numpy as np
 from mujoco_extensions.policy_rollout import System, create_systems_vector, threaded_rollout
 from scipy.interpolate import interp1d
 
-from jacta.plannermanipulation.common.constants import ARM_STOWED_POS
-from jacta.plannermanipulation.tasks.mujoco_task import MujocoTask
-from jacta.plannermanipulation.tasks.task import TaskConfig
-from jacta.plannermanipulation.viser_app.gui import slider
+from jacta.common.constants import ARM_STOWED_POS
+from jacta.tasks.mujoco_task import MujocoTask
+from jacta.tasks.task import TaskConfig
+from jacta.viser_app.gui import slider
 
 GOAL_POSITIONS = {
     "origin": np.array([0, 0, 0.0]),

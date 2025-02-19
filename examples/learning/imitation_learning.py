@@ -4,8 +4,8 @@
 import torch
 from benedict import benedict
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.learning.learner import Learner
-from jacta.planner.learning.replay_buffer import ReplayBuffer
+from jacta.learning.learner import Learner
+from jacta.learning.replay_buffer import ReplayBuffer
 from jacta.planner.planner.action_sampler import ActionSampler
 from jacta.planner.planner.graph import Graph, sample_random_goal_states
 from jacta.planner.planner.graph_visuals import display_3d_graph

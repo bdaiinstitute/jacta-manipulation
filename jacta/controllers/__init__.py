@@ -2,12 +2,12 @@
 
 from typing import Dict, Tuple, Type
 
-from jacta.plannermanipulation.controllers.controller import Controller, ControllerConfig
-from jacta.plannermanipulation.controllers.sampling.cmaes import CMAES, CMAESConfig
-from jacta.plannermanipulation.controllers.sampling.cross_entropy_method import CrossEntropyConfig, CrossEntropyMethod
-from jacta.plannermanipulation.controllers.sampling.mppi import MPPI, MPPIConfig
-from jacta.plannermanipulation.controllers.sampling.particle_filter import ParticleFilter, ParticleFilterConfig
-from jacta.plannermanipulation.controllers.sampling.predictive_sampling import PredictiveSampling, PredictiveSamplingConfig
+from jacta.controllers.controller import Controller, ControllerConfig
+from jacta.controllers.sampling.cmaes import CMAES, CMAESConfig
+from jacta.controllers.sampling.cross_entropy_method import CrossEntropyConfig, CrossEntropyMethod
+from jacta.controllers.sampling.mppi import MPPI, MPPIConfig
+from jacta.controllers.sampling.particle_filter import ParticleFilter, ParticleFilterConfig
+from jacta.controllers.sampling.predictive_sampling import PredictiveSampling, PredictiveSamplingConfig
 
 _registered_controllers: Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]] = {
     "cross_entropy_method": (CrossEntropyMethod, CrossEntropyConfig),

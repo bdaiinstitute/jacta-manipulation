@@ -2,15 +2,15 @@
 
 from typing import Dict, Tuple, Type
 
-from jacta.plannermanipulation.tasks.acrobot import Acrobot, AcrobotConfig
-from jacta.plannermanipulation.tasks.cartpole import Cartpole, CartpoleConfig
-from jacta.plannermanipulation.tasks.cylinder_push import CylinderPush, CylinderPushConfig
-from jacta.plannermanipulation.tasks.spot.spot_box import SpotBox, SpotBoxConfig
-from jacta.plannermanipulation.tasks.spot.spot_hand_navigation import SpotHandNavigation, SpotHandNavigationConfig
-from jacta.plannermanipulation.tasks.spot.spot_navigation import SpotNavigation, SpotNavigationConfig
-from jacta.plannermanipulation.tasks.spot.spot_tire import SpotTire, SpotTireConfig
-from jacta.plannermanipulation.tasks.spot_position_control import SpotPositionControl, SpotPositionControlConfig
-from jacta.plannermanipulation.tasks.task import Task, TaskConfig
+from jacta.tasks.acrobot import Acrobot, AcrobotConfig
+from jacta.tasks.cartpole import Cartpole, CartpoleConfig
+from jacta.tasks.cylinder_push import CylinderPush, CylinderPushConfig
+from jacta.tasks.spot.spot_box import SpotBox, SpotBoxConfig
+from jacta.tasks.spot.spot_hand_navigation import SpotHandNavigation, SpotHandNavigationConfig
+from jacta.tasks.spot.spot_navigation import SpotNavigation, SpotNavigationConfig
+from jacta.tasks.spot.spot_tire import SpotTire, SpotTireConfig
+from jacta.tasks.spot_position_control import SpotPositionControl, SpotPositionControlConfig
+from jacta.tasks.task import Task, TaskConfig
 
 _registered_tasks: Dict[str, Tuple[Type[Task], Type[TaskConfig]]] = {
     "acrobot": (Acrobot, AcrobotConfig),

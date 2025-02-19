@@ -16,16 +16,16 @@ import tyro
 from dacite import from_dict
 from viser import GuiEvent, Icon, MeshHandle, ViserServer
 
-from jacta.plannermanipulation.common.path_resolvers import get_package_path
-from jacta.plannermanipulation.controllers import get_registered_controllers
-from jacta.plannermanipulation.controllers.controller import Controller, ControllerConfig
-from jacta.plannermanipulation.tasks import get_registered_tasks
-from jacta.plannermanipulation.tasks.task import Task, TaskConfig
-from jacta.plannermanipulation.viser_app.gui import create_gui_elements
-from jacta.plannermanipulation.viser_app.io import IOContext, SimulationIOContext
-from jacta.plannermanipulation.viser_app.json_serializer import ConfigEncoder
-from jacta.plannermanipulation.viser_app.profiler import ViserProfiler, ViserProfilerConfig
-from jacta.plannermanipulation.visualizers.visualization import Visualization
+from jacta.common.path_resolvers import get_package_path
+from jacta.controllers import get_registered_controllers
+from jacta.controllers.controller import Controller, ControllerConfig
+from jacta.tasks import get_registered_tasks
+from jacta.tasks.task import Task, TaskConfig
+from jacta.viser_app.gui import create_gui_elements
+from jacta.viser_app.io import IOContext, SimulationIOContext
+from jacta.viser_app.json_serializer import ConfigEncoder
+from jacta.viser_app.profiler import ViserProfiler, ViserProfilerConfig
+from jacta.visualizers.visualization import Visualization
 
 JACTA_MANIPULATION_PATH = Path(get_package_path())
 

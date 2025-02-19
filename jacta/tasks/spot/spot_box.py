@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from jacta.plannermanipulation.common.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
-from jacta.plannermanipulation.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
+from jacta.common.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jacta.tasks.spot_base import DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME, GOAL_POSITIONS, SpotBase, SpotBaseConfig
 
 # mocap area cross locations
 RESET_OBJECT_POSE = np.array([3, 0, 0.275, 1, 0, 0, 0])

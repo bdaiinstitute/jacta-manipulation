@@ -6,8 +6,8 @@ from torch import FloatTensor, IntTensor
 
 from jacta.planner.dynamics.simulator_plant import SimulatorPlant
 from jacta.planner.experts.expert_sampler import ExpertSampler
-from jacta.planner.learning.networks import Actor
-from jacta.planner.learning.normalizer import Normalizer
+from jacta.learning.networks import Actor
+from jacta.learning.normalizer import Normalizer
 from jacta.planner.planner.data_collection import find_latest_model_path, load_model
 from jacta.planner.planner.graph import Graph
 from jacta.planner.planner.parameter_container import ParameterContainer

@@ -9,13 +9,14 @@ action selection,  and loading utilities.
 :class:`.DDP` is a vanilla deep deterministic policy network implementation.
 """
 from io import BufferedWriter
-from typing import Any
+from typing import Any, Callable, Optional
 
 import torch
 import torch.nn as nn
 from torch import FloatTensor
 
-from jacta.plannermanipulation.learning.normalizer import Normalizer
+from jacta.learning.normalizer import Normalizer
+from jacta.learning.replay_buffer import ReplayBuffer
 
 
 def soft_update(network: nn.Module, target: nn.Module, tau: float) -> nn.Module:
@@ -72,30 +73,35 @@ class Actor:
         self.eps = eps
         self.action_clip = action_clip
         self._train = False
+        self.is_trained = False  # Flag to check if expert has been pretrained
 
     def select_action(
         self,
         state_norm: Normalizer,
-        obs: FloatTensor,
+        state: FloatTensor,
+        goal: FloatTensor,
+        exploration_function: Optional[Callable] = None,
     ) -> FloatTensor:
-        """Select an action for the given input observation (state, goal).
+        """Select an action for the given input states.
 
         If in train mode, samples noise and chooses completely random actions with probability
         `self.eps`. If in evaluation mode, only clips the action to the maximum value.
 
         Args:
-            state_norm (Normalizer): State normalizer
-            obs (FloatTensor): Input observation.
+            states: Input states.
 
         Returns:
-            FloatTensor: A numpy array of actions.
+            A numpy array of actions.
         """
-        normalized_obs = state_norm.normalize_obs(obs)
-        actions = self(normalized_obs)
+        states = state_norm.wrap_obs(state, goal)
+
+        actions = self(states)
         if self._train:
             if torch.rand(1).item() >= self.eps:  # With noise for training
                 actions += torch.normal(mean=torch.zeros_like(actions), std=torch.ones_like(actions) * 0.2)
                 torch.clip(actions, -self.action_clip, self.action_clip, out=actions)  # In-place op
+            elif exploration_function is not None:  # planner exploration
+                actions = exploration_function(state)
             else:  # fully random sampling for exploration
                 actions = torch.rand(actions.shape) * 2 * self.action_clip - self.action_clip
 
@@ -337,3 +343,93 @@ class CriticNetwork(nn.Module):
         for layer in self.layers:
             x = layer(x)
         return x
+
+
+def train_actor_critic(
+    actor: Actor,
+    actor_expert: Actor,
+    critic: Critic,
+    state_norm: Normalizer,
+    replay_buffer: ReplayBuffer,
+    reward_fun: Callable,
+    batch_size: int = 256,
+    discount_factor: float = 0.98,
+    her_probability: float = 0.0,
+) -> float:
+    """Train the agent and critic network with experience sampled from the replay buffer."""
+    states, actions, rewards, next_states, goals, _, _, _ = replay_buffer.sampling(
+        batch_size, her_probability, reward_fun
+    )
+    obs = state_norm.wrap_obs(states, goals)
+    obs_next = state_norm.wrap_obs(next_states, goals)
+    with torch.no_grad():
+        next_actions = actor.target(obs_next)
+        next_q = critic.target(obs_next, next_actions)
+        value = rewards + discount_factor * next_q
+        # Clip to minimum reward possible, geometric sum over the finite horizon with discount_factor and -1 rewards
+        min_value = -1 * (1 - discount_factor**replay_buffer.params.learner_trajectory_length) / (1 - discount_factor)
+        torch.clip(value, min_value, 0, out=value)
+
+    if actor_expert.is_trained:
+        with torch.no_grad():
+            next_actions_expert = actor_expert.target(obs_next)
+            next_q_expert = critic.target(obs_next, next_actions_expert)
+            value_expert = rewards + discount_factor * next_q_expert
+            torch.clip(value_expert, min_value, 0, out=value_expert)
+            expert_share = torch.sum(value_expert > value) / batch_size
+            value = torch.max(value_expert, value)  # use highest possible value as reference for Q
+    else:
+        expert_share = 0.0
+
+    q = critic(obs, actions)
+    critic_loss = (value - q).pow(2).mean()
+
+    actions = actor(obs)
+    next_q = critic(obs, actions)
+    actor_loss = -next_q.mean()
+    actor.backward_step(actor_loss)
+    critic.backward_step(critic_loss)
+
+    return expert_share
+
+
+def train_actor_imitation(
+    actor: Actor,
+    state_norm: Normalizer,
+    states: FloatTensor,
+    goals: FloatTensor,
+    actor_actions: FloatTensor,
+    batch_size: int = 256,
+) -> float:
+    indices = torch.randint(0, len(states), (batch_size,))
+    obs = state_norm.wrap_obs(states[indices], goals[indices])
+    actor_actions_learner = actor(obs)
+    actor_actions_planner = actor_actions[indices]
+    loss = (actor_actions_learner - actor_actions_planner).pow(2).mean()
+    actor.backward_step(loss)
+
+    actor.target_net.load_state_dict(actor.action_net.state_dict())
+
+    return loss
+
+
+def train_critic_imitation(
+    critic: Critic,
+    state_norm: Normalizer,
+    states: FloatTensor,
+    goals: FloatTensor,
+    actor_actions: FloatTensor,
+    q_values: FloatTensor,
+    batch_size: int = 256,
+) -> float:
+    indices = torch.randint(0, len(states), (batch_size,))
+    obs = state_norm.wrap_obs(states[indices], goals[indices])
+    actor_actions = actor_actions[indices]
+    q_values_learner = critic(obs, actor_actions)
+    q_values_planner = q_values[indices]
+    loss = (q_values_learner - q_values_planner).pow(2).mean()
+    critic.backward_step(loss)
+
+    critic.target_net.load_state_dict(critic.critic_net.state_dict())
+
+    return loss

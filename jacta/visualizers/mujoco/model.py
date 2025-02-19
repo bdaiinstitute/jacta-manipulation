@@ -10,7 +10,7 @@ from trimesh.creation import box, capsule, cylinder, icosphere
 from trimesh.transformations import scale_and_translate
 from viser import ClientHandle, LineSegmentsHandle, SceneNodeHandle, SplineCatmullRomHandle, ViserServer
 
-from jacta.plannermanipulation.mujoco_dynamics.utils import count_trace_sensors, get_mesh_data
+from jacta.mujoco_dynamics.utils import count_trace_sensors, get_mesh_data
 
 DEFAULT_GRID_SECTION_COLOR = (0.02, 0.14, 0.44)
 DEFAULT_GRID_CELL_COLOR = (0.27, 0.55, 1)
