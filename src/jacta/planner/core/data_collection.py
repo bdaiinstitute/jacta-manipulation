@@ -31,12 +31,8 @@ def load_model(model: Union[Actor, Critic, Normalizer], src_path: str) -> None:
 
 
 def find_latest_model_path(base_path: str) -> str:
-    print("+++++++++++==")
-    print(base_path + "*/")
     dirs = glob.glob(base_path + "*/")  # Lists directories only
     # Sort directories by their timestamp
-    print(dirs)
-    print(base_path)
     latest_dir = sorted(
         dirs,
         key=lambda x: datetime.strptime(x.split("/")[-2], "%Y_%m_%d_%H_%M_%S"),
