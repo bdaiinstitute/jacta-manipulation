@@ -28,7 +28,7 @@ class ParameterContainer:
         self._config = benedict()
         self._config.keypath_separator = "_"
         self._autofill_rules = benedict()
-        self.base_path = Path(__file__).resolve().parent.parent.parent.parent
+        self.base_path = Path(__file__).resolve().parent.parents[3]
 
     def __str__(self) -> str:
         return self._config.dump()
@@ -62,7 +62,7 @@ class ParameterContainer:
 
     def update(self, values: dict) -> None:
         if "_base_config" not in self.__dict__.keys():
-            base_yml_path = Path(self.base_path, "../examples/planner/config/base.yml")
+            base_yml_path = Path(self.base_path, "examples/planner/config/base.yml")
             self._base_config = self.load_yaml(base_yml_path)
         vals = benedict(values)
         vals = vals.unflatten(separator="_")
@@ -84,7 +84,7 @@ class ParameterContainer:
         return temp_dict
 
     def load_base(self) -> None:
-        base_yml_path = Path(self.base_path, "../examples/planner/config/base.yml")
+        base_yml_path = Path(self.base_path, "examples/planner/config/base.yml")
         self._base_config = self.load_yaml(base_yml_path)
         self._config.merge(self._base_config["defaults"], overwrite=True)
         self.typeify()
@@ -93,13 +93,13 @@ class ParameterContainer:
         # Grab task specific config path
         if planner_example == "learning":
             task_yml_path = Path(
-                self.base_path, "../examples/learning/config/" + task + ".yml"
+                self.base_path, "examples/learning/config/" + task + ".yml"
             )
         elif planner_example == "test":
-            task_yml_path = Path(self.base_path, "../test/config/" + task + ".yml")
+            task_yml_path = Path(self.base_path, "test/config/" + task + ".yml")
         else:
             task_yml_path = Path(
-                self.base_path, "../examples/planner/config/task/" + task + ".yml"
+                self.base_path, "examples/planner/config/task/" + task + ".yml"
             )
 
         self._task_config = self.load_yaml(task_yml_path)
@@ -161,7 +161,7 @@ class ParameterContainer:
 
     @property
     def xml_folder(self) -> Path:
-        return Path(self.base_path, "../models/xml")
+        return Path(self.base_path, "models/xml")
 
     def cleanup(self) -> None:
         del self._base_config

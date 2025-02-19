@@ -7,4 +7,4 @@ def get_package_path() -> str:
     Returns:
         The source tree path.
     """
-    return str(Path(__file__).resolve().parents[3])
+    return str(Path(__file__).resolve().parent.parents[2])

@@ -123,8 +123,8 @@ class Learner:
         now = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         task = self.params.model_filename[:-4]
 
-        base_path = str(Path(__file__).resolve().parent.parent.parent)
-        self.base_local_path = base_path + f"/../examples/learning/models/{task}/"
+        base_path = str(Path(__file__).resolve().parent.parents[2])
+        self.base_local_path = base_path + f"/examples/learning/models/{task}/"
         self.local_path = self.base_local_path + f"{now}/"
 
         if save_local:

@@ -38,8 +38,8 @@ class NetworkSampler(ExpertSampler):
         if path:
             self.path = path
         else:
-            base_path = str(Path(__file__).resolve().parent.parent.parent.parent)
-            base_local_path = base_path + f"/../examples/learning/models/{task}/"
+            base_path = str(Path(__file__).resolve().parent.parents[3])
+            base_local_path = base_path + f"/examples/learning/models/{task}/"
             self.path = find_latest_model_path(base_local_path)
 
         load_model(self.actor, self.path + model_name)

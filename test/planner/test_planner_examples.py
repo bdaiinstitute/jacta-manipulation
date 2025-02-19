@@ -29,7 +29,7 @@ def get_planner_examples(config_path: str) -> list[str]:
 
 
 def test_examples() -> None:
-    base_path = str(Path(__file__).resolve().parent.parent.parent)
+    base_path = str(Path(__file__).resolve().parent.parents[1])
     path_to_config = base_path + "/examples/planner/config/task/"
     config_files = os.listdir(path_to_config)
     for task in config_files:

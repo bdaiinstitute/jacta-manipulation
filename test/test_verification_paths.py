@@ -2,7 +2,6 @@
 
 from pathlib import Path
 
-from jacta.common.paths import add_package_paths
 from pydrake.multibody.parsing import (
     LoadModelDirectives,
     Parser,
@@ -13,6 +12,8 @@ from pydrake.multibody.plant import (
     MultibodyPlant,
 )
 from pydrake.systems.framework import DiagramBuilder
+
+from jacta.common.paths import add_package_paths
 
 
 def test_add_package_paths() -> None:
@@ -26,8 +27,10 @@ def test_add_package_paths() -> None:
     parser = Parser(plant=plant, scene_graph=scene_graph)
     add_package_paths(parser)
 
-    base_path = Path(__file__).resolve().parent.parent
-    model_directives = LoadModelDirectives(str(Path(base_path, "models/directives/planar_hand.yml")))
+    base_path = Path(__file__).resolve().parent.parents[0]
+    model_directives = LoadModelDirectives(
+        str(Path(base_path, "models/directives/planar_hand.yml"))
+    )
     ProcessModelDirectives(model_directives, plant, parser)  # type: ignore
 
     plant.Finalize()

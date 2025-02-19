@@ -18,7 +18,7 @@ from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 
 
 def test_examples() -> None:
-    base_path = str(Path(__file__).resolve().parent.parent.parent)
+    base_path = str(Path(__file__).resolve().parent.parents[1])
     path_to_config = base_path + "/examples/learning/config/"
     config_files = os.listdir(path_to_config)
     for config_file in config_files:

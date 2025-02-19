@@ -59,8 +59,8 @@ def visualize_and_control_model(
     add_package_paths(parser)
 
     # Load the models with the given plant and parameters
-    base_path = Path(__file__).resolve().parent.parent.parent.parent
-    directives_path = Path(base_path, "../models/directives", directives_filename)
+    base_path = Path(__file__).resolve().parent.parents[3]
+    directives_path = Path(base_path, "models/directives", directives_filename)
     model_directives = LoadModelDirectives(directives_path)
     _ = ProcessModelDirectives(
         model_directives,
@@ -118,9 +118,9 @@ class TrajectoryVisualizer:
         self._meshcat = StartMeshcat()
         self._params = params
         self.sim_time_step = sim_time_step
-        base_path = Path(__file__).resolve().parent.parent.parent.parent
+        base_path = Path(__file__).resolve().parent.parents[3]
         self._directives_path = str(
-            Path(base_path, "../models/directives", self._params.vis_filename)
+            Path(base_path, "models/directives", self._params.vis_filename)
         )
 
     @property
