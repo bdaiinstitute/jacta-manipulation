@@ -90,7 +90,7 @@ class PredictiveSampling(SamplingBase):
         )
 
         # Evalate rewards
-        self.rewards = self.reward_function(self.states, self.sensors, self.rollout_controls, self.reward_config)
+        self.rewards = self.reward_function(self.states, self.sensors, self.rollout_controls, self.reward_config, additional_info)
 
         # Update max-reward index.
         self.best_action = self.rewards.argmax()
