@@ -10,7 +10,7 @@ import numpy as np
 from mujoco import MjModel
 from torch import FloatTensor
 
-from jacta.mujoco_dynamics.dynamics import MujocoPlant
+from jacta.visualizers.mujoco_helpers.dynamics import MujocoPlant
 
 
 def get_sensor_name(model: MjModel, sensorid: int) -> str:

@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from jacta.common.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
-from jacta.tasks.spot_base import (
+from jacta.visualizers.viser_app.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jacta.visualizers.viser_app.tasks.spot_base import (
     DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME,
     GOAL_POSITIONS,
     SpotBase,

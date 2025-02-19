@@ -16,7 +16,7 @@ from viser import (
     ViserServer,
 )
 
-from jacta.mujoco_dynamics.utils import count_trace_sensors, get_mesh_data
+from jacta.visualizers.mujoco_helpers.utils import count_trace_sensors, get_mesh_data
 
 DEFAULT_GRID_SECTION_COLOR = (0.02, 0.14, 0.44)
 DEFAULT_GRID_CELL_COLOR = (0.27, 0.55, 1)

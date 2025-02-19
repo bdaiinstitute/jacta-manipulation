@@ -6,24 +6,26 @@ from typing import Any
 
 import numpy as np
 
-from jacta.controllers.sampling_base import (
+from jacta.visualizers.viser_app.controllers.sampling_base import (
     SamplingBase,
     SamplingBaseConfig,
     make_spline,
 )
-from jacta.tasks.task import Task, TaskConfig
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
+from jacta.visualizers.viser_app.gui import slider
 
 
+@slider("temperature", 0.0, 100.0, 0.25)
 @dataclass
-class PredictiveSamplingConfig(SamplingBaseConfig):
-    """Configuration for predictive sampling."""
+class ParticleFilterConfig(SamplingBaseConfig):
+    """Configuration for cross-entropy method."""
 
-    sigma: float = 0.05
-    noise_ramp: float = 1.0
+    sigma: float = 0.5
+    temperature: float = 1.0
 
 
-class PredictiveSampling(SamplingBase):
-    """Predictive sampling planner.
+class ParticleFilter(SamplingBase):
+    """The cross-entropy method.
 
     Args:
         config: configuration object with hyperparameters for planner.
@@ -35,13 +37,17 @@ class PredictiveSampling(SamplingBase):
     def __init__(
         self,
         task: Task,
-        config: PredictiveSamplingConfig,
+        config: ParticleFilterConfig,
         reward_config: TaskConfig,
     ):
         super().__init__(task, config, reward_config)
 
-        # Create variable for best action.
-        self.best_action = 0
+        # Preallocate state / control buffers.
+        self.all_splines = make_spline(
+            task.data.time + self.spline_timesteps,
+            self.controls,
+            self.config.spline_order,
+        )
 
     def update_action(
         self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
@@ -53,34 +59,24 @@ class PredictiveSampling(SamplingBase):
         # Check if num_rollouts has changed and resize arrays accordingly.
         if len(self.models) != self.config.num_rollouts:
             self.make_models()
-            # TODO(pculbertson): known bug -- need to resize self.spline here!
+            self.controls: np.ndarray = np.random.default_rng().choice(
+                self.controls, size=self.config.num_rollouts
+            )
+            self.all_splines = make_spline(
+                curr_time + self.spline_timesteps,
+                self.controls,
+                self.config.spline_order,
+            )
 
         # Adjust time + move policy forward.
+        # TODO(pculbert): move some of this logic into top-level controller.
         new_times = curr_time + self.spline_timesteps
-        base_controls = self.spline(new_times)[None]
+        base_controls = self.all_splines(new_times)
 
-        # Sample action noise (leaving one sequence noiseless), with optional ramp up
-        if self.config.use_noise_ramp:
-            ramp = (
-                self.config.noise_ramp
-                * np.linspace(
-                    1 / self.config.num_nodes, 1, self.config.num_nodes, endpoint=True
-                )[:, None]
-            )
-            noised_controls = (
-                base_controls
-                + self.config.sigma
-                * ramp
-                * np.random.randn(
-                    self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu
-                )
-            )
-        else:
-            noised_controls = base_controls + self.config.sigma * np.random.randn(
-                self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu
-            )
-
-        self.candidate_controls = np.concatenate([base_controls, noised_controls])
+        # Sample action noise (leaving one sequence noiseless).
+        self.candidate_controls = base_controls + self.config.sigma * np.random.randn(
+            self.config.num_rollouts, self.config.num_nodes, self.task.nu
+        )
 
         # Clamp controls to action bounds.
         self.candidate_controls = np.clip(
@@ -111,12 +107,23 @@ class PredictiveSampling(SamplingBase):
             self.states, self.sensors, rollout_controls, self.reward_config
         )
 
-        # Update max-reward index.
-        self.best_action = self.rewards.argmax()
+        # Compute particle filter weights.
+        rewards_centered = self.rewards - self.rewards.max()
+        weights = np.exp(self.config.temperature * rewards_centered)
+        weights = weights / np.sum(weights, keepdims=True)
 
-        # Update controls and spline.
-        self.controls = self.candidate_controls[self.best_action]
-        self.update_spline(new_times, self.controls)
+        # Sample new particles.
+        self.controls = np.random.default_rng().choice(
+            self.candidate_controls,
+            size=self.config.num_rollouts,
+            p=weights,
+        )
+
+        # Set spline to first control (arbitrarily).
+        self.update_spline(new_times, self.controls[0])
+        self.all_splines = make_spline(
+            new_times, self.controls, self.config.spline_order
+        )
 
         # Update traces.
         self.update_traces()

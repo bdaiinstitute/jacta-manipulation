@@ -6,13 +6,13 @@ from typing import Any
 
 import numpy as np
 
-from jacta.controllers.sampling_base import (
+from jacta.visualizers.viser_app.controllers.sampling_base import (
     SamplingBase,
     SamplingBaseConfig,
     make_spline,
 )
-from jacta.tasks.task import Task, TaskConfig
-from jacta.viser_app.gui import slider
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
+from jacta.visualizers.viser_app.gui import slider
 
 
 @slider("temperature", 0.1, 2.0, 0.05)

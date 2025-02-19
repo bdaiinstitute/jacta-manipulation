@@ -6,9 +6,9 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from jacta.tasks.cost_functions import quadratic_norm
-from jacta.tasks.mujoco_task import MujocoTask
-from jacta.tasks.task import TaskConfig
+from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm
+from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
+from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
 MODEL_PATH = "dexterity/models/xml/scenes/legacy/acrobot.xml"
 

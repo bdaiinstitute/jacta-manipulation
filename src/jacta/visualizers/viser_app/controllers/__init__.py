@@ -2,18 +2,18 @@
 
 from typing import Dict, Tuple, Type
 
-from jacta.controllers.controller import Controller, ControllerConfig
-from jacta.controllers.sampling.cmaes import CMAES, CMAESConfig
-from jacta.controllers.sampling.cross_entropy_method import (
+from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
+from jacta.visualizers.viser_app.controllers.sampling.cmaes import CMAES, CMAESConfig
+from jacta.visualizers.viser_app.controllers.sampling.cross_entropy_method import (
     CrossEntropyConfig,
     CrossEntropyMethod,
 )
-from jacta.controllers.sampling.mppi import MPPI, MPPIConfig
-from jacta.controllers.sampling.particle_filter import (
+from jacta.visualizers.viser_app.controllers.sampling.mppi import MPPI, MPPIConfig
+from jacta.visualizers.viser_app.controllers.sampling.particle_filter import (
     ParticleFilter,
     ParticleFilterConfig,
 )
-from jacta.controllers.sampling.predictive_sampling import (
+from jacta.visualizers.viser_app.controllers.sampling.predictive_sampling import (
     PredictiveSampling,
     PredictiveSamplingConfig,
 )

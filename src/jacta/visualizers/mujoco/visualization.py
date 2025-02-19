@@ -4,8 +4,8 @@ import time
 from mujoco import MjData
 from viser import ViserServer
 
-from jacta.tasks.task import Task
-from jacta.viser_app.io import ControlBufferKeys, IOContext, StateBufferKeys
+from jacta.visualizers.viser_app.tasks.task import Task
+from jacta.visualizers.viser_app.io import ControlBufferKeys, IOContext, StateBufferKeys
 from jacta.visualizers.mujoco.model import ViserMjModel
 
 # TODO(pculbertson): make this configurable.

@@ -7,7 +7,7 @@ import numpy as np
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
-from jacta.viser_app.io import IOContext
+from jacta.visualizers.viser_app.io import IOContext
 from jacta.visualizers.visualization import Visualization
 
 

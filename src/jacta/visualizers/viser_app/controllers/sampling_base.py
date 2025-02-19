@@ -5,10 +5,10 @@ from typing import Any, Literal
 import numpy as np
 from scipy.interpolate import interp1d
 
-from jacta.controllers.controller import Controller, ControllerConfig
-from jacta.mujoco_dynamics.utils import get_trace_sensors
-from jacta.tasks.task import Task, TaskConfig
-from jacta.viser_app.gui import slider
+from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
+from jacta.visualizers.mujoco_helpers.utils import get_trace_sensors
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
+from jacta.visualizers.viser_app.gui import slider
 
 MAX_NUM_TRACES = 5
 

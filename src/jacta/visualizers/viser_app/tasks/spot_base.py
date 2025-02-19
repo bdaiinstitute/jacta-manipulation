@@ -12,10 +12,10 @@ from mujoco_extensions.policy_rollout import (
 )
 from scipy.interpolate import interp1d
 
-from jacta.common.constants import ARM_STOWED_POS
-from jacta.tasks.mujoco_task import MujocoTask
-from jacta.tasks.task import TaskConfig
-from jacta.viser_app.gui import slider
+from jacta.visualizers.viser_app.constants import ARM_STOWED_POS
+from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
+from jacta.visualizers.viser_app.tasks.task import TaskConfig
+from jacta.visualizers.viser_app.gui import slider
 
 GOAL_POSITIONS = {
     "origin": np.array([0, 0, 0.0]),
