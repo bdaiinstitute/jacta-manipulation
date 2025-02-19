@@ -1,6 +1,35 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
-
+from dataclasses import dataclass
 from multiprocessing.managers import SyncManager
+
+
+@dataclass
+class ControlBufferKeys:
+    """Keys of the control buffer in the IO context."""
+
+    all_traces_rollout_size: str = "all_traces_rollout_size"
+    spline: str = "spline"
+    traces: str = "traces"
+
+
+@dataclass
+class StateBufferKeys:
+    """Keys of the state buffer in the IO context."""
+
+    additional_info: str = "additional_info"
+    last_policy_output: str = "last_policy_output"
+    qpos: str = "qpos"
+    qvel: str = "qvel"
+    time: str = "time"
+    xpos: str = "xpos"
+    xquat: str = "xquat"
+
+
+@dataclass
+class HardwareStateBufferKeys(StateBufferKeys):
+    """Keys of the hardware state buffer in the IO context."""
+
+    spot_hardware_state: str = "spot_hardware_state"
 
 
 class IOContext:

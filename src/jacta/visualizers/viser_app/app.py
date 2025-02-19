@@ -22,10 +22,10 @@ from jacta.visualizers.viser_app.controllers.controller import Controller, Contr
 from jacta.visualizers.viser_app.tasks import get_registered_tasks
 from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.viser_app.gui import create_gui_elements
-from jacta.visualizers.viser_app.io import IOContext, SimulationIOContext
+from jacta.visualizers.viser_app.io import ControlBufferKeys, IOContext, SimulationIOContext, StateBufferKeys
 from jacta.visualizers.viser_app.json_serializer import ConfigEncoder
 from jacta.visualizers.viser_app.profiler import ViserProfiler, ViserProfilerConfig
-from jacta.visualizers.visualization import Visualization
+from jacta.visualizers.viser_app.visualization import Visualization
 
 JACTA_MANIPULATION_PATH = Path(get_package_path())
 
@@ -54,7 +54,7 @@ class SimulationProcess(Process):
                 # Read current control.
                 if self.context.controller_running.is_set():
                     with self.context.control_lock:
-                        control = self.context.control_buffer["spline"]
+                        control = self.context.control_buffer[ControlBufferKeys.spline]
                 else:
                     control = None
 
@@ -69,14 +69,12 @@ class SimulationProcess(Process):
     def write_states(self) -> None:
         """Write current sim states to context."""
         with self.context.state_lock:
-            self.context.state_buffer["qpos"] = self.task.data.qpos.copy()
-            self.context.state_buffer["qvel"] = self.task.data.qvel.copy()
-            self.context.state_buffer["time"] = self.task.data.time
-            self.context.state_buffer["xpos"] = self.task.data.xpos.copy()
-            self.context.state_buffer["xquat"] = self.task.data.xquat.copy()
-            self.context.state_buffer["additional_info"] = copy(
-                self.task.additional_task_info
-            )
+            self.context.state_buffer[StateBufferKeys.qpos] = self.task.data.qpos.copy()
+            self.context.state_buffer[StateBufferKeys.qvel] = self.task.data.qvel.copy()
+            self.context.state_buffer[StateBufferKeys.time] = self.task.data.time
+            self.context.state_buffer[StateBufferKeys.xpos] = self.task.data.xpos.copy()
+            self.context.state_buffer[StateBufferKeys.xquat] = self.task.data.xquat.copy()
+            self.context.state_buffer[StateBufferKeys.additional_info] = copy(self.task.additional_task_info)
 
     def reset(self) -> None:
         """Resets the simulation to a new initial state."""
@@ -102,14 +100,10 @@ class ControlProcess(multiprocessing.Process):
 
         # Overwrite context with configs for current controller.
         with self.context.control_config_lock:
-            self.context.control_config_dict = self.context.manager.dict(
-                asdict(self.controller.config)
-            )
+            self.context.control_config_dict = self.context.manager.dict(asdict(self.controller.config))
 
         with self.context.reward_config_lock:
-            self.context.reward_config_dict = self.context.manager.dict(
-                asdict(self.controller.reward_config)
-            )
+            self.context.reward_config_dict = self.context.manager.dict(asdict(self.controller.reward_config))
 
         # Create gui elements for controller/reward parameters.
         control_folder = self.server.gui.add_folder("Controller parameters")
@@ -156,9 +150,7 @@ class ControlProcess(multiprocessing.Process):
 
     def remove(self) -> None:
         """Helper function to clean up GUI elements for this control instance."""
-        for element in (
-            self.control_config_gui_elements + self.reward_config_gui_elements
-        ):
+        for element in self.control_config_gui_elements + self.reward_config_gui_elements:
             # We don't need to remove the mesh handles; that's handled on the visualization.reset()
             if not isinstance(element, MeshHandle):
                 element.remove()
@@ -185,13 +177,7 @@ class ControlProcess(multiprocessing.Process):
                 self.control_step()
 
                 # Force controller to run at fixed rate specified by control_freq.
-                time.sleep(
-                    max(
-                        0,
-                        (1 / self.controller.config.control_freq)
-                        - (time.time() - start_time),
-                    )
-                )
+                time.sleep(max(0, (1 / self.controller.config.control_freq) - (time.time() - start_time)))
 
     def set_profiler_recording(self, recording: bool = False) -> None:
         """Turns on/off profiler recording and updates inner control loop."""
@@ -199,26 +185,22 @@ class ControlProcess(multiprocessing.Process):
             return
         self.profiler.recording = recording
         self.control_step = (
-            self.profiler.benchmark_wrapper(self._control_step)
-            if self.profiler.recording
-            else self._control_step
+            self.profiler.benchmark_wrapper(self._control_step) if self.profiler.recording else self._control_step
         )
 
     def _control_step(self) -> None:
         """Inner control step. Reads state, updates config, updates controls, writes controls."""
         # Read current state.
         with self.context.state_lock:
-            qpos = self.context.state_buffer["qpos"]
-            qvel = self.context.state_buffer["qvel"]
-            curr_time = self.context.state_buffer["time"]
-            additional_info = self.context.state_buffer["additional_info"]
+            qpos = self.context.state_buffer[StateBufferKeys.qpos]
+            qvel = self.context.state_buffer[StateBufferKeys.qvel]
+            curr_time = self.context.state_buffer[StateBufferKeys.time]
+            additional_info = self.context.state_buffer[StateBufferKeys.additional_info]
 
         # Update config dictionaries.
         if self.context.control_config_updated_event.is_set():
             with self.context.control_config_lock:
-                self.controller.config = from_dict(
-                    type(self.controller.config), self.context.control_config_dict
-                )
+                self.controller.config = from_dict(type(self.controller.config), self.context.control_config_dict)
             self.context.control_config_updated_event.clear()
 
         if self.context.reward_config_updated_event.is_set():
@@ -229,9 +211,7 @@ class ControlProcess(multiprocessing.Process):
             self.context.reward_config_updated_event.clear()
 
         # Run controller update and write back to state buffer.
-        self.controller.update_action(
-            np.concatenate([qpos, qvel]), curr_time, additional_info
-        )
+        self.controller.update_action(np.concatenate([qpos, qvel]), curr_time, additional_info)
 
         # Write the profiler information back to the context
         if self.profiler is not None:
@@ -245,13 +225,13 @@ class ControlProcess(multiprocessing.Process):
     def write_controls(self) -> None:
         """Write control result out to buffer."""
         with self.context.control_lock:
-            self.context.control_buffer["spline"] = self.controller.spline
+            self.context.control_buffer[ControlBufferKeys.spline] = self.controller.spline
 
     def write_traces(self) -> None:
         """Write traces out to buffer."""
         with self.context.control_lock:
-            self.context.control_buffer["traces"] = self.controller.traces
-            self.context.control_buffer["all_traces_rollout_size"] = (
+            self.context.control_buffer[ControlBufferKeys.traces] = self.controller.traces
+            self.context.control_buffer[ControlBufferKeys.all_traces_rollout_size] = (
                 self.controller.all_traces_rollout_size
             )
 
@@ -263,8 +243,7 @@ class ViserApp:
         self,
         init_controller: str = "predictive_sampling",
         init_task: str = "cartpole",
-        benchmark_dir: Optional[Path] = JACTA_MANIPULATION_PATH
-        / "dexterity/data/log/controller",
+        benchmark_dir: Optional[Path] = JACTA_MANIPULATION_PATH / "data/log/controller",
     ):
         # Create viser server for app frontend.
         self.server = ViserServer()
@@ -278,9 +257,7 @@ class ViserApp:
         self.available_controllers = get_registered_controllers()
         self.available_tasks = get_registered_tasks()
 
-        assert (
-            init_controller in self.available_controllers
-        ), f"Controller {init_controller} is not registered!"
+        assert init_controller in self.available_controllers, f"Controller {init_controller} is not registered!"
         assert init_task in self.available_tasks, f"Task {init_task} is not registered!"
 
         self.current_controller = init_controller
@@ -291,9 +268,7 @@ class ViserApp:
         self.start_controller_label = "Start controller"
         self.stop_controller_label = "Stop controller"
 
-        self.control_cycle_button = self.server.gui.add_button(
-            self.stop_controller_label
-        )
+        self.control_cycle_button = self.server.gui.add_button(self.stop_controller_label)
         self.control_cycle_button.on_click(self.control_cycle_callback)
 
         # Create button for resetting the physics simulation.
@@ -305,9 +280,7 @@ class ViserApp:
         self.simulation_cycle_button.on_click(self.simulation_cycle_callback)
 
         # Create button for downloading the current task / controller config.
-        self.config_download_button = self.server.gui.add_button(
-            "Download configuration", icon=Icon.BOOK_DOWNLOAD
-        )
+        self.config_download_button = self.server.gui.add_button("Download configuration", icon=Icon.BOOK_DOWNLOAD)
         self.config_download_button.on_click(self.config_download_callback)
 
         # Create buffers for app + start sim.
@@ -315,16 +288,12 @@ class ViserApp:
 
         # Add dropdown to enable switching between available controllers.
         self.control_picker = self.server.gui.add_dropdown(
-            "Controller",
-            list(self.available_controllers.keys()),
-            self.current_controller,
+            "Controller", list(self.available_controllers.keys()), self.current_controller
         )
         self.control_picker.on_update(self.control_selection_callback)
 
         # Add dropdown for switching between available tasks.
-        self.task_picker = self.server.gui.add_dropdown(
-            "Task", list(self.available_tasks.keys()), self.current_task
-        )
+        self.task_picker = self.server.gui.add_dropdown("Task", list(self.available_tasks.keys()), self.current_task)
         self.task_picker.on_update(self.task_selection_callback)
 
         _, controller_config = self._get_control_class_config()
@@ -332,9 +301,7 @@ class ViserApp:
         self.enable_profiling_label = "Enable profiling"
         self.disable_profiling_label = "Disable profiling"
 
-        self.enable_profiler_button = self.server.gui.add_button(
-            self.enable_profiling_label
-        )
+        self.enable_profiler_button = self.server.gui.add_button(self.enable_profiling_label)
         self.enable_profiler_button.on_click(self.enable_profiling_callback)
 
         self.text_handles = {}
@@ -355,9 +322,7 @@ class ViserApp:
 
                 # Exception handling for the controller.
                 if not self.controller.exception_queue.empty():
-                    controller_exception = self.controller.exception_queue.get(
-                        block=False
-                    )
+                    controller_exception = self.controller.exception_queue.get(block=False)
 
                 # If exception encountered, create a viser notification to alert the user, restart.
                 if controller_exception:
@@ -370,10 +335,7 @@ class ViserApp:
                         )
                     self.controller.remove()
                     self.enable_profiler_button.label = self.enable_profiling_label
-                    self.setup_controller(
-                        self.controller.controller.config,
-                        self.controller.controller.reward_config,
-                    )
+                    self.setup_controller(self.controller.controller.config, self.controller.controller.reward_config)
 
         except KeyboardInterrupt:
             print("Shutting down...")
@@ -464,28 +426,20 @@ class ViserApp:
         """
         self.physics: SimulationProcess = SimulationProcess(task, self.context)
 
-    def _get_control_class_config(
-        self,
-    ) -> Tuple[Type[Controller], Type[ControllerConfig]]:
+    def _get_control_class_config(self) -> Tuple[Type[Controller], Type[ControllerConfig]]:
         """Gets the controller class type and configuration"""
         return self.available_controllers[self.current_controller]
 
     def setup_controller(
-        self,
-        control_config: ControllerConfig | None = None,
-        task_config: TaskConfig | None = None,
+        self, control_config: ControllerConfig | None = None, task_config: TaskConfig | None = None
     ) -> None:
         """Spawns controller process for controller method currently selected in GUI."""
         # Instantiate current controller.
         _, task_config_class = self.available_tasks[self.current_task]
-        control_class, control_config_class = self.available_controllers[
-            self.current_controller
-        ]
+        control_class, control_config_class = self.available_controllers[self.current_controller]
 
         if control_config is not None:
-            assert (
-                task_config is not None
-            ), "Must pass both task and control config defaults together!"
+            assert task_config is not None, "Must pass both task and control config defaults together!"
             assert isinstance(control_config, control_config_class)
             assert isinstance(task_config, task_config_class)
         else:
@@ -496,9 +450,7 @@ class ViserApp:
             logfile=(
                 None
                 if self.benchmark_dir is None
-                else str(
-                    self.benchmark_dir / f"{self.current_task}_{self.dt_string}.txt"
-                )
+                else str(self.benchmark_dir / f"{self.current_task}_{self.dt_string}.txt")
             ),
             record=False,
         )
@@ -506,10 +458,7 @@ class ViserApp:
 
         # Spawn controller process for current control method / task.
         self.controller: ControlProcess = ControlProcess(
-            control_class(self.physics.task, control_config, task_config),
-            self.server,
-            self.context,
-            self.profiler,
+            control_class(self.physics.task, control_config, task_config), self.server, self.context, self.profiler
         )
         self.controller.start()
 
@@ -543,9 +492,7 @@ class ViserApp:
         self.context.simulation_reset_event.set()
         if self.controller.is_alive():
             self.controller.terminate()
-        previous_config = from_dict(
-            type(self.controller.controller.config), self.context.control_config_dict
-        )
+        previous_config = from_dict(type(self.controller.controller.config), self.context.control_config_dict)
         self.setup_controller(previous_config, self.controller.controller.reward_config)
 
     @_unset_sim_control_and_run

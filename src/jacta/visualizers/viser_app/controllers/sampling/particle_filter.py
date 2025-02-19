@@ -6,11 +6,7 @@ from typing import Any
 
 import numpy as np
 
-from jacta.visualizers.viser_app.controllers.sampling_base import (
-    SamplingBase,
-    SamplingBaseConfig,
-    make_spline,
-)
+from jacta.visualizers.viser_app.controllers.sampling_base import SamplingBase, SamplingBaseConfig, make_spline
 from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.viser_app.gui import slider
 
@@ -43,15 +39,9 @@ class ParticleFilter(SamplingBase):
         super().__init__(task, config, reward_config)
 
         # Preallocate state / control buffers.
-        self.all_splines = make_spline(
-            task.data.time + self.spline_timesteps,
-            self.controls,
-            self.config.spline_order,
-        )
+        self.all_splines = make_spline(task.data.time + self.spline_timesteps, self.controls, self.config.spline_order)
 
-    def update_action(
-        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
-    ) -> None:
+    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
         """Performs rollouts + reward computation from current state."""
         assert curr_state.shape == (self.model.nq + self.model.nv,)
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
@@ -59,14 +49,8 @@ class ParticleFilter(SamplingBase):
         # Check if num_rollouts has changed and resize arrays accordingly.
         if len(self.models) != self.config.num_rollouts:
             self.make_models()
-            self.controls: np.ndarray = np.random.default_rng().choice(
-                self.controls, size=self.config.num_rollouts
-            )
-            self.all_splines = make_spline(
-                curr_time + self.spline_timesteps,
-                self.controls,
-                self.config.spline_order,
-            )
+            self.controls: np.ndarray = np.random.default_rng().choice(self.controls, size=self.config.num_rollouts)
+            self.all_splines = make_spline(curr_time + self.spline_timesteps, self.controls, self.config.spline_order)
 
         # Adjust time + move policy forward.
         # TODO(pculbert): move some of this logic into top-level controller.
@@ -80,16 +64,12 @@ class ParticleFilter(SamplingBase):
 
         # Clamp controls to action bounds.
         self.candidate_controls = np.clip(
-            self.candidate_controls,
-            self.task.actuator_ctrlrange[:, 0],
-            self.task.actuator_ctrlrange[:, 1],
+            self.candidate_controls, self.task.actuator_ctrlrange[:, 0], self.task.actuator_ctrlrange[:, 1]
         )
 
         # Evaluate rollout controls at sim timesteps.
-        candidate_splines = make_spline(
-            new_times, self.candidate_controls, self.config.spline_order
-        )
-        rollout_controls = candidate_splines(curr_time + self.rollout_times)
+        candidate_splines = make_spline(new_times, self.candidate_controls, self.config.spline_order)
+        self.rollout_controls = candidate_splines(curr_time + self.rollout_times)
 
         # Create lists of states / controls for rollout.
         curr_state_batch = np.tile(curr_state, (self.config.num_rollouts, 1))
@@ -99,12 +79,12 @@ class ParticleFilter(SamplingBase):
 
         # Roll out dynamics with action sequences.
         self.states, self.sensors = self.task.rollout(
-            self.models, curr_state_batch, rollout_controls, additional_info
+            self.models, curr_state_batch, self.rollout_controls, additional_info
         )
 
         # Evalate rewards
         self.rewards = self.reward_function(
-            self.states, self.sensors, rollout_controls, self.reward_config
+            self.states, self.sensors, self.rollout_controls, self.reward_config, additional_info
         )
 
         # Compute particle filter weights.
@@ -121,9 +101,7 @@ class ParticleFilter(SamplingBase):
 
         # Set spline to first control (arbitrarily).
         self.update_spline(new_times, self.controls[0])
-        self.all_splines = make_spline(
-            new_times, self.controls, self.config.spline_order
-        )
+        self.all_splines = make_spline(new_times, self.controls, self.config.spline_order)
 
         # Update traces.
         self.update_traces()

@@ -4,19 +4,10 @@ from typing import Dict, Tuple, Type
 
 from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
 from jacta.visualizers.viser_app.controllers.sampling.cmaes import CMAES, CMAESConfig
-from jacta.visualizers.viser_app.controllers.sampling.cross_entropy_method import (
-    CrossEntropyConfig,
-    CrossEntropyMethod,
-)
+from jacta.visualizers.viser_app.controllers.sampling.cross_entropy_method import CrossEntropyConfig, CrossEntropyMethod
 from jacta.visualizers.viser_app.controllers.sampling.mppi import MPPI, MPPIConfig
-from jacta.visualizers.viser_app.controllers.sampling.particle_filter import (
-    ParticleFilter,
-    ParticleFilterConfig,
-)
-from jacta.visualizers.viser_app.controllers.sampling.predictive_sampling import (
-    PredictiveSampling,
-    PredictiveSamplingConfig,
-)
+from jacta.visualizers.viser_app.controllers.sampling.particle_filter import ParticleFilter, ParticleFilterConfig
+from jacta.visualizers.viser_app.controllers.sampling.predictive_sampling import PredictiveSampling, PredictiveSamplingConfig
 
 _registered_controllers: Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]] = {
     "cross_entropy_method": (CrossEntropyMethod, CrossEntropyConfig),
@@ -27,15 +18,11 @@ _registered_controllers: Dict[str, Tuple[Type[Controller], Type[ControllerConfig
 }
 
 
-def get_registered_controllers() -> (
-    Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]]
-):
+def get_registered_controllers() -> Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]]:
     return _registered_controllers
 
 
 def register_controller(
-    name: str,
-    controller_type: Type[Controller],
-    controller_config_type: Type[ControllerConfig],
+    name: str, controller_type: Type[Controller], controller_config_type: Type[ControllerConfig]
 ) -> None:
     _registered_controllers[name] = (controller_type, controller_config_type)

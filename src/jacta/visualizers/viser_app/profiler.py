@@ -34,9 +34,7 @@ class ViserProfiler:
         for key in self.config.tracked_fields.keys():
             self.agg_stats[key] = None
 
-    def benchmark_function(
-        self, input_function: Callable, *args: Any, **kwargs: Any
-    ) -> Any:
+    def benchmark_function(self, input_function: Callable, *args: Any, **kwargs: Any) -> Any:
         """Call a function with a benchmarked process"""
         self.profiler.enable()
         outputs = input_function(*args, **kwargs)
@@ -58,9 +56,7 @@ class ViserProfiler:
 
             # Aggregate useful stats
             for key, value in self.config.tracked_fields.items():
-                self.agg_stats[key] = func_profiles[value].cumtime / int(
-                    func_profiles[value].ncalls
-                )
+                self.agg_stats[key] = func_profiles[value].cumtime / int(func_profiles[value].ncalls)
 
             if self.logfile is None:
                 self.profiler.print_stats()

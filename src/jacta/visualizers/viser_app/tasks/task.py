@@ -1,14 +1,14 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 import numpy as np
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
 from jacta.visualizers.viser_app.io import IOContext
-from jacta.visualizers.visualization import Visualization
+from jacta.visualizers.viser_app.visualization import Visualization
 
 
 @dataclass
@@ -26,9 +26,7 @@ class Task(Generic[ConfigT, ModelT]):
     """Base container for sampling-based MPC tasks. Implements reward, simulation step, and resetting behavior."""
 
     @abstractmethod
-    def create_visualization(
-        self, server: ViserServer, context: IOContext, text_handles: dict
-    ) -> Visualization:
+    def create_visualization(self, server: ViserServer, context: IOContext, text_handles: dict) -> Visualization:
         """Returns a visualizer for the task."""
 
     @abstractmethod
@@ -38,11 +36,12 @@ class Task(Generic[ConfigT, ModelT]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: ConfigT,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Abstract reward function for task."""
 
     @abstractmethod
-    def sim_step(self, controls: interp1d) -> None:
+    def sim_step(self, controls: Optional[interp1d]) -> None:
         """Generic simulation step. Reads controls and updates self.data."""
 
     @abstractmethod

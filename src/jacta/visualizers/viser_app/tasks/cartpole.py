@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import mujoco
 import numpy as np
@@ -17,9 +17,7 @@ MODEL_PATH = "dexterity/models/xml/scenes/legacy/cartpole.xml"
 class CartpoleConfig(TaskConfig):
     """Reward configuration for the cartpole task."""
 
-    default_command: Optional[np.ndarray] = field(
-        default_factory=lambda: np.array([0.0])
-    )
+    default_command: Optional[np.ndarray] = field(default_factory=lambda: np.array([0.0]))
     w_vertical: float = 10.0
     w_centered: float = 10.0
     w_velocity: float = 0.1
@@ -42,6 +40,7 @@ class Cartpole(MujocoTask[CartpoleConfig]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: CartpoleConfig,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Implements the cartpole reward from MJPC.
 
@@ -60,12 +59,8 @@ class Cartpole(MujocoTask[CartpoleConfig]):
         """
         batch_size = states.shape[0]
 
-        vertical_rew = -config.w_vertical * smooth_l1_norm(
-            np.cos(states[..., 1]) - 1, config.p_vertical
-        ).sum(-1)
-        centered_rew = -config.w_centered * smooth_l1_norm(
-            states[..., 0], config.p_centered
-        ).sum(-1)
+        vertical_rew = -config.w_vertical * smooth_l1_norm(np.cos(states[..., 1]) - 1, config.p_vertical).sum(-1)
+        centered_rew = -config.w_centered * smooth_l1_norm(states[..., 0], config.p_centered).sum(-1)
         velocity_rew = -config.w_velocity * quadratic_norm(states[..., 2:]).sum(-1)
         control_rew = -config.w_control * quadratic_norm(controls).sum(-1)
 
@@ -84,7 +79,6 @@ class Cartpole(MujocoTask[CartpoleConfig]):
 
     def is_terminated(self, config: CartpoleConfig) -> bool:
         """Termination condition for cartpole. End if position / velocity are small enough."""
-        return np.logical_and(
-            np.linalg.norm(self.data.qpos) <= 1e-2,
-            np.linalg.norm(self.data.qvel) <= 1e-2,
-        ).astype(bool)
+        return np.logical_and(np.linalg.norm(self.data.qpos) <= 1e-2, np.linalg.norm(self.data.qvel) <= 1e-2).astype(
+            bool
+        )

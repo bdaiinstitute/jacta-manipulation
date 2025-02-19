@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import mujoco
 import numpy as np
@@ -17,9 +17,7 @@ MODEL_PATH = "dexterity/models/xml/scenes/legacy/acrobot.xml"
 class AcrobotConfig(TaskConfig):
     """Reward configuration for the acrobot task."""
 
-    default_command: Optional[np.ndarray] = field(
-        default_factory=lambda: np.array([0.0])
-    )
+    default_command: Optional[np.ndarray] = field(default_factory=lambda: np.array([0.0]))
     w_vertical: float = 10.0
     w_velocity: float = 0.1
     w_control: float = 0.1
@@ -40,6 +38,7 @@ class Acrobot(MujocoTask[AcrobotConfig]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: AcrobotConfig,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Implements the acrobot reward from MJPC.
 
