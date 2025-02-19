@@ -1,9 +1,8 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
-"""Action Trajectory Submodule."""
-import torch
 
-from jactamanipulation.planner.planner.linear_algebra import einsum_jk_ikl_ijl
-from jactamanipulation.planner.planner.types import ControlType
+import torch
+from jacta.planner.linear_algebra import einsum_jk_ikl_ijl
+from jacta.planner.types import ControlType
 
 
 def create_action_trajectory(

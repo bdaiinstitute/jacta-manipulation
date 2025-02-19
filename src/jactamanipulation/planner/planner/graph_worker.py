@@ -2,31 +2,27 @@
 
 import math
 import time
-from typing import Callable, Tuple
+from typing import Callable, Optional, Tuple
 
 import torch
 from torch import BoolTensor, FloatTensor, IntTensor
 
-from jactamanipulation.planner.dynamics.locomotion_plant import LocomotionPlant
-from jactamanipulation.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jactamanipulation.planner.planner.action_sampler import ActionSampler
-from jactamanipulation.planner.planner.graph import Graph, sample_random_sub_goal_states, sample_related_sub_goal_states
-from jactamanipulation.planner.planner.linear_algebra import truncpareto_cdf
-from jactamanipulation.planner.planner.logger import Logger
-from jactamanipulation.planner.planner.parameter_container import ParameterContainer
-from jactamanipulation.planner.planner.types import ActionType, SelectionType
+from jacta.dynamics.simulator_plant import SimulatorPlant, scaled_distances_to
+from jacta.planner.action_sampler import ActionSampler
+from jacta.planner.clipping_method import clip_actions
+from jacta.planner.graph import Graph, sample_random_sub_goal_states, sample_related_sub_goal_states
+from jacta.planner.linear_algebra import project_vectors_on_eigenspace, truncpareto_cdf
+from jacta.planner.logger import Logger
+from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.types import (
+    ACTION_TYPE_DIRECTIONAL_MAP,
+    ActionMode,
+    ActionType,
+    SelectionType,
+)
 
 
 def pareto_distribution(length: int, exponent: float) -> FloatTensor:
-    """Pareto distribution
-
-    Args:
-        length (int): Length
-        exponent (float): Exponent
-
-    Returns:
-        FloatTensor: Pareto distribution
-    """
     upper_bound = length + 1
     x = torch.arange(1, upper_bound)
     xU = x + 1
@@ -35,22 +31,19 @@ def pareto_distribution(length: int, exponent: float) -> FloatTensor:
 
 
 class GraphWorker:
-    """SimulationPlant GraphWorker"""
-
     def __init__(
         self,
-        plant: MujocoPlant,
+        plant: SimulatorPlant,
         graph: Graph,
         action_sampler: ActionSampler,
         logger: Logger,
         params: ParameterContainer,
-        callback: Callable | None = None,
-        callback_period: int | None = None,  # period in number of steps which dictates when the callback is called
+        callback: Optional[Callable] = None,
+        callback_period: Optional[int] = None,  # period in number of steps which dictates when the callback is called
     ):
         self._initialize(plant, graph, action_sampler, logger, params, callback, callback_period)
 
     def reset(self) -> None:
-        """Re initializes"""
         self._initialize(
             self.plant,
             self.graph,
@@ -63,31 +56,19 @@ class GraphWorker:
 
     def _initialize(
         self,
-        plant: MujocoPlant,
+        plant: SimulatorPlant,
         graph: Graph,
         action_sampler: ActionSampler,
         logger: Logger,
         params: ParameterContainer,
-        callback: Callable | None = None,
-        callback_period: int | None = None,
+        callback: Optional[Callable] = None,
+        callback_period: Optional[int] = None,
     ) -> None:
-        """Initialize
-
-        Args:
-            plant (MujocoPlant): Simulator plant
-            graph (Graph): Graph
-            action_sampler (ActionSampler): Action sampler
-            logger (Logger): Logger
-            params (ParameterContainer): Params
-            callback (Callable | None, optional): Progress callback. Defaults to None.
-            callback_period (int | None, optional): Callback period. Defaults to None.
-        """
         self.params = params
         self.plant = plant
         self.graph = graph
         self.logger = logger
         self.action_sampler = action_sampler
-        self.action_processor = self.params.action_processor_class(params, plant.actuated_pos)
         self.callback = callback
         self.callback_period = callback_period
         self.search_succeeded = torch.zeros(params.num_parallel_searches, dtype=torch.bool)
@@ -98,9 +79,7 @@ class GraphWorker:
         self.pareto_exponent = torch.ones(params.num_parallel_searches) * params.pareto_exponent_max
 
     def node_selection(self, search_indices: IntTensor) -> IntTensor:
-        """Selects a collection of nodes.
-
-        Nodes are ranked either by reward or scaled distance to goal.
+        """Selects a collection of nodes. Nodes a ranked either by reward or scaled distance to goal.
         Then nodes are selected according to the Pareto distribution.
 
         Args:
@@ -117,57 +96,73 @@ class GraphWorker:
             sampled_node_ids[search_indices == search_index] = sorted_ids[indices]
         return sampled_node_ids
 
+    def get_start_actions(self, node_ids: IntTensor) -> FloatTensor:
+        match self.params.action_start_mode:
+            case ActionMode.RELATIVE_TO_CURRENT_STATE:
+                actions = self.graph.states[node_ids][:, self.plant.actuated_pos]
+            case ActionMode.RELATIVE_TO_PREVIOUS_END_ACTION:
+                actions = self.graph.end_actions[node_ids]
+            case _:
+                print("Select a valid ActionMode for the params.action_start_mode.")
+                raise (NotImplementedError)
+        actions = clip_actions(actions, self.params)
+
+        return actions
+
+    def get_end_actions(
+        self, node_ids: IntTensor, relative_actions: FloatTensor, action_type: Optional[ActionType]
+    ) -> FloatTensor:
+        match self.params.action_end_mode:
+            case ActionMode.RELATIVE_TO_CURRENT_STATE:
+                actions = self.graph.states[node_ids][:, self.plant.actuated_pos] + relative_actions
+            case ActionMode.RELATIVE_TO_PREVIOUS_END_ACTION:
+                actions = self.graph.end_actions[node_ids] + relative_actions
+            case ActionMode.ABSOLUTE_ACTION:
+                actions = relative_actions
+            case _:
+                print("Select a valid ActionMode for the params.action_end_mode.")
+                raise (NotImplementedError)
+        actions = clip_actions(actions, self.params)
+
+        is_directional = ACTION_TYPE_DIRECTIONAL_MAP.get(action_type, True)
+        if not is_directional and self.params.using_eigenspaces:
+            actions = project_vectors_on_eigenspace(actions, self.params.orthonormal_basis)
+
+        return actions
+
     def node_extension(
         self,
         node_ids: IntTensor,
         relative_actions: FloatTensor,
         num_action_steps: int,
-        action_type: ActionType | None = None,
+        action_type: Optional[ActionType] = None,
     ) -> Tuple[IntTensor, float, bool]:
         """Chooses a node to extend to based on the current node and action sampler.
 
         Args:
-            node_ids (IntTensor): the id sof the nodes to extend from with the actions
-            relative_actions (FloatTensor): control vectors of size (nu,)
-            num_action_steps (int): the number of steps. Must be the same for all extensions to perform parallel rollout
-            action_type (ActionType | None, optional): Action type. Defaults to None.
+            node_ids: the id sof the nodes to extend from with the actions
+            actions: control vectors of size (nu,)
+            num_action_steps: the number of steps. Must be the same for all extensions to perform parallel rollout
         """
         graph = self.graph
+        params = self.params
 
         # start dynamics rollout
         t0 = time.perf_counter()
 
         states = self.graph.states[node_ids]
 
-        info = {}
-        if isinstance(self.plant, LocomotionPlant):
-            info["sensor"] = self.graph.sensors[node_ids]
-
         last_valid_main_ids = node_ids.clone()
-        is_terminal_node = torch.zeros_like(node_ids, dtype=torch.bool)
         for step in range(num_action_steps):
-            start_actions, end_actions, start_end_sub_actions = self.action_processor(
-                relative_actions=relative_actions,
-                action_type=action_type,
-                current_states=self.graph.states[node_ids],
-                previous_end_actions=self.graph.end_actions[node_ids],
-            )
+            start_actions = self.get_start_actions(node_ids)
+            end_actions = self.get_end_actions(node_ids, relative_actions, action_type)
+            start_end_sub_actions = torch.stack((start_actions, end_actions), dim=1)
 
-            states, sensors, _ = self.plant.dynamics(states, start_end_sub_actions, info)
-            info["sensor"] = sensors
+            states, _ = self.plant.dynamics(states, start_end_sub_actions, params.action_time_step)
             is_main_node = step == num_action_steps - 1
-            is_terminal_node += graph.check_for_early_termination(sensors)
 
             node_ids, graph_full = graph.add_nodes(
-                graph.root_ids[node_ids],
-                node_ids,
-                states,
-                sensors,
-                start_actions,
-                end_actions,
-                relative_actions,
-                is_terminal_node,
-                is_main_node,
+                graph.root_ids[node_ids], node_ids, states, start_actions, end_actions, relative_actions, is_main_node
             )
             if graph_full:
                 break
@@ -202,8 +197,8 @@ class GraphWorker:
             direct_node_ids, _, graph_full = self.node_extension(
                 paths_ids[replace_indices, 0], relative_actions, num_action_steps
             )
-            direct_distances = self.plant.scaled_distances_to(
-                graph.states[replace_node_ids], graph.states[direct_node_ids]
+            direct_distances = scaled_distances_to(
+                self.plant, graph.states[replace_node_ids], graph.states[direct_node_ids]
             )
 
             worse_indices = graph.is_worse_than(direct_node_ids, replace_node_ids)  # if worse, remove new direct node
@@ -221,15 +216,6 @@ class GraphWorker:
             return 0, False
 
     def percentage_range(self, start: int, stop: int) -> range:
-        """Percentage range
-
-        Args:
-            start (int): Start
-            stop (int): Stop
-
-        Returns:
-            range: Range between start and stop
-        """
         if stop < 10:
             return range(start, stop + 1, 1)
         else:
@@ -238,17 +224,6 @@ class GraphWorker:
     def get_progress_info(
         self, iteration: int, num_steps: int, print_percentage: bool = False, verbose: bool = False
     ) -> FloatTensor:
-        """Gets the progress info
-
-        Args:
-            iteration (int): Number of iterations
-            num_steps (int): Number of steps
-            print_percentage (bool, optional): Whether to print the percentage or not. Defaults to False.
-            verbose (bool, optional): Enable verbose. Defaults to False.
-
-        Returns:
-            FloatTensor: Relative distances
-        """
         graph = self.graph
 
         best_ids = graph.get_best_id(reward_based=False)
@@ -290,8 +265,6 @@ class GraphWorker:
 
 
 class SingleGoalWorker(GraphWorker):
-    """SingleGoal GraphWorker implementation"""
-
     def work(self, verbose: bool = False) -> bool:
         """Tries to find a path to a single goal."""
         params = self.params
@@ -343,7 +316,7 @@ class SingleGoalWorker(GraphWorker):
             if params.intermediate_pruning and not graph_full:
                 best_indices = self.node_pruning(paths_ids)
                 logger.log_node_pruning(paths_ids[:, -1], "prune", paths_ids[:, 1:].numel() - torch.sum(best_indices))
-                node_ids = paths_ids[torch.arange(paths_ids.shape[0]), best_indices]  # TODO there must be a better way
+                node_ids = paths_ids[torch.arange(paths_ids.shape[0]), best_indices]
             else:
                 best_indices = torch.ones(len_node_ids, dtype=torch.int64) * extensions
             if params.intermediate_replacement and not graph_full:
@@ -360,14 +333,11 @@ class SingleGoalWorker(GraphWorker):
 
 
 class ParallelGoalsWorker(GraphWorker):
-    """ParallelGoals GraphWorker implementation"""
-
     def __init__(self, *args: Tuple, **kwargs: dict):
         super().__init__(*args, **kwargs)  # type: ignore
         params = self.params
 
         if params.intermediate_pruning or params.intermediate_replacement:
-            # TODO(maks) - support for these can be added later
             raise ValueError("ParallelGoalsWorker does not support intermediate pruning or replacement")
 
         self.num_workers = params.num_parallel_searches * params.parallel_extensions
@@ -383,11 +353,6 @@ class ParallelGoalsWorker(GraphWorker):
         ).long()
 
     def try_to_reallocate_workers(self, worker_reset_mask: BoolTensor) -> None:
-        """Try to reallocate workers
-
-        Args:
-            worker_reset_mask (BoolTensor): Reset mask
-        """
         # replaces search indices of the completed searches
         worker_reset_search_indices = self.worker_search_indices[worker_reset_mask]
         worker_search_completed_mask = self.search_finished[worker_reset_search_indices]
@@ -402,18 +367,12 @@ class ParallelGoalsWorker(GraphWorker):
             self.worker_search_indices[worker_search_completed_mask] = new_search_indices
 
     def update_extension_lengths(self, search_reset_mask: BoolTensor) -> None:
-        """Update extension lengths
-
-        Args:
-            search_reset_mask (BoolTensor): Reset mask
-        """
         new_extension_lengths = torch.ceil(self.extension_horizon[search_reset_mask])
         new_extension_lengths = torch.clamp(new_extension_lengths, 1, self.params.extension_horizon_max)
         self.search_extensions_length[search_reset_mask] = new_extension_lengths.long()
         self.search_extensions_step[search_reset_mask] = 0
 
     def reset_finished_workers(self) -> None:
-        """Reset finished workers"""
         search_reset_mask = self.search_extensions_step >= (self.search_extensions_length - 1)
         if torch.any(search_reset_mask):
             reset_search_indices = self.graph.search_indices[search_reset_mask]
@@ -435,15 +394,8 @@ class ParallelGoalsWorker(GraphWorker):
         node_ids: IntTensor,
         new_node_ids: IntTensor,
     ) -> None:
-        """Update pareto parameters
-
-        Args:
-            node_ids (IntTensor): Node ids
-            new_node_ids (IntTensor): New node ids
-        """
         params = self.params
         logger = self.logger
-        # TODO (maks) - `has_best_rewards` doesn't account of search independency (avoids loops)
         best_ids = self.graph.get_best_id(params.reward_based)
         has_best_rewards = torch.isin(best_ids, new_node_ids)
 
@@ -538,8 +490,6 @@ class ParallelGoalsWorker(GraphWorker):
 
 
 class CommonGoalWorkerInterface:
-    """CommonGoalWorker base class"""
-
     def __init__(self, *args: Tuple, **kwargs: dict):
         params: ParameterContainer = kwargs.get("params", args[4])
         worker_class: type = ParallelGoalsWorker if params.num_parallel_searches > 1 else SingleGoalWorker
@@ -552,14 +502,11 @@ class CommonGoalWorkerInterface:
 
         # expose common methods
         self.reset = self.parent.reset
-        self.action_processor = self.parent.action_processor
         self.callback_and_progress_check = self.parent.callback_and_progress_check
         self.get_progress_info = self.parent.get_progress_info
 
 
 class RelatedGoalWorker(CommonGoalWorkerInterface):
-    """RelatedGoalWorker implementation"""
-
     def work(self, verbose: bool = False) -> bool:
         """Tries to find paths to goals sampled around the actual goal."""
         num_sub_goals = self.params.num_sub_goals
@@ -569,7 +516,7 @@ class RelatedGoalWorker(CommonGoalWorkerInterface):
                 self.graph.reset_sub_goal_states()
             else:
                 new_sub_goal_states = sample_related_sub_goal_states(
-                    self.params, self.graph.start_states, self.graph.goal_states
+                    self.params, self.graph.start_states, self.graph.goal_states, self.params.num_parallel_searches
                 )
                 self.graph.change_sub_goal_states(new_sub_goal_states)
 
@@ -590,8 +537,6 @@ class RelatedGoalWorker(CommonGoalWorkerInterface):
 
 
 class ExplorerWorker(CommonGoalWorkerInterface):
-    """ExploreWorker implementation"""
-
     def work(self, verbose: bool = False) -> bool:
         """Tries to find paths to randomly sampled goals"""
         num_sub_goals = self.params.num_sub_goals
@@ -621,8 +566,6 @@ class ExplorerWorker(CommonGoalWorkerInterface):
 
 
 class RolloutWorker(GraphWorker):
-    """RolloutWorker implementation"""
-
     def work(self, verbose: bool = False) -> bool:
         """Always extends the last node."""
         params = self.params
@@ -654,15 +597,13 @@ def inspect_action_type(
     node_ids: IntTensor | None = None,
     num_action_steps: int = 100,
 ) -> FloatTensor:
-    """Inspection tool for a specific action type.
-
-    This rollout the dynamics of the system assuming that we always select the same action_type.
+    """Inspection tool for a specific action type. This rollout the dynamics of the system
+    assuming that we always select the same action_type.
     """
     params = graph_worker.params
     plant = graph_worker.plant
     graph = graph_worker.graph
     action_sampler = graph_worker.action_sampler
-    action_processor = graph_worker.action_processor
 
     # set the action type as the only possible action to sample
     params.action_types = [action_type]
@@ -680,27 +621,15 @@ def inspect_action_type(
         assert sampled_action_type == action_type
 
         states = graph.states[node_ids]
-        start_actions, end_actions, start_end_sub_actions = action_processor(
-            relative_actions=relative_actions,
-            action_type=action_type,
-            current_states=states,
-            previous_end_actions=graph.end_actions[node_ids],
-        )
+        start_actions = graph_worker.get_start_actions(node_ids)
+        end_actions = graph_worker.get_end_actions(node_ids, relative_actions, action_type)
+        start_end_sub_actions = torch.stack((start_actions, end_actions), dim=1)
 
-        states, sensors, traj = plant.dynamics(states, start_end_sub_actions)
+        states, traj = plant.dynamics(states, start_end_sub_actions, params.action_time_step)
         state_trajectory = torch.cat((state_trajectory, traj[0, :, :]))
-        is_terminal_node = graph.check_for_early_termination(sensors)
 
         node_ids, graph_full = graph.add_nodes(
-            graph.root_ids[node_ids],
-            node_ids,
-            states,
-            sensors,
-            start_actions,
-            end_actions,
-            relative_actions,
-            is_terminal_node,
-            is_main_node=True,
+            graph.root_ids[node_ids], node_ids, states, start_actions, end_actions, relative_actions, is_main_node=True
         )
         if graph_full:
             break

@@ -1,6 +1,0 @@
-<mujoco>
-  <asset>
-    <texture name="blue_grid" type="2d" builtin="checker" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" width="300" height="300" mark="edge" markrgb="0.8 0.8 0.8"/>
-    <material name="blue_grid" texture="blue_grid" texrepeat="5 5" texuniform="true" reflectance=".2"/>
-  </asset>
-</mujoco>

@@ -1,7 +1,6 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
-"""Mujoco Dynamics Submodule."""
-from __future__ import annotations
 
+import time
 from typing import Optional, Tuple
 
 import mujoco
@@ -9,6 +8,9 @@ import mujoco.viewer
 import numpy as np
 import numpy.typing as npt
 import torch
+from jacta.dynamics.action_trajectory import create_action_trajectories
+from jacta.dynamics.simulator_plant import SimulatorPlant
+from jacta.planner.parameter_container import ParameterContainer
 from mujoco import (
     MjModel,
     mj_differentiatePos,
@@ -22,20 +24,10 @@ from mujoco import (
 )
 from torch import FloatTensor, IntTensor, tensor
 
-from jactamanipulation.planner.planner.parameter_container import ParameterContainer
-
 
 def get_joint_dimensions(joint_ids: npt.ArrayLike, state_address: npt.ArrayLike, state_length: int) -> IntTensor:
-    """Get the state vector indices corresponding to the given joint ids.
-
-    Args:
-        joint_ids: mujoco joint id
-        state_address: array of joint start addresses
-        state_length: total length of the state vector
-
-    Returns:
-        A tensor (nq,) with the indices in ``state_address`` corresponding to ``joint_ids``.
-    """
+    """Given a list of joint ids, and the list of addresses in the states for the joints.
+    We return the dimensions in the state corresponding to the list of joint ids."""
     dims = []
     for idx in joint_ids:
         start = state_address[idx]  # start index in state
@@ -50,18 +42,8 @@ def get_joint_dimensions(joint_ids: npt.ArrayLike, state_address: npt.ArrayLike,
 def decompose_state_dimensions(
     model: MjModel,
 ) -> Tuple[IntTensor, IntTensor, IntTensor, IntTensor]:
-    """Decompose the states indices.
-
-    Args:
-        model: the model to extract states from
-
-    Returns:
-            Tuple: A Tuple containing:
-                - actuated position indices
-                - actuated velocity indices
-                - unactuated position indices
-                - unactuated velocity indices
-    """
+    """Decompose the states indices in 4 groups, split between positions or velocities and
+    actuated or not actuated."""
     nq = model.nq
     nv = model.nv
 
@@ -78,48 +60,28 @@ def decompose_state_dimensions(
     return actuated_pos, actuated_vel, unactuated_pos, unactuated_vel
 
 
-def scale_distances(delta_states: FloatTensor, scaling: FloatTensor) -> FloatTensor:
-    """Apply state distance cost matrix given by `scaling` to `delta_states`."""
-    return torch.norm(delta_states @ scaling, dim=-1)
-
-
-class MujocoPlant:
-    """MujocoPlant object."""
-
-    def __init__(self, *, params: Optional[ParameterContainer] = None, xml_model_path: Optional[str] = None) -> None:
-        """Constructs a MujocoPlant object."""
-        if params is None:
-            self.params = ParameterContainer()
-            self.params.model_filename = xml_model_path
-            self.params.finite_diff_eps = 1e-3
-        else:
-            self.params = params
-        self.initialize()
+class MujocoPlant(SimulatorPlant):
+    def __init__(self, params: ParameterContainer) -> None:
+        self.initialize(params)
 
     def reset(self) -> None:
-        """Resets a MujocoPlant."""
-        self.initialize()
+        self.initialize(self.params)
 
-    def initialize(self) -> None:
-        """Initializes MujocoPlant attributes.
-
-        Args:
-            params: the ``ParameterContainer`` with initialization params.
-        """
-        model_path = self.params.model_filename
+    def initialize(self, params: ParameterContainer) -> None:
+        super().__init__(params)
+        model_path = params.xml_folder / params.model_filename
         model = mujoco.MjModel.from_xml_path(str(model_path))
         data = mujoco.MjData(model)
         self.model = model
         self.data = data
-        if "action_time_step" not in self.params:
-            self.params.action_time_step = pow(self.get_mass(), 1 / 6) / 10
+        if "action_time_step" not in params:
+            params.action_time_step = pow(self.get_mass(), 1 / 6) / 10
         self.sim_time_step = model.opt.timestep
-        if "num_substeps" not in self.params:
-            self.params.num_substeps = int(np.round(self.params.action_time_step / self.sim_time_step))
         self.state_dimension = model.nq + model.nv + model.na
         self.state_derivative_dimension = 2 * model.nv + model.na
         self.action_dimension = model.nu
         self.sensor_dimension = model.nsensordata
+        self.q_indices = slice(0, model.nq)
 
         self.actuated_pos, self.actuated_vel, self.unactuated_pos, self.unactuated_vel = decompose_state_dimensions(
             model
@@ -128,39 +90,45 @@ class MujocoPlant:
         self.actuated_state = torch.cat((self.actuated_pos, self.actuated_vel))
         self.unactuated_state = torch.cat((self.unactuated_pos, self.unactuated_vel))
         self.get_quat_indices()
+        if "vis_q_indices" not in params:
+            params.vis_q_indices = self.q_indices
 
     def dynamics(
         self,
         states: FloatTensor,
-        action_trajectories: FloatTensor,
-        info: dict | None = None,
-    ) -> Tuple[FloatTensor, FloatTensor, FloatTensor]:
+        actions: FloatTensor,
+        action_time_step: float,
+    ) -> Tuple[FloatTensor, FloatTensor]:
         """Conditions on the size of the states/actions and calls the appropriate singular or parallel dynamics.
 
         Args:
             states: (nx,) or (num_envs, nx) sized vector of states
-            action_trajectories: (num_steps, na) or (num_envs, num_steps, na) array containing
-            the start and end action vectors of the desired trajectory.
+            actions: (2, na) or (num_envs, 2, na) array containing the start and end action vectors
+                of the desired trajectory.
             action_time_step: the hold time for the action.
-            info: additional information to pass to the dynamics function.
 
         Returns:
-            A tuple of (next state, sensor data, intermediate states)
+            A tuple of (next state, intermediate states)
         """
-        states_dim, actions_dim = states.ndim, action_trajectories.ndim
+        states_dim, actions_dim = states.ndim, actions.ndim
         if (states_dim, actions_dim) == (1, 2):
             num_envs = 0
             states = torch.hstack((torch.ones((1, 1)) * self.data.time, states.unsqueeze(0)))
-            action_trajectories = action_trajectories.unsqueeze(0)
+            actions = actions.unsqueeze(0)
         elif (states_dim, actions_dim) == (2, 3):
             num_envs = states.shape[0]
             states = torch.hstack((torch.ones((num_envs, 1)) * self.data.time, states))
         else:
-            raise ValueError("Invalid dimensions for states and action_trajectories.")
+            raise ValueError("Invalid dimensions for states and actions.")
 
-        return self._dynamics(states, action_trajectories, num_envs=num_envs)
+        return self._dynamics(states, actions, action_time_step, num_envs=num_envs)
 
-    def _get_gradient_placeholders(
+    def get_num_substeps(self, time_step: Optional[float] = None) -> int:
+        if time_step is None:
+            time_step = self.params.action_time_step
+        return int(np.round(time_step / self.sim_time_step))
+
+    def get_gradient_placeholders(
         self,
         size: Optional[int] = None,
     ) -> Tuple[npt.ArrayLike, npt.ArrayLike, npt.ArrayLike, npt.ArrayLike]:
@@ -178,6 +146,34 @@ class MujocoPlant:
 
         return state_gradient_state, state_gradient_control, sensor_gradient_state, sensor_gradient_control
 
+    def get_sub_stepped_gradients(
+        self,
+        state: FloatTensor,
+        action: FloatTensor,
+        num_substeps: Optional[int] = None,
+    ) -> Tuple[FloatTensor, FloatTensor, FloatTensor, FloatTensor]:
+        state_gradient_state, state_gradient_control, sensor_gradient_state, sensor_gradient_control = (
+            self.get_gradient_placeholders()
+        )
+        state_gradient_state = tensor(state_gradient_state, dtype=torch.float32)
+        state_gradient_control = tensor(state_gradient_control, dtype=torch.float32)
+        sensor_gradient_state = tensor(sensor_gradient_state, dtype=torch.float32)
+        sensor_gradient_control = tensor(sensor_gradient_control, dtype=torch.float32)
+
+        if num_substeps is None:
+            num_substeps = self.get_num_substeps()
+        for i in range(num_substeps):
+            A, B, C, D = self.get_gradients(state, action)
+            state_gradient_state = torch.matmul(A, state_gradient_state)
+            state_gradient_control = B + torch.matmul(A, state_gradient_control)
+            if i == num_substeps - 1:
+                sensor_gradient_state = torch.matmul(C, state_gradient_state)
+                sensor_gradient_control = torch.matmul(C, state_gradient_control)
+
+            mujoco.mj_step(self.model, self.data)
+
+        return (state_gradient_state, state_gradient_control, sensor_gradient_state, sensor_gradient_control)
+
     def get_gradients(
         self,
         states: FloatTensor,
@@ -188,13 +184,11 @@ class MujocoPlant:
         Args:
             states: (nx,) or (num_envs, nx) sized vector of states
             actions: (na,) or (num_envs, na) array containing the action vectors.
-
         Returns:
-            Tuple: A Tuple containing:
-                - state_gradients_state: (nx, nx) or (num_envs, nx, nx)
-                - state_gradients_control: (nx, nu) or (num_envs, nx, nu)
-                - sensor_gradients_state: (ns, nx) or (num_envs, ns, nx)
-                - sensor_gradients_control: (ns, nu) or (num_envs, ns, nu)
+            state_gradients_state: (nx, nx) or (num_envs, nx, nx),
+            state_gradients_control: (nx, nu) or (num_envs, nx, nu),
+            sensor_gradients_state: (ns, nx) or (num_envs, ns, nx),
+            sensor_gradients_control: (ns, nu) or (num_envs, ns, nu),
         """
         states_dim, actions_dim = states.ndim, actions.ndim
         match (states_dim, actions_dim):
@@ -204,7 +198,7 @@ class MujocoPlant:
                     state_gradients_control,
                     sensor_gradients_state,
                     sensor_gradients_control,
-                ) = self._get_gradient_placeholders()
+                ) = self.get_gradient_placeholders()
                 self.set_state(states)
                 self.set_action(actions)
                 mujoco.mjd_transitionFD(
@@ -224,7 +218,7 @@ class MujocoPlant:
                     state_gradients_control,
                     sensor_gradients_state,
                     sensor_gradients_control,
-                ) = self._get_gradient_placeholders(size=num_envs)
+                ) = self.get_gradient_placeholders(size=num_envs)
                 for i in range(num_envs):
                     self.set_state(states[i, :])
                     self.set_action(actions[i, :])
@@ -241,7 +235,6 @@ class MujocoPlant:
             case _:
                 raise ValueError("Bad dimensions")
 
-        # TODO slecleach maybe not necessary to specify dtype.
         state_gradients_state = tensor(state_gradients_state, dtype=torch.float32)
         state_gradients_control = tensor(state_gradients_control, dtype=torch.float32)
         sensor_gradients_state = tensor(sensor_gradients_state, dtype=torch.float32)
@@ -249,47 +242,40 @@ class MujocoPlant:
         return state_gradients_state, state_gradients_control, sensor_gradients_state, sensor_gradients_control
 
     def set_state(self, state: FloatTensor) -> None:
-        """Set plant state."""
         self.data.qpos = state[0 : self.model.nq].cpu().numpy()
         self.data.qvel = state[self.model.nq :].cpu().numpy()
 
     def get_state(self) -> FloatTensor:
-        """Get plant state."""
         qpos = tensor(self.data.qpos, dtype=torch.float32)
         qvel = tensor(self.data.qvel, dtype=torch.float32)
         state = torch.cat([qpos, qvel])
         return state
 
     def set_action(self, action: FloatTensor) -> None:
-        """Set plant action."""
         self.data.ctrl = action.cpu().numpy()
 
     def get_action(self) -> FloatTensor:
-        """Get last plant action."""
         return tensor(self.data.ctrl, dtype=torch.float32)
 
     def update_sensor(self) -> None:
-        """Update plant sensor measurement.."""
         mj_fwdPosition(self.model, self.data)
         mj_sensorPos(self.model, self.data)
         mj_fwdVelocity(self.model, self.data)
         mj_sensorVel(self.model, self.data)
 
     def get_sensor(self, states: FloatTensor) -> FloatTensor:
-        # TODO: the states input is sometimes a torch tensor not an FloatTensor
-        """Update plant sensor measurement.
-
+        """
+        Update the sensor measurement held by plant.data.
         This only supports position- and velocity-based sensors, NOT ACCLERATION-BASED sensors.
         We use the minimal set of computations extracted from mj_step1, see the link below for more details:
         https://mujoco.readthedocs.io/en/latest/programming/simulation.html?highlight=mj_step1#simulation-loop
-        # TODO: slecleach add support for acceleration-based sensors
         Finally, returns the sensor measurement.
 
         Args:
             states: (nx,) or (num_envs, nx) sized vector of states
 
         Returns:
-            Sensor data (nsensordata,) or (num_envs, nsensordata)
+            sensor (nsensordata,) or (num_envs, nsensordata)
         """
         states_dim = states.ndim
         if states_dim == 1:
@@ -298,7 +284,7 @@ class MujocoPlant:
             return tensor(self.data.sensordata, dtype=torch.float32)
         elif states_dim == 2:
             num_envs = states.shape[0]
-            sensor = torch.zeros((num_envs, self.model.nsensordata))
+            sensor = torch.zeros((num_envs, self.sensor_dimension))
             for i in range(num_envs):
                 self.set_state(states[i, :])
                 self.update_sensor()
@@ -307,23 +293,10 @@ class MujocoPlant:
         else:
             raise ValueError("Input states must have dimensionality 1 or 2.")
 
-    def scaled_distances_to(self, states: FloatTensor, target_states: FloatTensor) -> FloatTensor:
-        """Get scaled distance between `states` and `target_states`."""
-        delta_states = self.state_difference(states, target_states)
-        return scale_distances(delta_states, self.params.reward_distance_scaling_sqrt)
-
     def state_difference(self, s1: FloatTensor, s2: FloatTensor, h: float = 1.0) -> FloatTensor:
-        """Compute finite-difference velocity given two state vectors and a time step h.
-
+        """
+        Compute finite-difference velocity given two state vectors and a time step h
         ds = (s2 - s1) / h
-
-        Args:
-            s1: first state vector.
-            s2: second state vector.
-            h: time step.
-
-        Returns:
-            ds, or the finite difference velocity.
         """
         model = self.model
         nq = model.nq
@@ -341,19 +314,19 @@ class MujocoPlant:
                     ds = np.zeros(self.state_derivative_dimension)
                     mj_differentiatePos(model, ds[:nv], h, s1[:nq], s2[:nq])
                     ds[nv:] = (s2[nq:] - s1[nq:]) / h
-                case (2, 1):  # n to 1, TODO vectorize
+                case (2, 1):  # n to 1
                     num_states = s1.shape[0]
                     ds = np.zeros((num_states, self.state_derivative_dimension))
                     for i in range(num_states):
                         mj_differentiatePos(model, ds[i, :nv], h, s1[i, :nq], s2[:nq])
                         ds[i, nv:] = (s2[nq:] - s1[i, nq:]) / h
-                case (1, 2):  # 1 to n, TODO vectorize
+                case (1, 2):  # 1 to n
                     num_states = s2.shape[0]
                     ds = np.zeros((num_states, self.state_derivative_dimension))
                     for i in range(num_states):
                         mj_differentiatePos(model, ds[i, :nv], h, s1[:nq], s2[i, :nq])
                         ds[i, nv:] = (s2[i, nq:] - s1[nq:]) / h
-                case (2, 2):  # n to n, TODO vectorize
+                case (2, 2):  # n to n
                     num_states = s1.shape[0]
                     ds = np.zeros((num_states, self.state_derivative_dimension))
                     for i in range(num_states):
@@ -372,17 +345,9 @@ class MujocoPlant:
         return tensor(ds, dtype=torch.float32)
 
     def state_addition(self, s1: FloatTensor, ds: FloatTensor, h: float = 1.0) -> FloatTensor:
-        """Integrate forward a state s with a velocity ds for a time step h.
-
+        """
+        Integrate forward a state s with a velocity ds for a time step h.
         s2 = s1 + h * ds
-
-        Args:
-            s1: state vector to integrate forward.
-            ds: velocity.
-            h: time step.
-
-        Returns:
-            s2, or the resulting integrated state.
         """
         model = self.model
         nq = model.nq
@@ -401,35 +366,36 @@ class MujocoPlant:
         return tensor(s2, dtype=torch.float32)
 
     def _dynamics(
-        self, state: FloatTensor, action_trajectory: FloatTensor, num_envs: int
-    ) -> Tuple[FloatTensor, FloatTensor, FloatTensor]:
+        self, state: FloatTensor, actions: FloatTensor, action_time_step: float, num_envs: int
+    ) -> Tuple[FloatTensor, FloatTensor]:
         """Implementation of the dynamics function in Mujoco.
 
         Args:
             state: initial states.
-            action_trajectory: an action trajectory of size (num_steps, na).
-            num_envs: number of envs
+            actions: an array containing the start and end actions.
+            action_time_step: the hold time for the action.
 
         Returns:
             final_states: (nx,) or (num_envs, nx)
-            final_sensordata: (nsensordata,) or (num_envs, nsensordata)
             state_trajectories: (num_steps, nx) or (num_envs, num_steps, nx)
         """
-        state_trajectories, sensordata = rollout.rollout(
-            self.model, self.data, state.cpu().numpy(), action_trajectory.cpu().numpy()
+        action_trajectories = create_action_trajectories(
+            type=self.params.control_type,
+            start_actions=actions[:, 0],
+            end_actions=actions[:, 1],
+            trajectory_steps=self.get_num_substeps(action_time_step),
+        )
+        state_trajectories, _ = rollout.rollout(
+            self.model, self.data, state.cpu().numpy(), action_trajectories.cpu().numpy()
         )
         state_trajectories = tensor(state_trajectories[:, :, 1:], dtype=torch.float32)
         final_states = state_trajectories[:, -1]
-        sensordata = tensor(sensordata, dtype=torch.float32)
-        final_sensordata = sensordata[:, -1]
         if num_envs == 0:
             final_states = final_states.squeeze()
-            final_sensordata = final_sensordata.squeeze()
             state_trajectories = state_trajectories.squeeze()
-        return final_states, final_sensordata, state_trajectories
+        return final_states, state_trajectories
 
     def get_mass(self) -> float:
-        """Retrieve the total body mass."""
         mass = 0
         for idx in range(self.model.nbody):
             mass += self.model.body_mass[idx]
@@ -452,8 +418,7 @@ class MujocoPlant:
         self.quat_indices = quat_indices
 
     def normalize_state(self, states: torch.FloatTensor) -> torch.FloatTensor:
-        """Normalize quaternion part of state.
-
+        """
         Args:
             states (torch.FloatTensor): (num_envs, nx) tensor of randomly sampled states
         Outputs:
@@ -485,13 +450,13 @@ class MujocoPlant:
         return states
 
     def get_collision_free(self, states: FloatTensor) -> Optional[FloatTensor]:
-        """Get collision free states.
-
+        """
         Args:
-            states (FloatTensor): (num_envs, nx) tensor of randomly sampled states
+            state (FloatTensor): (num_envs, nx) tensor of randomly sampled states
         Outputs:
             Optional[FloatTensor]: tensor of all collision free states (or None if none exist)
         """
+
         collision_free_states = tuple()  # type: tuple
         collision_threshold = 1e-3
         for _, state in enumerate(states):
@@ -505,3 +470,58 @@ class MujocoPlant:
         if collision_free_states:
             return torch.stack(collision_free_states)  # type:ignore[unreachable]
         return None
+
+    def visualize_state(self, state: FloatTensor, display_time: float = 5.0) -> None:
+        model = self.model
+        data = self.data
+        with mujoco.viewer.launch_passive(model, data) as viewer:
+            # Close the viewer automatically after display_time wall-seconds.
+            start = time.time()
+            while viewer.is_running() and time.time() - start < display_time:
+                step_start = time.time()
+                self.set_state(state)
+                mujoco.mj_step(model, data)
+
+                # Pick up changes to the physics state, apply perturbations, update options from GUI.
+                viewer.sync()
+
+                # Rudimentary time keeping, will drift relative to wall clock.
+                time_until_next_step = self.sim_time_step - (time.time() - step_start)
+                if time_until_next_step > 0:
+                    time.sleep(time_until_next_step)
+        viewer.close()
+
+    def visualize_trajectory(
+        self,
+        trajectory: FloatTensor,
+        display_time: float = 5.0,
+        time_step: Optional[float] = None,
+    ) -> None:
+        model = self.model
+        data = self.data
+        if time_step is None:
+            time_step = self.sim_time_step
+        num_steps = trajectory.shape[0]
+
+        with mujoco.viewer.launch_passive(model, data) as viewer:
+            # Close the viewer automatically after display_time wall-seconds.
+            start = time.time()
+            horizon = (num_steps - 1) * time_step
+
+            while viewer.is_running() and time.time() - start < display_time:
+                step_start = time.time()
+                # we perform zero-order hold interpolation
+                theta = (time.time() - start) / horizon
+                idx = min(num_steps - 1, int(round(theta * (num_steps - 1))))
+                state = trajectory[idx]
+                self.set_state(state)
+                mujoco.mj_step(model, data)
+
+                # Pick up changes to the physics state, apply perturbations, update options from GUI.
+                viewer.sync()
+
+                # Rudimentary time keeping, will drift relative to wall clock.
+                time_until_next_step = time_step - (time.time() - step_start)
+                if time_until_next_step > 0:
+                    time.sleep(time_until_next_step)
+        viewer.close()

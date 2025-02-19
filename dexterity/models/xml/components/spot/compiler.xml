@@ -1,8 +1,0 @@
-<mujoco>
-  <compiler angle="radian" assetdir="../../../meshes/spot/" autolimits="true"/>
-
-  <option timestep="0.01" solver="Newton" integrator="implicitfast" density="1">
-    <!-- iterations="5" ls_iterations="10" -->
-  </option>
-
-</mujoco>

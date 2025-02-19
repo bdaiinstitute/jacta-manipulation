@@ -2,49 +2,38 @@
 
 import logging
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 
 import torch
 from torch import tensor
 
-from jactamanipulation.planner.planner.graph import Graph
-from jactamanipulation.planner.planner.parameter_container import ParameterContainer
-from jactamanipulation.planner.planner.types import ActionType, SelectionType
+from jacta.planner.graph import Graph
+from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.types import ActionType, SelectionType
 
 
 class Logger:
-    """Planner Logger"""
-
     def __init__(
         self,
         graph: Graph,
         params: ParameterContainer,
         search_index: int = 0,
-        log_path: str = "/workspaces/bdai/projects/dexterity/log/",
-        log_file: str | None = None,
+        log_path: str = "/workspaces/bdai/projects/jacta/log/",
+        log_file: Optional[str] = None,
     ):
         self.search_index = search_index
         self._initialize(graph, params, log_path, log_file)
 
     def reset(self) -> None:
-        """Reset"""
-        self._initialize(self.graph, self.params)  # TODO reset log path correctly
+        self._initialize(self.graph, self.params)
 
     def _initialize(
         self,
         graph: Graph,
         params: ParameterContainer,
-        log_path: str = "/workspaces/bdai/projects/dexterity/log/",
-        log_file: str | None = None,
+        log_path: str = "/workspaces/bdai/projects/jacta/log/",
+        log_file: Optional[str] = None,
     ) -> None:
-        """Initialize
-
-        Args:
-            graph (Graph): Graph
-            params (ParameterContainer): Parameter contriner
-            log_path (str, optional): Path to logs. Defaults to "/workspaces/bdai/projects/dexterity/log/".
-            log_file (str | None, optional): Logfile. Defaults to None.
-        """
         self.params = params
         self.graph = graph
 
@@ -66,24 +55,15 @@ class Logger:
 
             self.log_params()
 
-    def get_log_name(self) -> str | None:
+    def get_log_name(self) -> Optional[str]:
         """Get where the log is stored"""
         return self.log_filename
 
     def _format_datetime(self, tm: time.struct_time) -> str:
-        """Format datetime
-
-        Args:
-            tm (time.struct_time): Time
-
-        Returns:
-            str: Formatted time
-        """
         hour = (tm.tm_hour - 4) % 24
         return f"{tm.tm_mon}_{tm.tm_mday}_{tm.tm_year}_{hour}_{tm.tm_min}_{tm.tm_sec}"
 
     def log_params(self) -> None:
-        """Logs the current parameters"""
         log_string = (
             "planner parameters:\n"
             f"  model: {self.params.model_filename}\n"
@@ -93,11 +73,6 @@ class Logger:
         logging.info(log_string)
 
     def log_search(self, iteration_number: int) -> None:
-        """Log the search
-
-        Args:
-            iteration_number (int): Iteration number
-        """
         log_string = f"iteration {iteration_number}:"
         logging.info(log_string)
 
@@ -106,13 +81,6 @@ class Logger:
         self._reset_intermediate_time()
 
     def _log_values(self, type: str, keys: list, values: list) -> None:
-        """Log the values
-
-        Args:
-            type (str): Type of log
-            keys (list): Keys to log
-            values (list): Values to log
-        """
         elapsed_time = self._get_intermediate_time()
         self.iterations_list[-1].append({})
 
@@ -130,33 +98,14 @@ class Logger:
             logging.info(log_string)
 
     def log_node_selection(self, node_ids: torch.IntTensor, strategy: SelectionType) -> None:
-        """Log node selection
-
-        Args:
-            node_ids (torch.IntTensor): Node ids
-            strategy (SelectionType): Strategy
-        """
         self._log_values("node_selection", ["node_ids", "strategy"], [node_ids, strategy])
         self._reset_intermediate_time()
 
     def log_action_sampler(self, node_ids: torch.IntTensor, strategy: ActionType) -> None:
-        """Log action sampler
-
-        Args:
-            node_ids (torch.IntTensor): Node ids
-            strategy (ActionType): Strategy
-        """
         self._log_values("action_sampler", ["node_ids", "strategy"], [node_ids, strategy])
         self._reset_intermediate_time()
 
     def log_node_extension(self, node_ids: torch.IntTensor, best_id: torch.IntTensor, dynamics_time: float) -> None:
-        """Log node extension
-
-        Args:
-            node_ids (torch.IntTensor): Node ids
-            best_id (torch.IntTensor): Best id
-            dynamics_time (float): Dynamics time
-        """
         self.dynamics_time += dynamics_time
         search_indices = self.graph.node_id_to_search_index_map[node_ids]
         node_ids = node_ids[search_indices == self.search_index]
@@ -175,34 +124,26 @@ class Logger:
         self._reset_intermediate_time()
 
     def log_node_pruning(self, node_id: int, strategy: str, num_removed_nodes: int) -> None:
-        """Log node pruning
-
-        Args:
-            node_id (int): Node id
-            strategy (str): Strategy
-            num_removed_nodes (int): Number of removed nodes
-        """
         self._log_values(
             "node_pruning", ["node_id", "strategy", "num_removed_nodes"], [node_id, strategy, num_removed_nodes]
         )
         self._reset_intermediate_time()
 
     def create_distance_log(self) -> None:
-        """Create distance log"""
         graph = self.graph
 
         valid_node_ids = graph.get_active_main_ids(search_index=self.search_index)
-        self.search_progress = torch.zeros(len(valid_node_ids), 2)
+        self.log_distances = torch.zeros(len(valid_node_ids), 2)
         for index, node_id in enumerate(valid_node_ids):
             new_distance = graph.scaled_goal_distances[node_id]
-            if index == 0 or new_distance < self.search_progress[index - 1, 1]:
-                self.search_progress[index] = tensor([node_id, new_distance])
+            if new_distance < self.log_distances[-1, 1]:
+                self.log_distances[index] = tensor([node_id, new_distance])
             else:
-                self.search_progress[index] = self.search_progress[index - 1]
+                self.log_distances[index] = self.log_distances[index - 1]
 
     def create_reward_log(self) -> None:
-        """Create reward log"""
         graph = self.graph
+
         valid_node_ids = graph.get_active_main_ids(search_index=self.search_index)
         self.log_rewards = torch.zeros(len(valid_node_ids), 2)
         for index, node_id in enumerate(valid_node_ids):
@@ -213,19 +154,12 @@ class Logger:
                 self.log_rewards[index] = self.log_rewards[index - 1]
 
     def _reset_intermediate_time(self) -> None:
-        """Reset intermediate time"""
         self.temporary_time = time.perf_counter()
 
     def _get_intermediate_time(self) -> float:
-        """Get intermediate time
-
-        Returns:
-            float: Intermediate time
-        """
         return time.perf_counter() - self.temporary_time
 
     def simple_progress_statistics(self) -> None:
-        """Simple progress statistics"""
         # [a,b]: a=best number, b=total number
         selection_strategies = {type: tensor([0, 0]) for type in SelectionType}
         action_strategies = {type: tensor([0, 0]) for type in ActionType}
@@ -275,11 +209,6 @@ class Logger:
             )
 
     def simple_path_statistics(self) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
-        """Simple path statistics
-
-        Returns:
-            Tuple[torch.FloatTensor, torch.FloatTensor]: [selection_strategies, action_strategies]
-        """
         idx = self.graph.get_best_id(reward_based=False, search_indices=torch.tensor([self.search_index])).item()
         path_to_goal = self.graph.shortest_path_to(idx)
         num_edges = len(path_to_goal) - 1

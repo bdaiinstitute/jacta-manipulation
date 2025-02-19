@@ -1,6 +1,0 @@
-<mujoco model="ground">
-<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
-  <body>
-    <geom mass="0" name="floor" pos="0 0 -0.10" condim="3" size="10.0 10.0 0.10" rgba="0 1 1 1" type="box" material="blue_grid"/>
-  </body>
-</mujoco>

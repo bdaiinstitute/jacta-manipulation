@@ -1,0 +1,82 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+directives:
+
+- add_model:
+    name: stool
+    file: package://jacta_models/xml/spot_components/stool.xml
+
+- add_model:
+    name: spot_left
+    file: package://jacta_models/sdf/spot_standing.sdf
+
+- add_model:
+    name: spot_arm_left
+    file: package://jacta_models/sdf/spot_components/spot_arm.sdf
+
+- add_model:
+    name: spot_gripper_left
+    file: package://jacta_models/sdf/spot_components/spot_gripper.sdf
+
+- add_model:
+    name: spot_right
+    file: package://jacta_models/sdf/spot_standing.sdf
+
+- add_model:
+    name: spot_arm_right
+    file: package://jacta_models/sdf/spot_components/spot_arm.sdf
+
+- add_model:
+    name: spot_gripper_right
+    file: package://jacta_models/sdf/spot_components/spot_gripper.sdf
+
+- add_model:
+    name: ground
+    file: package://jacta_models/sdf/spot_components/ground.sdf
+
+
+- add_weld:
+    parent: world
+    child: ground::ground_link
+
+- add_weld:
+    parent: world
+    child: spot_left::spot_body
+    X_PC:
+        translation: [0, 1.15, 0.49]
+        rotation: !Rpy { deg: [0, 0, -90]}
+
+- add_weld:
+    parent: world
+    child: spot_right::spot_body
+    X_PC:
+        translation: [0, -1.15, 0.49]
+        rotation: !Rpy { deg: [0, 0, 90]}
+
+- add_weld:
+    parent: spot_left::spot_body
+    child: spot_arm_left::arm_body_link
+    X_PC:
+        translation: [0, 0, 0]
+        rotation: !Rpy { deg: [0, 0, 0]}
+
+- add_weld:
+    parent: spot_arm_left::arm_link_wr1
+    child: spot_gripper_left::arm_link_wr1
+    X_PC:
+        translation: [0, 0, 0]
+        rotation: !Rpy { deg: [0, 0, 0]}
+
+- add_weld:
+    parent: spot_right::spot_body
+    child: spot_arm_right::arm_body_link
+    X_PC:
+        translation: [0, 0, 0]
+        rotation: !Rpy { deg: [0, 0, 0]}
+
+- add_weld:
+    parent: spot_arm_right::arm_link_wr1
+    child: spot_gripper_right::arm_link_wr1
+    X_PC:
+        translation: [0, 0, 0]
+        rotation: !Rpy { deg: [0, 0, 0]}

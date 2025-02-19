@@ -5,7 +5,8 @@ from torch import FloatTensor, IntTensor
 
 
 def transformation_matrix(rot: np.ndarray | None = None, pos: np.ndarray | None = None) -> np.ndarray:
-    """Returns a 4x4 transformation matrix given rotation matrix and translation vector.
+    """
+    Returns a 4x4 transformation matrix given rotation matrix and translation vector.
 
     Parameters:
         rot (array-like): 3x3 rotation matrix.
@@ -28,30 +29,18 @@ def transformation_matrix(rot: np.ndarray | None = None, pos: np.ndarray | None 
 
 
 def truncpareto_cdf(x: IntTensor, exponent: float, upper_bound: int) -> FloatTensor:
-    """Truncated Pareto distribution."""
     distribution = (1 - x**-exponent) / (1 - 1 / upper_bound**exponent)
     torch.clamp(distribution, max=1, out=distribution)
     return distribution
 
 
 def max_scaling(directions: FloatTensor, action_range: FloatTensor) -> FloatTensor:
-    """Compute maximum scaling values so that directions fits within the action range.
-
-    Args:
-        directions: [num_directions, action_dim]
-        action_range: [action_dim]
-    """
     norms = torch.norm(directions, dim=-1)
-    scale_factors = torch.where(directions != 0, action_range / torch.abs(directions), torch.inf)
-    min_scale_factors = torch.min(scale_factors, dim=-1).values
-    return torch.where(norms != 0, min_scale_factors, torch.tensor(0.0))
+    min_values = torch.min(action_range / torch.abs(directions), dim=-1).values
+    return torch.where(norms != 0.0, min_values, torch.tensor(0.0))
 
 
 def normalize(direction: FloatTensor) -> FloatTensor:
-    """Normalize a vector across all its dimensions.
-
-    Typically this is applied to one-dimensional vectors.
-    """
     if (norm := torch.norm(direction)) == 0:
         return direction
     else:
@@ -59,7 +48,6 @@ def normalize(direction: FloatTensor) -> FloatTensor:
 
 
 def normalize_multiple(directions: FloatTensor) -> FloatTensor:
-    """Normalize vectors along the last dimension."""
     norms = torch.norm(directions, dim=-1, keepdim=True)
     return torch.where(norms != 0, directions / norms, directions)
 
@@ -107,11 +95,11 @@ def project_vectors_on_eigenspace(vectors: FloatTensor, orthonormal_basis: Float
     """Given an eigenspace, projects the vector on the space.
 
     Args:
-        vectors (FloatTensor): (k, n) vector
-        orthonormal_basis (FloatTensor): (m, n) sized orthonormal basis
+        vectors: (k, n) vector
+        orthonormal: (m, n) sized orthonormal basis
 
     Returns:
-        FloatTensor: (k, n) vectors projected on the orthonormal basis
+        (k, n) vectors projected on the orthonormal basis
     """
     return (vectors @ orthonormal_basis.T) @ orthonormal_basis
 
@@ -123,17 +111,8 @@ def project_vectors_on_eigenspace(vectors: FloatTensor, orthonormal_basis: Float
 
 
 def einsum_ij_ij_i(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Transpose the first vector of each of the i vector-vector pairs and then multiply them
-
-    i (j,) vectors, i (j,) vectors -> i scalars
-
-    Args:
-        A (FloatTensor): Input vector A
-        B (FloatTensor): Input vector B
-
-    Returns:
-        FloatTensor: Transposed vector
-    """
+    # i (j,) vectors, i (j,) vectors -> i scalars
+    # transpose the first vector of each of the i vector-vector pairs and then multiply them
     return torch.einsum("ij,ij->i", A, B)
 
 
@@ -141,47 +120,20 @@ def einsum_ij_ij_i(A: FloatTensor, B: FloatTensor) -> FloatTensor:
 
 
 def einsum_ij_kj_ki(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Multiply the matrix with each of the k vectors
-
-    1 (i,j) matrix, k (j,) vectors -> k (i,) vectors
-
-    Args:
-        A (FloatTensor): Input matrix A
-        B (FloatTensor): Input matrix B
-
-    Returns:
-        FloatTensor: Output matrix
-    """
+    # 1 (i,j) matrix, k (j,) vectors -> k (i,) vectors
+    # multiply the matrix with each of the k vectors
     return torch.einsum("ij,kj->ki", A, B)
 
 
 def einsum_ijk_ik_ij(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Multiply each of the i matrix-vector pairs
-
-    i (j,k) matrices, i (k,) vectors -> i (j,) vectors
-
-    Args:
-        A (FloatTensor): Input matrix-vector A
-        B (FloatTensor): Input matrix-vector B
-
-    Returns:
-        FloatTensor: Output matrix-vector
-    """
+    # i (j,k) matrices, i (k,) vectors -> i (j,) vectors
+    # multiply each of the i matrix-vector pairs
     return torch.einsum("ijk,ik->ij", A, B)
 
 
 def einsum_ikj_ik_ij(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Transpose the matrix of each matrix-vector pair and then multiply them
-
-    i (k,j) matrices, i (k,) vectors -> i (j,) vectors
-
-    Args:
-        A (FloatTensor): Input matrix-vector A
-        B (FloatTensor): Input matrix-vector B
-
-    Returns:
-        FloatTensor: Transposed matrix
-    """
+    # i (k,j) matrices, i (k,) vectors -> i (j,) vectors
+    # transpose the matrix of each matrix-vector pair and then multiply them
     return torch.einsum("ikj,ik->ij", A, B)
 
 
@@ -189,60 +141,24 @@ def einsum_ikj_ik_ij(A: FloatTensor, B: FloatTensor) -> FloatTensor:
 
 
 def einsum_jk_ikl_ijl(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Multiply the matrix with each of the i matrices
-
-    1 (j,k) matrices, i (k,l) matrices -> i (j,l) matrices
-
-    Args:
-        A (FloatTensor): Input matrix A
-        B (FloatTensor): Input matrix B
-
-    Returns:
-        FloatTensor: Output matrix
-    """
+    # 1 (j,k) matrices, i (k,l) matrices -> i (j,l) matrices
+    # multiply the matrix with each of the i matrices
     return torch.einsum("jk,ikl->ijl", A, B)
 
 
 def einsum_ijk_ikl_ijl(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Multiply each of the i matrix-matrix pairs
-
-    i (j,k) matrices, i (k,l) matrices -> i (j,l) matrices
-
-    Args:
-        A (FloatTensor): Input matrix A
-        B (FloatTensor): Input matrix B
-
-    Returns:
-        FloatTensor: Output matrix
-    """
+    # i (j,k) matrices, i (k,l) matrices -> i (j,l) matrices
+    # multiply each of the i matrix-matrix pairs
     return torch.einsum("ijk,ikl->ijl", A, B)
 
 
 def einsum_ikj_ikl_ijl(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Transpose the first matrix of each of the i matrix-matrix pairs and then multiply them
-
-    i (k,j) matrices, i (k,l) matrices -> i (j,l) matrices
-
-    Args:
-        A (FloatTensor): Input matrix A
-        B (FloatTensor): Input matrix B
-
-    Returns:
-        FloatTensor: Output matrix
-    """
+    # i (k,j) matrices, i (k,l) matrices -> i (j,l) matrices
+    # transpose the first matrix of each of the i matrix-matrix pairs and then multiply them
     return torch.einsum("ikj,ikl->ijl", A, B)
 
 
 def einsum_ijk_ilk_ijl(A: FloatTensor, B: FloatTensor) -> FloatTensor:
-    """Transpose the second matrix of each of the i matrix-matrix pairs and then multiply them
-
-    i (j,k) matrices, i (l,k) matrices -> i (j,l) matrices
-
-    Args:
-        A (FloatTensor): Input matrix A
-        B (FloatTensor): Input matrix B
-
-    Returns:
-        FloatTensor: Output matrix
-    """
+    # i (j,k) matrices, i (l,k) matrices -> i (j,l) matrices
+    # transpose the second matrix of each of the i matrix-matrix pairs and then multiply them
     return torch.einsum("ijk,ilk->ijl", A, B)

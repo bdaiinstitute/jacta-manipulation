@@ -3,13 +3,13 @@
 from typing import Optional
 
 import torch
-from benedict import benedict
 from torch import FloatTensor
 
-from jactamanipulation.planner.planner.types import ClippingType
+from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.types import ClippingType
 
 
-def clip_actions(actions: FloatTensor, params: benedict) -> FloatTensor:
+def clip_actions(actions: FloatTensor, params: ParameterContainer) -> FloatTensor:
     match params.clipping_type:
         case ClippingType.CLIP:
             actions = torch.clamp(actions[..., :], min=params.action_bound_lower, max=params.action_bound_upper)
@@ -26,9 +26,7 @@ def box_scaling(
     v_max: FloatTensor,
     v_mid: Optional[FloatTensor] = None,
 ) -> FloatTensor:
-    """Scales vector v down and to ensure it belongs to the box [v_min, v_max]
-
-    Scales vector v down to ensure that the scaled version of v (v_bar) belongs to the box [v_min, v_max].
+    """Scales vector v down to ensure that the scaled version of v (v_bar) belongs to the box [v_min, v_max].
     The scaling is performed about a centerpoint v_mid.
     v = v_mid + n
     v_bar = v_mid + alpha n with alpha in [0, 1]
