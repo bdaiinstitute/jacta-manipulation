@@ -10,7 +10,7 @@ from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
-MODEL_PATH = "dexterity/models/xml/scenes/legacy/cylinder_push.xml"
+MODEL_PATH = "models/xml/cylinder_push.xml"
 
 
 @dataclass

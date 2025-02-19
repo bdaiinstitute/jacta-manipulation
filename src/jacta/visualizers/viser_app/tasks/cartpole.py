@@ -10,7 +10,7 @@ from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm, smo
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
-MODEL_PATH = "dexterity/models/xml/scenes/legacy/cartpole.xml"
+MODEL_PATH = "models/xml/cartpole.xml"
 
 
 @dataclass

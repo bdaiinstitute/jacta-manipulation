@@ -4,8 +4,7 @@ from typing import Any, Optional, Tuple
 
 import mujoco
 import numpy as np
-from mujoco import MjData, MjModel
-from mujoco_extensions.policy_rollout import threaded_physics_rollout
+from mujoco import MjData, MjModel, rollout
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
@@ -71,7 +70,12 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
             zip(*models, strict=True)
         )  # Unzip (model, data) tuples into batches of models/data.
 
-        output_states, output_sensors = threaded_physics_rollout(list(model_batch), list(data_batch), states, controls)
+        # Append zeros for adding time to state (?)
+        # See https://mujoco.readthedocs.io/en/stable/python.html#rollout
+        # And https://mujoco.readthedocs.io/en/stable/computation/index.html#gefullphysics
+        states = np.append(states, np.zeros((len(model_batch),1)),axis=1)
+        output_states, output_sensors = rollout.rollout(list(model_batch), list(data_batch)[0], states, controls)
+        states = states[:, :-1]
         return np.array(output_states), np.array(output_sensors)
 
     def make_models(self, num_models: int) -> list[Tuple[MjModel, MjData]]:
