@@ -5,7 +5,7 @@ from pydrake.geometry import Rgba
 from pydrake.trajectories import PiecewisePolynomial
 
 from jacta.planner.core.parameter_container import ParameterContainer
-from jacta.planner.verification.visuals import TrajectoryVisualizer
+from jacta.visualizers.meshcat.visuals import TrajectoryVisualizer
 
 
 def test_visualize_trajectories() -> None:

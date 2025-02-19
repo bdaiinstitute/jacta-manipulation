@@ -11,7 +11,7 @@ from jacta.planner.core.logger import Logger
 from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.core.planner import Planner
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.verification.visuals import TrajectoryVisualizer
+from jacta.visualizers.meshcat.visuals import TrajectoryVisualizer
 
 # %%
 task = "allegro_hand"  # Set desired example here

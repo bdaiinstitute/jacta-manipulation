@@ -16,7 +16,7 @@ from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.core.planner import Planner
 from jacta.planner.core.types import ActionType as AT
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.verification.visuals import TrajectoryVisualizer
+from jacta.visualizers.meshcat.visuals import TrajectoryVisualizer
 
 # %%
 task = "planar_hand"  # Set desired example here
