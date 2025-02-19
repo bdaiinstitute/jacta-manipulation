@@ -5,13 +5,13 @@ import os
 
 import torch
 from benedict import benedict
-from jacta.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.action_sampler import ActionSampler
-from jacta.planner.graph import Graph
-from jacta.planner.graph_worker import ExplorerWorker, RelatedGoalWorker, SingleGoalWorker
-from jacta.planner.logger import Logger
-from jacta.planner.parameter_container import ParameterContainer
-from jacta.planner.planner import Planner
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jacta.planner.planner.action_sampler import ActionSampler
+from jacta.planner.planner.graph import Graph
+from jacta.planner.planner.graph_worker import ExplorerWorker, RelatedGoalWorker, SingleGoalWorker
+from jacta.planner.planner.logger import Logger
+from jacta.planner.planner.parameter_container import ParameterContainer
+from jacta.planner.planner.planner import Planner
 
 
 def get_planner_examples(config_path: str) -> list[str]:
@@ -25,7 +25,7 @@ def get_planner_examples(config_path: str) -> list[str]:
 
 def test_examples() -> None:
     base_path = str(Path(__file__).resolve().parent.parent.parent)
-    path_to_config = base_path + "/examples/planner_examples/config/task/"
+    path_to_config = base_path + "/examples/planner/config/task/"
     config_files = os.listdir(path_to_config)
     for task in config_files:
         for example in get_planner_examples(path_to_config + task):

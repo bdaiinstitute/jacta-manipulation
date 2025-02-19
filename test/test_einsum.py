@@ -1,6 +1,6 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 import torch
-from jacta.planner.linear_algebra import (
+from jacta.planner.planner.linear_algebra import (
     einsum_ij_ij_i,
     einsum_ij_kj_ki,
     einsum_ijk_ik_ij,

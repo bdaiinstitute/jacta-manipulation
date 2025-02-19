@@ -1,8 +1,8 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import torch
-from jacta.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jacta.planner.planner.parameter_container import ParameterContainer
 from torch import FloatTensor
 
 torch.manual_seed(0)

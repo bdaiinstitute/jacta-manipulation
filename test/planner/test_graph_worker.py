@@ -1,7 +1,7 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 import torch
-from jacta.planner.graph_worker import pareto_distribution
-from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.planner.graph_worker import pareto_distribution
+from jacta.planner.planner.parameter_container import ParameterContainer
 from planner_setup import planner_setup
 
 

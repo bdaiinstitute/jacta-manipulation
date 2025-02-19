@@ -2,18 +2,18 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import torch
-from jacta.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.learning.learner import Learner
-from jacta.learning.replay_buffer import ReplayBuffer
-from jacta.planner.action_sampler import ActionSampler
-from jacta.planner.graph import Graph, sample_random_goal_states
-from jacta.planner.graph_visuals import display_3d_graph
-from jacta.planner.graph_worker import ExplorerWorker, RolloutWorker
-from jacta.planner.logger import Logger
-from jacta.planner.parameter_container import ParameterContainer
-from jacta.planner.planner import Planner
-from jacta.planner.types import ActionType as AT
-from jacta.verification.visuals import TrajectoryVisualizer
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jacta.planner.learning.learner import Learner
+from jacta.planner.learning.replay_buffer import ReplayBuffer
+from jacta.planner.planner.action_sampler import ActionSampler
+from jacta.planner.planner.graph import Graph, sample_random_goal_states
+from jacta.planner.planner.graph_visuals import display_3d_graph
+from jacta.planner.planner.graph_worker import ExplorerWorker, RolloutWorker
+from jacta.planner.planner.logger import Logger
+from jacta.planner.planner.parameter_container import ParameterContainer
+from jacta.planner.planner.planner import Planner
+from jacta.planner.planner.types import ActionType as AT
+from jacta.planner.verification.visuals import TrajectoryVisualizer
 import numpy as np
 
 # %%

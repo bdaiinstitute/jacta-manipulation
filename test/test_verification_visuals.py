@@ -1,8 +1,8 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import numpy as np
-from jacta.planner.parameter_container import ParameterContainer
-from jacta.verification.visuals import TrajectoryVisualizer
+from jacta.planner.planner.parameter_container import ParameterContainer
+from jacta.planner.verification.visuals import TrajectoryVisualizer
 from pydrake.geometry import Rgba
 from pydrake.trajectories import PiecewisePolynomial
 

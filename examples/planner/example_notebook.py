@@ -1,18 +1,18 @@
 # %%
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
-from jacta.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.action_sampler import ActionSampler
-from jacta.planner.graph import Graph
-from jacta.planner.graph_visuals import display_3d_graph
-from jacta.planner.graph_worker import (
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jacta.planner.planner.action_sampler import ActionSampler
+from jacta.planner.planner.graph import Graph
+from jacta.planner.planner.graph_visuals import display_3d_graph
+from jacta.planner.planner.graph_worker import (
     ExplorerWorker,
     RelatedGoalWorker,
     SingleGoalWorker,
 )
-from jacta.planner.logger import Logger
-from jacta.planner.parameter_container import ParameterContainer
-from jacta.planner.planner import Planner
-from jacta.verification.visuals import TrajectoryVisualizer
+from jacta.planner.planner.logger import Logger
+from jacta.planner.planner.parameter_container import ParameterContainer
+from jacta.planner.planner.planner import Planner
+from jacta.planner.verification.visuals import TrajectoryVisualizer
 
 # %%
 task = "planar_hand"  # Set desired example here

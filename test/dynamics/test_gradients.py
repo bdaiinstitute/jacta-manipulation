@@ -3,9 +3,9 @@
 from typing import Callable, Tuple
 
 import torch
-from jacta.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.dynamics.simulator_plant import SimulatorPlant
-from jacta.planner.parameter_container import ParameterContainer
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from jacta.planner.dynamics.simulator_plant import SimulatorPlant
+from jacta.planner.planner.parameter_container import ParameterContainer
 from torch import FloatTensor
 
 

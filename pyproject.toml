@@ -54,8 +54,11 @@ dependencies = [
     "tornado>=4.0.0",  # meshcat
     "u-msgpack-python>=2.4.1",  # meshcat
     "meshcat",
+    "drake==1.27.0",
 ]
 
+[tool.setuptools.packages.find]
+where = ["jacta"]
 
 [project.optional-dependencies]
 dev = [
@@ -66,7 +69,7 @@ dev = [
 ]
 
 [tool.coverage.run]
-source = ["./src/jactamanipulation"]
+source = ["./jacta"]
 
 [tool.ruff]
 lint.select = [

@@ -4,8 +4,8 @@ from math import sqrt
 
 import pytest
 import torch
-from jacta.planner.clipping_method import box_scaling
-from jacta.planner.linear_algebra import (
+from jacta.planner.planner.clipping_method import box_scaling
+from jacta.planner.planner.linear_algebra import (
     gram_schmidt,
     normalize,
     project_v_on_u,

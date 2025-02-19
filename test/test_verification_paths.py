@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from jacta.common.paths import add_package_paths
+from jacta.planner.common.paths import add_package_paths
 from pydrake.multibody.parsing import (
     LoadModelDirectives,
     Parser,
