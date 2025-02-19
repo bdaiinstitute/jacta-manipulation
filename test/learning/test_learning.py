@@ -1,19 +1,22 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 import torch
-from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.learning.learner import Learner
-from jacta.learning.replay_buffer import ReplayBuffer
-from jacta.planner.planner.action_sampler import ActionSampler
-from jacta.planner.planner.graph import Graph
-from jacta.planner.planner.graph_worker import ExplorerWorker
-from jacta.planner.planner.logger import Logger
-from jacta.planner.planner.parameter_container import ParameterContainer
-from jacta.planner.planner.planner import Planner
-from jacta.planner.planner.types import ActionType, set_default_device_and_dtype
 from torch import tensor
 
+from jacta.learning.learner import Learner
+from jacta.learning.replay_buffer import ReplayBuffer
+from jacta.planner.core.action_sampler import ActionSampler
+from jacta.planner.core.graph import Graph
+from jacta.planner.core.graph_worker import ExplorerWorker
+from jacta.planner.core.logger import Logger
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.core.planner import Planner
+from jacta.planner.core.types import ActionType, set_default_device_and_dtype
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 
-def learner_setup(search: bool, learn: bool, use_planner_exploration: bool = False) -> Learner:
+
+def learner_setup(
+    search: bool, learn: bool, use_planner_exploration: bool = False
+) -> Learner:
     set_default_device_and_dtype()
     params = ParameterContainer()
     params.parse_params("box_push", "test")
@@ -30,7 +33,9 @@ def learner_setup(search: bool, learn: bool, use_planner_exploration: bool = Fal
     action_sampler = ActionSampler(plant, graph, params)
     graph_worker = ExplorerWorker(plant, graph, action_sampler, logger, params)
 
-    planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=False)
+    planner = Planner(
+        plant, graph, action_sampler, graph_worker, logger, params, verbose=False
+    )
 
     replay_buffer = ReplayBuffer(plant, params)
     learner = Learner(plant, graph, replay_buffer, params, verbose=False)
@@ -77,7 +82,9 @@ def test_reward_function() -> None:
     root_ids = torch.tile(root_id, (2,))
     parent_ids = torch.tile(parent_id, (2,))
     state_difference = params.goal_state - params.start_state
-    states = params.goal_state - torch.stack((state_difference * 0.19, state_difference * 0.21))
+    states = params.goal_state - torch.stack(
+        (state_difference * 0.19, state_difference * 0.21)
+    )
     actions = tensor([[0.0], [0.0]])
     relative_actions = tensor([[0.0], [0.0]])
     action_time_step = 1.0
@@ -108,18 +115,30 @@ def test_graph_rollout() -> None:
     learner_ids = learner.graph_rollout()
     best_id = graph.get_best_id(reward_based=False)
     path_to_goal = graph.shortest_path_to(best_id)[-params.learner_trajectory_length :]
-    padding_ids = torch.ones(params.learner_trajectory_length - len(path_to_goal), dtype=int) * path_to_goal[0]
+    padding_ids = (
+        torch.ones(params.learner_trajectory_length - len(path_to_goal), dtype=int)
+        * path_to_goal[0]
+    )
     planner_ids = torch.concatenate((padding_ids, path_to_goal))
     assert torch.all(replay_buffer.states[learner_ids] == graph.states[planner_ids])
-    assert torch.all(replay_buffer.start_actions[learner_ids] == graph.start_actions[planner_ids])
-    assert torch.all(replay_buffer.end_actions[learner_ids] == graph.end_actions[planner_ids])
-    assert torch.all(replay_buffer.relative_actions[learner_ids] == graph.relative_actions[planner_ids])
+    assert torch.all(
+        replay_buffer.start_actions[learner_ids] == graph.start_actions[planner_ids]
+    )
+    assert torch.all(
+        replay_buffer.end_actions[learner_ids] == graph.end_actions[planner_ids]
+    )
+    assert torch.all(
+        replay_buffer.relative_actions[learner_ids]
+        == graph.relative_actions[planner_ids]
+    )
     assert torch.any(replay_buffer.states[learner_ids] != 0.0)
     assert torch.any(replay_buffer.start_actions[learner_ids] != 0.0)
     assert torch.any(replay_buffer.end_actions[learner_ids] != 0.0)
     assert torch.any(replay_buffer.relative_actions[learner_ids] != 0.0)
     assert torch.any(replay_buffer.learning_goals[learner_ids] != 0.0)
-    assert torch.all(replay_buffer.root_ids[learner_ids] == replay_buffer.first_learner_id)
+    assert torch.all(
+        replay_buffer.root_ids[learner_ids] == replay_buffer.first_learner_id
+    )
 
 
 def test_policy_rollout() -> None:
@@ -137,17 +156,26 @@ def test_policy_rollout() -> None:
     assert all(
         node_ids
         == torch.arange(
-            replay_buffer.first_learner_id, replay_buffer.first_learner_id + params.learner_trajectory_length
+            replay_buffer.first_learner_id,
+            replay_buffer.first_learner_id + params.learner_trajectory_length,
         )
     )
     assert torch.any(replay_buffer.states[node_ids] != 0.0)
     assert torch.any(replay_buffer.start_actions[node_ids] != 0.0)
     assert torch.any(replay_buffer.end_actions[node_ids] != 0.0)
     assert torch.any(replay_buffer.relative_actions[node_ids] != 0.0)
-    assert torch.all(a_min - 0.5 * a_range * time_step <= replay_buffer.start_actions[node_ids])
-    assert torch.all(replay_buffer.start_actions[node_ids] <= a_max + 0.5 * a_range * time_step)
-    assert torch.all(a_min - 0.5 * a_range * time_step <= replay_buffer.end_actions[node_ids])
-    assert torch.all(replay_buffer.end_actions[node_ids] <= a_max + 0.5 * a_range * time_step)
+    assert torch.all(
+        a_min - 0.5 * a_range * time_step <= replay_buffer.start_actions[node_ids]
+    )
+    assert torch.all(
+        replay_buffer.start_actions[node_ids] <= a_max + 0.5 * a_range * time_step
+    )
+    assert torch.all(
+        a_min - 0.5 * a_range * time_step <= replay_buffer.end_actions[node_ids]
+    )
+    assert torch.all(
+        replay_buffer.end_actions[node_ids] <= a_max + 0.5 * a_range * time_step
+    )
 
 
 def test_actor_actions() -> None:
@@ -180,26 +208,36 @@ def test_sampling() -> None:
     replay_buffer = learner.replay_buffer
     action_normalization_scaling = params.action_range * params.action_time_step
 
-    states, actions, rewards, next_states, goals, current_ids, next_ids, her_ids = replay_buffer.sampling(
-        50, 0, learner.reward_function
+    states, actions, rewards, next_states, goals, current_ids, next_ids, her_ids = (
+        replay_buffer.sampling(50, 0, learner.reward_function)
     )
     assert torch.all(replay_buffer.states[current_ids] == states)
     # actions from current node are stored in next node
-    assert torch.all(replay_buffer.relative_actions[next_ids] / action_normalization_scaling == actions)
+    assert torch.all(
+        replay_buffer.relative_actions[next_ids] / action_normalization_scaling
+        == actions
+    )
     assert torch.all(replay_buffer.states[next_ids] == next_states)
     assert torch.all(replay_buffer.learning_goals[current_ids] == goals)
-    assert torch.all((current_ids == next_ids) + (current_ids == replay_buffer.parents[next_ids]))
+    assert torch.all(
+        (current_ids == next_ids) + (current_ids == replay_buffer.parents[next_ids])
+    )
 
-    states, actions, rewards, next_states, goals, current_ids, next_ids, her_ids = replay_buffer.sampling(
-        50, 1, learner.reward_function
+    states, actions, rewards, next_states, goals, current_ids, next_ids, her_ids = (
+        replay_buffer.sampling(50, 1, learner.reward_function)
     )
     reward_indices = current_ids == her_ids
     assert torch.all(replay_buffer.states[current_ids] == states)
     # actions from current node are stored in next node
-    assert torch.all(replay_buffer.relative_actions[next_ids] / action_normalization_scaling == actions)
+    assert torch.all(
+        replay_buffer.relative_actions[next_ids] / action_normalization_scaling
+        == actions
+    )
     assert torch.all(replay_buffer.states[next_ids] == next_states)
     assert torch.all(replay_buffer.states[her_ids] == goals)
-    assert torch.all((current_ids == next_ids) + (current_ids == replay_buffer.parents[next_ids]))
+    assert torch.all(
+        (current_ids == next_ids) + (current_ids == replay_buffer.parents[next_ids])
+    )
     assert torch.all(rewards[reward_indices] == 0)
     assert torch.all(current_ids <= her_ids)
 
@@ -230,9 +268,17 @@ def test_eval_agent() -> None:
                 i += 1
 
     # check results
-    relative_distances = learner.relative_distances_to(replay_buffer, last_ids, replay_buffer.learning_goals[last_ids])
-    final_success_direct = torch.sum(relative_distances <= learner.final_success_distance) / params.learner_evals
-    current_success_direct = torch.sum(relative_distances <= learner.current_success_distance) / params.learner_evals
+    relative_distances = learner.relative_distances_to(
+        replay_buffer, last_ids, replay_buffer.learning_goals[last_ids]
+    )
+    final_success_direct = (
+        torch.sum(relative_distances <= learner.final_success_distance)
+        / params.learner_evals
+    )
+    current_success_direct = (
+        torch.sum(relative_distances <= learner.current_success_distance)
+        / params.learner_evals
+    )
     relative_distance_direct = torch.sum(relative_distances) / params.learner_evals
     assert final_success == final_success_direct
     assert current_success == current_success_direct
@@ -266,11 +312,16 @@ def test_graph_buffer() -> None:
     assert torch.any(replay_buffer.states[replay_buffer.first_learner_id :] != 0)
 
     # check next and max ids
-    assert replay_buffer.next_learner_id == replay_buffer.first_learner_id + params.learner_trajectory_length
+    assert (
+        replay_buffer.next_learner_id
+        == replay_buffer.first_learner_id + params.learner_trajectory_length
+    )
     assert replay_buffer.max_learner_id == replay_buffer.states.shape[0] - 1
 
     # check that full trajectories are stored
-    for index in range(params.learner_trajectory_length * params.learner_max_trajectories):
+    for index in range(
+        params.learner_trajectory_length * params.learner_max_trajectories
+    ):
         id = replay_buffer.first_learner_id + index
         if index % params.learner_trajectory_length == 0:
             assert replay_buffer.parents[id] == id
@@ -282,12 +333,16 @@ def test_planner_exploration() -> None:
     learner = learner_setup(False, False, True)
     learner.actor.train()
     initial_state = learner.action_sampler.graph.states[0].clone()
-    assert learner.action_sampler.graph.get_active_main_ids() == torch.tensor(0).unsqueeze(0)
+    assert learner.action_sampler.graph.get_active_main_ids() == torch.tensor(
+        0
+    ).unsqueeze(0)
 
     learner.actor.eps = 1.0  # force off policy exploration
     learner.policy_rollout()
     new_state = learner.action_sampler.graph.states[0].clone()
-    assert learner.action_sampler.graph.get_active_main_ids() == torch.tensor(0).unsqueeze(0)
+    assert learner.action_sampler.graph.get_active_main_ids() == torch.tensor(
+        0
+    ).unsqueeze(0)
     assert torch.any(initial_state != new_state)
 
     for _ in range(50):

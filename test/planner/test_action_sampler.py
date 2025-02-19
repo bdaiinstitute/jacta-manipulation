@@ -1,8 +1,9 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 import torch
-from jacta.planner.planner.parameter_container import ParameterContainer
 from planner_setup import planner_setup
 from torch import tensor
+
+from jacta.planner.core.parameter_container import ParameterContainer
 
 
 def test_random_actions() -> None:
@@ -69,8 +70,12 @@ def test_free_gradient_actions() -> None:
         action_sign = torch.sign(action)
         required_sign = torch.sign(params.goal_state[1] - planner.graph.states[idx, 1])
         assert torch.all(action_sign == required_sign)  # check direction towards goal
-        assert torch.all(-params.action_range * time_step <= action * 0.99)  # scale down slightly for numerics
-        assert torch.all(action * 0.99 <= params.action_range * time_step)  # scale down slightly for numerics
+        assert torch.all(
+            -params.action_range * time_step <= action * 0.99
+        )  # scale down slightly for numerics
+        assert torch.all(
+            action * 0.99 <= params.action_range * time_step
+        )  # scale down slightly for numerics
 
 
 def test_contact_gradient_actions() -> None:
@@ -93,7 +98,9 @@ def test_contact_gradient_actions() -> None:
         state = planner.graph.states[idx]
 
         if state[0] - 0.5 - state[1] < 1e-8:  # in contact
-            required_sign = 1 if state[0] < params.goal_state[0] else -1  # direction towards goal
+            required_sign = (
+                1 if state[0] < params.goal_state[0] else -1
+            )  # direction towards goal
         elif state[0] - 0.5 - state[1] > 1e-2:  # not in contact
             required_sign = 0  # no gradient available
         else:  # kind of in between -> no check
@@ -101,6 +108,10 @@ def test_contact_gradient_actions() -> None:
         case_count[required_sign + 1] += 1
 
         assert torch.all(action_sign == required_sign)
-        assert torch.all(-params.action_range * time_step <= action * 0.99)  # scale down slightly for numerics
-        assert torch.all(action * 0.99 <= params.action_range * time_step)  # scale down slightly for numerics
+        assert torch.all(
+            -params.action_range * time_step <= action * 0.99
+        )  # scale down slightly for numerics
+        assert torch.all(
+            action * 0.99 <= params.action_range * time_step
+        )  # scale down slightly for numerics
     assert torch.all(case_count != 0)

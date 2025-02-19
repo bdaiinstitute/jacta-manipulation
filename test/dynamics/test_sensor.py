@@ -1,8 +1,9 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import torch
+
+from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.planner.parameter_container import ParameterContainer
 
 
 def my_sensor(x: torch.FloatTensor) -> torch.FloatTensor:

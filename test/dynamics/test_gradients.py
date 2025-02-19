@@ -3,10 +3,11 @@
 from typing import Callable, Tuple
 
 import torch
+from torch import FloatTensor
+
+from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 from jacta.planner.dynamics.simulator_plant import SimulatorPlant
-from jacta.planner.planner.parameter_container import ParameterContainer
-from torch import FloatTensor
 
 
 def finite_difference(
@@ -30,7 +31,9 @@ def finite_difference(
     return jacobian
 
 
-def rollout_plant(plant: SimulatorPlant, x0: FloatTensor, a0: FloatTensor, N: int) -> Tuple[FloatTensor, FloatTensor]:
+def rollout_plant(
+    plant: SimulatorPlant, x0: FloatTensor, a0: FloatTensor, N: int
+) -> Tuple[FloatTensor, FloatTensor]:
     plant.set_state(x0)
     plant.set_action(a0)
     actions = a0.repeat((2, 1))
@@ -53,9 +56,12 @@ def test_sub_stepped_gradients() -> None:
     a0 = torch.tensor([3.5])
 
     for N in range(1, 20, 5):
-        state_gradient_state0, state_gradient_control0, sensor_gradient_state0, sensor_gradient_control0 = (
-            plant.get_sub_stepped_gradients(x0, a0, N)
-        )
+        (
+            state_gradient_state0,
+            state_gradient_control0,
+            sensor_gradient_state0,
+            sensor_gradient_control0,
+        ) = plant.get_sub_stepped_gradients(x0, a0, N)
 
         state_gradient_state1 = finite_difference(
             lambda x0: rollout_plant(plant, x0, a0, N)[0],  # noqa: B023

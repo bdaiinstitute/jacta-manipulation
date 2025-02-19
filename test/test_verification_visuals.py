@@ -1,10 +1,11 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import numpy as np
-from jacta.planner.planner.parameter_container import ParameterContainer
-from jacta.planner.verification.visuals import TrajectoryVisualizer
 from pydrake.geometry import Rgba
 from pydrake.trajectories import PiecewisePolynomial
+
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.verification.visuals import TrajectoryVisualizer
 
 
 def test_visualize_trajectories() -> None:
@@ -32,11 +33,15 @@ def test_visualize_trajectories() -> None:
 
     # test that we need to provide as many prefixes as trajectories
     try:
-        visualizer.visualize_trajectories([q0_traj], ["t1", "t2"], colors={"t1": 0.3, "t2": Rgba(1, 0, 0, 0.5)})
+        visualizer.visualize_trajectories(
+            [q0_traj], ["t1", "t2"], colors={"t1": 0.3, "t2": Rgba(1, 0, 0, 0.5)}
+        )
     except Exception as e:
         assert type(e) == AssertionError
     try:
-        visualizer.visualize_trajectories([q0_traj, q1_traj], ["t1"], colors={"t1": 0.3})
+        visualizer.visualize_trajectories(
+            [q0_traj, q1_traj], ["t1"], colors={"t1": 0.3}
+        )
     except Exception as e:
         assert type(e) == AssertionError
 
@@ -53,7 +58,11 @@ def test_visualize_trajectories() -> None:
     # This ensures that we can run the function without throwing an error.
     visualizer.visualize_trajectories([q0_traj], ["t1"], colors=None)
     visualizer.visualize_trajectories([q0_traj, q1_traj], ["t1", "t2"], colors=None)
-    visualizer.visualize_trajectories([q0_traj, q1_traj], ["t1", "t2"], colors={"t1": 0.0, "t2": 0.5})
     visualizer.visualize_trajectories(
-        [q0_traj, q1_traj], ["t1", "t2"], colors={"t1": 0.3, "t2": Rgba(1, 0.3, 0.4, 1.0)}
+        [q0_traj, q1_traj], ["t1", "t2"], colors={"t1": 0.0, "t2": 0.5}
+    )
+    visualizer.visualize_trajectories(
+        [q0_traj, q1_traj],
+        ["t1", "t2"],
+        colors={"t1": 0.3, "t2": Rgba(1, 0.3, 0.4, 1.0)},
     )

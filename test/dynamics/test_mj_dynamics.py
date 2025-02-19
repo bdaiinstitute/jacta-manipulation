@@ -1,9 +1,10 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
 import torch
-from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.planner.parameter_container import ParameterContainer
 from torch import FloatTensor
+
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 
 torch.manual_seed(0)
 
@@ -22,7 +23,9 @@ def normalize_vector(v: FloatTensor) -> FloatTensor:
         return v
 
 
-def mj_state_algebra(plant: MujocoPlant, state: FloatTensor, actions: FloatTensor) -> None:
+def mj_state_algebra(
+    plant: MujocoPlant, state: FloatTensor, actions: FloatTensor
+) -> None:
     nq = plant.model.nq
     nv = plant.model.nv
     na = plant.model.na

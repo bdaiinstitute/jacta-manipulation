@@ -4,16 +4,17 @@ from math import sqrt
 
 import pytest
 import torch
-from jacta.planner.planner.clipping_method import box_scaling
-from jacta.planner.planner.linear_algebra import (
+from scipy.stats import truncpareto
+from torch import tensor
+
+from jacta.planner.core.clipping_method import box_scaling
+from jacta.planner.core.linear_algebra import (
     gram_schmidt,
     normalize,
     project_v_on_u,
     project_vectors_on_eigenspace,
     truncpareto_cdf,
 )
-from scipy.stats import truncpareto
-from torch import tensor
 
 torch.manual_seed(0)
 
@@ -72,22 +73,30 @@ def test_gram_schmidt() -> None:
 def test_project_vectors_on_eigenspace() -> None:
     iden_space = torch.eye(3)
     action = torch.rand((1, 3))
-    assert torch.allclose(project_vectors_on_eigenspace(action, iden_space), action, atol=1e-6)
+    assert torch.allclose(
+        project_vectors_on_eigenspace(action, iden_space), action, atol=1e-6
+    )
 
     space = tensor([[0, 1], [1, 1.0]])
     basis = gram_schmidt(space)
     action = torch.rand((1, 2))
-    assert torch.allclose(project_vectors_on_eigenspace(action, basis), action, atol=1e-6)
+    assert torch.allclose(
+        project_vectors_on_eigenspace(action, basis), action, atol=1e-6
+    )
 
     basis = tensor([[1 / sqrt(2), 1 / sqrt(2), 0, 0], [0, 0, 1, 0]])
     action = tensor([[sqrt(2), 0, 1, 1]])
     real_results = tensor([[1 / sqrt(2), 1 / sqrt(2), 1, 0]])
-    assert torch.allclose(project_vectors_on_eigenspace(action, basis), real_results, atol=1e-4)
+    assert torch.allclose(
+        project_vectors_on_eigenspace(action, basis), real_results, atol=1e-4
+    )
 
     basis = tensor([[1, 0, 0], [0, 1, 0.0]])
     action = tensor([[1, 0, 1], [1, 1, 0.0]])
     real_results = tensor([[1, 0, 0], [1, 1, 0.0]])
-    assert torch.allclose(project_vectors_on_eigenspace(action, basis), real_results, atol=1e-4)
+    assert torch.allclose(
+        project_vectors_on_eigenspace(action, basis), real_results, atol=1e-4
+    )
 
 
 def test_box_scaling() -> None:
@@ -134,5 +143,7 @@ def test_truncpareto_cdf() -> None:
             upper_bound = length + 1
             x = torch.arange(1, upper_bound)
             scipy_pareto = tensor(truncpareto.cdf(x.cpu(), exponent, upper_bound))
-            jacta_pareto = tensor(truncpareto_cdf(x, exponent, upper_bound), dtype=torch.float64)
+            jacta_pareto = tensor(
+                truncpareto_cdf(x, exponent, upper_bound), dtype=torch.float64
+            )
             assert torch.allclose(scipy_pareto, jacta_pareto)

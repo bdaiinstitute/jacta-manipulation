@@ -1,17 +1,22 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 import torch
 from benedict import benedict
+
+from jacta.planner.core.action_sampler import ActionSampler
+from jacta.planner.core.graph import Graph
+from jacta.planner.core.graph_worker import (
+    ExplorerWorker,
+    RelatedGoalWorker,
+    SingleGoalWorker,
+)
+from jacta.planner.core.logger import Logger
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.core.planner import Planner
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.planner.planner.action_sampler import ActionSampler
-from jacta.planner.planner.graph import Graph
-from jacta.planner.planner.graph_worker import ExplorerWorker, RelatedGoalWorker, SingleGoalWorker
-from jacta.planner.planner.logger import Logger
-from jacta.planner.planner.parameter_container import ParameterContainer
-from jacta.planner.planner.planner import Planner
 
 
 def get_planner_examples(config_path: str) -> list[str]:
@@ -43,14 +48,28 @@ def test_examples() -> None:
             action_sampler = ActionSampler(plant, graph, params)
             match example:
                 case "single_goal":
-                    graph_worker = SingleGoalWorker(plant, graph, action_sampler, logger, params)
+                    graph_worker = SingleGoalWorker(
+                        plant, graph, action_sampler, logger, params
+                    )
                 case "multi_goal":
-                    graph_worker = RelatedGoalWorker(plant, graph, action_sampler, logger, params)
+                    graph_worker = RelatedGoalWorker(
+                        plant, graph, action_sampler, logger, params
+                    )
                     params.num_sub_goals = 2
                 case "exploration":
-                    graph_worker = ExplorerWorker(plant, graph, action_sampler, logger, params)
+                    graph_worker = ExplorerWorker(
+                        plant, graph, action_sampler, logger, params
+                    )
                     params.num_sub_goals = 2
-            planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=False)
+            planner = Planner(
+                plant,
+                graph,
+                action_sampler,
+                graph_worker,
+                logger,
+                params,
+                verbose=False,
+            )
 
             planner.search()
             search_index = 0

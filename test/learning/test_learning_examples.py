@@ -1,19 +1,20 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
-from pathlib import Path
 import os
+from pathlib import Path
 
 import torch
 from benedict import benedict
-from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+
 from jacta.learning.learner import Learner
 from jacta.learning.replay_buffer import ReplayBuffer
-from jacta.planner.planner.action_sampler import ActionSampler
-from jacta.planner.planner.graph import Graph, sample_random_goal_states
-from jacta.planner.planner.graph_worker import ExplorerWorker, RolloutWorker
-from jacta.planner.planner.logger import Logger
-from jacta.planner.planner.parameter_container import ParameterContainer
-from jacta.planner.planner.planner import Planner
-from jacta.planner.planner.types import ActionType as AT
+from jacta.planner.core.action_sampler import ActionSampler
+from jacta.planner.core.graph import Graph, sample_random_goal_states
+from jacta.planner.core.graph_worker import ExplorerWorker, RolloutWorker
+from jacta.planner.core.logger import Logger
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.core.planner import Planner
+from jacta.planner.core.types import ActionType as AT
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 
 
 def test_examples() -> None:
@@ -29,7 +30,9 @@ def test_examples() -> None:
             "num_sub_goals": 2,
             "action_time_step": 0.4,
             "action_steps_max": 2,
-            "learner": benedict({"cycles": 2, "rollouts": 2, "batches": 2, "early_stop": 1.0}),
+            "learner": benedict(
+                {"cycles": 2, "rollouts": 2, "batches": 2, "early_stop": 1.0}
+            ),
         }
         params.update(base_values)
 
@@ -39,7 +42,9 @@ def test_examples() -> None:
         logger = Logger(graph, params)
         action_sampler = ActionSampler(plant, graph, params)
         graph_worker = ExplorerWorker(plant, graph, action_sampler, logger, params)
-        planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=False)
+        planner = Planner(
+            plant, graph, action_sampler, graph_worker, logger, params, verbose=False
+        )
         planner.search()
 
         replay_buffer = ReplayBuffer(plant, params)
@@ -76,7 +81,9 @@ def test_examples() -> None:
         logger.reset()
         action_sampler.reset()
         graph_worker = RolloutWorker(plant, graph, action_sampler, logger, params)
-        planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=False)
+        planner = Planner(
+            plant, graph, action_sampler, graph_worker, logger, params, verbose=False
+        )
 
         graph.change_sub_goal_states(sample_random_goal_states(plant, params))
 

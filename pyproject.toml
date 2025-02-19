@@ -58,7 +58,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["jacta"]
+where = ["src"]
 
 [project.optional-dependencies]
 dev = [

@@ -1,8 +1,9 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
-from jacta.planner.planner.graph import Graph
-from jacta.planner.planner.parameter_container import ParameterContainer
 from planner_setup import planner_setup
+
+from jacta.planner.core.graph import Graph
+from jacta.planner.core.parameter_container import ParameterContainer
 
 
 def slow_get_best_id(graph: Graph, reward_based: bool = True) -> int:

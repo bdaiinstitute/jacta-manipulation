@@ -3,19 +3,20 @@
 
 import torch
 from benedict import benedict
-from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
+from matplotlib.pyplot import figure, legend, plot
+
 from jacta.learning.learner import Learner
 from jacta.learning.replay_buffer import ReplayBuffer
-from jacta.planner.planner.action_sampler import ActionSampler
-from jacta.planner.planner.graph import Graph, sample_random_goal_states
-from jacta.planner.planner.graph_visuals import display_3d_graph
-from jacta.planner.planner.graph_worker import ExplorerWorker, RolloutWorker
-from jacta.planner.planner.logger import Logger
-from jacta.planner.planner.parameter_container import ParameterContainer
-from jacta.planner.planner.planner import Planner
-from jacta.planner.planner.types import ActionType as AT
+from jacta.planner.core.action_sampler import ActionSampler
+from jacta.planner.core.graph import Graph, sample_random_goal_states
+from jacta.planner.core.graph_visuals import display_3d_graph
+from jacta.planner.core.graph_worker import ExplorerWorker, RolloutWorker
+from jacta.planner.core.logger import Logger
+from jacta.planner.core.parameter_container import ParameterContainer
+from jacta.planner.core.planner import Planner
+from jacta.planner.core.types import ActionType as AT
+from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
 from jacta.planner.verification.visuals import TrajectoryVisualizer
-from matplotlib.pyplot import figure, legend, plot
 
 # %%
 task = "planar_hand"  # Set desired example here
@@ -28,15 +29,25 @@ visualizer = TrajectoryVisualizer(params=params, sim_time_step=plant.sim_time_st
 
 
 def callback(graph: Graph, logger: Logger) -> None:
-    display_3d_graph(graph, logger, visualizer.meshcat, vis_scale=params.vis_scale, vis_indices=params.vis_indices)
+    display_3d_graph(
+        graph,
+        logger,
+        visualizer.meshcat,
+        vis_scale=params.vis_scale,
+        vis_indices=params.vis_indices,
+    )
 
 
 graph = Graph(plant, params)
 graph.set_start_states(params.start_state.unsqueeze(0))
 logger = Logger(graph, params)
 action_sampler = ActionSampler(plant, graph, params)
-graph_worker = ExplorerWorker(plant, graph, action_sampler, logger, params, callback=callback, callback_period=5)
-planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=True)
+graph_worker = ExplorerWorker(
+    plant, graph, action_sampler, logger, params, callback=callback, callback_period=5
+)
+planner = Planner(
+    plant, graph, action_sampler, graph_worker, logger, params, verbose=True
+)
 
 # %%
 planner.search()
@@ -61,9 +72,15 @@ if task == "box_push":
     # policy plot
     plot(states[:, 1], actions[:, 0])
 
-    actions_left = torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * -0.5
-    actions_zero = torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * 0
-    actions_right = torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * 0.5
+    actions_left = (
+        torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * -0.5
+    )
+    actions_zero = (
+        torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * 0
+    )
+    actions_right = (
+        torch.ones((50, 1), dtype=torch.float32, device=learner.critic.device) * 0.5
+    )
     with torch.no_grad():
         values_left = learner.critic(obs, actions_left).cpu()
         values_zero = learner.critic(obs, actions_zero).cpu()
@@ -98,12 +115,16 @@ graph.reset()
 logger.reset()
 action_sampler.reset()
 graph_worker = RolloutWorker(plant, graph, action_sampler, logger, params)
-planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=True)
+planner = Planner(
+    plant, graph, action_sampler, graph_worker, logger, params, verbose=True
+)
 
 graph.change_sub_goal_states(sample_random_goal_states(plant, params)[0])
 planner.search()
 
-state_trajectory = planner.path_trajectory(planner.path_data(0, graph.next_main_node_id - 1))
+state_trajectory = planner.path_trajectory(
+    planner.path_data(0, graph.next_main_node_id - 1)
+)
 # state_trajectory = planner.shortest_path_trajectory()
 
 planner.plot_search_results()
