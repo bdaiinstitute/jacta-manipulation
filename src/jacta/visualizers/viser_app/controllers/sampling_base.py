@@ -81,7 +81,9 @@ class SamplingBase(Controller):
         """Helper function to create new timesteps for spline queries."""
         return np.linspace(0, self.config.horizon, self.config.num_nodes, endpoint=True)
 
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Abstract method for updating controller actions from current state/time."""
         raise NotImplementedError("Must be implemented in a subclass.")
 
@@ -120,8 +122,12 @@ class SamplingBase(Controller):
         if not hasattr(reward_config, "default_command"):
             self.controls = np.zeros((self.config.num_nodes, self.task.nu))
         else:
-            assert len(reward_config.default_command) == self.task.nu, f"Default command must be {self.task.nu}"
-            self.controls = np.tile(reward_config.default_command, (self.config.num_nodes, 1))
+            assert (
+                len(reward_config.default_command) == self.task.nu
+            ), f"Default command must be {self.task.nu}"
+            self.controls = np.tile(
+                reward_config.default_command, (self.config.num_nodes, 1)
+            )
 
     def reset(self) -> None:
         """Reset the controls, candidate controls and the spline to their default values."""
@@ -147,9 +153,15 @@ class SamplingBase(Controller):
         # correspond to the best rollout and are using a special colors
         elite_actions = np.argsort(self.rewards)[-self.num_elite :][::-1]
 
-        total_traces_rollouts = int(self.num_elite * self.num_trace_sensors * self.sensor_rollout_size)
+        total_traces_rollouts = int(
+            self.num_elite * self.num_trace_sensors * self.sensor_rollout_size
+        )
         # Calculates list of the elite indicies
-        trace_inds = [self.model.sensor_adr[id] + pos for id in self.trace_sensors for pos in range(3)]
+        trace_inds = [
+            self.model.sensor_adr[id] + pos
+            for id in self.trace_sensors
+            for pos in range(3)
+        ]
 
         # Filter out the non-elite indices we don't care about
         sensors = sensors[elite_actions, :, :]
@@ -165,9 +177,13 @@ class SamplingBase(Controller):
 
         # Each block of (i, self.sensor_rollout_size) needs to be interleaved together into a stack of
         # [block(i, ), block (i + 1, ), ..., block(i + n)]
-        elites = np.zeros((self.num_trace_sensors * self.num_elite, self.sensor_rollout_size, 2, 3))
+        elites = np.zeros(
+            (self.num_trace_sensors * self.num_elite, self.sensor_rollout_size, 2, 3)
+        )
         for sensor in range(self.num_trace_sensors):
-            s1 = np.reshape(sensors[:, :, sensor * 3 : (sensor + 1) * 3], separated_sensors_size)
+            s1 = np.reshape(
+                sensors[:, :, sensor * 3 : (sensor + 1) * 3], separated_sensors_size
+            )
             elites[sensor :: self.num_trace_sensors] = s1
         self.traces = np.reshape(elites, (total_traces_rollouts, 2, 3))
 
@@ -183,4 +199,12 @@ def make_spline(times: np.ndarray, controls: np.ndarray, spline_order: str) -> i
     """
     # fill values for "before" and "after" spline extrapolation.
     fill_value = (controls[..., 0, :], controls[..., -1, :])
-    return interp1d(times, controls, kind=spline_order, axis=-2, copy=False, fill_value=fill_value, bounds_error=False)
+    return interp1d(
+        times,
+        controls,
+        kind=spline_order,
+        axis=-2,
+        copy=False,
+        fill_value=fill_value,
+        bounds_error=False,
+    )

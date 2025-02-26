@@ -39,9 +39,15 @@ class ParticleFilter(SamplingBase):
         super().__init__(task, config, reward_config)
 
         # Preallocate state / control buffers.
-        self.all_splines = make_spline(task.data.time + self.spline_timesteps, self.controls, self.config.spline_order)
+        self.all_splines = make_spline(
+            task.data.time + self.spline_timesteps,
+            self.controls,
+            self.config.spline_order,
+        )
 
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Performs rollouts + reward computation from current state."""
         assert curr_state.shape == (self.model.nq + self.model.nv,)
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
@@ -49,8 +55,14 @@ class ParticleFilter(SamplingBase):
         # Check if num_rollouts has changed and resize arrays accordingly.
         if len(self.models) != self.config.num_rollouts:
             self.make_models()
-            self.controls: np.ndarray = np.random.default_rng().choice(self.controls, size=self.config.num_rollouts)
-            self.all_splines = make_spline(curr_time + self.spline_timesteps, self.controls, self.config.spline_order)
+            self.controls: np.ndarray = np.random.default_rng().choice(
+                self.controls, size=self.config.num_rollouts
+            )
+            self.all_splines = make_spline(
+                curr_time + self.spline_timesteps,
+                self.controls,
+                self.config.spline_order,
+            )
 
         # Adjust time + move policy forward.
         # TODO(pculbert): move some of this logic into top-level controller.
@@ -64,7 +76,9 @@ class ParticleFilter(SamplingBase):
 
         # Clamp controls to action bounds.
         self.candidate_controls = np.clip(
-            self.candidate_controls, self.task.actuator_ctrlrange[:, 0], self.task.actuator_ctrlrange[:, 1]
+            self.candidate_controls,
+            self.task.actuator_ctrlrange[:, 0],
+            self.task.actuator_ctrlrange[:, 1],
         )
 
         # Evaluate rollout controls at sim timesteps.
@@ -101,7 +115,9 @@ class ParticleFilter(SamplingBase):
 
         # Set spline to first control (arbitrarily).
         self.update_spline(new_times, self.controls[0])
-        self.all_splines = make_spline(new_times, self.controls, self.config.spline_order)
+        self.all_splines = make_spline(
+            new_times, self.controls, self.config.spline_order
+        )
 
         # Update traces.
         self.update_traces()

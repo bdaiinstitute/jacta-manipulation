@@ -15,7 +15,12 @@ GOAL_RADIUS = 0.05
 UI_CONFIG = "ui_config"
 
 
-def slider(parameter_name: str, min: int | float, max: int | float, step: int | float | None = None) -> Callable:
+def slider(
+    parameter_name: str,
+    min: int | float,
+    max: int | float,
+    step: int | float | None = None,
+) -> Callable:
     """Decorator that adds slider metadata to desired dataclass fields.
 
     Args:
@@ -33,7 +38,9 @@ def slider(parameter_name: str, min: int | float, max: int | float, step: int | 
 
     def wrapper(cls: Any) -> Any:
         """Convenience wrapper to annotate dataclass fields with slider values. Applied only to dataclasses."""
-        assert is_dataclass(cls), "@slider decorator can only be applied to dataclasses!"
+        assert is_dataclass(
+            cls
+        ), "@slider decorator can only be applied to dataclasses!"
 
         # Store original __post_init__ (to enable stacking @slider decorators , other __post_init__ behavior).
         original_post_init = getattr(cls, "__post_init__", None)
@@ -58,7 +65,9 @@ def slider(parameter_name: str, min: int | float, max: int | float, step: int | 
     return wrapper
 
 
-def _get_gui_element(server: ViserServer, config: Any, field: Field) -> GuiInputHandle | MeshHandle | None:
+def _get_gui_element(
+    server: ViserServer, config: Any, field: Field
+) -> GuiInputHandle | MeshHandle | None:
     """Helper function that creates a GUI element for a particular dataclass field.
 
     Args:
@@ -84,7 +93,11 @@ def _get_gui_element(server: ViserServer, config: Any, field: Field) -> GuiInput
         else:
             min_float, max_float, step_float = field.metadata[UI_CONFIG]
         return server.gui.add_slider(
-            field.name, min=min_float, max=max_float, step=step_float, initial_value=init_value
+            field.name,
+            min=min_float,
+            max=max_float,
+            step=step_float,
+            initial_value=init_value,
         )
 
     # Create a checkbox for a boolean param.
@@ -93,12 +106,17 @@ def _get_gui_element(server: ViserServer, config: Any, field: Field) -> GuiInput
 
     elif field.type is np.ndarray and len(init_value) == 3:
         return server.scene.add_icosphere(
-            "goal position", radius=GOAL_RADIUS, color=(0.0, 0.0, 1.0), position=init_value
+            "goal position",
+            radius=GOAL_RADIUS,
+            color=(0.0, 0.0, 1.0),
+            position=init_value,
         )
 
     # Create a dropdown for a Literal-typed param.
     elif get_origin(field.type) == Literal:
-        return server.gui.add_dropdown(field.name, get_args(field.type), initial_value=init_value)
+        return server.gui.add_dropdown(
+            field.name, get_args(field.type), initial_value=init_value
+        )
 
     else:
         warnings.warn(
@@ -109,7 +127,11 @@ def _get_gui_element(server: ViserServer, config: Any, field: Field) -> GuiInput
 
 
 def _get_callback(
-    element: GuiInputHandle, element_name: str, config_dict: DictProxy, config_event: Event, config_lock: Lock
+    element: GuiInputHandle,
+    element_name: str,
+    config_dict: DictProxy,
+    config_event: Event,
+    config_lock: Lock,
 ) -> Callable[[GuiEvent], None]:
     """Factory method for creating a GUI callback for a particular GUI element.
 
@@ -127,7 +149,9 @@ def _get_callback(
         with config_lock:
             if isinstance(element, GuiSliderHandle):
                 # Clip numeric values to slider bounds.
-                config_dict[element_name] = max(min(element.value, element.max), element.min)
+                config_dict[element_name] = max(
+                    min(element.value, element.max), element.min
+                )
             else:
                 config_dict[element_name] = element.value
         # Set config_event so other Processes know to update this value.
@@ -164,7 +188,11 @@ def create_gui_elements(
             gui_elements.append(config_folder)
             with config_folder:
                 new_elements = create_gui_elements(
-                    server, getattr(config, config_parameter.name), config_dict, config_updated_event, config_lock
+                    server,
+                    getattr(config, config_parameter.name),
+                    config_dict,
+                    config_updated_event,
+                    config_lock,
                 )
             gui_elements.append(new_elements)
 
@@ -177,7 +205,13 @@ def create_gui_elements(
             elif isinstance(element, GuiInputHandle):
                 # Attach the corresponding GUI callback to update the config parameter.
                 element.on_update(
-                    _get_callback(element, config_parameter.name, config_dict, config_updated_event, config_lock)
+                    _get_callback(
+                        element,
+                        config_parameter.name,
+                        config_dict,
+                        config_updated_event,
+                        config_lock,
+                    )
                 )
                 gui_elements.append(element)
             elif isinstance(element, MeshHandle):

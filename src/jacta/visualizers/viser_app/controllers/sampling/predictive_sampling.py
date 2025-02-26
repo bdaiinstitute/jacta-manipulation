@@ -39,7 +39,9 @@ class PredictiveSampling(SamplingBase):
         # Create variable for best action.
         self.best_action = 0
 
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Performs rollouts + reward computation from current state."""
         assert curr_state.shape == (self.model.nq + self.model.nv,)
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
@@ -57,10 +59,17 @@ class PredictiveSampling(SamplingBase):
         if self.config.use_noise_ramp:
             ramp = (
                 self.config.noise_ramp
-                * np.linspace(1 / self.config.num_nodes, 1, self.config.num_nodes, endpoint=True)[:, None]
+                * np.linspace(
+                    1 / self.config.num_nodes, 1, self.config.num_nodes, endpoint=True
+                )[:, None]
             )
-            noised_controls = base_controls + self.config.sigma * ramp * np.random.randn(
-                self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu
+            noised_controls = (
+                base_controls
+                + self.config.sigma
+                * ramp
+                * np.random.randn(
+                    self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu
+                )
             )
         else:
             noised_controls = base_controls + self.config.sigma * np.random.randn(
@@ -71,7 +80,9 @@ class PredictiveSampling(SamplingBase):
 
         # Clamp controls to action bounds.
         self.candidate_controls = np.clip(
-            self.candidate_controls, self.task.actuator_ctrlrange[:, 0], self.task.actuator_ctrlrange[:, 1]
+            self.candidate_controls,
+            self.task.actuator_ctrlrange[:, 0],
+            self.task.actuator_ctrlrange[:, 1],
         )
 
         # Evaluate rollout controls at sim timesteps.

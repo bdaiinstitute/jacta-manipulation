@@ -31,7 +31,9 @@ class Controller:
         """Helper function to calculate the rollout times based on the horizon length"""
 
     @abstractmethod
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Abstract method for updating controller actions from current state/time."""
 
     @abstractmethod

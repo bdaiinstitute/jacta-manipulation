@@ -39,7 +39,9 @@ class CMAES(SamplingBase):
     ):
         super().__init__(task, config, reward_config)
 
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Performs rollouts + reward computation from current state."""
         t0 = time.time()
         assert curr_state.shape == (self.model.nq + self.model.nv,)
@@ -70,7 +72,9 @@ class CMAES(SamplingBase):
         i = 0
         while not cmaes.stop() and i < self.config.max_iter:
             noise = np.array(cmaes.ask())
-            noise = noise.reshape(self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu)
+            noise = noise.reshape(
+                self.config.num_rollouts - 1, self.config.num_nodes, self.task.nu
+            )
             controls_samples = base_controls + noise
 
             # Sample action noise (leaving one sequence noiseless).
@@ -78,7 +82,9 @@ class CMAES(SamplingBase):
 
             # Clamp controls to action bounds.
             candidate_controls = np.clip(
-                candidate_controls, self.task.actuator_ctrlrange[:, 0], self.task.actuator_ctrlrange[:, 1]
+                candidate_controls,
+                self.task.actuator_ctrlrange[:, 0],
+                self.task.actuator_ctrlrange[:, 1],
             )
 
             # Evaluate rollout controls at sim timesteps.
@@ -111,7 +117,9 @@ class CMAES(SamplingBase):
 
         loop_time = time.time() - t0
         if loop_time > 1 / self.config.control_freq:
-            logging.warning(f"CMAES loop took {loop_time:.3f} seconds, longer than control frequency.")
+            logging.warning(
+                f"CMAES loop took {loop_time:.3f} seconds, longer than control frequency."
+            )
 
     def action(self, time: float) -> np.ndarray:
         """Current best action of policy."""

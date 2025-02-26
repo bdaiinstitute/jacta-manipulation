@@ -26,7 +26,9 @@ class Task(Generic[ConfigT, ModelT]):
     """Base container for sampling-based MPC tasks. Implements reward, simulation step, and resetting behavior."""
 
     @abstractmethod
-    def create_visualization(self, server: ViserServer, context: IOContext, text_handles: dict) -> Visualization:
+    def create_visualization(
+        self, server: ViserServer, context: IOContext, text_handles: dict
+    ) -> Visualization:
         """Returns a visualizer for the task."""
 
     @abstractmethod

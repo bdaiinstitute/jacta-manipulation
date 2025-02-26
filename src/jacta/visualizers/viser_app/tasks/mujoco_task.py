@@ -24,7 +24,9 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
         self.cutoff_time = None  # Placeholder
         self._additional_info: dict[str, Any] = {}
 
-    def create_visualization(self, server: ViserServer, context: IOContext, text_handles: dict) -> None:
+    def create_visualization(
+        self, server: ViserServer, context: IOContext, text_handles: dict
+    ) -> None:
         """Returns a visualizer for the task."""
         return MjVisualization(self, server, context, text_handles)
 

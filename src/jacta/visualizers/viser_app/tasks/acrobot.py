@@ -17,7 +17,9 @@ MODEL_PATH = "models/xml/acrobot.xml"
 class AcrobotConfig(TaskConfig):
     """Reward configuration for the acrobot task."""
 
-    default_command: Optional[np.ndarray] = field(default_factory=lambda: np.array([0.0]))
+    default_command: Optional[np.ndarray] = field(
+        default_factory=lambda: np.array([0.0])
+    )
     w_vertical: float = 10.0
     w_velocity: float = 0.1
     w_control: float = 0.1

@@ -43,7 +43,9 @@ class MPPI(SamplingBase):
     ):
         super().__init__(task, config, reward_config)
 
-    def update_action(self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None:
+    def update_action(
+        self, curr_state: np.ndarray, curr_time: float, additional_info: dict[str, Any]
+    ) -> None:
         """Performs rollouts + reward computation from current state."""
         assert curr_state.shape == (self.model.nq + self.model.nv,)
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
@@ -64,7 +66,9 @@ class MPPI(SamplingBase):
 
         # Clamp controls to action bounds.
         candidate_controls = np.clip(
-            candidate_controls, self.task.actuator_ctrlrange[:, 0], self.task.actuator_ctrlrange[:, 1]
+            candidate_controls,
+            self.task.actuator_ctrlrange[:, 0],
+            self.task.actuator_ctrlrange[:, 1],
         )
 
         # Evaluate rollout controls at sim timesteps.
@@ -96,7 +100,9 @@ class MPPI(SamplingBase):
         weighted_rewards = np.exp(-(costs - beta) / self.config.temperature)
         # Basically softmax
         weights = weighted_rewards / np.sum(weighted_rewards)
-        self.controls = np.sum(weights[:, np.newaxis, np.newaxis] * candidate_controls, axis=0)
+        self.controls = np.sum(
+            weights[:, np.newaxis, np.newaxis] * candidate_controls, axis=0
+        )
 
         self.update_spline(new_times, self.controls)
 

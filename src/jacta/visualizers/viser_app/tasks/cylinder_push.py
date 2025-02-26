@@ -17,7 +17,9 @@ MODEL_PATH = "models/xml/cylinder_push.xml"
 class CylinderPushConfig(TaskConfig):
     """Reward configuration for the cylinder push task."""
 
-    default_command: Optional[np.ndarray] = field(default_factory=lambda: np.array([0.0, 0.0]))
+    default_command: Optional[np.ndarray] = field(
+        default_factory=lambda: np.array([0.0, 0.0])
+    )
     w_pusher_proximity: float = 0.5
     w_pusher_velocity: float = 0.0
     w_cart_position: float = 0.1
@@ -68,7 +70,9 @@ class CylinderPush(MujocoTask[CylinderPushConfig]):
         pusher_proximity = quadratic_norm(pusher_pos - pusher_goal)
         pusher_reward = -config.w_pusher_proximity * pusher_proximity.sum(-1)
 
-        velocity_reward = -config.w_pusher_velocity * quadratic_norm(states[..., 4:6]).sum(-1)
+        velocity_reward = -config.w_pusher_velocity * quadratic_norm(
+            states[..., 4:6]
+        ).sum(-1)
 
         goal_proximity = quadratic_norm(cart_pos - cart_goal)
         goal_reward = -config.w_cart_position * goal_proximity.sum(-1)
