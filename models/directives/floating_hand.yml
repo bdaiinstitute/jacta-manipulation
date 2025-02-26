@@ -1,0 +1,7 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+directives:
+
+- add_model:
+    name: floating_hand
+    file: package://jacta_models/xml/floating_hand.xml

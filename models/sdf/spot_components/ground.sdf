@@ -1,0 +1,37 @@
+<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<sdf version="1.7">
+  <model name="ground">
+    <link name="ground_link">
+      <visual name="visual">
+        <pose>0 0 -0.50 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>10 10 1.0</size>
+          </box>
+        </geometry>
+        <material>
+         <diffuse>0.5 0.3 0.9 0.6</diffuse>
+        </material>
+      </visual>
+      <collision name="collision">
+        <pose>0 0 -0.50  0 0 0</pose>
+        <geometry>
+          <box>
+            <size>10 10 1.0</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+          <ode>
+            <mu>0.45</mu>
+            <mu2>0.45</mu2>
+          </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+    <frame name="ground_center">
+      <pose relative_to="ground_link">0 0 0.0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

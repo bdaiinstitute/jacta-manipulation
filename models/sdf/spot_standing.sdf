@@ -1,0 +1,421 @@
+<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<sdf version="1.7">
+  <model name="spot">
+    <link name="spot_body">
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="body_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/body.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="body_collision">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/collision/body_collision.obj</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+    </link>
+
+    <joint name="front_left_hip_joint" type="fixed">
+      <pose relative_to="spot_body">0.29785 0.055 0 0 0 0</pose>
+      <parent>spot_body</parent>
+      <child>front_left_hip</child>
+    </joint>
+
+    <link name="front_left_hip">
+      <pose relative_to="front_left_hip_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_left_hip_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_left_hip.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="front_left_upper_leg_joint" type="fixed">
+      <pose relative_to="front_left_hip">0 0.110945 0 0 0.85 0</pose>
+      <parent>front_left_hip</parent>
+      <child>front_left_upper_leg</child>
+    </joint>
+
+    <link name="front_left_upper_leg">
+      <pose relative_to="front_left_upper_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_left_upper_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_left_upper_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="front_left_lower_leg_joint" type="fixed">
+      <pose relative_to="front_left_upper_leg">0.025 0 -0.3205 0 -1.7 0</pose>
+      <parent>front_left_upper_leg</parent>
+      <child>front_left_lower_leg</child>
+    </joint>
+
+    <link name="front_left_lower_leg">
+      <pose relative_to="front_left_lower_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_left_lower_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_left_lower_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="front_right_hip_joint" type="fixed">
+      <pose relative_to="spot_body">0.29785 -0.055 0 0 0 0</pose>
+      <parent>spot_body</parent>
+      <child>front_right_hip</child>
+    </joint>
+
+    <link name="front_right_hip">
+      <pose relative_to="front_right_hip_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_right_hip_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_right_hip.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="front_right_upper_leg_joint" type="fixed">
+      <pose relative_to="front_right_hip">0 -0.110945 0 0 0.85 0</pose>
+      <parent>front_right_hip</parent>
+      <child>front_right_upper_leg</child>
+    </joint>
+
+    <link name="front_right_upper_leg">
+      <pose relative_to="front_right_upper_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_right_upper_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_right_upper_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="front_right_lower_leg_joint" type="fixed">
+      <pose relative_to="front_right_upper_leg">0.025 0 -0.3205 0 -1.7 0</pose>
+      <parent>front_right_upper_leg</parent>
+      <child>front_right_lower_leg</child>
+    </joint>
+
+    <link name="front_right_lower_leg">
+      <pose relative_to="front_right_lower_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="front_right_lower_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/front_right_lower_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_left_hip_joint" type="fixed">
+      <pose relative_to="spot_body">-0.29785 0.055 0 0 0 0</pose>
+      <parent>spot_body</parent>
+      <child>rear_left_hip</child>
+    </joint>
+
+    <link name="rear_left_hip">
+      <pose relative_to="rear_left_hip_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_left_hip_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_left_hip.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_left_upper_leg_joint" type="fixed">
+      <pose relative_to="rear_left_hip">0 0.110945 0 0 0.85 0</pose>
+      <parent>rear_left_hip</parent>
+      <child>rear_left_upper_leg</child>
+    </joint>
+
+    <link name="rear_left_upper_leg">
+      <pose relative_to="rear_left_upper_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_left_upper_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_left_upper_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_left_lower_leg_joint" type="fixed">
+      <pose relative_to="rear_left_upper_leg">0.025 0 -0.3205 0 -1.7 0</pose>
+      <parent>rear_left_upper_leg</parent>
+      <child>rear_left_lower_leg</child>
+    </joint>
+
+    <link name="rear_left_lower_leg">
+      <pose relative_to="rear_left_lower_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_left_lower_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_left_lower_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_right_hip_joint" type="fixed">
+      <pose relative_to="spot_body">-0.29785 -0.055 0 0 0 0</pose>
+      <parent>spot_body</parent>
+      <child>rear_right_hip</child>
+    </joint>
+
+    <link name="rear_right_hip">
+      <pose relative_to="rear_right_hip_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_right_hip_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_right_hip.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_right_upper_leg_joint" type="fixed">
+      <pose relative_to="rear_right_hip">0 -0.110945 0 0 0.85 0</pose>
+      <parent>rear_right_hip</parent>
+      <child>rear_right_upper_leg</child>
+    </joint>
+
+    <link name="rear_right_upper_leg">
+      <pose relative_to="rear_right_upper_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_right_upper_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_right_upper_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+    <joint name="rear_right_lower_leg_joint" type="fixed">
+      <pose relative_to="rear_right_upper_leg">0.025 0 -0.3205 0 -1.7 0</pose>
+      <parent>rear_right_upper_leg</parent>
+      <child>rear_right_lower_leg</child>
+    </joint>
+
+    <link name="rear_right_lower_leg">
+      <pose relative_to="rear_right_lower_leg_joint" />
+
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.05</iyy>
+          <iyz>0</iyz>
+          <izz>0.05</izz>
+        </inertia>
+      </inertial>
+
+      <visual name="rear_right_lower_leg_visual">
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>package://spot_data/base/visual/rear_right_lower_leg.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+    </link>
+
+  </model>
+</sdf>

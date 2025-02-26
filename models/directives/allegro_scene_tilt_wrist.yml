@@ -1,0 +1,7 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+directives:
+
+- add_model:
+    name: allegro_scene_tilt_wrist
+    file: package://jacta_models/xml/allegro_scene_tilt_wrist_drake.xml

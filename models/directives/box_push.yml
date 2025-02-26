@@ -1,0 +1,7 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+directives:
+
+- add_model:
+    name: box_push
+    file: package://jacta_models/xml/box_push.xml
