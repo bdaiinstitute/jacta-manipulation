@@ -22,6 +22,11 @@ Module Contents
 
    
 
+.. py:data:: UI_CONFIG
+   :value: 'ui_config'
+
+   
+
 .. py:function:: slider(parameter_name: str, min: int | float, max: int | float, step: int | float | None = None) -> Callable
 
    
