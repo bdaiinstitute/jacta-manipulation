@@ -26,6 +26,5 @@ Submodules
    io/index.rst
    json_serializer/index.rst
    profiler/index.rst
-   visualization/index.rst
 
 

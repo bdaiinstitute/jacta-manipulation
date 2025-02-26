@@ -80,7 +80,7 @@ Module Contents
       Write traces out to buffer.
 
 
-.. py:class:: ViserApp(init_controller: str = 'predictive_sampling', init_task: str = 'cartpole', benchmark_dir: Optional[pathlib.Path] = JACTA_MANIPULATION_PATH / 'data/log/controller')
+.. py:class:: ViserApp(init_controller: str = 'predictive_sampling', init_task: str = 'cartpole', benchmark_dir: Optional[pathlib.Path] = JACTA_MANIPULATION_PATH / 'dexterity/data/log/controller')
 
 
    
