@@ -1,0 +1,25 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: "planar_hand.xml"
+vis:
+  filename: "planar_hand.yml"
+  indices: [0, 2, 1]
+  scale: ([1, -0.5 / np.pi, 1])
+
+action:
+  bound_lower: ([-np.pi / 2, -2.4, 0.0, 0.0])
+  bound_upper: ([0.0, 0.0, np.pi / 2, 2.4])
+  range: torch.ones(4) * 6
+
+reward:
+  distance_scaling: torch.diag(torch.cat((torch.tensor([1, 1, 1 / (2 * np.pi)]), torch.zeros(4), torch.ones(3)*0.01, torch.zeros(4))))
+
+start:
+  state: ([0, 0.25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+goal:
+  state: ([0.10, 0.3, -1 * np.pi, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+
+steps_per_goal: 500
+
+parallel_extensions: 5

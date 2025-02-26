@@ -220,7 +220,7 @@ texinfo_documents = [
 googleanalytics_id = "G-??????"
 
 # -- Options for autoapi extension --------------------------------------------
-autoapi_dirs = ["../../src/jactamanipulation"]
+autoapi_dirs = ["../../src/jacta"]
 autoapi_root = "api"
 autoapi_options = [
     "members",

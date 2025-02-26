@@ -1,0 +1,53 @@
+# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+
+model_filename: "planar_hand.xml"
+
+vis:
+  filename: "planar_hand.yml"
+  indices: ([0, 2, 1])
+  scale: ([1, -1 / np.pi, 1])
+
+action:
+  bound_lower: ([-np.pi / 2, -2.4, 0.0, 0.0])
+  bound_upper: ([0.0, 0.0, np.pi / 2, 2.4])
+  range: ([2, 4, 2, 4])
+  types: "[AT.RANGED, AT.PROXIMITY, AT.CONTINUATION, AT.GRADIENT]"
+  distribution: ([1, 2, 1, 2])
+
+reward:
+  distance_scaling: torch.diag(torch.tensor([1, 1, 1 / 2 * np.pi] + [0] * 4 + [0.1] * 3 + [0] * 4))
+
+start:
+  state:       ([   0, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  bound_lower: ([-0.1, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  bound_upper: ([ 0.1, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+goal:
+  state:       ([ 0.1, 0.3, np.pi, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  bound_lower: ([-0.1, 0.2, np.pi, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  bound_upper: ([ 0.1, 0.4, np.pi, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+learner:
+  early_stop: 1.0
+  trajectory_length: 80
+  use_planner_exploration: False
+  stop_converged_random_exploration: False
+  use_sparse_reward: True
+  initial_success_distance: 0.05
+  final_success_distance: 0.05
+  her_probability: 0.0
+  stop_converged_injection: False
+  max_initial_injections: 100
+  max_planner_experience_share: 0.25
+  injection_strategy: 1
+
+intermediate_pruning: False
+num_sub_goals: 30
+steps_per_goal: 30
+goal_bias: 0.0
+termination_distance: 0.05
+max_main_nodes: 50000
+action_time_step: 0.4
+action_steps_max: 3
+
+seed: 0
