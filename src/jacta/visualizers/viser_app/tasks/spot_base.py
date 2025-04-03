@@ -5,17 +5,17 @@ from typing import Any, Optional, TypeVar
 
 import mujoco
 import numpy as np
+from scipy.interpolate import interp1d
+
+from jacta.visualizers.viser_app.constants import ARM_STOWED_POS
+from jacta.visualizers.viser_app.gui import slider
+from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
+from jacta.visualizers.viser_app.tasks.task import TaskConfig
 from mujoco_extensions.policy_rollout import (
     System,
     create_systems_vector,
     threaded_rollout,
 )
-from scipy.interpolate import interp1d
-
-from jacta.visualizers.viser_app.constants import ARM_STOWED_POS
-from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
-from jacta.visualizers.viser_app.tasks.task import TaskConfig
-from jacta.visualizers.viser_app.gui import slider
 
 GOAL_POSITIONS = {
     "origin": np.array([0, 0, 0.0]),

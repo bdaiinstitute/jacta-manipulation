@@ -1,17 +1,17 @@
 # Copyright (c) 2025 Boston Dynamics AI Institute LLC. All rights reserved.
 from copy import deepcopy
-from typing import Any, Tuple
+from typing import Any, Optional, Tuple
 
 import mujoco
 import numpy as np
 from mujoco import MjData, MjModel
-from mujoco_extensions.policy_rollout import threaded_physics_rollout
 from scipy.interpolate import interp1d
 from viser import ViserServer
 
-from jacta.visualizers.viser_app.tasks.task import ConfigT, Task, TaskConfig
-from jacta.visualizers.viser_app.io import IOContext
-from jacta.visualizers.mujoco.visualization import MjVisualization
+from dexterity.tasks.task import ConfigT, Task, TaskConfig
+from dexterity.viser_app.io import IOContext
+from dexterity.visualizers.mujoco.visualization import MjVisualization
+from mujoco_extensions.policy_rollout import threaded_physics_rollout
 
 
 class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
@@ -39,12 +39,16 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
         """
         return self._additional_info
 
-    def sim_step(self, controls: interp1d) -> None:
+    def sim_step(self, controls: Optional[interp1d]) -> None:
         """Generic mujoco simulation step."""
         # Read current action from spline.
-        current_action = controls(self.data.time)
-        assert (
-            current_action.shape == (self.model.nu,)
+
+        if controls is None:
+            current_action = self.default_idle_command
+        else:
+            current_action = controls(self.data.time)
+        assert current_action.shape == (
+            self.model.nu,
         ), f"For default sim step, control shape (got {current_action.shape}) must == model.nu (got {self.model.nu})"
 
         # Write current action into MjData.

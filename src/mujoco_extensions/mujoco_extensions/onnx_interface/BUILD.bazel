@@ -1,0 +1,18 @@
+# Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
+
+load("@//tools:cc_defs.bzl", "starfish_cc_library")
+
+starfish_cc_library(
+    name = "onnx_interface",
+    srcs = [
+        "onnx_interface.cpp",
+    ],
+    hdrs = [
+        "onnx_interface.h",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@eigen",
+        "@onnxruntime",
+    ],
+)

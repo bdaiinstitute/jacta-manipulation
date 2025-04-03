@@ -19,12 +19,12 @@ from viser import GuiEvent, Icon, MeshHandle, ViserServer
 from jacta.common.path_resolvers import get_package_path
 from jacta.visualizers.viser_app.controllers import get_registered_controllers
 from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
-from jacta.visualizers.viser_app.tasks import get_registered_tasks
-from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.viser_app.gui import create_gui_elements
 from jacta.visualizers.viser_app.io import IOContext, SimulationIOContext
 from jacta.visualizers.viser_app.json_serializer import ConfigEncoder
 from jacta.visualizers.viser_app.profiler import ViserProfiler, ViserProfilerConfig
+from jacta.visualizers.viser_app.tasks import get_registered_tasks
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.visualization import Visualization
 
 JACTA_MANIPULATION_PATH = Path(get_package_path())

@@ -1,0 +1,110 @@
+# Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
+
+load("@//tools:cc_defs.bzl", "starfish_cc_library")
+load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
+load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
+
+package(default_visibility = ["//dexterity/mujoco_extensions:__subpackages__"])
+
+# A target for a python library that wraps pybind module for future wheel target
+py_library(
+    name = "mujoco_extensions",
+    srcs = ["__init__.py"],
+    data = [
+        ":jacobian_smoothing_pybind",
+        ":policy_rollout_pybind",
+    ],
+    imports = [".", "..", "@onnxruntime"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dexterity/mujoco_extensions/jacobian_smoothing",
+        "//dexterity/mujoco_extensions/policy_rollout",
+        ":system_lib",
+    ],
+)
+
+# A target for pybind module
+pybind_extension(
+    name = "jacobian_smoothing_pybind",
+    srcs = glob(["pybind/jacobian_smoothing/*.cpp"]),
+    copts = [
+        "-fopenmp",
+        "-march=native",
+        "-std=c++23",
+    ],
+    linkopts = [
+        "-lgomp",
+        "-lpthread",
+    ],
+    deps = [
+        "@eigen",
+        "@mujoco",
+        "@pybind11",
+    ],
+)
+
+# A target for pybind module
+pybind_extension(
+    name = "policy_rollout_pybind",
+    srcs = [
+        "pybind/policy_rollout/policy_rollout.cpp",
+        "pybind/policy_rollout/pybind.cpp",
+    ],
+    copts = [
+        "-fopenmp",
+        "-march=native",
+        "-std=c++23",
+    ],
+    linkopts = [
+        "-lgomp",
+        "-lpthread",
+    ],
+    deps = [
+        "//dexterity/mujoco_extensions:system_lib",
+        "@pybind11",
+        "@onnxruntime",
+    ],
+)
+
+
+starfish_cc_library(
+    name = "system_lib",
+    srcs = [
+        "system/eigen_types.cpp",
+        "system/system_class.cpp",
+        "system/system_utils.cpp",
+    ],
+    hdrs = [
+        "system/eigen_types.h",
+        "system/system_class.h",
+        "system/system_utils.h",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//dexterity/onnx_interface",
+        "@mujoco",
+        "@yaml-cpp",
+    ],
+)
+
+# The wheel precursor that can include third-party package dependencies
+py_package(
+    name = "mujoco_extensions_pkg",
+    # packages = ["mujoco_extensions"],
+    deps = [":mujoco_extensions"],
+)
+
+
+# A target for building wheels
+py_wheel(
+    name = "mujoco_extensions_wheel",
+    distribution = "mujoco_extensions",
+    python_tag = "py3",
+    version = "0.1.0",
+    # Package data. We're building "example_minimal_package-0.0.1-py3-none-any.whl"
+    visibility = ["//visibility:public"],
+    deps = [":mujoco_extensions_pkg"],
+    strip_path_prefixes = ["dexterity"],
+)
+

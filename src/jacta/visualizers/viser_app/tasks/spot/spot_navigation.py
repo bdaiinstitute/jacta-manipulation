@@ -26,8 +26,8 @@ class SpotNavigation(SpotBase[SpotNavigationConfig]):
     """Task getting Spot to navigate to a desired goal location."""
 
     def __init__(self) -> None:
-        self.model_filename = "dexterity/models/xml/scenes/legacy/spot_locomotion.xml"
-        self.policy_filename = "dexterity/data/policies/xinghao_policy_friday.onnx"
+        self.model_filename = "models/xml/scenes/legacy/spot_locomotion.xml"
+        self.policy_filename = "data/policies/xinghao_policy_friday.onnx"
         super().__init__(self.model_filename, self.policy_filename)
         self.command_mask = np.arange(0, 3)
 
