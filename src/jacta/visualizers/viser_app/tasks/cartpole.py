@@ -6,11 +6,14 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm, smooth_l1_norm
+from jacta.visualizers.viser_app.tasks.cost_functions import (
+    quadratic_norm,
+    smooth_l1_norm,
+)
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
-MODEL_PATH = "dexterity/models/xml/scenes/legacy/cartpole.xml"
+MODEL_PATH = "models/xml/scenes/legacy/cartpole.xml"
 
 
 @dataclass

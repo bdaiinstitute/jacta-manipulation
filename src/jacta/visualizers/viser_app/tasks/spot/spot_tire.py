@@ -5,7 +5,10 @@ from dataclasses import dataclass, field
 import mujoco
 import numpy as np
 
-from jacta.visualizers.viser_app.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
+from jacta.visualizers.viser_app.constants import (
+    ARM_UNSTOWED_POS,
+    STANDING_UNSTOWED_POS,
+)
 from jacta.visualizers.viser_app.tasks.spot_base import (
     DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME,
     GOAL_POSITIONS,
@@ -44,8 +47,8 @@ class SpotTire(SpotBase[SpotTireConfig]):
     """Task getting Spot to move a tire to a desired goal location."""
 
     def __init__(self) -> None:
-        self.model_filename = "dexterity/models/xml/scenes/legacy/spot_tire_rim.xml"
-        self.policy_filename = "dexterity/data/policies/xinghao_policy_friday.onnx"
+        self.model_filename = "models/xml/scenes/legacy/spot_tire_rim.xml"
+        self.policy_filename = "data/policies/xinghao_policy_friday.onnx"
         super().__init__(self.model_filename, self.policy_filename)
         self.command_mask = np.arange(0, 10)
 
