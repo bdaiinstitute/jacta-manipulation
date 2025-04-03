@@ -5,10 +5,13 @@ from typing import Any, Literal
 import numpy as np
 from scipy.interpolate import interp1d
 
-from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
 from jacta.visualizers.mujoco_helpers.utils import get_trace_sensors
-from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
+from jacta.visualizers.viser_app.controllers.controller import (
+    Controller,
+    ControllerConfig,
+)
 from jacta.visualizers.viser_app.gui import slider
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 
 MAX_NUM_TRACES = 5
 
@@ -22,7 +25,7 @@ class SamplingBaseConfig(ControllerConfig):
     """Base controller config with spline parameters."""
 
     horizon: float = 1.0
-    num_nodes: int = 5
+    num_nodes: int = 3
     num_rollouts: int = 32
     spline_order: Literal["zero", "slinear", "cubic"] = "slinear"
     control_freq: float = 20.0
@@ -59,13 +62,12 @@ class SamplingBase(Controller):
         self.sensors = np.zeros(
             (self.config.num_rollouts, self.num_timesteps, self.model.nsensordata)
         )
-        self.rewards = np.zeros((self.config.num_rollouts,))
-        self.set_default_controls()
-        self.candidate_controls = np.tile(
-            self.controls, (self.config.num_rollouts, 1, 1)
+        self.rollout_controls = np.zeros(
+            (self.config.num_rollouts, self.num_timesteps, self.model.nu)
         )
+        self.rewards = np.zeros((self.config.num_rollouts,))
+        self.reset()
 
-        self.update_spline(task.data.time + self.spline_timesteps, self.controls)
         self.models = self.task.make_models(self.config.num_rollouts)
         self.trace_sensors = get_trace_sensors(self.model)
         self.num_elite = min(MAX_NUM_TRACES, len(self.rewards))
@@ -141,8 +143,11 @@ class SamplingBase(Controller):
             )
 
     def reset(self) -> None:
-        """Reset the controls and the spline to their default values."""
+        """Reset the controls, candidate controls and the spline to their default values."""
         self.set_default_controls()
+        self.candidate_controls = np.tile(
+            self.controls, (self.config.num_rollouts, 1, 1)
+        )
         self.update_spline(self.task.data.time + self.spline_timesteps, self.controls)
 
     def update_traces(self) -> None:

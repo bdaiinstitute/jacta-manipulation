@@ -11,8 +11,8 @@ from jacta.visualizers.viser_app.controllers.sampling_base import (
     SamplingBaseConfig,
     make_spline,
 )
-from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.viser_app.gui import slider
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 
 
 @slider("temperature", 0.1, 2.0, 0.05)
@@ -79,7 +79,7 @@ class MPPI(SamplingBase):
         candidate_splines = make_spline(
             new_times, candidate_controls, self.config.spline_order
         )
-        rollout_controls = candidate_splines(curr_time + self.rollout_times)
+        self.rollout_controls = candidate_splines(curr_time + self.rollout_times)
 
         # Create lists of states / controls for rollout.
         curr_state_batch = np.tile(curr_state, (self.config.num_rollouts, 1))
@@ -89,12 +89,16 @@ class MPPI(SamplingBase):
 
         # Roll out dynamics with action sequences.
         self.states, self.sensors = self.task.rollout(
-            self.models, curr_state_batch, rollout_controls, additional_info
+            self.models, curr_state_batch, self.rollout_controls, additional_info
         )
 
         # Evalate rewards. We have the negative of the version in the code because our rewards are negative
         self.rewards = self.reward_function(
-            self.states, self.sensors, rollout_controls, self.reward_config
+            self.states,
+            self.sensors,
+            self.rollout_controls,
+            self.reward_config,
+            additional_info,
         )
         costs = -self.rewards
 
