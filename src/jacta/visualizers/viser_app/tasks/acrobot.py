@@ -1,16 +1,17 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import mujoco
 import numpy as np
 
+from jacta.visualizers.viser_app.path_utils import MODEL_PATH
 from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
-MODEL_PATH = "models/xml/scenes/legacy/acrobot.xml"
+XML_PATH = str(MODEL_PATH / "xml/acrobot.xml")
 
 
 @dataclass
@@ -31,7 +32,7 @@ class Acrobot(MujocoTask[AcrobotConfig]):
     """Defines the acrobot balancing task."""
 
     def __init__(self) -> None:
-        super().__init__(MODEL_PATH)
+        super().__init__(XML_PATH)
         self.reset()
 
     def reward(
@@ -40,6 +41,7 @@ class Acrobot(MujocoTask[AcrobotConfig]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: AcrobotConfig,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Implements the acrobot reward from MJPC.
 

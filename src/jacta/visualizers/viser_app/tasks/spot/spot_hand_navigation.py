@@ -1,12 +1,17 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 
 from dataclasses import dataclass, field
+from typing import Any
 
 import mujoco
 import numpy as np
 
-from jacta.visualizers.viser_app.constants import ARM_UNSTOWED_POS, STANDING_UNSTOWED_POS
 from jacta.visualizers.mujoco_helpers.utils import get_sensor_name
+from jacta.visualizers.viser_app.constants import (
+    ARM_UNSTOWED_POS,
+    STANDING_UNSTOWED_POS,
+)
+from jacta.visualizers.viser_app.path_utils import DATA_PATH, MODEL_PATH
 from jacta.visualizers.viser_app.tasks.spot_base import (
     DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME,
     GOAL_POSITIONS,
@@ -22,15 +27,16 @@ class SpotHandNavigationConfig(SpotBaseConfig):
     default_command: np.ndarray = field(
         default_factory=lambda: np.array([0, 0, 0.0, *ARM_UNSTOWED_POS])
     )
-    goal_position: np.ndarray = GOAL_POSITIONS["black_cross"]
+    goal_position: np.ndarray = GOAL_POSITIONS().black_cross
 
 
 class SpotHandNavigation(SpotBase[SpotHandNavigationConfig]):
     """Task getting Spot to navigate to a desired goal location."""
 
     def __init__(self) -> None:
-        self.system_config_path = "dexterity/config/optimizer/spot_locomotion.yml"
-        super().__init__(self.system_config_path)
+        self.model_filename: str = str(MODEL_PATH / "xml/spot_locomotion.xml")
+        self.policy_filename: str = str(DATA_PATH / "policies/xinghao_policy_v1.onnx")
+        super().__init__(self.model_filename, self.policy_filename)
         self.command_mask = np.arange(0, 10)
 
         self.hand_sensor_adr = -1
@@ -49,13 +55,15 @@ class SpotHandNavigation(SpotBase[SpotHandNavigationConfig]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: SpotHandNavigationConfig,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Reward function for the Spot navigation task."""
         batch_size = states.shape[0]
 
         # Check if any state in the rollout has spot fallen
+        body_height = states[..., 2]
         spot_fallen_reward = -config.fall_penalty * (
-            states[..., 2] <= config.spot_fallen_threshold
+            body_height <= config.spot_fallen_threshold
         ).any(axis=-1)
 
         # DIRTY: repurposing gripper trace for reward comp.
@@ -65,13 +73,15 @@ class SpotHandNavigation(SpotBase[SpotHandNavigationConfig]):
         ).mean(-1)
 
         # Compute a velocity penalty to prefer small velocity commands.
-        vel_cmd_reward = -config.w_vel * np.linalg.norm(controls, axis=-1).mean(-1)
+        controls_reward = -config.w_controls * np.linalg.norm(controls, axis=-1).mean(
+            -1
+        )
 
         assert spot_fallen_reward.shape == (batch_size,)
         assert goal_reward.shape == (batch_size,)
-        assert vel_cmd_reward.shape == (batch_size,)
+        assert controls_reward.shape == (batch_size,)
 
-        return spot_fallen_reward + goal_reward + vel_cmd_reward
+        return spot_fallen_reward + goal_reward + controls_reward
 
     def reset(self) -> None:
         """Reset function for the spot navigation task ."""

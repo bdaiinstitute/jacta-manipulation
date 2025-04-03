@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 import numpy as np
 from scipy.interpolate import interp1d
@@ -38,11 +38,12 @@ class Task(Generic[ConfigT, ModelT]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: ConfigT,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Abstract reward function for task."""
 
     @abstractmethod
-    def sim_step(self, controls: interp1d) -> None:
+    def sim_step(self, controls: Optional[interp1d]) -> None:
         """Generic simulation step. Reads controls and updates self.data."""
 
     @abstractmethod

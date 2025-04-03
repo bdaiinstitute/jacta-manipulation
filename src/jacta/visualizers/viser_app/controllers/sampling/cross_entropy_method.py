@@ -25,6 +25,21 @@ from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 #     horizon: float = 3.8
 #     num_rollouts: int = 48
 #     noise_ramp: float = 10.
+#     use_noise_ramp: bool = True
+
+
+# ## YELLOW CHAIR HARDWARE
+# @dataclass
+# class CrossEntropyConfig(SamplingBaseConfig):
+#     """Configuration for cross-entropy method."""
+
+#     sigma_min: float = 0.1
+#     sigma_max: float = 1.0
+#     num_elites: int = 2
+#     horizon: float = 3.8
+#     num_rollouts: int = 48
+#     noise_ramp: float = 2.5
+#     use_noise_ramp: bool = True
 
 
 @dataclass
@@ -37,6 +52,7 @@ class CrossEntropyConfig(SamplingBaseConfig):
     horizon: float = 2.8
     num_rollouts: int = 32
     noise_ramp: float = 2.5
+    use_noise_ramp: bool = True
 
 
 class CrossEntropyMethod(SamplingBase):
@@ -124,7 +140,7 @@ class CrossEntropyMethod(SamplingBase):
         candidate_splines = make_spline(
             new_times, self.candidate_controls, self.config.spline_order
         )
-        rollout_controls = candidate_splines(curr_time + self.rollout_times)
+        self.rollout_controls = candidate_splines(curr_time + self.rollout_times)
 
         # Create lists of states / controls for rollout.
         curr_state_batch = np.tile(curr_state, (self.config.num_rollouts, 1))
@@ -134,14 +150,17 @@ class CrossEntropyMethod(SamplingBase):
 
         # Roll out dynamics with action sequences.
         self.states, self.sensors = self.task.rollout(
-            self.models, curr_state_batch, rollout_controls, additional_info
+            self.models, curr_state_batch, self.rollout_controls, additional_info
         )
 
         # Evalate rewards
         self.rewards = self.reward_function(
-            self.states, self.sensors, rollout_controls, self.reward_config
+            self.states,
+            self.sensors,
+            self.rollout_controls,
+            self.reward_config,
+            additional_info,
         )
-
         # Compute elite indices by reverse-sorting rewards.
         self.elite_inds = np.flip(np.argsort(self.rewards))[: self.config.num_elites]
 

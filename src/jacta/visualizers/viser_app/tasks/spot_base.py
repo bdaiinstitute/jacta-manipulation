@@ -17,16 +17,23 @@ from mujoco_extensions.policy_rollout import (
     threaded_rollout,
 )
 
-GOAL_POSITIONS = {
-    "origin": np.array([0, 0, 0.0]),
-    "blue_cross": np.array([2.77, 0.71, 0.3]),
-    "black_cross": np.array([1.63, -0.53, 0.31]),
-}
+
+@dataclass
+class GOAL_POSITIONS:
+    """Goal positions of Spot."""
+
+    origin: np.ndarray = field(default_factory=lambda: np.array([0, 0, 0.0]))
+    blue_cross: np.ndarray = field(default_factory=lambda: np.array([2.77, 0.71, 0.3]))
+    black_cross: np.ndarray = field(
+        default_factory=lambda: np.array([1.63, -0.53, 0.31])
+    )
+
 
 DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME = 0.25  # seconds
 
 
 @slider("w_goal", 50.0, 200.0)
+@slider("w_controls", 0.0, 10.0)
 @dataclass
 class SpotBaseConfig(TaskConfig):
     """Base config for spot tasks."""
@@ -40,7 +47,7 @@ class SpotBaseConfig(TaskConfig):
     spot_fallen_threshold = 0.35  # Torso height where Spot is considered "fallen"
     w_goal: float = 60.0
     w_proximity: float = 2.0
-    w_vel: float = 0.0
+    w_controls: float = 0.0
     cutoff_time: float = DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME
 
 
@@ -104,8 +111,8 @@ class SpotBase(MujocoTask[ConfigT]):
         self.data.qvel[:] = next_state[0][-1][self.model.nq :]
         mujoco.mj_forward(self.model, self.data)
 
-        self.last_policy_output = np.array(next_policy_output[0])
-        self._additional_info["last_policy_output"] = next_policy_output
+        self.last_policy_output = next_policy_output[0]
+        self._additional_info["last_policy_output"] = next_policy_output[0]
         # Advance time since we don't use mj_step
         self.data.time += self.model.opt.timestep * self.physics_substeps
 
