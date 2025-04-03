@@ -96,4 +96,4 @@ install(FILES ${ONNXRUNTIME_LIB_FILE1} DESTINATION "mujoco_extensions/onnxruntim
 install(TARGETS policy_rollout_cpp
         LIBRARY DESTINATION "mujoco_extensions/policy_rollout")
 install(TARGETS jacobian_smoothing_cpp
-        LIBRARY DESTINATION "mujoco_extensions/jacobian_smoothing")  
+        LIBRARY DESTINATION "mujoco_extensions/jacobian_smoothing")

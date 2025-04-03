@@ -47,8 +47,8 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
             current_action = self.default_idle_command
         else:
             current_action = controls(self.data.time)
-        assert current_action.shape == (
-            self.model.nu,
+        assert (
+            current_action.shape == (self.model.nu,)
         ), f"For default sim step, control shape (got {current_action.shape}) must == model.nu (got {self.model.nu})"
 
         # Write current action into MjData.

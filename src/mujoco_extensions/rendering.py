@@ -6,7 +6,6 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from dexterity.jacta_planner.dynamics.mujoco_dynamics import MujocoPlant
 from dexterity.jacta_planner.planner.parameter_container import ParameterContainer
 from dexterity.jacta_planner.visuals.mujoco_visualizer import MujocoRenderer
@@ -44,19 +43,28 @@ renderer = MujocoRenderer(plant=plant, collision_geometry_opacity=0.0)
 
 # %%
 visualizer = renderer.visualizer
-colors = {"blue_green": [0.17, 0.67, 0.59], "blue": [0.17, 0.67, 0.79], "white": [1, 1, 1], "black": [0, 0, 0]}
+colors = {
+    "blue_green": [0.17, 0.67, 0.59],
+    "blue": [0.17, 0.67, 0.79],
+    "white": [1, 1, 1],
+    "black": [0, 0, 0],
+}
 visualizer["/Background"].set_property("top_color", colors["white"])
 visualizer["/Background"].set_property("bottom_color", colors["white"])
 
 # %%
-states = load_matrix_from_file(Path("dexterity/models") / (EXAMPLE_NAME + "_states100.bin"))
+states = load_matrix_from_file(
+    Path("dexterity/models") / (EXAMPLE_NAME + "_states100.bin")
+)
 
 DEFAULT_COLORS = {
     "trajectory": None,
     "goal": [0.2, 0.2, 0.6, 0.5],
 }
 # states = np.zeros((3000, 200))
-renderer.show(states[:, 0 : plant.model.nq], goal=params.goal_state, colors=DEFAULT_COLORS)
+renderer.show(
+    states[:, 0 : plant.model.nq], goal=params.goal_state, colors=DEFAULT_COLORS
+)
 
 
 # %%
@@ -119,7 +127,9 @@ for element in not_visible:
     renderer.visualizer[element].set_property("visible", False)
 
 # %%
-command = load_matrix_from_file(Path("dexterity/models") / (EXAMPLE_NAME + "_command100.bin"))
+command = load_matrix_from_file(
+    Path("dexterity/models") / (EXAMPLE_NAME + "_command100.bin")
+)
 plt.plot(command[:, 0:3])
 plt.show()
 plt.plot(command[:, 3:10])
