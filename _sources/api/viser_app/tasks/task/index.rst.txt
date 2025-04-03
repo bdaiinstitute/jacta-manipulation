@@ -60,7 +60,7 @@ Module Contents
       
       Timestep for this task.
 
-   .. py:method:: create_visualization(server: viser.ViserServer, context: jacta.visualizers.viser_app.io.IOContext, text_handles: dict) -> jacta.visualizers.viser_app.visualization.Visualization
+   .. py:method:: create_visualization(server: viser.ViserServer, context: jacta.visualizers.viser_app.io.IOContext, text_handles: dict) -> jacta.visualizers.visualization.Visualization
       :abstractmethod:
 
       

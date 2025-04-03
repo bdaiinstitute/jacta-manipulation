@@ -7,10 +7,6 @@
 Module Contents
 ---------------
 
-.. py:data:: JACTA_MANIPULATION_PATH
-
-   
-
 .. py:class:: SimulationProcess(task: jacta.visualizers.viser_app.tasks.task.Task, context: jacta.visualizers.viser_app.io.SimulationIOContext)
 
 
@@ -80,7 +76,7 @@ Module Contents
       Write traces out to buffer.
 
 
-.. py:class:: ViserApp(init_controller: str = 'predictive_sampling', init_task: str = 'cartpole', benchmark_dir: Optional[pathlib.Path] = JACTA_MANIPULATION_PATH / 'data/log/controller')
+.. py:class:: ViserApp(init_controller: str = 'predictive_sampling', init_task: str = 'cartpole', port: int = 8008, benchmark_dir: Optional[pathlib.Path] = PACKAGE_ROOT / 'log/controller')
 
 
    
