@@ -193,7 +193,9 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "jacta-manipulation", "jacta-manipulation documentation", [author], 1)]
+man_pages = [
+    (master_doc, "jacta-manipulation", "jacta-manipulation documentation", [author], 1)
+]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -232,7 +234,6 @@ autoapi_options = [
     #  "show-module-summary",
 ]
 autoapi_add_toctree_entry = False
-
 
 
 # -- Options for todo extension ----------------------------------------------
