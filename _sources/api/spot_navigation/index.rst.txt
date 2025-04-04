@@ -44,7 +44,7 @@ Module Contents
       
       Control bounds for this task.
 
-   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: SpotNavigationConfig, additional_info: dict[str, Any]) -> numpy.ndarray
+   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: SpotNavigationConfig) -> numpy.ndarray
 
       
       Reward function for the Spot navigation task.

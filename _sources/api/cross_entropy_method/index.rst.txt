@@ -50,12 +50,6 @@ Module Contents
 
       
 
-   .. py:attribute:: use_noise_ramp
-      :type: bool
-      :value: True
-
-      
-
 
 .. py:class:: CrossEntropyMethod(task: jacta.visualizers.viser_app.tasks.task.Task, config: CrossEntropyConfig, reward_config: jacta.visualizers.viser_app.tasks.task.TaskConfig)
 
