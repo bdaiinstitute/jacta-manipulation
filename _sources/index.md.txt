@@ -34,18 +34,6 @@
 
 <!-- prettier-ignore-end -->
 
-<!-- .. toctree::
-   :caption: API Reference
-   :hidden:
-   :maxdepth: 5
-   :titlesonly:
-   :glob: -->
-
-   <!-- api/common/**/index -->
-   <!-- api/**/index -->
-
-
-
 
 .. toctree::
    :caption: API Reference
@@ -53,34 +41,9 @@
    :hidden:
    :titlesonly:
    :glob:
-   
+
 
    api/common/index
    api/learning/index
    api/planner/index
    api/visualizers/index
-
-
-   <!-- api/action_trajectory/index
-   api/cmaes/index
-   api/core/index
-   api/cross_entropy_method/index
-   api/experts/index
-   api/learning/index
-   api/model/index
-   api/mppi/index
-   api/mujoco_dynamics/index
-   api/mujoco_helpers/index
-   api/particle_filter/index
-   api/path_resolvers/index
-   api/paths/index
-   api/predictive_sampling/index
-   api/simulator_plant/index
-   api/spot_box/index
-   api/spot_hand_navigation/index
-   api/spot_navigation/index
-   api/spot_tire/index
-   api/viser_app/index
-   api/viser_app/profiler/index
-   api/visualization/index
-   api/visuals/index -->
