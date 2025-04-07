@@ -22,7 +22,7 @@ import m2r2
 
 # -- Project information -----------------------------------------------------
 
-project = "jacta-manipulation"
+project = "jacta"
 copyright = "2024 - 2025"
 author = "The AI Institute"
 
@@ -120,7 +120,7 @@ pygments_style = "monokai"
 # a list of builtin themes.
 #
 html_theme = "furo"
-html_title = "jacta-manipulation"
+html_title = "jacta"
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -148,7 +148,7 @@ html_static_path = ["_static"]
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "jacta-manipulation_doc"
+htmlhelp_basename = "jacta_doc"
 
 
 # -- Options for Github output ------------------------------------------------
@@ -181,8 +181,8 @@ latex_elements: Dict[str, str] = {
 latex_documents = [
     (
         master_doc,
-        "jacta-manipulation.tex",
-        "jacta-manipulation",
+        "jacta.tex",
+        "jacta",
         "bdaiinstitute",
         "manual",
     ),
@@ -193,7 +193,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "jacta-manipulation", "jacta-manipulation documentation", [author], 1)]
+man_pages = [(master_doc, "jacta", "jacta documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -204,11 +204,11 @@ man_pages = [(master_doc, "jacta-manipulation", "jacta-manipulation documentatio
 texinfo_documents = [
     (
         master_doc,
-        "jacta-manipulation",
-        "jacta-manipulation",
+        "jacta",
+        "jacta",
         author,
-        "jacta-manipulation",
-        "jacta-manipulation",
+        "jacta",
+        "jacta",
         "Miscellaneous",
     ),
 ]
