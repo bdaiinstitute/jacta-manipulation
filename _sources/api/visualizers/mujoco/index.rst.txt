@@ -1,0 +1,16 @@
+:py:mod:`visualizers.mujoco`
+============================
+
+.. py:module:: visualizers.mujoco
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   model/index.rst
+   visualization/index.rst
+
+
