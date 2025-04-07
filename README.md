@@ -58,7 +58,7 @@ python jacta-manipulation/examples/planner/example_notebook.py
 ### Run tests locally
 In the virtual environment:
 ```
-pip install pytest
+pip install -e .[dev]
 python -m pytest
 ```
 you might have to
