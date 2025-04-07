@@ -22,7 +22,7 @@ import m2r2
 
 # -- Project information -----------------------------------------------------
 
-project = "jacta"
+project = "jacta-manipulation"
 copyright = "2024 - 2025"
 author = "The AI Institute"
 
@@ -120,7 +120,7 @@ pygments_style = "monokai"
 # a list of builtin themes.
 #
 html_theme = "furo"
-html_title = "jacta"
+html_title = "jacta-manipulation"
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -181,8 +181,8 @@ latex_elements: Dict[str, str] = {
 latex_documents = [
     (
         master_doc,
-        "jacta.tex",
-        "jacta",
+        "jacta-manipulation.tex",
+        "jacta-manipulation",
         "bdaiinstitute",
         "manual",
     ),
@@ -193,7 +193,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "jacta", "jacta documentation", [author], 1)]
+man_pages = [(master_doc, "jacta-manipulation", "jacta-manipulation documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -204,11 +204,11 @@ man_pages = [(master_doc, "jacta", "jacta documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "jacta",
-        "jacta",
+        "jacta-manipulation",
+        "jacta-manipulation",
         author,
-        "jacta",
-        "jacta",
+        "jacta-manipulation",
+        "jacta-manipulation",
         "Miscellaneous",
     ),
 ]
