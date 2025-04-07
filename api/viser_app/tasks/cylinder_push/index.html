@@ -210,8 +210,8 @@
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 <dl class="py data">
-<dt class="sig sig-object py" id="viser_app.tasks.cylinder_push.MODEL_PATH">
-<span class="sig-prename descclassname"><span class="pre">viser_app.tasks.cylinder_push.</span></span><span class="sig-name descname"><span class="pre">MODEL_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dexterity/models/xml/scenes/legacy/cylinder_push.xml'</span></em><a class="headerlink" href="#viser_app.tasks.cylinder_push.MODEL_PATH" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="viser_app.tasks.cylinder_push.XML_PATH">
+<span class="sig-prename descclassname"><span class="pre">viser_app.tasks.cylinder_push.</span></span><span class="sig-name descname"><span class="pre">XML_PATH</span></span><a class="headerlink" href="#viser_app.tasks.cylinder_push.XML_PATH" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
@@ -264,7 +264,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.tasks.cylinder_push.</span></span><span class="sig-name descname"><span class="pre">CylinderPush</span></span><a class="headerlink" href="#viser_app.tasks.cylinder_push.CylinderPush" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">jacta.visualizers.viser_app.tasks.mujoco_task.MujocoTask</span></code>[<a class="reference internal" href="#viser_app.tasks.cylinder_push.CylinderPushConfig" title="viser_app.tasks.cylinder_push.CylinderPushConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CylinderPushConfig</span></code></a>]</p>
 <p>Defines the cylinder push balancing task.
-.. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: CylinderPushConfig) -&gt; numpy.ndarray</p>
+.. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: CylinderPushConfig, additional_info: dict[str, Any]) -&gt; numpy.ndarray</p>
 <blockquote>
 <div><p>Implements the cylinder push reward from MJPC.</p>
 <p>Maps a list of states, list of controls, to a batch of rewards (summed over time) for each rollout.</p>
@@ -338,7 +338,7 @@
             <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">viser_app.tasks.cylinder_push</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#viser_app.tasks.cylinder_push.MODEL_PATH"><code class="docutils literal notranslate"><span class="pre">MODEL_PATH</span></code></a></li>
+<li><a class="reference internal" href="#viser_app.tasks.cylinder_push.XML_PATH"><code class="docutils literal notranslate"><span class="pre">XML_PATH</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.cylinder_push.CylinderPushConfig"><code class="docutils literal notranslate"><span class="pre">CylinderPushConfig</span></code></a><ul>
 <li><a class="reference internal" href="#viser_app.tasks.cylinder_push.CylinderPushConfig.w_pusher_proximity"><code class="docutils literal notranslate"><span class="pre">CylinderPushConfig.w_pusher_proximity</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.cylinder_push.CylinderPushConfig.w_pusher_velocity"><code class="docutils literal notranslate"><span class="pre">CylinderPushConfig.w_pusher_velocity</span></code></a></li>

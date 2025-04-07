@@ -7,8 +7,7 @@
 Module Contents
 ---------------
 
-.. py:data:: MODEL_PATH
-   :value: 'dexterity/models/xml/scenes/legacy/cylinder_push.xml'
+.. py:data:: XML_PATH
 
    
 
@@ -67,7 +66,7 @@ Module Contents
 
    
    Defines the cylinder push balancing task.
-   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: CylinderPushConfig) -> numpy.ndarray
+   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: CylinderPushConfig, additional_info: dict[str, Any]) -> numpy.ndarray
 
       
       Implements the cylinder push reward from MJPC.

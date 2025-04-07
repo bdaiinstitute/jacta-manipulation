@@ -209,10 +209,29 @@
 <span id="viser-app-tasks-spot-base"></span><h1><a class="reference internal" href="#module-viser_app.tasks.spot_base" title="viser_app.tasks.spot_base"><code class="xref py py-mod docutils literal notranslate"><span class="pre">viser_app.tasks.spot_base</span></code></a><a class="headerlink" href="#module-viser_app.tasks.spot_base" title="Link to this heading">#</a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
-<dl class="py data">
+<dl class="py class">
 <dt class="sig sig-object py" id="viser_app.tasks.spot_base.GOAL_POSITIONS">
-<span class="sig-prename descclassname"><span class="pre">viser_app.tasks.spot_base.</span></span><span class="sig-name descname"><span class="pre">GOAL_POSITIONS</span></span><a class="headerlink" href="#viser_app.tasks.spot_base.GOAL_POSITIONS" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">viser_app.tasks.spot_base.</span></span><span class="sig-name descname"><span class="pre">GOAL_POSITIONS</span></span><a class="headerlink" href="#viser_app.tasks.spot_base.GOAL_POSITIONS" title="Link to this definition">#</a></dt>
+<dd><p>Goal positions of Spot.
+.. py:attribute:: origin</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="viser_app.tasks.spot_base.GOAL_POSITIONS.blue_cross">
+<span class="sig-name descname"><span class="pre">blue_cross</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#viser_app.tasks.spot_base.GOAL_POSITIONS.blue_cross" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="viser_app.tasks.spot_base.GOAL_POSITIONS.black_cross">
+<span class="sig-name descname"><span class="pre">black_cross</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#viser_app.tasks.spot_base.GOAL_POSITIONS.black_cross" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="viser_app.tasks.spot_base.DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME">
@@ -253,8 +272,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="viser_app.tasks.spot_base.SpotBaseConfig.w_vel">
-<span class="sig-name descname"><span class="pre">w_vel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_vel" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="viser_app.tasks.spot_base.SpotBaseConfig.w_controls">
+<span class="sig-name descname"><span class="pre">w_controls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_controls" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -401,14 +420,18 @@
             <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">viser_app.tasks.spot_base</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#viser_app.tasks.spot_base.GOAL_POSITIONS"><code class="docutils literal notranslate"><span class="pre">GOAL_POSITIONS</span></code></a></li>
+<li><a class="reference internal" href="#viser_app.tasks.spot_base.GOAL_POSITIONS"><code class="docutils literal notranslate"><span class="pre">GOAL_POSITIONS</span></code></a><ul>
+<li><a class="reference internal" href="#viser_app.tasks.spot_base.GOAL_POSITIONS.blue_cross"><code class="docutils literal notranslate"><span class="pre">GOAL_POSITIONS.blue_cross</span></code></a></li>
+<li><a class="reference internal" href="#viser_app.tasks.spot_base.GOAL_POSITIONS.black_cross"><code class="docutils literal notranslate"><span class="pre">GOAL_POSITIONS.black_cross</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME"><code class="docutils literal notranslate"><span class="pre">DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig</span></code></a><ul>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.fall_penalty"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.fall_penalty</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.spot_fallen_threshold"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.spot_fallen_threshold</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_goal"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.w_goal</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_proximity"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.w_proximity</span></code></a></li>
-<li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_vel"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.w_vel</span></code></a></li>
+<li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.w_controls"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.w_controls</span></code></a></li>
 <li><a class="reference internal" href="#viser_app.tasks.spot_base.SpotBaseConfig.cutoff_time"><code class="docutils literal notranslate"><span class="pre">SpotBaseConfig.cutoff_time</span></code></a></li>
 </ul>
 </li>

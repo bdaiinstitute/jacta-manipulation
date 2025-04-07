@@ -66,13 +66,13 @@ Module Contents
       
       Returns a visualizer for the task.
 
-   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: ConfigT) -> numpy.ndarray
+   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: ConfigT, additional_info: dict[str, Any]) -> numpy.ndarray
       :abstractmethod:
 
       
       Abstract reward function for task.
 
-   .. py:method:: sim_step(controls: scipy.interpolate.interp1d) -> None
+   .. py:method:: sim_step(controls: Optional[scipy.interpolate.interp1d]) -> None
       :abstractmethod:
 
       
