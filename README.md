@@ -10,7 +10,18 @@
 > that the code may contain missing features and potential bugs. As part of this<br>
 > release, the RAI Institute does not offer maintenance or support for the software.
 
-### Install package
+## Jacta: A Versatile Planner for Learning Dexterous and Whole-body Manipulation
+<div align="center">
+  
+[![Static Badge](https://img.shields.io/badge/ArXiv-8C48FC?style=for-the-badge)](https://arxiv.org/pdf/2408.01258)
+[![Static Badge](https://img.shields.io/badge/Project_Page-8C48FC?style=for-the-badge)](https://jacta-manipulation.github.io/)
+[![Static Badge](https://img.shields.io/badge/RAI_Institute-8C48FC?style=for-the-badge)](https://rai-inst.com/resources/papers/jacta-a-versatile-planner-for-learning-dexterous-and-whole-body-manipulation/)
+
+</div>
+
+![Jacta Manipulation](docs/source/_static/images/jacta_overview.jpg)
+
+### Installation
 ```
 git clone https://github.com/bdaiinstitute/jacta-manipulation.git
 cd jacta-manipulation
@@ -28,4 +39,20 @@ python -m pytest
 you might have to
 ```
 unset PYTHONPATH
+```
+
+### Citation
+```
+@inproceedings{brudigam2024jacta,
+  author       = {Br{\"u}digam, Jan and Abbas, Ali-Adeeb and Sorokin, Maks and Fang, Kuan and Hung, Brandon and Guru, Maya and Sosnowski, Stefan and Wang, Jiuguang and Hirche, Sandra and Le Cleac'h, Simon},
+  editor       = {Agrawal, Pulkit and Kroemer, Oliver and Burgard, Wolfram},
+  title        = {Jacta: {A} Versatile Planner for Learning Dexterous and Whole-body Manipulation},
+  booktitle    = {Conference on Robot Learning, 6-9 November 2024, Munich, Germany},
+  series       = {Proceedings of Machine Learning Research},
+  volume       = {270},
+  pages        = {994--1020},
+  publisher    = {{PMLR}},
+  year         = {2024},
+  url          = {https://proceedings.mlr.press/v270/bruedigam25a.html},
+}
 ```
