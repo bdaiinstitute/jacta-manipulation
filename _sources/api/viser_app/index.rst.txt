@@ -25,7 +25,6 @@ Submodules
    gui/index.rst
    io/index.rst
    json_serializer/index.rst
-   path_utils/index.rst
    profiler/index.rst
 
 
