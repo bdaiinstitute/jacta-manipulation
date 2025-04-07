@@ -18,6 +18,8 @@
 [![Static Badge](https://img.shields.io/badge/RAI_Institute-8C48FC?style=for-the-badge)](https://rai-inst.com/resources/papers/jacta-a-versatile-planner-for-learning-dexterous-and-whole-body-manipulation/)
 
 </div>
+Robotic manipulation is challenging and data-driven approaches typically require large amounts of data or expert demonstrations. Therefore, we introduce a motion planner for dexterous and whole-body manipulation tasks. The planner's demonstrations can directly be used by reinforcement learning. With this approach, we can efficiently learn policies for complex manipulation tasks, where traditional reinforcement learning alone only makes little progress.
+
 
 ![Jacta Manipulation](docs/source/_static/images/jacta_overview.jpg)
 
