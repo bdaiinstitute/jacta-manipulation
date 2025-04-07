@@ -1,7 +1,7 @@
 <mujoco model="spot_tire_rim">
 <!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
-  <include file="spot_components/params_and_default.xml" />
-  <include file="spot_components/assets.xml" />
+  <include file="spot_components/params_and_default_locomotion.xml" />
+  <include file="spot_components/assets_locomotion.xml" />
   <include file="objects/tire_rim_defs.xml" />
 
 
@@ -16,8 +16,8 @@
       <geom name="body" class="collision" type="box" size="0.42 0.11 0.08"/>
       <site name="site_body" pos="0 0 0" size="0.01"/>
 
-      <include file="spot_components/legs.xml" />
-      <include file="spot_components/arm.xml" />
+      <include file="spot_components/legs_locomotion.xml" />
+      <include file="spot_components/arm_locomotion.xml" />
     </body>
     <include file="objects/tire_rim.xml" />
   </worldbody>
