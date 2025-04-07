@@ -32,16 +32,11 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-### Run tests locally
-In the virtual environment:
+### Getting started
 ```
-pip install pytest
-python -m pytest
+python jacta-manipulation/examples/planner/example_notebook.py
 ```
-you might have to
-```
-unset PYTHONPATH
-```
+
 
 ### Citation
 ```
@@ -57,4 +52,15 @@ unset PYTHONPATH
   year         = {2024},
   url          = {https://proceedings.mlr.press/v270/bruedigam25a.html},
 }
+```
+
+### Run tests locally
+In the virtual environment:
+```
+pip install pytest
+python -m pytest
+```
+you might have to
+```
+unset PYTHONPATH
 ```
