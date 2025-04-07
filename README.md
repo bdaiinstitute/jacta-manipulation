@@ -34,6 +34,7 @@ pip install -e .
 
 ### Getting started
 ```
+cd jacta-manipulation
 python jacta-manipulation/examples/planner/example_notebook.py
 ```
 
