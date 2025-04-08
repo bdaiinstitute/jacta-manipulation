@@ -77,9 +77,3 @@ you might have to
 ```
 unset PYTHONPATH
 ```
-
-
-<!-- Install libstdcxx-ng -->
-<!-- ``` -->
-<!-- conda install -c conda-forge libstdcxx-ng -->
-<!-- ``` -->
