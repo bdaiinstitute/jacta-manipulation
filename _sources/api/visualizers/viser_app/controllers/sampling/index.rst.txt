@@ -13,6 +13,7 @@ Submodules
    cmaes/index.rst
    cross_entropy_method/index.rst
    mppi/index.rst
+   particle_filter/index.rst
    predictive_sampling/index.rst
 
 

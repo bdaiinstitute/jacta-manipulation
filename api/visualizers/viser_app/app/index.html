@@ -237,6 +237,7 @@
 <li class="toctree-l5"><a class="reference internal" href="../controllers/sampling/cmaes/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cmaes</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../controllers/sampling/cross_entropy_method/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cross_entropy_method</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../controllers/sampling/mppi/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.mppi</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../controllers/sampling/particle_filter/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.particle_filter</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../controllers/sampling/predictive_sampling/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.predictive_sampling</span></code></a></li>
 </ul>
 </li>
@@ -250,7 +251,6 @@
 <li class="toctree-l5"><a class="reference internal" href="../tasks/spot/spot_hand_navigation/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_hand_navigation</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../tasks/spot/spot_navigation/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_navigation</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../tasks/spot/spot_tire/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_tire</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../tasks/spot/spot_yellow_chair/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_yellow_chair</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../tasks/acrobot/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.acrobot</span></code></a></li>
@@ -259,6 +259,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../tasks/cylinder_push/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.cylinder_push</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tasks/mujoco_task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.mujoco_task</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tasks/spot_base/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tasks/spot_position_control/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_position_control</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tasks/task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.task</span></code></a></li>
 </ul>
 </li>
@@ -267,7 +268,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../gui/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.gui</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../io/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.io</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../json_serializer/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.json_serializer</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../path_utils/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.path_utils</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../profiler/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.profiler</span></code></a></li>
 </ul>
 </li>
@@ -312,6 +312,11 @@
 <span id="visualizers-viser-app-app"></span><h1><a class="reference internal" href="#module-visualizers.viser_app.app" title="visualizers.viser_app.app"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.app</span></code></a><a class="headerlink" href="#module-visualizers.viser_app.app" title="Link to this heading">#</a></h1>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="visualizers.viser_app.app.JACTA_MANIPULATION_PATH">
+<span class="sig-prename descclassname"><span class="pre">visualizers.viser_app.app.</span></span><span class="sig-name descname"><span class="pre">JACTA_MANIPULATION_PATH</span></span><a class="headerlink" href="#visualizers.viser_app.app.JACTA_MANIPULATION_PATH" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="visualizers.viser_app.app.SimulationProcess">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">visualizers.viser_app.app.</span></span><span class="sig-name descname"><span class="pre">SimulationProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.viser_app.tasks.task.Task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.viser_app.io.SimulationIOContext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizers.viser_app.app.SimulationProcess" title="Link to this definition">#</a></dt>
@@ -447,7 +452,7 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 
 <dl class="py class">
 <dt class="sig sig-object py" id="visualizers.viser_app.app.ViserApp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">visualizers.viser_app.app.</span></span><span class="sig-name descname"><span class="pre">ViserApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'predictive_sampling'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cartpole'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8008</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PACKAGE_ROOT</span> <span class="pre">/</span> <span class="pre">'log/controller'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizers.viser_app.app.ViserApp" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">visualizers.viser_app.app.</span></span><span class="sig-name descname"><span class="pre">ViserApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_controller</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'predictive_sampling'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cartpole'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">JACTA_MANIPULATION_PATH</span> <span class="pre">/</span> <span class="pre">'dexterity/data/log/controller'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualizers.viser_app.app.ViserApp" title="Link to this definition">#</a></dt>
 <dd><p>Main class for running the viser app.
 .. py:method:: flip_profile_button_label() -&gt; None</p>
 <blockquote>
@@ -458,7 +463,6 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>init_controller</strong> (<em>str</em>) – </p></li>
 <li><p><strong>init_task</strong> (<em>str</em>) – </p></li>
-<li><p><strong>port</strong> (<em>int</em>) – </p></li>
 <li><p><strong>benchmark_dir</strong> (<em>Optional</em><em>[</em><em>pathlib.Path</em><em>]</em>) – </p></li>
 </ul>
 </dd>
@@ -629,17 +633,6 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="visualizers.viser_app.app.main">
-<span class="sig-prename descclassname"><span class="pre">visualizers.viser_app.app.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visualizers.viser_app.app.main" title="Link to this definition">#</a></dt>
-<dd><p>Helper main method to make app installable as script via pyproject.toml.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 </section>
 
@@ -707,6 +700,7 @@ the Process stores the exception in a Queue, prints the exception, and removes i
             <ul>
 <li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.app</span></code></a><ul>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#visualizers.viser_app.app.JACTA_MANIPULATION_PATH"><code class="docutils literal notranslate"><span class="pre">JACTA_MANIPULATION_PATH</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.viser_app.app.SimulationProcess"><code class="docutils literal notranslate"><span class="pre">SimulationProcess</span></code></a><ul>
 <li><a class="reference internal" href="#visualizers.viser_app.app.SimulationProcess.write_states"><code class="docutils literal notranslate"><span class="pre">SimulationProcess.write_states()</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.viser_app.app.SimulationProcess.reset"><code class="docutils literal notranslate"><span class="pre">SimulationProcess.reset()</span></code></a></li>
@@ -736,7 +730,6 @@ the Process stores the exception in a Queue, prints the exception, and removes i
 <li><a class="reference internal" href="#visualizers.viser_app.app.ViserApp.config_download_callback"><code class="docutils literal notranslate"><span class="pre">ViserApp.config_download_callback()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#visualizers.viser_app.app.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
 </ul>

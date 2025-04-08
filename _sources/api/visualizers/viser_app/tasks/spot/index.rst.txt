@@ -14,6 +14,5 @@ Submodules
    spot_hand_navigation/index.rst
    spot_navigation/index.rst
    spot_tire/index.rst
-   spot_yellow_chair/index.rst
 
 

@@ -13,9 +13,7 @@ Module Contents
    Bases: :py:obj:`enum.Enum`
 
    
-   Generic enumeration.
-
-   Derive from this class to define new enumerations.
+   Clipping type for the action space.
    .. py:attribute:: CLIP
       :value: 1
 
@@ -38,9 +36,7 @@ Module Contents
    Bases: :py:obj:`enum.Enum`
 
    
-   Generic enumeration.
-
-   Derive from this class to define new enumerations.
+   Selection type for the node selection.
    .. py:attribute:: PARETO
       :value: 0
 

@@ -237,6 +237,7 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../controllers/sampling/cmaes/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cmaes</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../controllers/sampling/cross_entropy_method/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cross_entropy_method</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../controllers/sampling/mppi/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.mppi</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../controllers/sampling/particle_filter/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.particle_filter</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../controllers/sampling/predictive_sampling/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.predictive_sampling</span></code></a></li>
 </ul>
 </li>
@@ -250,7 +251,6 @@
 <li class="toctree-l5"><a class="reference internal" href="../spot_hand_navigation/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_hand_navigation</span></code></a></li>
 <li class="toctree-l5 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_navigation</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../spot_tire/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_tire</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../spot_yellow_chair/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_yellow_chair</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../acrobot/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.acrobot</span></code></a></li>
@@ -259,6 +259,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../cylinder_push/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.cylinder_push</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../mujoco_task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.mujoco_task</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../spot_base/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../spot_position_control/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_position_control</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.task</span></code></a></li>
 </ul>
 </li>
@@ -267,7 +268,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../gui/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.gui</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../io/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.io</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../json_serializer/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.json_serializer</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../path_utils/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.path_utils</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../profiler/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.profiler</span></code></a></li>
 </ul>
 </li>
@@ -359,7 +359,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigation.reward">
-<span class="sig-name descname"><span class="pre">reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig" title="visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig"><span class="pre">SpotNavigationConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigation.reward" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controls</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig" title="visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig"><span class="pre">SpotNavigationConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigation.reward" title="Link to this definition">#</a></dt>
 <dd><p>Reward function for the Spot navigation task.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -368,7 +368,6 @@
 <li><p><strong>sensors</strong> (<em>numpy.ndarray</em>) – </p></li>
 <li><p><strong>controls</strong> (<em>numpy.ndarray</em>) – </p></li>
 <li><p><strong>config</strong> (<a class="reference internal" href="#visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig" title="visualizers.viser_app.tasks.spot.spot_navigation.SpotNavigationConfig"><em>SpotNavigationConfig</em></a>) – </p></li>
-<li><p><strong>additional_info</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

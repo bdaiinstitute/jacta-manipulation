@@ -51,12 +51,12 @@ Module Contents
       
       Returns a visualizer for the task.
 
-   .. py:method:: sim_step(controls: Optional[scipy.interpolate.interp1d]) -> None
+   .. py:method:: sim_step(controls: scipy.interpolate.interp1d) -> None
 
       
       Generic mujoco simulation step.
 
-   .. py:method:: rollout(models: list[Tuple[mujoco.MjModel, mujoco.MjData]], states: numpy.ndarray, controls: numpy.ndarray, additional_info: dict[str, Any], output_states: numpy.ndarray, output_sensors: numpy.ndarray) -> tuple[numpy.ndarray, numpy.ndarray]
+   .. py:method:: rollout(models: list[Tuple[mujoco.MjModel, mujoco.MjData]], states: numpy.ndarray, controls: numpy.ndarray, additional_info: dict[str, Any]) -> tuple[numpy.ndarray, numpy.ndarray]
 
       
       Generic mujoco threaded rollout.

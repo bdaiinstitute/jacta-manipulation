@@ -237,6 +237,7 @@
 <li class="toctree-l5"><a class="reference internal" href="../cmaes/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cmaes</span></code></a></li>
 <li class="toctree-l5 current current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.cross_entropy_method</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../mppi/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.mppi</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../particle_filter/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.particle_filter</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../predictive_sampling/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.controllers.sampling.predictive_sampling</span></code></a></li>
 </ul>
 </li>
@@ -250,7 +251,6 @@
 <li class="toctree-l5"><a class="reference internal" href="../../../tasks/spot/spot_hand_navigation/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_hand_navigation</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../tasks/spot/spot_navigation/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_navigation</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../tasks/spot/spot_tire/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_tire</span></code></a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../tasks/spot/spot_yellow_chair/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot.spot_yellow_chair</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tasks/acrobot/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.acrobot</span></code></a></li>
@@ -259,6 +259,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../tasks/cylinder_push/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.cylinder_push</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tasks/mujoco_task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.mujoco_task</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tasks/spot_base/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tasks/spot_position_control/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.spot_position_control</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tasks/task/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.tasks.task</span></code></a></li>
 </ul>
 </li>
@@ -267,7 +268,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../gui/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.gui</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../io/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.io</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../json_serializer/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.json_serializer</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../path_utils/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.path_utils</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../profiler/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.viser_app.profiler</span></code></a></li>
 </ul>
 </li>
@@ -351,11 +351,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.noise_ramp">
 <span class="sig-name descname"><span class="pre">noise_ramp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2.5</span></em><a class="headerlink" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.noise_ramp" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.use_noise_ramp">
-<span class="sig-name descname"><span class="pre">use_noise_ramp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.use_noise_ramp" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -484,7 +479,6 @@
 <li><a class="reference internal" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.horizon"><code class="docutils literal notranslate"><span class="pre">CrossEntropyConfig.horizon</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.num_rollouts"><code class="docutils literal notranslate"><span class="pre">CrossEntropyConfig.num_rollouts</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.noise_ramp"><code class="docutils literal notranslate"><span class="pre">CrossEntropyConfig.noise_ramp</span></code></a></li>
-<li><a class="reference internal" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyConfig.use_noise_ramp"><code class="docutils literal notranslate"><span class="pre">CrossEntropyConfig.use_noise_ramp</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#visualizers.viser_app.controllers.sampling.cross_entropy_method.CrossEntropyMethod"><code class="docutils literal notranslate"><span class="pre">CrossEntropyMethod</span></code></a><ul>
