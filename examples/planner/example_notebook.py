@@ -12,7 +12,7 @@ from jacta.planner.core.logger import Logger
 from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.core.planner import Planner
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.visualizers.meshcat.visuals import TrajectoryVisualizer
+from jacta.visualizers.mujoco.trajectory import TrajectoryVisualizer
 
 # %%
 task = "planar_hand"  # Set desired example here
@@ -23,7 +23,7 @@ params.parse_params(task, planner_example)
 
 # %%
 plant = MujocoPlant(params)
-visualizer = TrajectoryVisualizer(params=params, sim_time_step=plant.sim_time_step)
+visualizer = TrajectoryVisualizer(params=params)
 
 
 def callback(graph: Graph, logger: Logger) -> None:
@@ -64,5 +64,5 @@ search_index = 0
 state_trajectory = planner.shortest_path_trajectory(search_index=search_index)
 
 planner.plot_search_results()
-visualizer.show(state_trajectory, goal_state=graph.goal_states[search_index])
-callback(graph, logger)
+visualizer.set_trajectory(state_trajectory, goal_state=graph.goal_states[search_index])
+visualizer.spin()
