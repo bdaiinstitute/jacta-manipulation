@@ -1,11 +1,12 @@
 # Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import mujoco
 import numpy as np
 
+from jacta.visualizers.viser_app.path_utils import MODEL_PATH
 from jacta.visualizers.viser_app.tasks.cost_functions import (
     quadratic_norm,
     smooth_l1_norm,
@@ -13,7 +14,7 @@ from jacta.visualizers.viser_app.tasks.cost_functions import (
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 
-MODEL_PATH = "dexterity/models/xml/scenes/legacy/cartpole.xml"
+XML_PATH = str(MODEL_PATH / "xml/cartpole.xml")
 
 
 @dataclass
@@ -36,7 +37,7 @@ class Cartpole(MujocoTask[CartpoleConfig]):
     """Defines the cartpole balancing task."""
 
     def __init__(self) -> None:
-        super().__init__(MODEL_PATH)
+        super().__init__(XML_PATH)
         self.reset()
 
     def reward(
@@ -45,6 +46,7 @@ class Cartpole(MujocoTask[CartpoleConfig]):
         sensors: np.ndarray,
         controls: np.ndarray,
         config: CartpoleConfig,
+        additional_info: dict[str, Any],
     ) -> np.ndarray:
         """Implements the cartpole reward from MJPC.
 

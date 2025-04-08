@@ -67,3 +67,4 @@ class MjVisualization:
     def remove(self) -> None:
         """Removes all model geometries from the GUI."""
         self.viser_mjmodel.remove()
+        self.server.flush()

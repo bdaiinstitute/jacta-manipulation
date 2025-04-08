@@ -25,7 +25,7 @@ class SamplingBaseConfig(ControllerConfig):
     """Base controller config with spline parameters."""
 
     horizon: float = 1.0
-    num_nodes: int = 5
+    num_nodes: int = 3
     num_rollouts: int = 32
     spline_order: Literal["zero", "slinear", "cubic"] = "slinear"
     control_freq: float = 20.0
@@ -55,20 +55,27 @@ class SamplingBase(Controller):
         self.states = np.zeros(
             (
                 self.config.num_rollouts,
-                self.num_timesteps,
+                self.num_timesteps * self.num_physics_substeps,
                 self.model.nq + self.model.nv,
             )
         )
         self.sensors = np.zeros(
-            (self.config.num_rollouts, self.num_timesteps, self.model.nsensordata)
+            (
+                self.config.num_rollouts,
+                self.num_timesteps * self.num_physics_substeps,
+                self.model.nsensordata,
+            )
+        )
+        self.rollout_controls = np.zeros(
+            (
+                self.config.num_rollouts,
+                self.num_timesteps * self.num_physics_substeps,
+                self.model.nu,
+            )
         )
         self.rewards = np.zeros((self.config.num_rollouts,))
-        self.set_default_controls()
-        self.candidate_controls = np.tile(
-            self.controls, (self.config.num_rollouts, 1, 1)
-        )
+        self.reset()
 
-        self.update_spline(task.data.time + self.spline_timesteps, self.controls)
         self.models = self.task.make_models(self.config.num_rollouts)
         self.trace_sensors = get_trace_sensors(self.model)
         self.num_elite = min(MAX_NUM_TRACES, len(self.rewards))
@@ -76,9 +83,37 @@ class SamplingBase(Controller):
         self.sensor_rollout_size = self.num_timesteps * self.num_physics_substeps - 1
         self.all_traces_rollout_size = self.sensor_rollout_size * self.num_trace_sensors
 
-    def make_models(self) -> None:
-        """Helper to re-size the models vector to config.num_rollouts."""
-        self.models = self.task.make_models(self.config.num_rollouts)
+    def resize_data(self) -> None:
+        """
+        Resize states, sensors, and models to (config.num_rollouts, num_timesteps, ...).
+        """
+        R = self.config.num_rollouts
+        T = self.num_timesteps * self.num_physics_substeps
+
+        # remember current rollout count
+        old_R = self.states.shape[0]
+
+        # helper to resize a 3+D array on axes 0 and 1
+        def _resize(arr: np.ndarray) -> np.ndarray:
+            # new shape: (R, T, *rest)
+            new_shape = (R, T) + arr.shape[2:]
+            new_arr = np.zeros(new_shape, dtype=arr.dtype)
+
+            # how much data to keep along each axis
+            keep_R = min(arr.shape[0], R)
+            keep_T = min(arr.shape[1], T)
+
+            # copy the overlapping block
+            new_arr[:keep_R, :keep_T, ...] = arr[:keep_R, :keep_T, ...]
+            return new_arr
+
+        # resize both arrays
+        self.states = _resize(self.states)
+        self.sensors = _resize(self.sensors)
+
+        # rebuild models only if rollout count changed
+        if old_R != R:
+            self.models = self.task.make_models(R)
 
     @property
     def num_timesteps(self) -> int:
@@ -144,8 +179,11 @@ class SamplingBase(Controller):
             )
 
     def reset(self) -> None:
-        """Reset the controls and the spline to their default values."""
+        """Reset the controls, candidate controls and the spline to their default values."""
         self.set_default_controls()
+        self.candidate_controls = np.tile(
+            self.controls, (self.config.num_rollouts, 1, 1)
+        )
         self.update_spline(self.task.data.time + self.spline_timesteps, self.controls)
 
     def update_traces(self) -> None:

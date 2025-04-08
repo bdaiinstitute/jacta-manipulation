@@ -12,10 +12,6 @@ from jacta.visualizers.viser_app.controllers.sampling.cross_entropy_method impor
     CrossEntropyMethod,
 )
 from jacta.visualizers.viser_app.controllers.sampling.mppi import MPPI, MPPIConfig
-from jacta.visualizers.viser_app.controllers.sampling.particle_filter import (
-    ParticleFilter,
-    ParticleFilterConfig,
-)
 from jacta.visualizers.viser_app.controllers.sampling.predictive_sampling import (
     PredictiveSampling,
     PredictiveSamplingConfig,
@@ -24,7 +20,6 @@ from jacta.visualizers.viser_app.controllers.sampling.predictive_sampling import
 _registered_controllers: Dict[str, Tuple[Type[Controller], Type[ControllerConfig]]] = {
     "cross_entropy_method": (CrossEntropyMethod, CrossEntropyConfig),
     "MPPI": (MPPI, MPPIConfig),
-    "particle_filter": (ParticleFilter, ParticleFilterConfig),
     "predictive_sampling": (PredictiveSampling, PredictiveSamplingConfig),
     "cmaes": (CMAES, CMAESConfig),
 }

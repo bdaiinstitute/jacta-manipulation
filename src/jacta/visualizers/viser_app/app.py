@@ -16,21 +16,24 @@ import tyro
 from dacite import from_dict
 from viser import GuiEvent, Icon, MeshHandle, ViserServer
 
-from jacta.common.path_resolvers import get_package_path
 from jacta.visualizers.viser_app.controllers import get_registered_controllers
 from jacta.visualizers.viser_app.controllers.controller import (
     Controller,
     ControllerConfig,
 )
 from jacta.visualizers.viser_app.gui import create_gui_elements
-from jacta.visualizers.viser_app.io import IOContext, SimulationIOContext
+from jacta.visualizers.viser_app.io import (
+    ControlBufferKeys,
+    IOContext,
+    SimulationIOContext,
+    StateBufferKeys,
+)
 from jacta.visualizers.viser_app.json_serializer import ConfigEncoder
+from jacta.visualizers.viser_app.path_utils import PACKAGE_ROOT
 from jacta.visualizers.viser_app.profiler import ViserProfiler, ViserProfilerConfig
 from jacta.visualizers.viser_app.tasks import get_registered_tasks
 from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.visualization import Visualization
-
-JACTA_MANIPULATION_PATH = Path(get_package_path())
 
 
 class SimulationProcess(Process):
@@ -57,7 +60,7 @@ class SimulationProcess(Process):
                 # Read current control.
                 if self.context.controller_running.is_set():
                     with self.context.control_lock:
-                        control = self.context.control_buffer["spline"]
+                        control = self.context.control_buffer[ControlBufferKeys.spline]
                 else:
                     control = None
 
@@ -72,12 +75,14 @@ class SimulationProcess(Process):
     def write_states(self) -> None:
         """Write current sim states to context."""
         with self.context.state_lock:
-            self.context.state_buffer["qpos"] = self.task.data.qpos.copy()
-            self.context.state_buffer["qvel"] = self.task.data.qvel.copy()
-            self.context.state_buffer["time"] = self.task.data.time
-            self.context.state_buffer["xpos"] = self.task.data.xpos.copy()
-            self.context.state_buffer["xquat"] = self.task.data.xquat.copy()
-            self.context.state_buffer["additional_info"] = copy(
+            self.context.state_buffer[StateBufferKeys.qpos] = self.task.data.qpos.copy()
+            self.context.state_buffer[StateBufferKeys.qvel] = self.task.data.qvel.copy()
+            self.context.state_buffer[StateBufferKeys.time] = self.task.data.time
+            self.context.state_buffer[StateBufferKeys.xpos] = self.task.data.xpos.copy()
+            self.context.state_buffer[StateBufferKeys.xquat] = (
+                self.task.data.xquat.copy()
+            )
+            self.context.state_buffer[StateBufferKeys.additional_info] = copy(
                 self.task.additional_task_info
             )
 
@@ -211,10 +216,10 @@ class ControlProcess(multiprocessing.Process):
         """Inner control step. Reads state, updates config, updates controls, writes controls."""
         # Read current state.
         with self.context.state_lock:
-            qpos = self.context.state_buffer["qpos"]
-            qvel = self.context.state_buffer["qvel"]
-            curr_time = self.context.state_buffer["time"]
-            additional_info = self.context.state_buffer["additional_info"]
+            qpos = self.context.state_buffer[StateBufferKeys.qpos]
+            qvel = self.context.state_buffer[StateBufferKeys.qvel]
+            curr_time = self.context.state_buffer[StateBufferKeys.time]
+            additional_info = self.context.state_buffer[StateBufferKeys.additional_info]
 
         # Update config dictionaries.
         if self.context.control_config_updated_event.is_set():
@@ -248,13 +253,17 @@ class ControlProcess(multiprocessing.Process):
     def write_controls(self) -> None:
         """Write control result out to buffer."""
         with self.context.control_lock:
-            self.context.control_buffer["spline"] = self.controller.spline
+            self.context.control_buffer[ControlBufferKeys.spline] = (
+                self.controller.spline
+            )
 
     def write_traces(self) -> None:
         """Write traces out to buffer."""
         with self.context.control_lock:
-            self.context.control_buffer["traces"] = self.controller.traces
-            self.context.control_buffer["all_traces_rollout_size"] = (
+            self.context.control_buffer[ControlBufferKeys.traces] = (
+                self.controller.traces
+            )
+            self.context.control_buffer[ControlBufferKeys.all_traces_rollout_size] = (
                 self.controller.all_traces_rollout_size
             )
 
@@ -266,11 +275,12 @@ class ViserApp:
         self,
         init_controller: str = "predictive_sampling",
         init_task: str = "cartpole",
-        benchmark_dir: Optional[Path] = JACTA_MANIPULATION_PATH
-        / "dexterity/data/log/controller",
+        port: int = 8008,
+        benchmark_dir: Optional[Path] = PACKAGE_ROOT / "log/controller",
     ):
         # Create viser server for app frontend.
-        self.server = ViserServer()
+        self.server = ViserServer(port=port)
+        self.server.flush()
 
         # Create datetime string and benchmark dir for profiling.
         now = datetime.now()
@@ -385,6 +395,7 @@ class ViserApp:
                 self.physics.terminate()
             if self.controller.is_alive():
                 self.controller.terminate()
+            self.server.stop()
 
     def flip_profile_button_label(self) -> None:
         """Flips the button label for the disable/enable profile"""
@@ -607,6 +618,11 @@ class ViserApp:
         self.server.send_file_download("config.json", json_bytes)
 
 
+def main() -> None:
+    """Helper main method to make app installable as script via pyproject.toml."""
+    tyro.cli(ViserApp)
+
+
 if __name__ == "__main__":
     """Entry point for Viser app."""
-    tyro.cli(ViserApp)
+    main()
