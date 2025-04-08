@@ -26,10 +26,24 @@
 .. |docs| image:: https://github.com/bdaiinstitute/jacta-manipulation/actions/workflows/docs.yml/badge.svg
    :alt: Docs status icon
    :target: https://github.com/bdaiinstitute/jacta-manipulation
-.. |coverage| image:: https://codecov.io/gh/bdaiinstitute/jacta-manipulation/graph/badge.svg?token=CUWTT7EK5E
+.. |coverage| image:: https://codecov.io/gh/bdaiinstitute/jacta-manipulation/graph/badge.svg?token=7A0OJ37JRF
    :alt: Test coverage status icon
    :target: https://github.com/bdaiinstitute/jacta-manipulation
 .. |nbsp| unicode:: 0xA0
    :trim:
 
 <!-- prettier-ignore-end -->
+
+
+.. toctree::
+   :caption: API Reference
+   :maxdepth: 10
+   :hidden:
+   :titlesonly:
+   :glob:
+
+
+   api/common/index
+   api/learning/index
+   api/planner/index
+   api/visualizers/index
