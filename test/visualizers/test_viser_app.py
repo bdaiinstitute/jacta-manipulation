@@ -1,7 +1,6 @@
 import mujoco
 import numpy as np
-import trimesh
-from trimesh.creation import box, capsule, cylinder, icosphere
+from trimesh.creation import box
 from viser import ViserServer
 
 # Import the functions and classes from the module under test.
