@@ -52,8 +52,8 @@ class CMAES(SamplingBase):
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
 
         # Check if num_rollouts has changed and resize arrays accordingly.
-        if len(self.models) != self.config.num_rollouts:
-            self.make_models()
+        if self.states.shape[:2] != (self.config.num_rollouts, self.num_timesteps):
+            self.resize_data()
 
         # Adjust time + move policy forward.
         new_times = curr_time + self.spline_timesteps
@@ -95,20 +95,29 @@ class CMAES(SamplingBase):
             candidate_splines = make_spline(
                 new_times, candidate_controls, self.config.spline_order
             )
-            rollout_controls = candidate_splines(curr_time + self.rollout_times)
+            self.rollout_controls = candidate_splines(curr_time + self.rollout_times)
 
             # Create lists of states / controls for rollout.
             curr_state_batch = np.tile(curr_state, (self.config.num_rollouts, 1))
 
             # Roll out dynamics with action sequences and set the cutoff time for each controller here
             self.task.cutoff_time = self.reward_config.cutoff_time
-            self.states, self.sensors = self.task.rollout(
-                self.models, curr_state_batch, rollout_controls, additional_info
+            self.task.rollout(
+                self.models,
+                curr_state_batch,
+                self.rollout_controls,
+                additional_info,
+                self.states,
+                self.sensors,
             )
 
             # Evalate rewards
             self.rewards = self.reward_function(
-                self.states, self.sensors, rollout_controls, self.reward_config
+                self.states,
+                self.sensors,
+                self.rollout_controls,
+                self.reward_config,
+                additional_info,
             )
             cmaes.tell(noise, -self.rewards[1:])  # cmaes works with negative rewards
             if np.max(self.rewards) > best_reward:
