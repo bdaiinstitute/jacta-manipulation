@@ -16,11 +16,13 @@
 
 namespace SystemUtils
 {
-
     using EigenTypes::MatrixT;
     using EigenTypes::MatrixTList;
     using EigenTypes::VectorT;
     using EigenTypes::VectorTList;
+    using MatrixRef = Eigen::Ref<MatrixT>;
+    using UnalignedMap = Eigen::Map<MatrixT, Eigen::Unaligned>;
+    using MapList = std::vector<UnalignedMap>;
 
     const char kCommandKey[] = "command";
     const char kDefaultKey[] = "default";
@@ -85,5 +87,41 @@ namespace SystemUtils
     std::tuple<MatrixTList, MatrixTList> threadedPhysicsRollout(const std::vector<const mjModel *> &model,
                                                                 const std::vector<mjData *> &data, const VectorTList &state,
                                                                 const MatrixTList &control);
+
+    /**
+     * @brief Performs a single-threaded physics rollout and writes results into preallocated buffers
+     *
+     * @param model    Pointer to a Mujoco model
+     * @param data     Pointer to a Mujoco data struct
+     * @param state    Initial state vector of size (nq + nv)
+     * @param control  Control matrix of size (horizon x nu)
+     * @param states   Output matrix of size (horizon x (nq + nv)), must be preallocated
+     * @param sensors  Output matrix of size (horizon x nsensordata), must be preallocated
+     */
+    void physicsRolloutInPlace(
+        const mjModel *model,
+        mjData *data,
+        const VectorT &state,
+        const MatrixT &control,
+        MatrixRef states,
+        MatrixRef sensors);
+
+    /**
+     * @brief Performs a physics rollout on each simulator in parallel and writes results into preallocated buffers
+     *
+     * @param model     Vector of pointers to Mujoco models, one per thread
+     * @param data      Vector of pointers to Mujoco data structs, one per thread
+     * @param state     Vector of initial state vectors, one per thread
+     * @param control   Vector of control matrices, one per thread
+     * @param states    Vector of output state matrices, one per thread; each must be preallocated to (horizon x state_dim)
+     * @param sensors   Vector of output sensor matrices, one per thread; each must be preallocated to (horizon x nsensordata)
+     */
+    void threadedPhysicsRolloutInPlace(
+        const std::vector<const mjModel *> &model,
+        const std::vector<mjData *> &data,
+        const VectorTList &state,
+        const MatrixTList &control,
+        MapList &states,
+        MapList &sensors);
 
 } // namespace SystemUtils

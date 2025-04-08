@@ -11,7 +11,7 @@ from viser import ViserServer
 from jacta.visualizers.mujoco.visualization import MjVisualization
 from jacta.visualizers.viser_app.io import IOContext
 from jacta.visualizers.viser_app.tasks.task import ConfigT, Task, TaskConfig
-from mujoco_extensions.policy_rollout import threaded_physics_rollout
+from mujoco_extensions.policy_rollout import threaded_physics_rollout_in_place
 
 
 class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
@@ -47,8 +47,8 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
             current_action = self.default_idle_command
         else:
             current_action = controls(self.data.time)
-        assert (
-            current_action.shape == (self.model.nu,)
+        assert current_action.shape == (
+            self.model.nu,
         ), f"For default sim step, control shape (got {current_action.shape}) must == model.nu (got {self.model.nu})"
 
         # Write current action into MjData.
@@ -63,6 +63,8 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
         states: np.ndarray,
         controls: np.ndarray,
         additional_info: dict[str, Any],
+        output_states: np.ndarray,
+        output_sensors: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
         """Generic mujoco threaded rollout."""
         assert (
@@ -73,10 +75,14 @@ class MujocoTask(Task[ConfigT, Tuple[MjModel, MjData]]):
             zip(*models, strict=True)
         )  # Unzip (model, data) tuples into batches of models/data.
 
-        output_states, output_sensors = threaded_physics_rollout(
-            list(model_batch), list(data_batch), states, controls
+        threaded_physics_rollout_in_place(
+            list(model_batch),
+            list(data_batch),
+            states,
+            controls,
+            output_states,
+            output_sensors,
         )
-        return np.array(output_states), np.array(output_sensors)
 
     def make_models(self, num_models: int) -> list[Tuple[MjModel, MjData]]:
         """Makes a list of (MjModel, MjData) tuples for use with rollouts."""

@@ -89,8 +89,8 @@ class CrossEntropyMethod(SamplingBase):
         ), "Elite fraction must be <= 100% of number of rollouts!"
 
         # Check if num_rollouts has changed and resize arrays accordingly.
-        if len(self.models) != self.config.num_rollouts:
-            self.make_models()
+        if self.states.shape[:2] != (self.config.num_rollouts, self.num_timesteps):
+            self.resize_data()
 
         # Adjust time + move policy forward.
         # TODO(pculbert): move some of this logic into top-level controller.
@@ -149,8 +149,13 @@ class CrossEntropyMethod(SamplingBase):
         self.task.cutoff_time = self.reward_config.cutoff_time
 
         # Roll out dynamics with action sequences.
-        self.states, self.sensors = self.task.rollout(
-            self.models, curr_state_batch, self.rollout_controls, additional_info
+        self.task.rollout(
+            self.models,
+            curr_state_batch,
+            self.rollout_controls,
+            additional_info,
+            self.states,
+            self.sensors,
         )
 
         # Evalate rewards

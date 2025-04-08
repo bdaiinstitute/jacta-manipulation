@@ -95,19 +95,31 @@ namespace OnnxInterface
 
   VectorT Policy::policyInference(VectorT *input_vector)
   {
-    std::vector<const char *> input_names_char(1, nullptr);
-    std::vector<const char *> output_names_char(1, nullptr);
+    // Grab C‑strings from your persistent std::string members
+    const char *input_name_c = input_name_.c_str();
+    const char *output_name_c = output_name_.c_str();
 
-    input_names_char[0] = getInputName().c_str();
-    output_names_char[0] = getOutputName().c_str();
+    // Build name arrays (1 element each)
+    std::array<const char *, 1> input_names = {input_name_c};
+    std::array<const char *, 1> output_names = {output_name_c};
 
-    input_tensor_ = createTensorFromVector(input_vector, input_shape_);
-    // Overwrites the initial tensor
-    input_tensors[0] = std::move(input_tensor_);
-    output_tensors = session->Run(run_options_, input_names_char.data(), input_tensors.data(), input_names_char.size(),
-                                  output_names_char.data(), output_names_char.size());
-    // Assumes we only care about the first policy call anyways
-    return Eigen::Map<VectorT>(output_tensors[0].GetTensorMutableData<float>(), output_size);
+    // Create a fresh input tensor from your vector
+    Ort::Value new_input_tensor = createTensorFromVector(input_vector, input_shape_);
+    input_tensors[0] = std::move(new_input_tensor);
+
+    // Run the session
+    auto results = session->Run(
+        run_options_,
+        input_names.data(), // inputs
+        input_tensors.data(),
+        static_cast<int>(input_tensors.size()),
+        output_names.data(),  // outputs
+        output_tensors.size() // note: this should be the number of outputs
+    );
+
+    // Map the first (and only) output back into an Eigen vector
+    float *out_data = results[0].GetTensorMutableData<float>();
+    return Eigen::Map<VectorT>(out_data, output_size);
   }
 
   std::shared_ptr<Ort::Session> allocateOrtSession(const std::string &policy_filepath)

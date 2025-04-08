@@ -193,4 +193,141 @@ namespace SystemUtils
     return {states, sensors};
   }
 
+  void physicsRolloutInPlace(
+      const mjModel *model,
+      mjData *data,
+      const VectorT &state,
+      const MatrixT &control,
+      MatrixRef states, // [horizon x state_dim], preallocated
+      MatrixRef sensors // [horizon x nsensordata], preallocated
+  )
+  {
+    // Dimensions
+    const int horizon = control.rows();
+    const int nq = model->nq;
+    const int nv = model->nv;
+    const int nu = model->nu;
+    const int state_dim = nq + nv;
+    const int nsensordata = model->nsensordata;
+
+    // Sanity checks
+    if (states.rows() != horizon || states.cols() != state_dim)
+    {
+      throw std::runtime_error("States buffer has wrong shape");
+    }
+    if (sensors.rows() != horizon || sensors.cols() != nsensordata)
+    {
+      throw std::runtime_error("Sensors buffer has wrong shape");
+    }
+
+    // Copy initial state into mjData
+    for (int i = 0; i < nq; ++i)
+    {
+      data->qpos[i] = state[i];
+    }
+    for (int i = 0; i < nv; ++i)
+    {
+      data->qvel[i] = state[nq + i];
+    }
+    // optionally call mj_forward(model, data);
+
+    // Rollout physics
+    for (int t = 0; t < horizon; ++t)
+    {
+      // apply control
+      for (int i = 0; i < nu; ++i)
+      {
+        data->ctrl[i] = control(t, i);
+      }
+
+      // step simulation
+      mj_step(model, data);
+
+      // record state
+      for (int i = 0; i < nq; ++i)
+      {
+        states(t, i) = data->qpos[i];
+      }
+      for (int i = 0; i < nv; ++i)
+      {
+        states(t, nq + i) = data->qvel[i];
+      }
+
+      // record sensors
+      for (int i = 0; i < nsensordata; ++i)
+      {
+        sensors(t, i) = data->sensordata[i];
+      }
+    }
+  }
+
+  void threadedPhysicsRolloutInPlace(
+      const std::vector<const mjModel *> &model,
+      const std::vector<mjData *> &data,
+      const VectorTList &state,
+      const MatrixTList &control,
+      MapList &states, // [num_threads][horizon×state_dim]
+      MapList &sensors // [num_threads][horizon×nsensordata]
+  )
+  {
+    const std::size_t num_threads = model.size();
+    const auto horizon = control[0].rows();
+    const int state_dim = model[0]->nq + model[0]->nv;
+    const int nu = model[0]->nu;
+    const int nsensordata = model[0]->nsensordata;
+
+    // sanity checks
+    if (data.size() != num_threads)
+      throw std::runtime_error("Data size mismatch");
+    if (state.size() != num_threads)
+      throw std::runtime_error("State size mismatch");
+    if (control.size() != num_threads)
+      throw std::runtime_error("Control size mismatch");
+    if (states.size() != num_threads)
+      throw std::runtime_error("States buffer size mismatch");
+    if (sensors.size() != num_threads)
+      throw std::runtime_error("Sensors buffer size mismatch");
+
+    for (std::size_t i = 0; i < num_threads; ++i)
+    {
+      if (state[i].size() != state_dim)
+        throw std::runtime_error("State vector size mismatch");
+      if (control[i].rows() != horizon)
+        throw std::runtime_error("Control horizon mismatch");
+      if (control[i].cols() != nu)
+        throw std::runtime_error("Control dimension mismatch");
+      if (states[i].rows() != horizon ||
+          states[i].cols() != state_dim)
+        throw std::runtime_error("States buffer shape mismatch");
+      if (sensors[i].rows() != horizon ||
+          sensors[i].cols() != nsensordata)
+        throw std::runtime_error("Sensors buffer shape mismatch");
+    }
+
+    // spawn threads that write directly into states[i] and sensors[i]
+    std::vector<std::thread> threads;
+    threads.reserve(num_threads);
+
+    for (std::size_t i = 0; i < num_threads; ++i)
+    {
+      threads.emplace_back(
+          [i, &model, &data, &state, &control, &states, &sensors]()
+          {
+            // assume we have an in‑place rollout that writes into two output matrices
+            physicsRolloutInPlace(
+                model[i],
+                data[i],
+                state[i],
+                control[i],
+                states[i],
+                sensors[i]);
+          });
+    }
+
+    for (auto &t : threads)
+    {
+      t.join();
+    }
+  }
+
 } // namespace SystemUtils

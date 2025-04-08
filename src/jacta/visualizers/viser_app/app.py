@@ -618,6 +618,11 @@ class ViserApp:
         self.server.send_file_download("config.json", json_bytes)
 
 
+def main() -> None:
+    """Helper main method to make app installable as script via pyproject.toml."""
+    tyro.cli(ViserApp)
+
+
 if __name__ == "__main__":
     """Entry point for Viser app."""
-    tyro.cli(ViserApp)
+    main()
