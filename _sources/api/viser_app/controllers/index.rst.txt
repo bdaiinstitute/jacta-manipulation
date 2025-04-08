@@ -1,0 +1,25 @@
+:py:mod:`viser_app.controllers`
+===============================
+
+.. py:module:: viser_app.controllers
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   controller/index.rst
+   sampling_base/index.rst
+
+
+Package Contents
+----------------
+
+.. py:function:: get_registered_controllers() -> Dict[str, Tuple[Type[jacta.visualizers.viser_app.controllers.controller.Controller], Type[jacta.visualizers.viser_app.controllers.controller.ControllerConfig]]]
+
+
+.. py:function:: register_controller(name: str, controller_type: Type[jacta.visualizers.viser_app.controllers.controller.Controller], controller_config_type: Type[jacta.visualizers.viser_app.controllers.controller.ControllerConfig]) -> None
+
+
