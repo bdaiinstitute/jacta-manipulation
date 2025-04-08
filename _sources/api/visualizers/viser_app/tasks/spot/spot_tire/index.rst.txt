@@ -127,7 +127,7 @@ Module Contents
       
       Control bounds for this task.
 
-   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: SpotTireConfig) -> numpy.ndarray
+   .. py:method:: reward(states: numpy.ndarray, sensors: numpy.ndarray, controls: numpy.ndarray, config: SpotTireConfig, additional_info: dict[str, Any]) -> numpy.ndarray
 
       
       Reward function for the Spot box moving task.
