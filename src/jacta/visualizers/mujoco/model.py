@@ -66,13 +66,17 @@ class ViserMjModel:
         # Add each geom to its respective parent.
         for i in range(self._model.ngeom):
             parent_name = self._bodies[self._model.geom(i).bodyid.item()].name
-            geom_name = f"{parent_name}/geom_{self._model.geom(i).name}"
+            raw_geom_name = self._model.geom(i).name
+            if not raw_geom_name:
+                # Fall back to a default name using the index
+                raw_geom_name = f"geom_{i}"
+            geom_name = f"{parent_name}/" + raw_geom_name
             self.add_geom(geom_name, self._model.geom(i))
 
         # Add traces
-        self._num_trace_sensors = count_trace_sensors(self._model)
-        self.all_traces_rollout_size = 0
-        self.add_traces()
+        # self._num_trace_sensors = count_trace_sensors(self._model)
+        # self.all_traces_rollout_size = 0
+        # self.add_traces()
 
     def add_geom(self, geom_name: str, geom: Any) -> None:
         """Helper function for adding geoms to scene tree."""
@@ -82,7 +86,7 @@ class ViserMjModel:
                 self._geoms.append(
                     add_plane(
                         self._target,
-                        geom.name,
+                        geom_name,
                         pos=geom.pos,
                         quat=geom.quat,
                     )
@@ -94,7 +98,7 @@ class ViserMjModel:
                 self._geoms.append(
                     add_sphere(
                         self._target,
-                        geom.name,
+                        geom_name,
                         radius=geom.size[0],
                         pos=geom.pos,
                         quat=geom.quat,
