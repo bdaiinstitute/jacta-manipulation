@@ -10,6 +10,7 @@ class ClippingType(Enum):
     """
     Clipping type for the action space.
     """
+
     CLIP = 1
     SCALE = 2
 
@@ -21,6 +22,7 @@ class SelectionType(Enum):
     """
     Selection type for the node selection.
     """
+
     PARETO = 0
     LAST = 1
 

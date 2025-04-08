@@ -10,6 +10,7 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
+        args: ['--unsafe'] # TODO (slecleach): remove this once we have removed the directives
       - id: check-json
       - id: detect-private-key
 
