@@ -18,6 +18,3 @@ dependencies = [
     "onnxruntime==1.19.0",
     "mujoco==3.3.0",
 ]
-
-[tool.scikit-build]
-cmake.build-type = "Fast"

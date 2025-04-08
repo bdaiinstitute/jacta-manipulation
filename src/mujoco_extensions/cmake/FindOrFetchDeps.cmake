@@ -27,10 +27,14 @@ function(find_or_fetch_eigen)
         )
         FetchContent_MakeAvailable(eigen)
         set(EIGEN3_INCLUDE_DIR ${eigen_SOURCE_DIR})
-        add_library(Eigen3::Eigen INTERFACE IMPORTED GLOBAL)
-        set_target_properties(Eigen3::Eigen PROPERTIES
-            INTERFACE_INCLUDE_DIRECTORIES ${EIGEN3_INCLUDE_DIR}
-        )
+
+        # Only create the target if it does not exist
+        if (NOT TARGET Eigen3::Eigen)
+            add_library(Eigen3::Eigen INTERFACE IMPORTED GLOBAL)
+            set_target_properties(Eigen3::Eigen PROPERTIES
+                INTERFACE_INCLUDE_DIRECTORIES ${EIGEN3_INCLUDE_DIR}
+            )
+        endif()
     endif()
 endfunction()
 
@@ -103,5 +107,19 @@ function(find_or_fetch_mujoco)
             IMPORTED_LOCATION "${MUJOCO_LIB_PATH}"
             INTERFACE_INCLUDE_DIRECTORIES "${MUJOCO_ROOT}/include"
         )
+    endif()
+endfunction()
+
+# ---- YAML-CPP ----
+function(find_or_fetch_yamlcpp)
+    find_package(yaml-cpp QUIET)
+    if (NOT yaml-cpp_FOUND)
+        message(STATUS "yaml-cpp not found, fetching via FetchContent...")
+        FetchContent_Declare(
+            yaml-cpp
+            GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+            GIT_TAG        0.8.0  # for some reason, tag for 0.8.0 has no yaml-cpp prefix
+        )
+        FetchContent_MakeAvailable(yaml-cpp)
     endif()
 endfunction()

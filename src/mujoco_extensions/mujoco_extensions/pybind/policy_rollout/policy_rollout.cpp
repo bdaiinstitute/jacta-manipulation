@@ -31,27 +31,42 @@ namespace mujoco_extensions::pybind::policy_rollout
 
   namespace py = pybind11;
 
-  /**
-   * Setup openmp environment.
-   */
+  // Setup OpenMP
   constexpr std::size_t OMP_NUM_THREADS{8};
 
-  /**
-   * Define types that will be used throughout this file.
-   */
+  // EigenTypes aliases
   using EigenTypes::MatrixT;
   using EigenTypes::MatrixTList;
   using EigenTypes::Tensor3d;
   using EigenTypes::VectorT;
   using EigenTypes::VectorTList;
 
-  /**
-   * Get model and data pointers from plant object of `Plant` python type. We need this function because C++ has no
-   * control over this python object, and hence we cannot simply access its storage. This function returns two pointers to
-   * objects of `mjModel` and `mjData` types.
-   *
-   * The design follows this suggestion https://github.com/google-deepmind/mujoco/issues/983#issuecomment-1643732152
-   */
+  // Anonymous namespace for helper functions
+  namespace
+  {
+
+    using UnalignedMap = Eigen::Map<MatrixT, Eigen::Unaligned>;
+    using ConstMap = Eigen::Map<const MatrixT, Eigen::Unaligned>;
+
+    // Build mutable maps into a 3-D numpy array
+    static std::vector<UnalignedMap> make_maps(py::array_t<double> &arr)
+    {
+      auto buf = arr.request();
+      if (buf.ndim != 3)
+        throw std::runtime_error("Expected a 3-D array");
+      int S = buf.shape[0], R = buf.shape[1], C = buf.shape[2];
+      double *ptr = static_cast<double *>(buf.ptr);
+
+      std::vector<UnalignedMap> maps;
+      maps.reserve(S);
+      for (int i = 0; i < S; ++i)
+        maps.emplace_back(ptr + i * R * C, R, C);
+      return maps;
+    }
+
+  } // anonymous namespace
+
+  // Utility functions for model/data extraction (unchanged)
   std::tuple<const mjModel *, const mjData *> getModelAndData(const py::object &plantObject)
   {
     const auto modelPointer = plantObject.attr("model").attr("_address").cast<std::uintptr_t>();
@@ -61,35 +76,25 @@ namespace mujoco_extensions::pybind::policy_rollout
     return {model, data};
   }
 
-  // Function to convert a Python list of mjModel objects to a std::vector<mjModel_ *>
   std::vector<const mjModel *> getModelVector(const py::list &python_model)
   {
     std::vector<const mjModel *> model_vector;
-
     for (const auto &item : python_model)
     {
-      // Retrieve the raw pointer from the Python object
       const auto modelPointer = item.attr("_address").cast<std::uintptr_t>();
-      const mjModel *model = reinterpret_cast<const mjModel *>(modelPointer);
-      model_vector.push_back(model);
+      model_vector.push_back(reinterpret_cast<const mjModel *>(modelPointer));
     }
-
     return model_vector;
   }
 
-  // Function to convert a Python list of mjData objects to a std::vector<mjData_ *>
   std::vector<mjData *> getDataVector(const py::list &python_data)
   {
     std::vector<mjData *> data_vector;
-
     for (const auto &item : python_data)
     {
-      // Retrieve the raw pointer from the Python object
       const auto dataPointer = item.attr("_address").cast<std::uintptr_t>();
-      mjData *data = reinterpret_cast<mjData *>(dataPointer);
-      data_vector.push_back(data);
+      data_vector.push_back(reinterpret_cast<mjData *>(dataPointer));
     }
-
     return data_vector;
   }
 
@@ -148,6 +153,35 @@ namespace mujoco_extensions::pybind::policy_rollout
           return SystemUtils::threadedPhysicsRollout(model, data, state_list, control_list);
         },
         "model"_a, "data"_a, "state"_a, "control"_a);
+
+    // In-place threaded rollout
+    python_module.def(
+        "threaded_physics_rollout_in_place",
+        [](const py::list &python_model,
+           const py::list &python_data,
+           const MatrixT &state,
+           const Tensor3d &control,
+           py::array_t<double> output_states,
+           py::array_t<double> output_sensors)
+        {
+          auto model = getModelVector(python_model);
+          auto data = getDataVector(python_data);
+          auto state_list = EigenTypes::matrix_to_vector_list(state);
+          auto control_list = EigenTypes::tensor_to_matrix_list(control);
+
+          auto output_states_maps = make_maps(output_states);
+          auto output_sensors_maps = make_maps(output_sensors);
+
+          py::gil_scoped_release release;
+          SystemUtils::threadedPhysicsRolloutInPlace(
+              model,
+              data,
+              state_list,
+              control_list,
+              output_states_maps,
+              output_sensors_maps);
+        },
+        "model"_a, "data"_a, "state"_a, "control"_a, "states"_a, "sensors"_a);
 
     // SystemClass
     py::class_<SystemClass::System, std::shared_ptr<SystemClass::System>>(python_module, "System")

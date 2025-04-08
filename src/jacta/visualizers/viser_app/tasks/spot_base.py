@@ -122,6 +122,8 @@ class SpotBase(MujocoTask[ConfigT]):
         states: np.ndarray,
         controls: np.ndarray,
         additional_info: dict[str, Any],
+        output_states: np.ndarray,
+        output_sensors: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
         """Threaded rollout for spot RL system."""
         # optimized_commands = np.stack(control_batch)
@@ -135,6 +137,8 @@ class SpotBase(MujocoTask[ConfigT]):
             additional_info["last_policy_output"],
             (num_threads, self.initial_policy_output.shape[-1]),
         )
+
+        # TODO(pculbert): convert to in-place rollout.
         states, sensors, _ = threaded_rollout(
             models,
             states,
@@ -144,7 +148,9 @@ class SpotBase(MujocoTask[ConfigT]):
             self.physics_substeps,
             self.cutoff_time,
         )
-        return np.array(states), np.array(sensors)
+
+        output_states[:] = states
+        output_sensors[:] = sensors
 
     def make_models(self, num_models: int) -> list[System]:
         """Allocates systems vector to be used for threaded rollout."""

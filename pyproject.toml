@@ -57,6 +57,9 @@ dependencies = [
     "drake==1.27.0",
 ]
 
+[project.scripts]
+viser-app = "jacta.visualizers.viser_app.app:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

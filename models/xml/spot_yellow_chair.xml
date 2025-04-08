@@ -1,7 +1,7 @@
 <mujoco model="spot_yellow_chair">
 <!-- Copyright (c) 2025 Boston Dynamics AI Institute LLC. All rights reserved. -->
-  <include file="spot_components/params_and_default_viser.xml" />
-  <include file="spot_components/assets_viser.xml" />
+  <include file="spot_components/params_and_default_locomotion.xml" />
+  <include file="spot_components/assets_locomotion.xml" />
   <include file="objects/yellow_chair_defs.xml" />
 
   <worldbody>

@@ -53,6 +53,8 @@ class Task(Generic[ConfigT, ModelT]):
         states: np.ndarray,
         controls: np.ndarray,
         additional_info: dict[str, Any],
+        output_states: np.ndarray,
+        output_sensors: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
         """Generic threaded rollout. Performs rollouts from a set of states using a set of controls."""
 

@@ -51,9 +51,8 @@ class PredictiveSampling(SamplingBase):
         assert self.config.num_rollouts > 0, "Need at least one rollout!"
 
         # Check if num_rollouts has changed and resize arrays accordingly.
-        if len(self.models) != self.config.num_rollouts:
-            self.make_models()
-            # TODO(pculbertson): known bug -- need to resize self.spline here!
+        if self.states.shape[:2] != (self.config.num_rollouts, self.num_timesteps):
+            self.resize_data()
 
         # Adjust time + move policy forward.
         new_times = curr_time + self.spline_timesteps
@@ -102,8 +101,13 @@ class PredictiveSampling(SamplingBase):
         self.task.cutoff_time = self.reward_config.cutoff_time
 
         # Roll out dynamics with action sequences.
-        self.states, self.sensors = self.task.rollout(
-            self.models, curr_state_batch, self.rollout_controls, additional_info
+        self.task.rollout(
+            self.models,
+            curr_state_batch,
+            self.rollout_controls,
+            additional_info,
+            self.states,
+            self.sensors,
         )
 
         # Evalate rewards
