@@ -11,9 +11,10 @@ from jacta.visualizers.mujoco.model import ViserMjModel
 
 
 class TrajectoryVisualizer:
-    def __init__(self, params: ParameterContainer):
+    def __init__(self, params: ParameterContainer, show_goal: bool = True):
         self.params = params
-        self.server = viser.ViserServer(port=8000)
+        self.server = viser.ViserServer()
+        self.show_goal = show_goal
 
         # Set up mujoco model.
         base_path = Path(__file__).resolve().parents[4]
@@ -24,6 +25,15 @@ class TrajectoryVisualizer:
         self.model = mujoco.MjModel.from_xml_path(str(self.model_path))
         self.data = mujoco.MjData(self.model)
         self.viser_model = ViserMjModel(self.server, self.model)
+        if self.show_goal:
+            self.viser_goal_model = ViserMjModel(
+                self.server,
+                self.model,
+                show_ground_plane=False,
+                alpha_scale=0.5,
+                namespace="goal",
+            )
+            self.goal_data = mujoco.MjData(self.model)
 
         # Create GUI elements for controlling visualizer.
         self.running = False
@@ -96,3 +106,8 @@ class TrajectoryVisualizer:
         self.qpos = trajectory[:, qpos_inds]
         self.timestep_slider.max = len(self.qpos) - 1
         self.timestep_slider.value = 0
+
+        if self.show_goal and goal_state is not None:
+            self.goal_data.qpos = goal_state.cpu().numpy()[: self.model.nq]
+            mujoco.mj_forward(self.model, self.goal_data)
+            self.viser_goal_model.set_data(self.goal_data)
