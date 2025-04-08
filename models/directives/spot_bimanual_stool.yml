@@ -44,7 +44,7 @@ directives:
     child: spot_left::spot_body
     X_PC:
         translation: [0, 1.15, 0.49]
-        rotation: !Rpy { deg: [0, 0, -90]}
+        rotation: !Rpy { deg: [0, 0, -90]} # yamllint disable-line
 
 - add_weld:
     parent: world
