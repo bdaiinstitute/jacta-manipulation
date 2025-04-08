@@ -25,7 +25,6 @@ Submodules
    cylinder_push/index.rst
    mujoco_task/index.rst
    spot_base/index.rst
-   spot_position_control/index.rst
    task/index.rst
 
 

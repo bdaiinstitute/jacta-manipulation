@@ -7,9 +7,26 @@
 Module Contents
 ---------------
 
-.. py:data:: GOAL_POSITIONS
+.. py:class:: GOAL_POSITIONS
+
 
    
+   Goal positions of Spot.
+   .. py:attribute:: origin
+      :type: numpy.ndarray
+
+      
+
+   .. py:attribute:: blue_cross
+      :type: numpy.ndarray
+
+      
+
+   .. py:attribute:: black_cross
+      :type: numpy.ndarray
+
+      
+
 
 .. py:data:: DEFAULT_SPOT_ROLLOUT_CUTOFF_TIME
    :value: 0.25
@@ -51,7 +68,7 @@ Module Contents
 
       
 
-   .. py:attribute:: w_vel
+   .. py:attribute:: w_controls
       :type: float
       :value: 0.0
 
@@ -95,7 +112,7 @@ Module Contents
 
       :param controls: either a spline to be interpolated or None, which calls a default command
 
-   .. py:method:: rollout(models: list[mujoco_extensions.policy_rollout.System], states: numpy.ndarray, controls: numpy.ndarray, additional_info: dict[str, Any]) -> tuple[numpy.ndarray, numpy.ndarray]
+   .. py:method:: rollout(models: list[mujoco_extensions.policy_rollout.System], states: numpy.ndarray, controls: numpy.ndarray, additional_info: dict[str, Any], output_states: numpy.ndarray, output_sensors: numpy.ndarray) -> tuple[numpy.ndarray, numpy.ndarray]
 
       
       Threaded rollout for spot RL system.

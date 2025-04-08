@@ -27,7 +27,7 @@ Module Contents
 
    .. py:attribute:: num_nodes
       :type: int
-      :value: 5
+      :value: 3
 
       
 
@@ -93,10 +93,10 @@ Module Contents
       
       Contains the control signals applied in the current rollout.
 
-   .. py:method:: make_models() -> None
+   .. py:method:: resize_data() -> None
 
       
-      Helper to re-size the models vector to config.num_rollouts.
+      Resize states, sensors, and models to (config.num_rollouts, num_timesteps, ...).
 
    .. py:method:: update_action(curr_state: numpy.ndarray, curr_time: float, additional_info: dict[str, Any]) -> None
       :abstractmethod:
@@ -123,7 +123,7 @@ Module Contents
    .. py:method:: reset() -> None
 
       
-      Reset the controls and the spline to their default values.
+      Reset the controls, candidate controls and the spline to their default values.
 
    .. py:method:: update_traces() -> None
 
