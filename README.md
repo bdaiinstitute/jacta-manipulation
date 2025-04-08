@@ -26,11 +26,21 @@ Robotic manipulation is challenging and data-driven approaches typically require
 ![Jacta Manipulation](docs/source/_static/images/jacta_overview.jpg)
 
 ### Installation
+### Installation
+Install cmake
+```
+sudo apt install cmake
+```
+
+Install mujoco-extensions
 ```
 git clone https://github.com/bdaiinstitute/jacta-manipulation.git
 cd jacta-manipulation
-python -m venv .venv
-source .venv/bin/activate
+pip install src/mujoco-extensions -vv
+```
+
+Install jacta-manipulation
+```
 pip install -e .
 ```
 
