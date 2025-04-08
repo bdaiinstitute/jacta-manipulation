@@ -7,6 +7,9 @@ import torch
 
 
 class ClippingType(Enum):
+    """
+    Clipping type for the action space.
+    """
     CLIP = 1
     SCALE = 2
 
@@ -15,6 +18,9 @@ class ClippingType(Enum):
 
 
 class SelectionType(Enum):
+    """
+    Selection type for the node selection.
+    """
     PARETO = 0
     LAST = 1
 
