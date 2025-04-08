@@ -5,7 +5,7 @@
 [![Static Badge](https://img.shields.io/badge/documentation-latest-8A2BE2)](https://upgraded-disco-qzn7k5e.pages.github.io)
 
 
-> **Disclaimer**  
+> **Disclaimer**
 > This code is released in conjunction with the publication of _"Jacta: A Versatile<br>
 > Planner for Learning Dexterous and Whole-body Manipulation."_ It is provided<br>
 > as a research prototype and is not production-quality software. Please note<br>
@@ -14,7 +14,7 @@
 
 ## Jacta: A Versatile Planner for Learning Dexterous and Whole-body Manipulation
 <div align="center">
-  
+
 [![Static Badge](https://img.shields.io/badge/ArXiv-8C48FC?style=for-the-badge)](https://arxiv.org/pdf/2408.01258)
 [![Static Badge](https://img.shields.io/badge/Project_Page-8C48FC?style=for-the-badge)](https://jacta-manipulation.github.io/)
 [![Static Badge](https://img.shields.io/badge/RAI_Institute-8C48FC?style=for-the-badge)](https://rai-inst.com/resources/papers/jacta-a-versatile-planner-for-learning-dexterous-and-whole-body-manipulation/)
