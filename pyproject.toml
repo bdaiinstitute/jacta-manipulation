@@ -35,7 +35,7 @@ dependencies = [
     "tqdm==4.64.1",
     "typing-extensions==4.11.0",
     "tyro==0.8.4",
-    "viser==0.2.12",
+    "viser",
     "flake8-docstrings==1.7.0", # /!\ all the dependencies below could potentially be removed /!\
     "google-cloud-storage==2.15.0",
     "flask==3.0.2",
