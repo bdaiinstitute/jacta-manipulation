@@ -11,8 +11,8 @@ from jacta.visualizers.viser_app.controllers.sampling_base import (
     SamplingBaseConfig,
     make_spline,
 )
-from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 from jacta.visualizers.viser_app.gui import slider
+from jacta.visualizers.viser_app.tasks.task import Task, TaskConfig
 
 
 @slider("temperature", 0.0, 100.0, 0.25)

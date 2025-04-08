@@ -6,7 +6,10 @@ from typing import Optional
 import mujoco
 import numpy as np
 
-from jacta.visualizers.viser_app.tasks.cost_functions import quadratic_norm, smooth_l1_norm
+from jacta.visualizers.viser_app.tasks.cost_functions import (
+    quadratic_norm,
+    smooth_l1_norm,
+)
 from jacta.visualizers.viser_app.tasks.mujoco_task import MujocoTask
 from jacta.visualizers.viser_app.tasks.task import TaskConfig
 

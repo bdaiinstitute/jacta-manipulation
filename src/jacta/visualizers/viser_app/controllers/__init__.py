@@ -2,7 +2,10 @@
 
 from typing import Dict, Tuple, Type
 
-from jacta.visualizers.viser_app.controllers.controller import Controller, ControllerConfig
+from jacta.visualizers.viser_app.controllers.controller import (
+    Controller,
+    ControllerConfig,
+)
 from jacta.visualizers.viser_app.controllers.sampling.cmaes import CMAES, CMAESConfig
 from jacta.visualizers.viser_app.controllers.sampling.cross_entropy_method import (
     CrossEntropyConfig,
