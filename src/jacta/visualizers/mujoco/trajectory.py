@@ -72,6 +72,7 @@ class TrajectoryVisualizer:
             self.pause_button.label = "Pause playback"
 
     def spin(self) -> None:
+        print("Press Ctrl+C to terminate the visualizer")
         try:
             while True:
                 if self.running:

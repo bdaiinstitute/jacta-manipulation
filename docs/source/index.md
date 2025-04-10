@@ -91,6 +91,10 @@ pip install -e .
 cd jacta-manipulation
 python jacta-manipulation/examples/planner/example_notebook.py
 ```
+Open the visualizer in your browser by clicking on the link in the terminal.
+```
+http://localhost:8080/
+```
 
 
 ### Citation
