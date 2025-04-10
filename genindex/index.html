@@ -224,6 +224,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../api/visualizers/mujoco/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.mujoco</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of visualizers.mujoco</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/visualizers/mujoco/model/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.mujoco.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/visualizers/mujoco/trajectory/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.mujoco.trajectory</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/visualizers/mujoco/visualization/"><code class="xref py py-mod docutils literal notranslate"><span class="pre">visualizers.mujoco.visualization</span></code></a></li>
 </ul>
 </li>
@@ -573,10 +574,10 @@
 </li>
         <li><a href="../api/planner/core/types/#planner.core.types.ActionType.CONTINUATION">CONTINUATION (planner.core.types.ActionType attribute)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/planner/core/action_sampler/#planner.core.action_sampler.ActionSampler.continuation_directions">continuation_directions() (planner.core.action_sampler.ActionSampler method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/visualizers/viser_app/app/#visualizers.viser_app.app.ViserApp.control_cycle_callback">control_cycle_callback() (visualizers.viser_app.app.ViserApp method)</a>
 </li>
         <li><a href="../api/visualizers/viser_app/controllers/sampling_base/#visualizers.viser_app.controllers.sampling_base.SamplingBaseConfig.control_freq">control_freq (visualizers.viser_app.controllers.sampling_base.SamplingBaseConfig attribute)</a>
@@ -639,6 +640,8 @@
           <li><a href="../api/visualizers/viser_app/tasks/spot_base/#visualizers.viser_app.tasks.spot_base.SpotBaseConfig.cutoff_time">(visualizers.viser_app.tasks.spot_base.SpotBaseConfig attribute)</a>
 </li>
         </ul></li>
+        <li><a href="../api/visualizers/mujoco/trajectory/#visualizers.mujoco.trajectory.TrajectoryVisualizer.cycle_pause_button">cycle_pause_button() (visualizers.mujoco.trajectory.TrajectoryVisualizer method)</a>
+</li>
         <li><a href="../api/visualizers/viser_app/tasks/cylinder_push/#visualizers.viser_app.tasks.cylinder_push.CylinderPush">CylinderPush (class in visualizers.viser_app.tasks.cylinder_push)</a>
 </li>
         <li><a href="../api/visualizers/viser_app/tasks/cylinder_push/#visualizers.viser_app.tasks.cylinder_push.CylinderPushConfig">CylinderPushConfig (class in visualizers.viser_app.tasks.cylinder_push)</a>
@@ -799,6 +802,8 @@
 </li>
         <li><a href="../api/planner/dynamics/mujoco_dynamics/#planner.dynamics.mujoco_dynamics.MujocoPlant.get_collision_free">get_collision_free() (planner.dynamics.mujoco_dynamics.MujocoPlant method)</a>
 </li>
+        <li><a href="../api/visualizers/mujoco/model/#visualizers.mujoco.model.ViserMjModel.get_color">get_color() (visualizers.mujoco.model.ViserMjModel method)</a>
+</li>
         <li><a href="../api/planner/core/graph_worker/#planner.core.graph_worker.GraphWorker.get_end_actions">get_end_actions() (planner.core.graph_worker.GraphWorker method)</a>
 </li>
         <li><a href="../api/planner/dynamics/mujoco_dynamics/#planner.dynamics.mujoco_dynamics.MujocoPlant.get_gradient_placeholders">get_gradient_placeholders() (planner.dynamics.mujoco_dynamics.MujocoPlant method)</a>
@@ -829,10 +834,10 @@
 </li>
         <li><a href="../api/planner/dynamics/mujoco_dynamics/#planner.dynamics.mujoco_dynamics.MujocoPlant.get_sensor">get_sensor() (planner.dynamics.mujoco_dynamics.MujocoPlant method)</a>
 </li>
-        <li><a href="../api/visualizers/mujoco_helpers/utils/#visualizers.mujoco_helpers.utils.get_sensor_name">get_sensor_name() (in module visualizers.mujoco_helpers.utils)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="../api/visualizers/mujoco_helpers/utils/#visualizers.mujoco_helpers.utils.get_sensor_name">get_sensor_name() (in module visualizers.mujoco_helpers.utils)</a>
+</li>
         <li><a href="../api/planner/core/graph_worker/#planner.core.graph_worker.GraphWorker.get_start_actions">get_start_actions() (planner.core.graph_worker.GraphWorker method)</a>
 </li>
         <li><a href="../api/planner/dynamics/mujoco_dynamics/#planner.dynamics.mujoco_dynamics.MujocoPlant.get_state">get_state() (planner.dynamics.mujoco_dynamics.MujocoPlant method)</a>
@@ -1135,6 +1140,8 @@
           <li><a href="../api/visualizers/mujoco/#module-visualizers.mujoco">visualizers.mujoco</a>
 </li>
           <li><a href="../api/visualizers/mujoco/model/#module-visualizers.mujoco.model">visualizers.mujoco.model</a>
+</li>
+          <li><a href="../api/visualizers/mujoco/trajectory/#module-visualizers.mujoco.trajectory">visualizers.mujoco.trajectory</a>
 </li>
           <li><a href="../api/visualizers/mujoco/visualization/#module-visualizers.mujoco.visualization">visualizers.mujoco.visualization</a>
 </li>
@@ -1776,6 +1783,8 @@
 </li>
         <li><a href="../api/visualizers/mujoco/model/#visualizers.mujoco.model.ViserMjModel.set_traces">set_traces() (visualizers.mujoco.model.ViserMjModel method)</a>
 </li>
+        <li><a href="../api/visualizers/mujoco/trajectory/#visualizers.mujoco.trajectory.TrajectoryVisualizer.set_trajectory">set_trajectory() (visualizers.mujoco.trajectory.TrajectoryVisualizer method)</a>
+</li>
         <li><a href="../api/visualizers/meshcat/visuals/#visualizers.meshcat.visuals.TrajectoryVisualizer.setup_and_connect">setup_and_connect() (visualizers.meshcat.visuals.TrajectoryVisualizer method)</a>
 </li>
         <li><a href="../api/visualizers/viser_app/app/#visualizers.viser_app.app.ViserApp.setup_context">setup_context() (visualizers.viser_app.app.ViserApp method)</a>
@@ -1839,6 +1848,8 @@
         <li><a href="../api/visualizers/mujoco_helpers/kinematics/#visualizers.mujoco_helpers.kinematics.IkSolver.solver">solver (visualizers.mujoco_helpers.kinematics.IkSolver attribute)</a>
 </li>
         <li><a href="../api/planner/core/graph/#planner.core.graph.Graph.sorted_progress_ids">sorted_progress_ids() (planner.core.graph.Graph method)</a>
+</li>
+        <li><a href="../api/visualizers/mujoco/trajectory/#visualizers.mujoco.trajectory.TrajectoryVisualizer.spin">spin() (visualizers.mujoco.trajectory.TrajectoryVisualizer method)</a>
 </li>
         <li><a href="../api/visualizers/viser_app/controllers/sampling_base/#visualizers.viser_app.controllers.sampling_base.SamplingBase.spline">spline (visualizers.viser_app.controllers.sampling_base.SamplingBase property)</a>
 
@@ -1944,10 +1955,10 @@
 </li>
         <li><a href="../api/visualizers/viser_app/tasks/spot/spot_tire/#visualizers.viser_app.tasks.spot.spot_tire.TIRE_HEIGHT">TIRE_HEIGHT (in module visualizers.viser_app.tasks.spot.spot_tire)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/visualizers/viser_app/tasks/spot/spot_tire/#visualizers.viser_app.tasks.spot.spot_tire.SpotTireConfig.torso_goal_offset">torso_goal_offset (visualizers.viser_app.tasks.spot.spot_tire.SpotTireConfig attribute)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="../api/visualizers/viser_app/io/#visualizers.viser_app.io.ControlBufferKeys.traces">traces (visualizers.viser_app.io.ControlBufferKeys attribute)</a>
 </li>
         <li><a href="../api/learning/learner/#learning.learner.Learner.train">train() (learning.learner.Learner method)</a>
@@ -1963,7 +1974,11 @@
         <li><a href="../api/learning/networks/#learning.networks.train_critic_imitation">train_critic_imitation() (in module learning.networks)</a>
 </li>
         <li><a href="../api/visualizers/meshcat/visuals/#visualizers.meshcat.visuals.TrajectoryVisualizer">TrajectoryVisualizer (class in visualizers.meshcat.visuals)</a>
+
+        <ul>
+          <li><a href="../api/visualizers/mujoco/trajectory/#visualizers.mujoco.trajectory.TrajectoryVisualizer">(class in visualizers.mujoco.trajectory)</a>
 </li>
+        </ul></li>
         <li><a href="../api/planner/core/linear_algebra/#planner.core.linear_algebra.transformation_matrix">transformation_matrix() (in module planner.core.linear_algebra)</a>
 </li>
         <li><a href="../api/planner/core/linear_algebra/#planner.core.linear_algebra.truncpareto_cdf">truncpareto_cdf() (in module planner.core.linear_algebra)</a>
@@ -2100,6 +2115,13 @@
 </li>
         </ul></li>
         <li>
+    visualizers.mujoco.trajectory
+
+        <ul>
+          <li><a href="../api/visualizers/mujoco/trajectory/#module-visualizers.mujoco.trajectory">module</a>
+</li>
+        </ul></li>
+        <li>
     visualizers.mujoco.visualization
 
         <ul>
@@ -2183,6 +2205,8 @@
           <li><a href="../api/visualizers/viser_app/controllers/sampling/cmaes/#module-visualizers.viser_app.controllers.sampling.cmaes">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     visualizers.viser_app.controllers.sampling.cross_entropy_method
 
@@ -2190,8 +2214,6 @@
           <li><a href="../api/visualizers/viser_app/controllers/sampling/cross_entropy_method/#module-visualizers.viser_app.controllers.sampling.cross_entropy_method">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     visualizers.viser_app.controllers.sampling.mppi
 

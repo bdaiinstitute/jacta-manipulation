@@ -32,7 +32,7 @@ Module Contents
 
    
 
-.. py:class:: ViserMjModel(target: viser.ViserServer | viser.ClientHandle, model: mujoco.MjModel, show_ground_plane: bool = True)
+.. py:class:: ViserMjModel(target: viser.ViserServer | viser.ClientHandle, model: mujoco.MjModel, show_ground_plane: bool = True, alpha_scale: float | None = None, namespace: str | None = None)
 
 
    
@@ -45,6 +45,9 @@ Module Contents
 
       
       Helper function for adding geoms to scene tree.
+
+   .. py:method:: get_color(geom: Any) -> numpy.ndarray
+
 
    .. py:method:: add_traces(num_traces: int = 0, all_traces_rollout_size: int = 0, trace_name: str = 'trace') -> None
 

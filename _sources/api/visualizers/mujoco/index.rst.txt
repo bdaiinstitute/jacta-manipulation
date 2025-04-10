@@ -11,6 +11,7 @@ Submodules
    :maxdepth: 1
 
    model/index.rst
+   trajectory/index.rst
    visualization/index.rst
 
 
