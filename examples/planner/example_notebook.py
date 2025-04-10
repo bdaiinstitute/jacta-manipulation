@@ -16,7 +16,7 @@ from jacta.visualizers.mujoco.trajectory import TrajectoryVisualizer
 
 # %%
 task = "planar_hand"  # Set desired example here
-planner_example = "single_goal"
+planner_example = "exploration"
 
 params = ParameterContainer()
 params.parse_params(task, planner_example)
@@ -54,9 +54,12 @@ if params.callback_period > 0:
     graph_worker.callback = callback
     graph_worker.callback_period = params.callback_period
 
-planner = Planner(plant, graph, action_sampler, graph_worker, logger, params)
+planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=True)
 
 # %%
+params.seed = 0
+planner.reset()
+graph.set_start_states(params.start_state.unsqueeze(0))
 planner.search()
 
 # %%
