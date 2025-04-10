@@ -54,7 +54,9 @@ if params.callback_period > 0:
     graph_worker.callback = callback
     graph_worker.callback_period = params.callback_period
 
-planner = Planner(plant, graph, action_sampler, graph_worker, logger, params, verbose=True)
+planner = Planner(
+    plant, graph, action_sampler, graph_worker, logger, params, verbose=True
+)
 
 # %%
 params.seed = 0
