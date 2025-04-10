@@ -73,11 +73,11 @@ Install cmake
 sudo apt install cmake
 ```
 
-Install mujoco-extensions
+Install mujoco_extensions
 ```
 git clone https://github.com/bdaiinstitute/jacta-manipulation.git
 cd jacta-manipulation
-pip install src/mujoco-extensions -vv
+pip install src/mujoco_extensions -vv
 ```
 
 Install jacta-manipulation
