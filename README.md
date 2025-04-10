@@ -26,7 +26,6 @@ Robotic manipulation is challenging and data-driven approaches typically require
 ![Jacta Manipulation](docs/source/_static/images/jacta_overview.jpg)
 
 ### Installation
-### Installation
 Install cmake
 ```
 sudo apt install cmake
