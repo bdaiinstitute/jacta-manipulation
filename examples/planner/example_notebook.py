@@ -12,18 +12,18 @@ from jacta.planner.core.logger import Logger
 from jacta.planner.core.parameter_container import ParameterContainer
 from jacta.planner.core.planner import Planner
 from jacta.planner.dynamics.mujoco_dynamics import MujocoPlant
-from jacta.visualizers.meshcat.visuals import TrajectoryVisualizer
+from jacta.visualizers.mujoco.trajectory import TrajectoryVisualizer
 
 # %%
 task = "planar_hand"  # Set desired example here
-planner_example = "single_goal"
+planner_example = "exploration"
 
 params = ParameterContainer()
 params.parse_params(task, planner_example)
 
 # %%
 plant = MujocoPlant(params)
-visualizer = TrajectoryVisualizer(params=params, sim_time_step=plant.sim_time_step)
+visualizer = TrajectoryVisualizer(params=params)
 
 
 def callback(graph: Graph, logger: Logger) -> None:
@@ -54,9 +54,14 @@ if params.callback_period > 0:
     graph_worker.callback = callback
     graph_worker.callback_period = params.callback_period
 
-planner = Planner(plant, graph, action_sampler, graph_worker, logger, params)
+planner = Planner(
+    plant, graph, action_sampler, graph_worker, logger, params, verbose=True
+)
 
 # %%
+params.seed = 0
+planner.reset()
+graph.set_start_states(params.start_state.unsqueeze(0))
 planner.search()
 
 # %%
@@ -64,5 +69,5 @@ search_index = 0
 state_trajectory = planner.shortest_path_trajectory(search_index=search_index)
 
 planner.plot_search_results()
-visualizer.show(state_trajectory, goal_state=graph.goal_states[search_index])
-callback(graph, logger)
+visualizer.set_trajectory(state_trajectory, goal_state=graph.goal_states[search_index])
+visualizer.spin()

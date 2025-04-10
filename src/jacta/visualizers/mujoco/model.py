@@ -39,14 +39,18 @@ class ViserMjModel:
         target: ViserServer | ClientHandle,
         model: MjModel,
         show_ground_plane: bool = True,
+        alpha_scale: float | None = None,
+        namespace: str | None = None,
     ):
         self._target = target
         self._model = model
+        self._alpha_scale = alpha_scale
+        self._root_name = "/" if namespace is None else f"/{namespace}"
 
         # Assume first body is root of kinematic tree.
         self._bodies = [
             self._target.scene.add_frame(
-                "/" + self._model.body(0).name, show_axes=False
+                f"{self._root_name}/{self._model.body(0).name}", show_axes=False
             )
         ]
         self._geoms: List = []
@@ -58,7 +62,7 @@ class ViserMjModel:
         # Add coordinate frame for each non-world body in model.
         for i in range(1, self._model.nbody):
             # Sharp edge: not using the tree structure of the kinematics ...
-            body_name = f"/{self._model.body(i).name}"
+            body_name = f"{self._root_name}/{self._model.body(i).name}"
             self._bodies.append(
                 self._target.scene.add_frame(body_name, show_axes=False)
             )
@@ -66,7 +70,11 @@ class ViserMjModel:
         # Add each geom to its respective parent.
         for i in range(self._model.ngeom):
             parent_name = self._bodies[self._model.geom(i).bodyid.item()].name
-            geom_name = f"{parent_name}/geom_{self._model.geom(i).name}"
+            raw_geom_name = self._model.geom(i).name
+            if not raw_geom_name:
+                # Fall back to a default name using the index
+                raw_geom_name = f"geom_{i}"
+            geom_name = f"{parent_name}/" + raw_geom_name
             self.add_geom(geom_name, self._model.geom(i))
 
         # Add traces
@@ -82,7 +90,7 @@ class ViserMjModel:
                 self._geoms.append(
                     add_plane(
                         self._target,
-                        geom.name,
+                        geom_name,
                         pos=geom.pos,
                         quat=geom.quat,
                     )
@@ -94,11 +102,11 @@ class ViserMjModel:
                 self._geoms.append(
                     add_sphere(
                         self._target,
-                        geom.name,
+                        geom_name,
                         radius=geom.size[0],
                         pos=geom.pos,
                         quat=geom.quat,
-                        rgba=geom.rgba,
+                        rgba=self.get_color(geom),
                     )
                 )
             case mujoco.mjtGeom.mjGEOM_CAPSULE:
@@ -110,7 +118,7 @@ class ViserMjModel:
                         length=2 * geom.size[1],  # MJC has capsule half-lengths.
                         pos=geom.pos,
                         quat=geom.quat,
-                        rgba=geom.rgba,
+                        rgba=self.get_color(geom),
                     )
                 )
             case mujoco.mjtGeom.mjGEOM_ELLIPSOID:
@@ -124,7 +132,7 @@ class ViserMjModel:
                         height=2 * geom.size[1],
                         pos=geom.pos,
                         quat=geom.quat,
-                        rgba=geom.rgba,
+                        rgba=self.get_color(geom),
                     )
                 )
             case mujoco.mjtGeom.mjGEOM_BOX:
@@ -135,7 +143,7 @@ class ViserMjModel:
                         size=2 * geom.size,  # MJC has box half-lengths.
                         pos=geom.pos,
                         quat=geom.quat,
-                        rgba=geom.rgba,
+                        rgba=self.get_color(geom),
                     )
                 )
             case mujoco.mjtGeom.mjGEOM_MESH:
@@ -149,11 +157,22 @@ class ViserMjModel:
                         faces=faces,
                         pos=geom.pos,
                         quat=geom.quat,
-                        rgba=geom.rgba,
+                        rgba=self.get_color(geom),
                     )
                 )
             case mujoco.mjtGeom.mjGEOM_SDF:
                 raise NotImplementedError("")
+
+    def get_color(self, geom: Any) -> np.ndarray:
+        if geom.matid[0] != -1:
+            rgba = self._model.mat(geom.matid[0]).rgba
+        else:
+            rgba = geom.rgba
+
+        if self._alpha_scale:
+            rgba[-1] *= self._alpha_scale
+
+        return rgba
 
     def add_traces(
         self,
@@ -456,7 +475,16 @@ def rgba_int_to_float(rgba_int: np.ndarray) -> np.ndarray:
 def set_mesh_color(mesh: trimesh.Trimesh, rgba: np.ndarray) -> None:
     if np.issubdtype(rgba.dtype, np.floating):
         rgba = rgba_float_to_int(rgba)
-    mesh.visual.face_colors[:] = rgba
+
+    mesh.visual = trimesh.visual.TextureVisuals(
+        material=trimesh.visual.material.PBRMaterial(
+            baseColorFactor=rgba,
+            main_color=rgba,
+            metallicFactor=0.5,
+            roughnessFactor=1.0,
+            alphaMode="BLEND",
+        )
+    )
 
 
 def set_spline_positions(
