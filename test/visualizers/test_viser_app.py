@@ -31,9 +31,6 @@ model_path = "models/xml/box_push.xml"
 model = mujoco.MjModel.from_xml_path(model_path)
 
 
-# --- Existing tests ---
-
-
 def test_model_loading() -> None:
     viser_model = ViserMjModel(viser_server, model)
     assert viser_model is not None, "Failed to create ViserMjModel"
@@ -69,9 +66,6 @@ def test_ground_plane() -> None:
     ), "Unexpected ground plane"
 
 
-# --- Additional tests ---
-
-
 def test_rgba_conversion() -> None:
     rgba_float = np.array([0.1, 0.2, 0.3, 0.4], dtype=float)
     rgba_int = rgba_float_to_int(rgba_float)
@@ -90,12 +84,11 @@ def test_set_mesh_color() -> None:
     mesh = box([1, 1, 1])
     rgba = np.array([0.1, 0.2, 0.3, 0.4], dtype=float)
     set_mesh_color(mesh, rgba)
-    # expected_int = rgba_float_to_int(rgba)
+    expected_int = rgba_float_to_int(rgba)
     # Check a few face colors (all should be set to the same integer color)
-    # for face_color in mesh.visual.face_colors:
-    #     assert np.array_equal(
-    #         face_color, expected_int
-    #     ), "set_mesh_color did not set the color correctly"
+    assert np.array_equal(
+        mesh.visual.material.main_color, expected_int
+    ), "set_mesh_color did not set the color correctly"
 
 
 def test_add_plane() -> None:
