@@ -482,7 +482,7 @@ def set_mesh_color(mesh: trimesh.Trimesh, rgba: np.ndarray) -> None:
             main_color=rgba,
             metallicFactor=0.5,
             roughnessFactor=1.0,
-            alphaMode="BLEND",
+            alphaMode="BLEND" if rgba[-1] < 255 else "OPAQUE",
         )
     )
 
