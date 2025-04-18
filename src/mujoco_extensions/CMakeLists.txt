@@ -93,6 +93,19 @@ target_link_libraries(policy_rollout_cpp PRIVATE
   OpenMP::OpenMP_CXX
 )
 
+# ─── MuJoCo Plugin: custom_actuator ───────────────────────────────────────────
+
+# Define the shared library target for the MuJoCo plugin
+# The target name here is 'custom_actuator_plugin'
+add_library(dynamic_pd_actuator_plugin SHARED
+  mujoco_extensions/plugins/dynamic_pd.cc
+)
+
+# Link the plugin against MuJoCo (already found via find_or_fetch_mujoco)
+target_link_libraries(dynamic_pd_actuator_plugin PRIVATE
+  mujoco::mujoco
+)
+
 # ─── install targets for packaging ─────────────────────────────────────────────
 
 install(FILES ${ONNXRUNTIME_LIB_FILE} DESTINATION "mujoco_extensions/onnxruntime")
@@ -101,3 +114,5 @@ install(TARGETS policy_rollout_cpp
         LIBRARY DESTINATION "mujoco_extensions/policy_rollout")
 install(TARGETS jacobian_smoothing_cpp
         LIBRARY DESTINATION "mujoco_extensions/jacobian_smoothing")
+install(TARGETS dynamic_pd_actuator_plugin
+        LIBRARY DESTINATION "mujoco_extensions/mujoco_plugins")
