@@ -93,52 +93,34 @@ def set_state(plant: MujocoPlant, state: FloatTensor) -> None:
     plant.data.qvel = state[plant.model.nq :].cpu().numpy()
 
 
-def visualize_state(
-    plant: MujocoPlant, state: FloatTensor, time_step: float, display_time: float = 5.0
-) -> None:
-    """Visualize the system in a given state for a given amount of time."""
-    model = plant.model
-    data = plant.data
-    with mujoco.viewer.launch_passive(model, data) as viewer:
-        # Close the viewer automatically after display_time wall-seconds.
-        start = time.time()
-        while viewer.is_running() and time.time() - start < display_time:
-            step_start = time.time()
-            set_state(plant, state)
-            mujoco.mj_step(model, data)
-
-            # Pick up changes to the physics state, apply perturbations, update options from GUI.
-            viewer.sync()
-
-            # Rudimentary time keeping, will drift relative to wall clock.
-            time_until_next_step = time_step - (time.time() - step_start)
-            if time_until_next_step > 0:
-                time.sleep(time_until_next_step)
-    viewer.close()
-
-
-def visualize_trajectory(
+def visualize_state_or_trajectory(
     plant: MujocoPlant,
-    trajectory: FloatTensor,
     time_step: float,
+    state: FloatTensor | None = None,
+    trajectory: FloatTensor | None = None,
     display_time: float = 5.0,
 ) -> None:
     """Visualize the system undergo a trajectory of states."""
+    assert (state is not None) ^ (
+        trajectory is not None
+    ), "Requires either state or trajectory"
+
     model = plant.model
     data = plant.data
-    num_steps = trajectory.shape[0]
+    if trajectory is not None:
+        num_steps = trajectory.shape[0]
+        horizon = (num_steps - 1) * time_step
 
     with mujoco.viewer.launch_passive(model, data) as viewer:
         # Close the viewer automatically after display_time wall-seconds.
         start = time.time()
-        horizon = (num_steps - 1) * time_step
-
         while viewer.is_running() and time.time() - start < display_time:
             step_start = time.time()
-            # we perform zero-order hold interpolation
-            theta = (time.time() - start) / horizon
-            idx = min(num_steps - 1, int(round(theta * (num_steps - 1))))
-            state = trajectory[idx]
+            if trajectory is not None:
+                # we perform zero-order hold interpolation
+                theta = (time.time() - start) / horizon
+                idx = min(num_steps - 1, int(round(theta * (num_steps - 1))))
+                state = trajectory[idx]
             set_state(plant, state)
             mujoco.mj_step(model, data)
 

@@ -68,6 +68,5 @@ planner.search()
 search_index = 0
 state_trajectory = planner.shortest_path_trajectory(search_index=search_index)
 
-planner.plot_search_results()
 visualizer.set_trajectory(state_trajectory, goal_state=graph.goal_states[search_index])
 visualizer.spin()

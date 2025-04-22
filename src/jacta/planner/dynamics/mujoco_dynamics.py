@@ -1,6 +1,5 @@
 # Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
 
-import time
 from typing import Optional, Tuple
 
 import mujoco
@@ -22,7 +21,7 @@ from mujoco import (
 from torch import FloatTensor, IntTensor, tensor
 
 from jacta.planner.core.parameter_container import ParameterContainer
-from jacta.planner.dynamics.action_trajectory import create_action_trajectories
+from jacta.planner.dynamics.action_trajectory import create_action_trajectory_batch
 from jacta.planner.dynamics.simulator_plant import SimulatorPlant
 
 
@@ -431,7 +430,7 @@ class MujocoPlant(SimulatorPlant):
             final_states: (nx,) or (num_envs, nx)
             state_trajectories: (num_steps, nx) or (num_envs, num_steps, nx)
         """
-        action_trajectories = create_action_trajectories(
+        action_trajectories = create_action_trajectory_batch(
             type=self.params.control_type,
             start_actions=actions[:, 0],
             end_actions=actions[:, 1],
@@ -529,58 +528,3 @@ class MujocoPlant(SimulatorPlant):
         if collision_free_states:
             return torch.stack(collision_free_states)  # type:ignore[unreachable]
         return None
-
-    def visualize_state(self, state: FloatTensor, display_time: float = 5.0) -> None:
-        model = self.model
-        data = self.data
-        with mujoco.viewer.launch_passive(model, data) as viewer:
-            # Close the viewer automatically after display_time wall-seconds.
-            start = time.time()
-            while viewer.is_running() and time.time() - start < display_time:
-                step_start = time.time()
-                self.set_state(state)
-                mujoco.mj_step(model, data)
-
-                # Pick up changes to the physics state, apply perturbations, update options from GUI.
-                viewer.sync()
-
-                # Rudimentary time keeping, will drift relative to wall clock.
-                time_until_next_step = self.sim_time_step - (time.time() - step_start)
-                if time_until_next_step > 0:
-                    time.sleep(time_until_next_step)
-        viewer.close()
-
-    def visualize_trajectory(
-        self,
-        trajectory: FloatTensor,
-        display_time: float = 5.0,
-        time_step: Optional[float] = None,
-    ) -> None:
-        model = self.model
-        data = self.data
-        if time_step is None:
-            time_step = self.sim_time_step
-        num_steps = trajectory.shape[0]
-
-        with mujoco.viewer.launch_passive(model, data) as viewer:
-            # Close the viewer automatically after display_time wall-seconds.
-            start = time.time()
-            horizon = (num_steps - 1) * time_step
-
-            while viewer.is_running() and time.time() - start < display_time:
-                step_start = time.time()
-                # we perform zero-order hold interpolation
-                theta = (time.time() - start) / horizon
-                idx = min(num_steps - 1, int(round(theta * (num_steps - 1))))
-                state = trajectory[idx]
-                self.set_state(state)
-                mujoco.mj_step(model, data)
-
-                # Pick up changes to the physics state, apply perturbations, update options from GUI.
-                viewer.sync()
-
-                # Rudimentary time keeping, will drift relative to wall clock.
-                time_until_next_step = time_step - (time.time() - step_start)
-                if time_until_next_step > 0:
-                    time.sleep(time_until_next_step)
-        viewer.close()
