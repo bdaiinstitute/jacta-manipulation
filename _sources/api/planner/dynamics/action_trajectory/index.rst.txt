@@ -7,6 +7,12 @@
 Module Contents
 ---------------
 
+.. py:function:: zero_order_hold_trajectory(end_actions, trajectory_steps, dim)
+
+
+.. py:function:: first_order_hold_trajectory(start_actions, end_actions, trajectory_steps, dim)
+
+
 .. py:function:: create_action_trajectory(type: jacta.planner.core.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
 
    
@@ -21,7 +27,7 @@ Module Contents
 
    :returns: An action vector array (trajectory_steps, na).
 
-.. py:function:: create_action_trajectories(type: jacta.planner.core.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
+.. py:function:: create_action_trajectory_batch(type: jacta.planner.core.types.ControlType, start_actions: torch.FloatTensor, end_actions: torch.FloatTensor, trajectory_steps: int) -> torch.FloatTensor
 
    
    Creates a zero- or first-order hold arrays of action vectors with length trajectory_steps.

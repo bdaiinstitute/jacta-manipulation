@@ -130,10 +130,4 @@ Module Contents
       Outputs:
           Optional[FloatTensor]: tensor of all collision free states (or None if none exist)
 
-   .. py:method:: visualize_state(state: torch.FloatTensor, display_time: float = 5.0) -> None
-
-
-   .. py:method:: visualize_trajectory(trajectory: torch.FloatTensor, display_time: float = 5.0, time_step: Optional[float] = None) -> None
-
-
 

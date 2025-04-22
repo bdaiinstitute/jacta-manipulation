@@ -458,34 +458,16 @@ Vertices (N, 3) and faces (M, 3) of the mesh.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="visualizers.mujoco_helpers.utils.visualize_state">
-<span class="sig-prename descclassname"><span class="pre">visualizers.mujoco_helpers.utils.</span></span><span class="sig-name descname"><span class="pre">visualize_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visualizers.mujoco_helpers.utils.visualize_state" title="Link to this definition">#</a></dt>
-<dd><p>Visualize the system in a given state for a given amount of time.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>plant</strong> (<em>jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant</em>) – </p></li>
-<li><p><strong>state</strong> (<em>torch.FloatTensor</em>) – </p></li>
-<li><p><strong>time_step</strong> (<em>float</em>) – </p></li>
-<li><p><strong>display_time</strong> (<em>float</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="visualizers.mujoco_helpers.utils.visualize_trajectory">
-<span class="sig-prename descclassname"><span class="pre">visualizers.mujoco_helpers.utils.</span></span><span class="sig-name descname"><span class="pre">visualize_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visualizers.mujoco_helpers.utils.visualize_trajectory" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="visualizers.mujoco_helpers.utils.visualize_state_or_trajectory">
+<span class="sig-prename descclassname"><span class="pre">visualizers.mujoco_helpers.utils.</span></span><span class="sig-name descname"><span class="pre">visualize_state_or_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.FloatTensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#visualizers.mujoco_helpers.utils.visualize_state_or_trajectory" title="Link to this definition">#</a></dt>
 <dd><p>Visualize the system undergo a trajectory of states.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>plant</strong> (<em>jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant</em>) – </p></li>
-<li><p><strong>trajectory</strong> (<em>torch.FloatTensor</em>) – </p></li>
 <li><p><strong>time_step</strong> (<em>float</em>) – </p></li>
+<li><p><strong>state</strong> (<em>torch.FloatTensor</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>trajectory</strong> (<em>torch.FloatTensor</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>display_time</strong> (<em>float</em>) – </p></li>
 </ul>
 </dd>
@@ -568,8 +550,7 @@ Vertices (N, 3) and faces (M, 3) of the mesh.</p>
 <li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.set_mocap_pose"><code class="docutils literal notranslate"><span class="pre">set_mocap_pose()</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.set_mocap_poses"><code class="docutils literal notranslate"><span class="pre">set_mocap_poses()</span></code></a></li>
 <li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.set_state"><code class="docutils literal notranslate"><span class="pre">set_state()</span></code></a></li>
-<li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.visualize_state"><code class="docutils literal notranslate"><span class="pre">visualize_state()</span></code></a></li>
-<li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.visualize_trajectory"><code class="docutils literal notranslate"><span class="pre">visualize_trajectory()</span></code></a></li>
+<li><a class="reference internal" href="#visualizers.mujoco_helpers.utils.visualize_state_or_trajectory"><code class="docutils literal notranslate"><span class="pre">visualize_state_or_trajectory()</span></code></a></li>
 </ul>
 </li>
 </ul>

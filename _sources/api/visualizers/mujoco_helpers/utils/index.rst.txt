@@ -55,12 +55,7 @@ Module Contents
    
    Set plant state.
 
-.. py:function:: visualize_state(plant: jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant, state: torch.FloatTensor, time_step: float, display_time: float = 5.0) -> None
-
-   
-   Visualize the system in a given state for a given amount of time.
-
-.. py:function:: visualize_trajectory(plant: jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant, trajectory: torch.FloatTensor, time_step: float, display_time: float = 5.0) -> None
+.. py:function:: visualize_state_or_trajectory(plant: jacta.visualizers.mujoco_helpers.dynamics.MujocoPlant, time_step: float, state: torch.FloatTensor | None = None, trajectory: torch.FloatTensor | None = None, display_time: float = 5.0) -> None
 
    
    Visualize the system undergo a trajectory of states.
