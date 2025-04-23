@@ -127,7 +127,6 @@ state_trajectory = planner.path_trajectory(
 )
 # state_trajectory = planner.shortest_path_trajectory()
 
-planner.plot_search_results()
 visualizer.show(state_trajectory, goal_state=graph.sub_goal_states[0])
 callback(graph, logger)
 # %%
