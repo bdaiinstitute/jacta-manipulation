@@ -69,7 +69,7 @@ http://localhost:8080/
 ```
 
 ### Run tests locally
-In the virtual environment:
+In the virtual environment
 ```
 pip install -e .[dev]
 python -m pytest
