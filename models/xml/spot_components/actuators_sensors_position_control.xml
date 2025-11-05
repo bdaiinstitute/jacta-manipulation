@@ -1,5 +1,5 @@
 <mujoco model="spot_position_control">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <actuator>
     <position name="act_fl1" joint="joint_front_left_hip_x" class="hip_x"/>
     <position name="act_fl2" joint="joint_front_left_hip_y" class="hip_y"/>

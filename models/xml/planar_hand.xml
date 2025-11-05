@@ -1,5 +1,5 @@
 <mujoco model="planar_hand">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <compiler angle="radian" autolimits="true"/>
 
   <option gravity="0 0 -9.81" timestep="0.01" />

@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved.
+# Copyright (c) 2024 Robotics and AI Institute LLC dba RAI Institute. All rights reserved.
 
 # Code modified from https://github.com/amacati/dextgen, MIT license
 """The ``actor`` module contains the actor class as well as the actor networks.

@@ -1,5 +1,5 @@
 <mujoco model="spot_arm">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
     <body name="arm_link_sh0" pos="0.292 0 0.188" gravcomp="1">
       <joint name="arm_sh0" class="arm_sh0" type="hinge" axis="0 0 1" pos="0 0 0"/>
       <inertial mass="2.3364000000000003" diaginertia="0.009014303010689815 0.005835102417829581 0.00778747846359954" pos="-0.012372709810733795 -4.5211403630673885e-05 -0.02103196457028389" euler="0.0013490340912847287 -0.15433618253071657 0.0066354181456347305" />

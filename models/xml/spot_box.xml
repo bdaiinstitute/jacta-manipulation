@@ -1,5 +1,5 @@
 <mujoco model="spot_box">
-<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2024 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <include file="spot_components/params_and_default_locomotion.xml" />
   <include file="spot_components/assets_locomotion.xml" />
 

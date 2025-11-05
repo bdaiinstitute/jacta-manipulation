@@ -1,5 +1,5 @@
 <mujoco model="yellow_chair">
-<!-- Copyright (c) 2025 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2025 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <body name="yellow_chair" pos="0 0 0.275">
     <joint name="yellow_chair_joint" type="free"/>
     <inertial pos="0 0 0" mass="16.58" diaginertia="0.597 0.597 0.597"/>

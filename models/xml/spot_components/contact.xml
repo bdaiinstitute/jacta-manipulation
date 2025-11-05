@@ -1,5 +1,5 @@
 <mujoco model="spot_contact">
-<!-- Copyright (c) 2024 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2024 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <contact>
     <exclude body1="arm_link_sh0" body2="arm_link_el1"/>
     <exclude body1="arm_link_sh1" body2="arm_link_el0"/>

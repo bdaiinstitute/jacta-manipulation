@@ -1,5 +1,5 @@
 <mujoco model="primitive_stool">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
     <body name="object" pos="0 0 0">
         <joint name="object_joint" type="free" />
         <body name="metal_frames" pos="0 0 0">
