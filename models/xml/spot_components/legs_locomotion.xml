@@ -1,5 +1,5 @@
 <mujoco model="spot_legs">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
     <body name="front_left_hip" pos="0.29785 0.055 0">
         <inertial pos="-0.01586739 0.00855842 0.00000903" mass="1.13688339" fullinertia="0.00122166 0.00158957 0.00172903 -0.00017754 0.00000043 -0.00000049"/>
         <joint name="joint_front_left_hip_x" class="hip_x" pos="0 0 0" axis="1 0 0" range="-0.785398 0.785398"/>

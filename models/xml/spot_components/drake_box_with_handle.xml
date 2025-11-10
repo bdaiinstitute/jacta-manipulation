@@ -1,5 +1,5 @@
 <mujoco model="drake_box_with_handle">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <compiler angle="radian" />
   <default class="corner_contact">
     <geom type="sphere" size="1e-7" friction="0.5"/>

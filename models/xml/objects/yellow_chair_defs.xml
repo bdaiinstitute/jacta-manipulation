@@ -1,5 +1,5 @@
 <mujoco>
-<!-- Copyright (c) 2025 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2025 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <asset>
       <mesh name="yellow_chair_visual" file="../../meshes/yellow_chair/visual/visual.obj"/>
       <mesh name="yellow_chair_mesh" file="../../meshes/yellow_chair/visual/visual.obj"/>

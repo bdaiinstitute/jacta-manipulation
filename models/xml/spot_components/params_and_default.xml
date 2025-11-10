@@ -1,5 +1,5 @@
 <mujoco model="spot_default">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <compiler angle="radian" meshdir="../../meshes/spot/" autolimits="true"/>
 
   <option timestep="0.003" solver="Newton" density="1">

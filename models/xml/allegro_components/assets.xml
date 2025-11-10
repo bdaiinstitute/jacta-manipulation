@@ -1,5 +1,5 @@
 <mujoco model="allegro_assets">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <asset>
     <material name="black" rgba="0.2 0.2 0.2 1"/>
     <material name="white" rgba="0.9 0.9 0.9 1"/>

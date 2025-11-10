@@ -1,5 +1,5 @@
 <mujoco model="spot_box_with_handle">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <body name="object" pos="0 0 0.275">
     <joint name="object_joint" type="free"/>
     <inertial pos="0 0 0" mass="1.72" diaginertia="0.01 0.01 0.01"/>

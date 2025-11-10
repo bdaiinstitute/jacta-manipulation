@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved.
+# Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved.
 
 from jacta.planner.core.action_sampler import ActionSampler
 from jacta.planner.core.graph import Graph

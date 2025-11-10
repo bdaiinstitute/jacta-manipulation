@@ -1,5 +1,5 @@
 <mujoco model="allegro_assets">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <!-- First finger -->
   <body name="ff_base" pos="0 0.0435 -0.001542" quat="0.999048 -0.0436194 0 0">
     <joint name="ffj0" class="base"/>

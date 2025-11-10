@@ -1,5 +1,5 @@
 <mujoco model="spot_floating">
-<!-- Copyright (c) 2023 Boston Dynamics AI Institute LLC. All rights reserved. -->
+<!-- Copyright (c) 2023 Robotics and AI Institute LLC dba RAI Institute. All rights reserved. -->
   <actuator>
     <position name="act_3" joint="arm_sh0" class="arm_sh0"/>
     <position name="act_4" joint="arm_sh1" class="arm_sh1"/>
